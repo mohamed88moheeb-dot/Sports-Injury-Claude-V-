@@ -2,15 +2,14 @@
 
 export function AuthCard({ authMode, setAuthMode, authForm, setAuthForm, handleAuth, authMessage, authLoading }) {
   return (
-    <section className="auth-card app-section app-section-soft">
-      <div>
-        <p className="eyebrow stacked-eyebrow">
-          <span>Secure Progress</span>
-        </p>
-        <h3>{authMode === 'signin' ? 'Sign in to continue' : 'Create a tester account'}</h3>
-        <p>Use an account to save your assessment, plan progress, and check-ins across devices.</p>
-      </div>
-      <form onSubmit={handleAuth} className="auth-form glass-card">
+    <div className="auth-card-wrap">
+      <form onSubmit={handleAuth} className="auth-form glass-card auth-form-transparent">
+        <div className="auth-form-header">
+          <p className="eyebrow stacked-eyebrow">
+            <span>Secure Progress</span>
+          </p>
+          <h3>{authMode === 'signin' ? 'Sign in to continue' : 'Create a tester account'}</h3>
+        </div>
         <input
           type="email"
           placeholder="Email"
@@ -35,6 +34,6 @@ export function AuthCard({ authMode, setAuthMode, authForm, setAuthForm, handleA
         </button>
         {authMessage && <p className="form-note">{authMessage}</p>}
       </form>
-    </section>
+    </div>
   );
 }

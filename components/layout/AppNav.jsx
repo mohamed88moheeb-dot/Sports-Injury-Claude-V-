@@ -2,9 +2,10 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { useRef, useEffect, useState, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useRef, useEffect, useState } from 'react';
+import { motion, useMotionValue, animate } from 'framer-motion';
 import { useRecovery } from '../../app/providers/RecoveryContext';
+import { hasSupabase } from '../../lib/supabaseClient';
 
 const NAV_ITEMS = [
   { href: '/',           label: 'Home',       icon: 'M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z' },
@@ -39,7 +40,6 @@ function DesktopNav({ items, pathname }) {
 
   return (
     <div className="app-nav-links" ref={navRef} style={{ position: 'relative' }}>
-      {/* Sliding background pill */}
       <motion.div
         className="app-nav-slide-pill"
         animate={{ left: indicator.left, width: indicator.width, opacity: indicator.opacity }}
@@ -61,59 +61,110 @@ function DesktopNav({ items, pathname }) {
   );
 }
 
-/* ── Mobile bottom nav — click + real-time drag/glide ───────── */
+/* ── Mobile bottom nav ──────────────────────────────────────── */
+/*
+ * Architecture: useMotionValue drives the pill's CSS `left` directly —
+ * zero React re-renders during drag. Only `activeIdx` (React state) updates
+ * once per item-crossing to re-paint icon/label colours.
+ * Hit-testing is pure math (O(1)), not DOM queries.
+ */
 function MobileNav({ items, pathname }) {
-  const router      = useRouter();
-  const navRef      = useRef(null);
-  const isDragging  = useRef(false);
-  // dragHref is REACT STATE — updating it triggers a re-render so the pill
-  // physically follows the finger during the drag gesture
-  const [dragHref, setDragHref] = useState(null);
+  const router     = useRouter();
+  const navRef     = useRef(null);
+  const n          = items.length;
 
-  /* Which item's data-href is under a client point */
-  const hrefAtPoint = useCallback((x, y) => {
-    if (!navRef.current) return null;
-    const els = navRef.current.querySelectorAll('[data-href]');
-    for (const el of els) {
-      const r = el.getBoundingClientRect();
-      if (x >= r.left && x <= r.right && y >= r.top && y <= r.bottom) {
-        return el.getAttribute('data-href');
-      }
+  // Index of currently highlighted item
+  const pathnameIdx = items.findIndex(i => i.href === pathname);
+  const [activeIdx, setActiveIdx] = useState(pathnameIdx >= 0 ? pathnameIdx : 0);
+
+  // Direct DOM motion value — unit: % of nav width  (0 … (n-1)/n * 100)
+  const pillLeft = useMotionValue(`${(activeIdx / n) * 100}%`);
+
+  // Snap pill to index, optionally animated
+  const snapToIdx = (idx, spring = true) => {
+    const target = `${(idx / n) * 100}%`;
+    if (spring) {
+      animate(pillLeft, target, { type: 'spring', stiffness: 520, damping: 36, mass: 0.55 });
+    } else {
+      pillLeft.set(target);
     }
-    return null;
-  }, []);
+  };
+
+  // Keep pill synced when pathname changes (page navigation)
+  useEffect(() => {
+    const idx = items.findIndex(i => i.href === pathname);
+    if (idx >= 0) {
+      setActiveIdx(idx);
+      snapToIdx(idx, true);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
+
+  // Pure-math hit test: which slot is rawX inside?
+  const idxAtX = (rawX) => {
+    if (!navRef.current) return -1;
+    const { left, width } = navRef.current.getBoundingClientRect();
+    const rel = (rawX - left) / width;           // 0 … 1
+    return Math.max(0, Math.min(n - 1, Math.floor(rel * n)));
+  };
+
+  // Drag state — all in refs so nothing goes through React during move
+  const dragging   = useRef(false);
+  const startX     = useRef(0);
+  const lastIdx    = useRef(activeIdx);
+  const didMove    = useRef(false);
 
   function onPointerDown(e) {
-    isDragging.current = true;
-    const href = hrefAtPoint(e.clientX, e.clientY);
-    if (href) setDragHref(href);
+    dragging.current = true;
+    didMove.current  = false;
+    startX.current   = e.clientX;
+    lastIdx.current  = activeIdx;
     navRef.current?.setPointerCapture(e.pointerId);
   }
 
   function onPointerMove(e) {
-    if (!isDragging.current) return;
-    const href = hrefAtPoint(e.clientX, e.clientY);
-    // State update on every move → React re-renders → pill moves with finger
-    if (href) setDragHref(href);
+    if (!dragging.current) return;
+    // Mark as a drag once finger moves > 4px
+    if (Math.abs(e.clientX - startX.current) > 4) didMove.current = true;
+
+    const idx = idxAtX(e.clientX);
+    if (idx < 0) return;
+
+    // Move pill directly — NO React state, pure DOM
+    pillLeft.set(`${(idx / n) * 100}%`);
+
+    // Update icon colours only when crossing a new slot boundary
+    if (idx !== lastIdx.current) {
+      lastIdx.current = idx;
+      setActiveIdx(idx);   // single cheap re-render per slot crossing
+    }
   }
 
   function onPointerUp(e) {
-    if (!isDragging.current) return;
-    isDragging.current = false;
-    const href = hrefAtPoint(e.clientX, e.clientY) ?? dragHref;
-    setDragHref(null);
+    if (!dragging.current) return;
+    dragging.current = false;
+
+    const idx = idxAtX(e.clientX);
+    const finalIdx = idx >= 0 ? idx : lastIdx.current;
+
+    // Spring-snap pill to slot centre
+    snapToIdx(finalIdx, true);
+    setActiveIdx(finalIdx);
+
+    // Navigate — always on tap/release (whether drag or tap)
+    const href = items[finalIdx]?.href;
     if (href) router.push(href);
+
     try { navRef.current?.releasePointerCapture(e.pointerId); } catch {}
   }
 
   function onPointerCancel() {
-    isDragging.current = false;
-    setDragHref(null);
+    if (!dragging.current) return;
+    dragging.current = false;
+    // Snap back to current pathname
+    const idx = items.findIndex(i => i.href === pathname);
+    if (idx >= 0) { snapToIdx(idx, true); setActiveIdx(idx); }
   }
-
-  // During drag: pill follows dragHref. After release: pill snaps to pathname.
-  const activeHref = dragHref ?? pathname;
-  const activeIdx  = items.findIndex(i => i.href === activeHref);
 
   return (
     <nav
@@ -126,38 +177,33 @@ function MobileNav({ items, pathname }) {
       onPointerUp={onPointerUp}
       onPointerCancel={onPointerCancel}
     >
-      {/* ── Sliding dark rounded-rect indicator (matches reference) ── */}
-      {activeIdx >= 0 && (
-        <motion.span
-          layoutId="mobile-nav-pill"
-          style={{
-            position: 'absolute',
-            top: 0, bottom: 0,
-            left: `${(activeIdx / items.length) * 100}%`,
-            width: `${100 / items.length}%`,
-            /* Light frosted glass active indicator */
-            background: 'rgba(255,255,255,0.90)',
-            borderRadius: 16,
-            border: '1px solid rgba(255,255,255,0.98)',
-            boxShadow:
-              'inset 0 1px 0 rgba(255,255,255,1), ' +
-              '0 4px 16px rgba(40,90,180,0.14), ' +
-              '0 0 20px rgba(59,125,216,0.10)',
-            pointerEvents: 'none',
-            zIndex: 0,
-          }}
-          transition={{ type: 'spring', stiffness: 440, damping: 34, mass: 0.65 }}
-        />
-      )}
+      {/* Pill driven by motion value — zero re-renders during drag */}
+      <motion.span
+        style={{
+          position: 'absolute',
+          top: 0, bottom: 0,
+          left: pillLeft,
+          width: `${100 / n}%`,
+          background: 'rgba(255,255,255,0.92)',
+          borderRadius: 16,
+          border: '1px solid rgba(255,255,255,0.98)',
+          boxShadow:
+            'inset 0 1px 0 rgba(255,255,255,1), ' +
+            '0 4px 16px rgba(40,90,180,0.14), ' +
+            '0 0 20px rgba(59,125,216,0.10)',
+          pointerEvents: 'none',
+          zIndex: 0,
+        }}
+      />
 
-      {items.map(({ href, label, icon }) => {
-        const isActive = activeHref === href;
+      {items.map(({ href, label, icon }, i) => {
+        const isActive = activeIdx === i;
         return (
-          <Link
+          <span
             key={href}
-            href={href}
             data-href={href}
             className={`app-nav-bottom-item${isActive ? ' active' : ''}`}
+            role="link"
             tabIndex={0}
             aria-current={isActive ? 'page' : undefined}
           >
@@ -166,26 +212,23 @@ function MobileNav({ items, pathname }) {
               width="23" height="23"
               fill="none"
               stroke="currentColor"
-              strokeWidth={isActive ? 2.0 : 1.65}
+              strokeWidth={isActive ? 2.1 : 1.65}
               strokeLinecap="round"
               strokeLinejoin="round"
               aria-hidden="true"
-              animate={isActive
-                ? { scale: 1.1, y: -1 }
-                : { scale: 1,   y: 0  }}
-              transition={{ type: 'spring', stiffness: 520, damping: 26 }}
+              animate={isActive ? { scale: 1.12, y: -1 } : { scale: 1, y: 0 }}
+              transition={{ type: 'spring', stiffness: 560, damping: 28 }}
             >
               <path d={icon} />
             </motion.svg>
-
             <motion.span
-              animate={isActive ? { opacity: 1 } : { opacity: 0.38 }}
-              transition={{ duration: 0.16 }}
+              animate={{ opacity: isActive ? 1 : 0.38 }}
+              transition={{ duration: 0.14 }}
               style={{ fontSize: 9, fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase' }}
             >
               {label}
             </motion.span>
-          </Link>
+          </span>
         );
       })}
     </nav>
@@ -218,6 +261,12 @@ export function AppNav() {
           <DesktopNav items={NAV_ITEMS} pathname={pathname} />
 
           <div className="app-nav-auth">
+            {!hasSupabase && (
+              <div className="account-pill" style={{ fontSize: 12 }}>
+                <span className="dot offline" />
+                <span>Supabase setup needed</span>
+              </div>
+            )}
             {user ? (
               <motion.span
                 className="app-nav-user-dot"

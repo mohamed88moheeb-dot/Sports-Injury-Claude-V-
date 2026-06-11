@@ -105,28 +105,20 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 body {
   font-family: var(--font);
   color: var(--ink);
-  background: linear-gradient(
-    160deg,
-    #3874D0 0%,
-    #5E97E0 18%,
-    #89BCF0 36%,
-    #B8D9F8 52%,
-    #D8ECFC 64%,
-    #EBF4FE 76%,
-    #F5FAFF 88%,
-    #FFFFFF 100%
-  );
-  background-size: 100% 220%;
-  animation: gradient-breathe 16s ease-in-out infinite;
+  /* Static off-white with soft misty blue wash */
+  background-color: #F2F6FC;
+  background-image:
+    /* Concentric ring 1 — outermost, very faint */
+    radial-gradient(circle at 50% 38%, transparent 340px, rgba(160,195,245,0.13) 341px, rgba(160,195,245,0.13) 342px, transparent 343px),
+    radial-gradient(circle at 50% 38%, transparent 270px, rgba(160,195,245,0.16) 271px, rgba(160,195,245,0.16) 272px, transparent 273px),
+    radial-gradient(circle at 50% 38%, transparent 200px, rgba(160,195,245,0.18) 201px, rgba(160,195,245,0.18) 202px, transparent 203px),
+    radial-gradient(circle at 50% 38%, transparent 130px, rgba(160,195,245,0.20) 131px, rgba(160,195,245,0.20) 132px, transparent 133px),
+    /* Misty blue gradient wash — top cobalt fading to near-white */
+    linear-gradient(175deg, #C8DEFA 0%, #DCE9F8 22%, #EBF2FD 44%, #F4F8FE 66%, #F9FBFF 84%, #FFFFFF 100%);
   min-height: 100dvh;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   color-scheme: light;
-}
-@keyframes gradient-breathe {
-  0%   { background-position: 0% 0%; }
-  50%  { background-position: 0% 100%; }
-  100% { background-position: 0% 0%; }
 }
 
 h1, h2, h3, h4, h5, h6,
@@ -3117,6 +3109,69 @@ body { padding-top: 0; }
 }
 .gen-step.done .gen-step-dot { background: var(--primary); }
 
+/* ── Auth card — liquid glass card ──────────────────────────── */
+.auth-card-wrap {
+  margin: 8px 0 24px;
+}
+.auth-form-transparent {
+  background: rgba(255,255,255,0.68) !important;
+  border: 1px solid rgba(255,255,255,0.92) !important;
+  box-shadow:
+    0 8px 32px rgba(40,90,180,0.10),
+    0 2px 8px rgba(40,90,180,0.06),
+    inset 0 1px 0 rgba(255,255,255,0.98) !important;
+  backdrop-filter: blur(20px) saturate(1.6) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.6) !important;
+  border-radius: var(--r-xl) !important;
+  padding: 24px 22px 20px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.auth-form-header {
+  margin-bottom: 6px;
+}
+.auth-form-header .eyebrow {
+  margin-bottom: 3px;
+}
+.auth-form-header h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  color: var(--ink);
+}
+.auth-form-transparent input {
+  height: 46px;
+  padding: 0 14px;
+  border-radius: var(--r-md) !important;
+  font-size: 15px;
+  width: 100%;
+  box-sizing: border-box;
+  background: rgba(255,255,255,0.80) !important;
+  border: 1px solid rgba(180,210,250,0.50) !important;
+  transition: border-color 0.18s, box-shadow 0.18s;
+}
+.auth-form-transparent input:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 3px rgba(59,125,216,0.10) !important;
+  outline: none;
+}
+.auth-form-transparent .primary-btn {
+  height: 48px;
+  border-radius: var(--r-md) !important;
+  font-size: 15px;
+  font-weight: 600;
+  width: 100%;
+  letter-spacing: 0.01em;
+}
+.auth-form-transparent .text-btn {
+  font-size: 14px;
+  text-align: center;
+  padding: 2px 0;
+  color: var(--primary) !important;
+}
+
 /* ═══════════════════════════════════════════════════════════
    LIGHT THEME OVERRIDES — Blue-White Gradient System
    All surfaces: white frosted glass on animated gradient bg
@@ -3153,11 +3208,13 @@ body { padding-top: 0; }
 .app-section-dark .field-label { color: var(--ink-3) !important; }
 .app-section-dark h2           { color: var(--ink) !important; }
 
-/* ── Hero section ───────────────────────────────────────── */
+/* ── Hero section — no card shell, content floats on gradient ── */
 .app-section-hero {
-  background: linear-gradient(135deg, rgba(59,125,216,0.14) 0%, rgba(90,171,222,0.10) 50%, rgba(180,220,255,0.08) 100%) !important;
-  border: 1px solid rgba(255,255,255,0.75) !important;
-  box-shadow: 0 8px 40px rgba(40,90,180,0.14), inset 0 1px 0 rgba(255,255,255,0.90) !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 .app-section-hero::before {
   background: radial-gradient(circle, rgba(59,125,216,0.14) 0%, transparent 65%) !important;
