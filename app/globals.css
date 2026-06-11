@@ -388,6 +388,54 @@ p  { line-height: 1.6; }
 }
 
 /* ── Auth ───────────────────────────────────── */
+/* ── Plan generation animation ──────────────────────────────────────────── */
+.generating-shell {
+  max-width: 560px;
+  margin: 40px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.gen-header h2 { font-size: 28px; margin: 8px 0 10px; }
+.gen-subtext { font-size: 14px; color: var(--ink-3); line-height: 1.6; max-width: 440px; }
+.gen-steps { display: flex; flex-direction: column; gap: 10px; }
+.gen-step {
+  display: flex; align-items: center; gap: 14px;
+  padding: 13px 16px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink-3);
+  font-size: 14px;
+  transition: border-color .4s ease, background .4s ease, color .4s ease, box-shadow .4s ease;
+}
+.gen-step.active {
+  border-color: var(--blue);
+  background: var(--blue-dim);
+  color: var(--ink);
+  box-shadow: 0 0 0 3px rgba(59,130,246,.08);
+}
+.gen-step.done {
+  border-color: rgba(16,185,129,.3);
+  background: var(--green-dim);
+  color: var(--ink-3);
+}
+.gen-step-dot {
+  width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+  background: var(--line-med);
+  transition: background .4s ease, box-shadow .4s ease;
+}
+.gen-step.active .gen-step-dot {
+  background: var(--blue);
+  box-shadow: 0 0 0 4px rgba(59,130,246,.18);
+  animation: pulse-dot 1.1s ease-in-out infinite;
+}
+.gen-step.done .gen-step-dot { background: var(--green); }
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(59,130,246,.15); }
+  50%       { box-shadow: 0 0 0 7px rgba(59,130,246,.04); }
+}
+
 .auth-card {
   display: grid;
   grid-template-columns: 1fr 380px;
@@ -816,6 +864,140 @@ select option { background: var(--bg-3); color: var(--ink); }
 }
 .field { display: grid; gap: 6px; }
 .field > span { font-size: 12px; font-weight: 600; color: var(--ink-3); }
+.field-hint { font-size: 11px; font-weight: 500; color: var(--muted); margin-left: 6px; opacity: .75; }
+
+/* ── MultiSelectDropdown ──────────────────────────────────────────────── */
+.msd-wrap { position: relative; width: 100%; }
+
+.msd-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 11px 14px;
+  background: var(--bg-2);
+  border: 1.5px solid var(--line-med);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: border-color .15s, box-shadow .15s;
+  text-align: left;
+}
+.msd-trigger:hover  { border-color: var(--green-dark); }
+.msd-open .msd-trigger {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px var(--green-dim);
+}
+
+.msd-trigger-text {
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 500;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.msd-trigger-text.has-value { color: var(--ink); font-weight: 600; }
+
+.msd-chevron {
+  flex-shrink: 0;
+  color: var(--muted);
+  transition: transform .2s;
+}
+.msd-open .msd-chevron { transform: rotate(180deg); color: var(--green); }
+
+.msd-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border: 1.5px solid var(--line-med);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-md);
+  z-index: 200;
+  overflow: hidden;
+  animation: msd-fade-in .12s ease;
+}
+@keyframes msd-fade-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.msd-options {
+  display: flex;
+  flex-direction: column;
+  max-height: 280px;
+  overflow-y: auto;
+  padding: 6px;
+  gap: 2px;
+}
+.msd-options::-webkit-scrollbar { width: 4px; }
+.msd-options::-webkit-scrollbar-track { background: transparent; }
+.msd-options::-webkit-scrollbar-thumb { background: var(--line-med); border-radius: 99px; }
+
+.msd-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: var(--r-sm);
+  border: none;
+  background: transparent;
+  color: var(--ink-3);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: background .12s, color .12s;
+}
+.msd-option:hover { background: var(--bg-2); color: var(--ink); }
+.msd-option.active { background: var(--green-dim); color: var(--green-dark); font-weight: 700; }
+.msd-option.active:hover { background: var(--green-dim); }
+
+.msd-check {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--line-med);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+  flex-shrink: 0;
+  color: transparent;
+  background: var(--bg-2);
+  transition: all .12s;
+}
+.msd-option.active .msd-check {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
+.msd-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-top: 1px solid var(--line-light);
+  font-size: 12px;
+  color: var(--muted);
+}
+.msd-clear {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-3);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: var(--r-sm);
+  transition: background .12s, color .12s;
+}
+.msd-clear:hover { background: var(--bg-2); color: var(--ink); }
 
 /* Pain sliders */
 .slider-grid {
@@ -1250,6 +1432,16 @@ input[type='range']::-moz-range-thumb {
 
 .session-blocks { display: grid; gap: 8px; margin-top: 12px; }
 
+/* ── Session block section header (expanded engine only) ────────────────── */
+.session-block-header {
+  font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--ink-3);
+  padding: 14px 4px 4px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 2px;
+}
+.session-block-header:first-child { padding-top: 6px; }
+
 /* ── LEVEL 5: Exercise ──────────────────────── */
 .exercise-card {
   background: var(--surface);
@@ -1284,6 +1476,39 @@ input[type='range']::-moz-range-thumb {
   to   { opacity: 1; transform: translateY(0); }
 }
 .exercise-expanded > p { font-size: 13px; color: var(--ink-3); line-height: 1.6; margin-top: 12px; }
+
+/* ── Expanded-engine enrichment fields ──────────────────────────────────── */
+/* "Why this exercise" — shown at the top of expanded card */
+.ex-purpose {
+  font-size: 12px; color: var(--blue); line-height: 1.55;
+  margin-top: 12px; padding: 8px 10px;
+  background: var(--blue-dim); border-radius: var(--r-sm);
+  border-left: 2px solid var(--blue);
+}
+/* Common mistakes list */
+.ex-mistakes {
+  margin-top: 10px; padding: 9px 11px;
+  background: var(--surface-mid); border-radius: var(--r-sm);
+  border: 1px solid var(--line);
+}
+.ex-mistakes-label {
+  display: block; font-size: 10px; font-weight: 800;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ink-3); margin-bottom: 5px;
+}
+.ex-mistakes ul {
+  margin: 0; padding-left: 16px;
+  display: flex; flex-direction: column; gap: 3px;
+}
+.ex-mistakes li { font-size: 12px; color: var(--ink-2); line-height: 1.5; }
+/* Pain rule footer */
+.ex-pain-rule {
+  font-size: 11px; color: var(--ink-3); line-height: 1.5;
+  margin-top: 10px; padding: 7px 10px;
+  background: var(--green-dim); border-radius: var(--r-sm);
+  border-left: 2px solid var(--green);
+}
+.ex-pain-rule span { font-weight: 700; color: var(--green-dark); }
 .video-placeholder {
   min-height: 90px; border-radius: var(--r-md);
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;

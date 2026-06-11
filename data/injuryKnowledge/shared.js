@@ -285,61 +285,95 @@ export const PHASE_PERIODIZATION = {
  * count: [min, max] exercises to pick from that block.
  * required: if true the scheduler must include at least min even if pool is small.
  * ========================================================================= */
+/* =========================================================================
+ * SESSION BLUEPRINTS  (evidence-based rehab progression)
+ *
+ * Clinical rationale for the structure:
+ *
+ * PROTECT  — The injured tissue is acutely irritable. Sessions are SHORT and
+ *   minimal. Warmup + isometric activation + one piece of very gentle targeted
+ *   work + cooldown. Nothing else. No kinetic chain, no conditioning, no
+ *   upper-body work. Duration ~20–30 min. Frequency: every 3rd day with 2
+ *   full rest days between.
+ *
+ * RESTORE  — Pain is settling. We start loading the tissue and its direct
+ *   synergists (kinetic_chain). Very gentle conditioning (bike, pool) is
+ *   allowed. Still no generic upper-body or complex conditioning.
+ *
+ * CAPACITY — Real progressive loading of the injured tissue + sport-relevant
+ *   lower body strength (kinetic_chain = the work that matters for the sport).
+ *   Running / conditioning progression starts. Neuromuscular control begins.
+ *
+ * SPEED    — Conditioning-heavy. Running, cutting, sport-specific work is the
+ *   majority. Targeted loading drops to maintenance. No generic upper-body.
+ *
+ * RETURN   — Mostly sport rehearsal. Targeted + kinetic chain become
+ *   maintenance-only. Conditioning = sport simulation.
+ *
+ * NOTE: 'global_strength' (generic upper-body push/pull) is intentionally
+ * absent from all phases. For lower-body injuries in sports like football,
+ * push-ups and rows are not part of the rehab. Sport-relevant strength lives
+ * in 'kinetic_chain' (lower body compounds, core, hip work). If upper-body
+ * injuries are added later, their blueprints can include global_strength.
+ * ========================================================================= */
 export const SESSION_BLUEPRINTS = {
   protect: {
-    totalExercises: [6, 7],
+    // Short, calm, minimal. 4–5 exercises only.
+    totalExercises: [4, 5],
     blocks: [
-      { block: 'warmup',         count: [1, 2], required: true  },
-      { block: 'activation',     count: [1, 2], required: true  },
-      { block: 'targeted',       count: [1, 1], required: true  },
-      { block: 'kinetic_chain',  count: [1, 2], required: true  },
-      { block: 'global_strength',count: [1, 1], required: true  },
-      { block: 'cooldown',       count: [0, 1], required: false }
+      { block: 'warmup',     count: [1, 1], required: true  },
+      { block: 'activation', count: [1, 2], required: true  },
+      { block: 'targeted',   count: [1, 1], required: true  },
+      { block: 'cooldown',   count: [1, 1], required: true  }
     ]
   },
   restore: {
-    totalExercises: [7, 8],
+    // Loading the injury + direct synergists. Gentle conditioning begins.
+    totalExercises: [6, 8],
     blocks: [
-      { block: 'warmup',         count: [1, 2], required: true  },
-      { block: 'activation',     count: [1, 1], required: true  },
-      { block: 'targeted',       count: [1, 2], required: true  },
-      { block: 'kinetic_chain',  count: [2, 2], required: true  },
-      { block: 'global_strength',count: [1, 2], required: true  },
-      { block: 'neuromuscular',  count: [0, 1], required: false }
+      { block: 'warmup',        count: [1, 2], required: true  },
+      { block: 'activation',    count: [1, 1], required: true  },
+      { block: 'targeted',      count: [2, 2], required: true  },
+      { block: 'kinetic_chain', count: [1, 2], required: true  },
+      { block: 'conditioning',  count: [0, 1], required: false },
+      { block: 'cooldown',      count: [1, 1], required: true  }
     ]
   },
   capacity: {
+    // Progressive loading + sport-relevant lower body strength + conditioning.
     totalExercises: [8, 10],
     blocks: [
-      { block: 'warmup',         count: [1, 2], required: true  },
-      { block: 'activation',     count: [1, 1], required: false },
-      { block: 'targeted',       count: [2, 2], required: true  },
-      { block: 'kinetic_chain',  count: [2, 3], required: true  },
-      { block: 'global_strength',count: [1, 2], required: true  },
-      { block: 'neuromuscular',  count: [1, 1], required: true  },
-      { block: 'conditioning',   count: [0, 1], required: false }
+      { block: 'warmup',        count: [1, 2], required: true  },
+      { block: 'targeted',      count: [2, 3], required: true  },
+      { block: 'kinetic_chain', count: [2, 3], required: true  },
+      { block: 'neuromuscular', count: [1, 1], required: true  },
+      { block: 'conditioning',  count: [1, 1], required: false },
+      { block: 'cooldown',      count: [1, 1], required: true  }
     ]
   },
   speed: {
+    // Conditioning-led. Running, cutting, sport prep is the main event.
+    // Targeted and kinetic_chain become supporting maintenance work.
     totalExercises: [9, 11],
     blocks: [
-      { block: 'warmup',         count: [2, 2], required: true  },
-      { block: 'targeted',       count: [1, 2], required: true  },
-      { block: 'kinetic_chain',  count: [2, 2], required: true  },
-      { block: 'global_strength',count: [1, 2], required: true  },
-      { block: 'neuromuscular',  count: [1, 1], required: true  },
-      { block: 'conditioning',   count: [2, 2], required: true  }
+      { block: 'warmup',        count: [2, 2], required: true  },
+      { block: 'targeted',      count: [1, 1], required: true  },
+      { block: 'kinetic_chain', count: [1, 2], required: true  },
+      { block: 'neuromuscular', count: [1, 2], required: true  },
+      { block: 'conditioning',  count: [3, 3], required: true  },
+      { block: 'cooldown',      count: [1, 1], required: true  }
     ]
   },
   return: {
-    totalExercises: [10, 12],
+    // Sport simulation + maintenance. Conditioning = sport rehearsal.
+    totalExercises: [9, 11],
     blocks: [
-      { block: 'warmup',         count: [2, 2], required: true  },
-      { block: 'targeted',       count: [1, 2], required: true  },
-      { block: 'kinetic_chain',  count: [2, 3], required: true  },
-      { block: 'global_strength',count: [2, 2], required: true  },
-      { block: 'neuromuscular',  count: [1, 1], required: true  },
-      { block: 'conditioning',   count: [2, 3], required: true  }
+      { block: 'warmup',        count: [1, 2], required: true  },
+      { block: 'targeted',      count: [1, 1], required: true  },
+      { block: 'kinetic_chain', count: [1, 2], required: true  },
+      { block: 'neuromuscular', count: [1, 1], required: true  },
+      { block: 'conditioning',  count: [3, 4], required: true  },
+      { block: 'cooldown',      count: [1, 1], required: true  }
     ]
   }
 };

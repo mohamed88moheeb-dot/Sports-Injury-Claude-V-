@@ -893,7 +893,6 @@ const exerciseLibrary = [
     cues: ['Arms straight', 'Pull band to chest level', 'Squeeze rhomboids at the end'],
     commonMistakes: ['Bending elbows', 'No controlled return'],
     easierAlternative: 'Smaller range pull-apart',
-    harderProgression: 'ham_gs_band_row',
     noEquipmentAlternative: 'No alternative (band required)',
     painRule: 'Comfortable. No lower-limb load.'
   }),
@@ -905,7 +904,6 @@ const exerciseLibrary = [
     prescription: '3 x 10 reps',
     cues: ['Seated for stability', 'Core tight', 'Full range overhead'],
     commonMistakes: ['Arching lower back', 'Partial range'],
-    easierAlternative: 'ham_gs_band_pull_apart',
     harderProgression: 'Standing press',
     noEquipmentAlternative: 'Pike push-up',
     avoidIf: ['Shoulder injury'],
@@ -1126,8 +1124,6 @@ const rehabProtocols = [
           'ham_kc_glute_bridge', 'ham_kc_clamshell', 'ham_kc_dead_bug',
           'ham_kc_bird_dog', 'ham_kc_plank', 'ham_kc_back_ext',
           'ham_kc_calf_raise', 'ham_kc_hip_flex_stretch',
-          // global_strength (upper body — safe in acute phase)
-          'ham_gs_pushup', 'ham_gs_band_row', 'ham_gs_band_pull_apart',
           // conditioning (low-load, offloading options)
           'ham_cond_walk', 'ham_cond_bike', 'ham_cond_pool',
           // cooldown
@@ -1158,8 +1154,6 @@ const rehabProtocols = [
           'ham_kc_lateral_band', 'ham_kc_dead_bug', 'ham_kc_bird_dog',
           'ham_kc_plank', 'ham_kc_side_plank', 'ham_kc_back_ext',
           'ham_kc_calf_raise', 'ham_kc_sl_calf', 'ham_kc_hip_flex_stretch', 'ham_kc_couch_stretch',
-          // global_strength
-          'ham_gs_pushup', 'ham_gs_band_row', 'ham_gs_band_pull_apart', 'ham_gs_db_press',
           // neuromuscular
           'ham_nm_sl_stand',
           // conditioning
@@ -1191,8 +1185,6 @@ const rehabProtocols = [
           'ham_kc_hip_thrust', 'ham_kc_lateral_band', 'ham_kc_step_down',
           'ham_kc_side_plank', 'ham_kc_dead_bug', 'ham_kc_bird_dog',
           'ham_kc_sl_calf', 'ham_kc_couch_stretch',
-          // global_strength
-          'ham_gs_pushup', 'ham_gs_band_row', 'ham_gs_db_press', 'ham_gs_band_pull_apart',
           // neuromuscular
           'ham_nm_sl_stand', 'ham_nm_sl_eyes', 'ham_nm_sl_reach',
           // conditioning
@@ -1220,8 +1212,6 @@ const rehabProtocols = [
           // kinetic_chain
           'ham_kc_hip_thrust', 'ham_kc_step_down', 'ham_kc_side_plank',
           'ham_kc_sl_calf', 'ham_kc_couch_stretch',
-          // global_strength
-          'ham_gs_pushup', 'ham_gs_band_row', 'ham_gs_db_press',
           // neuromuscular
           'ham_nm_sl_eyes', 'ham_nm_sl_reach', 'ham_nm_hop_hold',
           // conditioning (the key block in this phase)
@@ -1248,8 +1238,6 @@ const rehabProtocols = [
           'ham_rdl', 'ham_nordic', 'ham_sl_rdl_bw',
           // kinetic_chain
           'ham_kc_hip_thrust', 'ham_kc_step_down', 'ham_kc_side_plank', 'ham_kc_sl_calf',
-          // global_strength
-          'ham_gs_pushup', 'ham_gs_band_row', 'ham_gs_db_press',
           // neuromuscular
           'ham_nm_sl_reach', 'ham_nm_hop_hold',
           // conditioning (primary focus — full sprint exposure)
@@ -1280,7 +1268,6 @@ const rehabProtocols = [
           'ham_bridge_hold',
           'ham_kc_glute_bridge', 'ham_kc_clamshell', 'ham_kc_dead_bug', 'ham_kc_bird_dog',
           'ham_kc_plank', 'ham_kc_back_ext', 'ham_kc_calf_raise',
-          'ham_gs_pushup', 'ham_gs_band_row', 'ham_gs_band_pull_apart',
           'ham_cond_bike', 'ham_cond_pool',
           'ham_cool_prone'
         ]
@@ -1300,7 +1287,6 @@ const rehabProtocols = [
           'ham_long_lever_bridge', 'ham_single_leg_bridge', 'ham_good_morning_bw',
           'ham_kc_hip_thrust', 'ham_kc_lateral_band', 'ham_kc_dead_bug', 'ham_kc_side_plank',
           'ham_kc_sl_calf', 'ham_kc_hip_flex_stretch',
-          'ham_gs_pushup', 'ham_gs_band_row', 'ham_gs_db_press',
           'ham_nm_sl_stand',
           'ham_cond_bike', 'ham_cond_jog_walk',
           'ham_cool_prone'
@@ -1320,7 +1306,6 @@ const rehabProtocols = [
           'ham_iso_seated', 'ham_glute_squeeze',
           'ham_rdl', 'ham_sl_rdl_bw', 'ham_single_leg_bridge',
           'ham_kc_hip_thrust', 'ham_kc_step_down', 'ham_kc_side_plank', 'ham_kc_sl_calf', 'ham_kc_couch_stretch',
-          'ham_gs_pushup', 'ham_gs_band_row', 'ham_gs_db_press',
           'ham_nm_sl_eyes', 'ham_nm_sl_reach',
           'ham_cond_bike', 'ham_cond_jog_walk',
           'ham_cool_supine_stretch'
@@ -1339,7 +1324,6 @@ const rehabProtocols = [
           'ham_warm_walk_lunge', 'ham_warm_hip_circle', 'ham_warm_leg_swing',
           'ham_rdl', 'ham_sl_rdl_bw',
           'ham_kc_hip_thrust', 'ham_kc_step_down', 'ham_kc_sl_calf',
-          'ham_gs_pushup', 'ham_gs_band_row', 'ham_gs_db_press',
           'ham_nm_sl_reach', 'ham_nm_hop_hold',
           'ham_buildups', 'ham_sprint_exposure', 'ham_cond_jog_walk',
           'ham_cool_supine_stretch'
@@ -1367,7 +1351,6 @@ const rehabProtocols = [
           'ham_bridge_hold',
           'ham_kc_glute_bridge', 'ham_kc_clamshell', 'ham_kc_dead_bug', 'ham_kc_bird_dog',
           'ham_kc_plank', 'ham_kc_back_ext', 'ham_kc_calf_raise',
-          'ham_gs_pushup', 'ham_gs_band_row', 'ham_gs_band_pull_apart',
           'ham_cond_bike', 'ham_cond_pool',
           'ham_cool_prone'
         ]
@@ -1387,7 +1370,6 @@ const rehabProtocols = [
           'ham_long_lever_bridge', 'ham_single_leg_bridge', 'ham_good_morning_bw',
           'ham_kc_hip_thrust', 'ham_kc_clamshell', 'ham_kc_side_plank', 'ham_kc_dead_bug',
           'ham_kc_calf_raise', 'ham_kc_hip_flex_stretch',
-          'ham_gs_pushup', 'ham_gs_band_row', 'ham_gs_db_press',
           'ham_nm_sl_stand',
           'ham_cond_bike', 'ham_cond_jog_walk',
           'ham_cool_prone'
@@ -1407,7 +1389,6 @@ const rehabProtocols = [
           'ham_active_knee_ext', 'ham_iso_seated',
           'ham_rdl', 'ham_sl_rdl_bw', 'ham_single_leg_bridge',
           'ham_kc_hip_thrust', 'ham_kc_step_down', 'ham_kc_side_plank', 'ham_kc_sl_calf',
-          'ham_gs_pushup', 'ham_gs_band_row', 'ham_gs_db_press',
           'ham_nm_sl_eyes', 'ham_nm_sl_reach',
           'ham_buildups', 'ham_cond_jog_walk',
           'ham_cool_supine_stretch'
@@ -1435,7 +1416,6 @@ const rehabProtocols = [
           'ham_bridge_hold', 'ham_long_lever_bridge', 'ham_single_leg_bridge',
           'ham_kc_glute_bridge', 'ham_kc_hip_thrust', 'ham_kc_clamshell',
           'ham_kc_dead_bug', 'ham_kc_side_plank', 'ham_kc_hip_flex_stretch', 'ham_kc_calf_raise',
-          'ham_gs_pushup', 'ham_gs_band_row', 'ham_gs_db_press',
           'ham_nm_sl_stand',
           'ham_cond_bike', 'ham_cond_jog_walk',
           'ham_cool_prone'
@@ -1455,7 +1435,6 @@ const rehabProtocols = [
           'ham_iso_seated', 'ham_glute_squeeze',
           'ham_rdl', 'ham_sl_rdl_bw', 'ham_nordic', 'ham_seated_leg_curl',
           'ham_kc_hip_thrust', 'ham_kc_step_down', 'ham_kc_side_plank', 'ham_kc_sl_calf', 'ham_kc_couch_stretch',
-          'ham_gs_pushup', 'ham_gs_band_row', 'ham_gs_db_press',
           'ham_nm_sl_eyes', 'ham_nm_sl_reach',
           'ham_cond_jog_walk', 'ham_buildups',
           'ham_cool_supine_stretch'
@@ -1474,7 +1453,6 @@ const rehabProtocols = [
           'ham_warm_walk_lunge', 'ham_warm_hip_circle', 'ham_warm_leg_swing',
           'ham_rdl', 'ham_nordic', 'ham_sl_rdl_bw',
           'ham_kc_hip_thrust', 'ham_kc_step_down', 'ham_kc_sl_calf',
-          'ham_gs_pushup', 'ham_gs_band_row', 'ham_gs_db_press',
           'ham_nm_sl_reach', 'ham_nm_hop_hold',
           'ham_sprint_exposure', 'ham_buildups', 'ham_cond_jog_walk',
           'ham_cool_supine_stretch'
@@ -1500,7 +1478,6 @@ const rehabProtocols = [
           // Only the gentlest items — no hamstring loading
           'ham_iso_heeldig',
           'ham_kc_dead_bug', 'ham_kc_bird_dog', 'ham_kc_plank', 'ham_kc_back_ext',
-          'ham_gs_pushup', 'ham_gs_band_row', 'ham_gs_band_pull_apart',
           'ham_cond_pool', 'ham_cond_bike',
           'ham_cool_prone'
         ]

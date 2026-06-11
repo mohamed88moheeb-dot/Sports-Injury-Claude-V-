@@ -3,8 +3,9 @@
 import InteractiveAnatomy from '../components/InteractiveAnatomy';
 import HumanFrontIcon from '../components/HumanFrontIcon';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { supabase, hasSupabase } from '../lib/supabaseClient';
+import { getAdaptedSession } from '../lib/injuryEngine/planAdapter';
 import {
   injuryRegions,
   grades,
@@ -22,7 +23,7 @@ import {
 const emptyAssessment = {
   primaryRegion: '',
   exactArea: '',
-  secondaryRegions: [],
+  secondaryRegions: '',
   grade: 'grade1',
   mechanism: 'Sudden sprint',
   symptoms: [],
@@ -63,6 +64,7 @@ export default function Page() {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [saving, setSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState('');
+  const [generating, setGenerating] = useState(false);
   const [chatInput, setChatInput] = useState('');
   const [chat, setChat] = useState([
     { role: 'coach', text: 'Tell me what you are thinking about today’s training or your return to sport. I will keep the plan safe and realistic.' }
@@ -168,11 +170,21 @@ export default function Page() {
   }
 
   function generateProfile() {
-    const nextProfile = buildProfile(assessment);
-    setProfile(nextProfile);
-    setCheckins([]);
-    setActiveTab('dashboard');
-    saveState(nextProfile, [], assessment);
+    // Derive grade from pain + symptoms so the user never has to guess their own grade.
+    const derivedGradeId = deriveGrade(assessment);
+    const assessmentWithGrade = { ...assessment, grade: derivedGradeId };
+    setAssessment(assessmentWithGrade);
+    setGenerating(true);
+
+    // 7-second "thinking" window — feels considered, not instant.
+    setTimeout(() => {
+      const nextProfile = buildProfile(assessmentWithGrade);
+      setProfile(nextProfile);
+      setCheckins([]);
+      setGenerating(false);
+      setActiveTab('dashboard');
+      saveState(nextProfile, [], assessmentWithGrade);
+    }, 7000);
   }
 
   function completeDay(phaseIndex, weekIndex, dayIndex) {
@@ -285,23 +297,64 @@ export default function Page() {
       </nav>
 
       <div className="tab-space">
-        {activeTab === 'dashboard' && (
-        <Dashboard
-          profile={profile}
-          stats={dashboardStats}
-          setActiveTab={setActiveTab}
-          saving={saving}
-          saveMessage={saveMessage}
-          assessment={assessment}
-          setAssessment={setAssessment}
-        />
-      )}
-        {activeTab === 'assessment' && <Assessment assessment={assessment} setAssessment={setAssessment} toggleArray={toggleArray} generateProfile={generateProfile} />}
-        {activeTab === 'plan' && <PlanView profile={profile} completeDay={completeDay} setActiveTab={setActiveTab} />}
-        {activeTab === 'checkin' && <Checkin addCheckin={addCheckin} checkins={checkins} />}
-        {activeTab === 'coach' && <Coach chat={chat} chatInput={chatInput} setChatInput={setChatInput} sendChat={sendChat} />}
+        {generating && <GeneratingPlan />}
+        {!generating && activeTab === 'dashboard' && (
+          <Dashboard
+            profile={profile}
+            stats={dashboardStats}
+            setActiveTab={setActiveTab}
+            saving={saving}
+            saveMessage={saveMessage}
+            assessment={assessment}
+            setAssessment={setAssessment}
+          />
+        )}
+        {!generating && activeTab === 'assessment' && <Assessment assessment={assessment} setAssessment={setAssessment} toggleArray={toggleArray} generateProfile={generateProfile} />}
+        {!generating && activeTab === 'plan' && <PlanView profile={profile} completeDay={completeDay} setActiveTab={setActiveTab} />}
+        {!generating && activeTab === 'checkin' && <Checkin addCheckin={addCheckin} checkins={checkins} />}
+        {!generating && activeTab === 'coach' && <Coach chat={chat} chatInput={chatInput} setChatInput={setChatInput} sendChat={sendChat} />}
       </div>
     </main>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+ * Plan generation animation
+ * ───────────────────────────────────────────────────────────────────────── */
+const PLAN_BUILD_STEPS = [
+  'Analysing injury mechanism and pain levels',
+  'Matching your pattern to the injury protocol library',
+  'Selecting exercises for your equipment and sport demands',
+  'Assembling phase-by-phase training sessions with rest days',
+  'Finalising your return-to-sport pathway',
+];
+
+function GeneratingPlan() {
+  const [step, setStep] = useState(0);
+  useEffect(() => {
+    if (step >= PLAN_BUILD_STEPS.length - 1) return;
+    const t = setTimeout(() => setStep(s => s + 1), 1350);
+    return () => clearTimeout(t);
+  }, [step]);
+
+  return (
+    <section className="generating-shell app-section app-section-soft">
+      <div className="gen-header">
+        <p className="eyebrow stacked-eyebrow"><span>Personalising your plan</span></p>
+        <h2>Building your recovery plan...</h2>
+        <p className="gen-subtext">
+          Analysing your answers and assembling a full multi-phase plan matched to your injury, equipment, and sport demands.
+        </p>
+      </div>
+      <div className="gen-steps">
+        {PLAN_BUILD_STEPS.map((label, i) => (
+          <div key={i} className={`gen-step ${i < step ? 'done' : i === step ? 'active' : ''}`}>
+            <div className="gen-step-dot" />
+            <span>{label}</span>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -411,6 +464,67 @@ function Dashboard({ profile, stats, setActiveTab, saving, saveMessage, assessme
   );
 }
 
+/* -------------------------------------------------------------------------
+ * MultiSelectDropdown
+ * A dropdown trigger that opens a panel of toggleable pill options.
+ * Closes when clicking outside. No external packages.
+ * ------------------------------------------------------------------------- */
+function MultiSelectDropdown({ options, selected, onToggle, placeholder }) {
+  const [open, setOpen] = useState(false);
+  const ref             = useRef(null);
+
+  useEffect(() => {
+    function handleOutsideClick(e) {
+      if (ref.current && !ref.current.contains(e.target)) setOpen(false);
+    }
+    if (open) document.addEventListener('mousedown', handleOutsideClick);
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
+  }, [open]);
+
+  const label = selected.length === 0
+    ? placeholder
+    : selected.length === 1
+      ? selected[0]
+      : `${selected[0]} +${selected.length - 1} more`;
+
+  return (
+    <div className={`msd-wrap${open ? ' msd-open' : ''}`} ref={ref}>
+      <button type="button" className="msd-trigger" onClick={() => setOpen(o => !o)}>
+        <span className={selected.length ? 'msd-trigger-text has-value' : 'msd-trigger-text'}>{label}</span>
+        <svg className="msd-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </button>
+      {open && (
+        <div className="msd-panel">
+          <div className="msd-options">
+            {options.map(opt => {
+              const active = selected.includes(opt);
+              return (
+                <button
+                  key={opt}
+                  type="button"
+                  className={`msd-option${active ? ' active' : ''}`}
+                  onClick={() => onToggle(opt)}
+                >
+                  <span className="msd-check">{active ? '✓' : ''}</span>
+                  {opt}
+                </button>
+              );
+            })}
+          </div>
+          {selected.length > 0 && (
+            <div className="msd-footer">
+              <span>{selected.length} selected</span>
+              <button type="button" className="msd-clear" onClick={() => selected.forEach(s => onToggle(s))}>Clear all</button>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function Assessment({ assessment, setAssessment, toggleArray, generateProfile }) {
   return (
     <section className="assessment-grid app-section app-section-soft">
@@ -426,12 +540,6 @@ function Assessment({ assessment, setAssessment, toggleArray, generateProfile })
         <p className="eyebrow">Step 1</p>
         <h3>Injury profile</h3>
         <div className="form-grid">
-      
-          <Field label="Estimated grade">
-            <select value={assessment.grade} onChange={(e) => setAssessment({ ...assessment, grade: e.target.value })}>
-              {grades.map((g) => <option key={g.id} value={g.id}>{g.name}</option>)}
-            </select>
-          </Field>
           <Field label="How it happened">
             <select value={assessment.mechanism} onChange={(e) => setAssessment({ ...assessment, mechanism: e.target.value })}>
               {mechanisms.map((m) => <option key={m}>{m}</option>)}
@@ -447,6 +555,7 @@ function Assessment({ assessment, setAssessment, toggleArray, generateProfile })
             value={assessment.secondaryRegions}
             onChange={(e) => setAssessment({ ...assessment, secondaryRegions: e.target.value })}
           >
+            <option value="">None</option>
             {injuryRegions
               .filter((r) => r.id !== assessment.primaryRegion)
               .map((r) => (
@@ -480,41 +589,21 @@ function Assessment({ assessment, setAssessment, toggleArray, generateProfile })
         <p className="eyebrow">Step 2</p>
         <h3>Sport, demands, and equipment</h3>
         <Field label="What does your sport demand?">
-          <select
-            value={assessment.movements[0] || ''}
-            onChange={(e) =>
-              setAssessment({
-                ...assessment,
-                movements: e.target.value ? [e.target.value] : [],
-              })
-            }
-          >
-            <option value="">Select movement demand</option>
-            {movements.map((m) => (
-              <option key={m} value={m}>
-                {m}
-              </option>
-            ))}
-          </select>
+          <MultiSelectDropdown
+            options={movements}
+            selected={assessment.movements}
+            onToggle={(val) => toggleArray('movements', val)}
+            placeholder="Select all that apply"
+          />
         </Field>
-        
+
         <Field label="What equipment do you have access to?">
-          <select
-            value={assessment.equipment[0] || ''}
-            onChange={(e) =>
-              setAssessment({
-                ...assessment,
-                equipment: e.target.value ? [e.target.value] : [],
-              })
-            }
-          >
-            <option value="">Select equipment</option>
-            {equipmentOptions.map((item) => (
-              <option key={item} value={item}>
-                {item}
-              </option>
-            ))}
-          </select>
+          <MultiSelectDropdown
+            options={equipmentOptions}
+            selected={assessment.equipment}
+            onToggle={(val) => toggleArray('equipment', val)}
+            placeholder="Select all that apply"
+          />
         </Field>
       </div>
 
@@ -683,32 +772,77 @@ function PlanView({ profile, completeDay, setActiveTab }) {
                                       </div>
                                     )}
                                     <div className="session-blocks">
-                                      {day.exercises.map((ex, eIndex) => {
-                                        const key = `${dayKey}-${eIndex}`;
-                                        const exOpen = !!openExercise[key];
-                                        return (
-                                          <div className="exercise-card" key={key}>
-                                            <button className="exercise-main" onClick={() => setOpenExercise({ ...openExercise, [key]: !exOpen })}>
-                                              <div className="exercise-title-row">
-                                                <h5>{ex.name}</h5>
-                                                <div className="exercise-title-meta">
-                                                  <span>{ex.intensity}</span>
-                                                  <Chevron open={exOpen} />
-                                                </div>
+                                      {(() => {
+                                        let lastBlockLabel = null;
+                                        return day.exercises.map((ex, eIndex) => {
+                                          const key = `${dayKey}-${eIndex}`;
+                                          const exOpen = !!openExercise[key];
+
+                                          // Show a block-section header when the block changes
+                                          // (only for exercises from the expanded engine)
+                                          const thisBlock = ex.blockLabel || null;
+                                          const showBlockHeader = thisBlock && thisBlock !== lastBlockLabel;
+                                          if (showBlockHeader) lastBlockLabel = thisBlock;
+
+                                          return (
+                                            <div key={key}>
+                                              {showBlockHeader && (
+                                                <div className="session-block-header">{thisBlock}</div>
+                                              )}
+                                              <div className="exercise-card">
+                                                <button className="exercise-main" onClick={() => setOpenExercise({ ...openExercise, [key]: !exOpen })}>
+                                                  <div className="exercise-title-row">
+                                                    <h5>{ex.name}</h5>
+                                                    <div className="exercise-title-meta">
+                                                      <span>{ex.intensity}</span>
+                                                      <Chevron open={exOpen} />
+                                                    </div>
+                                                  </div>
+                                                  <div className="exercise-details">
+                                                    <span>{ex.prescription}</span>
+                                                    <span>{ex.equipment}</span>
+                                                  </div>
+                                                </button>
+                                                {exOpen && (
+                                                  <div className="exercise-expanded">
+                                                    {/* Purpose — the "why" behind the exercise */}
+                                                    {ex.purpose && (
+                                                      <p className="ex-purpose">{ex.purpose}</p>
+                                                    )}
+                                                    <div className="video-placeholder"><span>Video demo placeholder</span><small>{ex.video}</small></div>
+                                                    <p>{ex.cue}</p>
+                                                    {/* Common mistakes — only shown for expanded-engine exercises */}
+                                                    {ex.commonMistakes?.length > 0 && (
+                                                      <div className="ex-mistakes">
+                                                        <span className="ex-mistakes-label">Common mistakes to avoid</span>
+                                                        <ul>
+                                                          {ex.commonMistakes.map((m, mi) => (
+                                                            <li key={mi}>{m}</li>
+                                                          ))}
+                                                        </ul>
+                                                      </div>
+                                                    )}
+                                                    <button className="alt-btn" onClick={() => setOpenAlt({ ...openAlt, [key]: !openAlt[key] })}>Too hard? Show easier option</button>
+                                                    {openAlt[key] && (
+                                                      <div className="alternative-box">
+                                                        <strong>{ex.alternative.name}</strong>
+                                                        <span>{ex.alternative.prescription}</span>
+                                                        <p>{ex.alternative.cue}</p>
+                                                      </div>
+                                                    )}
+                                                    {/* Pain rule — evidence-based loading guideline */}
+                                                    {ex.painRule && (
+                                                      <p className="ex-pain-rule">
+                                                        <span>Pain rule: </span>{ex.painRule}
+                                                      </p>
+                                                    )}
+                                                  </div>
+                                                )}
                                               </div>
-                                              <div className="exercise-details"><span>{ex.prescription}</span><span>{ex.equipment}</span></div>
-                                            </button>
-                                            {exOpen && (
-                                              <div className="exercise-expanded">
-                                                <div className="video-placeholder"><span>Video demo placeholder</span><small>{ex.video}</small></div>
-                                                <p>{ex.cue}</p>
-                                                <button className="alt-btn" onClick={() => setOpenAlt({ ...openAlt, [key]: !openAlt[key] })}>Too hard? Show easier option</button>
-                                                {openAlt[key] && <div className="alternative-box"><strong>{ex.alternative.name}</strong><span>{ex.alternative.prescription}</span><p>{ex.alternative.cue}</p></div>}
-                                              </div>
-                                            )}
-                                          </div>
-                                        );
-                                      })}
+                                            </div>
+                                          );
+                                        });
+                                      })()}
                                     </div>
                                     {day.exercises.length === 0 && (
                                       <div className="rest-visual">
@@ -902,6 +1036,39 @@ function BodyPictogram({ type, selectedArea = '', detailed = false, compact = fa
   );
 }
 
+/**
+ * deriveGrade — infer injury severity from pain scores + symptoms + red flags
+ * so the user never has to self-diagnose their own grade.
+ *
+ * Logic is deliberately conservative: when signals are ambiguous we lean
+ * toward a higher grade to keep early sessions safe.
+ */
+function deriveGrade(a) {
+  const painRest    = a.painRest    ?? 0;
+  const painWalking = a.painWalking ?? 0;
+  const painSport   = a.painSport   ?? 5;
+  const redFlags    = a.redFlags    ?? [];
+  const symptoms    = (a.symptoms   ?? []).join(' ');
+  const mechanism   = (a.mechanism  ?? '').toLowerCase();
+
+  // Grade III — severe / possible structural failure
+  if (redFlags.length > 0)                                               return 'grade3';
+  if (painRest >= 6)                                                     return 'grade3';
+  if (painWalking >= 7)                                                  return 'grade3';
+  if (/instability|giving way|locking|catching|cannot bear/i.test(symptoms)) return 'grade3';
+
+  // Grade II — moderate structural damage
+  if (painRest >= 3 && painWalking >= 3)                                 return 'grade2';
+  if (painSport >= 7 && painWalking >= 3)                                return 'grade2';
+
+  // Overload — no structural damage, training-load irritation
+  if (painRest <= 1 && painWalking <= 2 && painSport <= 4 &&
+      /gradual|overuse|training|increase|load/i.test(mechanism))        return 'overload';
+
+  // Default: Grade I mild strain
+  return 'grade1';
+}
+
 function buildProfile(a) {
   const region = regionObjects[a.primaryRegion] || injuryRegions[0];
   const grade = grades.find((g) => g.id === a.grade) || grades[1];
@@ -927,39 +1094,282 @@ function buildProfile(a) {
   };
 }
 
+/* -------------------------------------------------------------------------
+ * Initial Rest Phase
+ * For acute injuries (grade2 / grade3), the patient must rest completely
+ * before structured rehab begins.  grade2 → 1 week.  grade3 → 2 weeks.
+ * Returns null for grade1 / overload so buildPlan can skip it.
+ * ------------------------------------------------------------------------- */
+const INITIAL_REST_WEEKS_BY_GRADE = { grade2: 1, grade3: 2 };
+
+function buildInitialRestPhase(a) {
+  const restWeeks = INITIAL_REST_WEEKS_BY_GRADE[a.grade];
+  if (!restWeeks) return null;
+
+  const weeks = Array.from({ length: restWeeks }, (_, wIndex) => ({
+    title: `Week ${wIndex + 1}`,
+    focus: 'Complete rest. Protect the injured tissue. No loading whatsoever.',
+    days: Array.from({ length: 7 }, (_, dIndex) => ({
+      ...buildFullRestDay(dIndex),
+      summary: 'Complete rest day. The tissue needs protection right now — no exercise, no stretching into pain, no testing the injury.',
+      recovery: [
+        'Rest the injury completely. Avoid any movement that causes pain.',
+        'Gentle icing (15–20 min) can help manage swelling and discomfort.',
+        'Sleep, hydration, and easy walking only if fully pain-free.',
+        'Seek a clinical assessment to confirm the injury and rule out serious damage.',
+        'Do not test the injury with sport movements, stretching, or jogging.'
+      ]
+    }))
+  }));
+
+  return {
+    id:          'initial_rest',
+    name:        'Phase 0',
+    label:       'Complete rest & protect',
+    goal:        'Protect the injured tissue. Allow initial healing. No structured exercise.',
+    description: `Your injury pattern suggests significant tissue damage (${a.grade === 'grade3' ? 'severe' : 'moderate'} grade). The first priority is rest and protection — not exercise. Use this time to see a clinician, manage pain and swelling, and allow the initial healing response to begin. Structured rehab starts in the next phase once pain and swelling settle.`,
+    accent:      'phase-blue',
+    baseWeeks:   { [a.grade]: restWeeks },
+    weeks
+  };
+}
+
 function buildPlan(a, region, grade, isHighRisk) {
   const lane = exerciseBank[a.primaryRegion] || exerciseBank.hamstring;
   const selectedPhases = isHighRisk ? phases.slice(0, 2) : phases;
-  return selectedPhases.map((phase) => {
+  const rehabPhases = selectedPhases.map((phase) => {
     const weeksCount = Math.max(1, phase.baseWeeks?.[a.grade] || 1);
     const weeks = Array.from({ length: weeksCount }, (_, wIndex) => buildWeek(phase, lane, a, wIndex, weeksCount));
     return { ...phase, weeks };
   });
+
+  // Prepend complete rest phase for moderate / severe injuries
+  const restPhase = buildInitialRestPhase(a);
+  return restPhase ? [restPhase, ...rehabPhases] : rehabPhases;
+}
+
+/**
+ * How many rest days to leave between training sessions per phase.
+ * protect / restore → 2 rest days (tissue needs ~48 h minimum)
+ * capacity / speed / return → 1 rest day (athlete can handle more frequency)
+ */
+function phaseRestDays(phaseId) {
+  return phaseId === 'protect' || phaseId === 'restore' ? 2 : 1;
 }
 
 function buildWeek(phase, lane, a, wIndex, weeksCount) {
-  const focus = weekFocus(phase.id, wIndex, weeksCount);
-  const days = Array.from({ length: 7 }, (_, dIndex) => buildDay(phase, lane, a, wIndex, dIndex));
+  const focus       = weekFocus(phase.id, wIndex, weeksCount);
+  const restBetween = phaseRestDays(phase.id);
+  const cycleLen    = restBetween + 1; // e.g. 3 (S, AR, R) for protect; 2 (S, R) for capacity
+  const days        = [];
+  let sessionCount  = 0;
+
+  for (let dIndex = 0; dIndex < 7; dIndex++) {
+    const posInCycle = dIndex % cycleLen;
+
+    if (posInCycle === 0) {
+      // ── Training session ───────────────────────────────────────────────
+      const sessionIndex = wIndex * 10 + sessionCount; // unique per week+session
+      days.push(buildTrainingDay(phase, lane, a, wIndex, dIndex, sessionIndex));
+      sessionCount++;
+    } else if (posInCycle === 1) {
+      // ── First rest day → light active recovery ─────────────────────────
+      days.push(buildActiveRecoveryDay(phase, a, dIndex));
+    } else {
+      // ── Additional rest days → full rest ──────────────────────────────
+      days.push(buildFullRestDay(dIndex));
+    }
+  }
+
   return { title: `Week ${wIndex + 1}`, focus, days };
 }
 
-function buildDay(phase, lane, a, wIndex, dIndex) {
-  const isFullRest = dIndex === 6;
-  const isActiveRecovery = dIndex === 3;
-  const pool = lane[phase.id] || lane.protect || [];
+function buildFullRestDay(dIndex) {
+  return {
+    title: `Day ${dIndex + 1}`,
+    sessionTitle: 'Full rest day',
+    summary: 'No structured rehab today. The tissue adapts and rebuilds during recovery.',
+    load: 'Rest',
+    mobility: [],
+    exercises: [],
+    recovery: [
+      'Sleep, hydration, and easy walking only if comfortable.',
+      'Do not test speed, stretching tolerance, or sport movements today.'
+    ],
+    completed: false,
+    rule: 'Rest is an active part of the plan. Adaptation happens during recovery, not the session itself.'
+  };
+}
+
+function buildActiveRecoveryDay(phase, a, dIndex) {
+  const mobility = buildMobility(phase.id, a, dIndex);
+  return {
+    title: `Day ${dIndex + 1}`,
+    sessionTitle: 'Active recovery',
+    summary: activeRecoverySummary(phase.id),
+    load: 'Active recovery',
+    mobility,
+    exercises: buildActiveRecovery(a, phase.id, dIndex).map((ex, idx) => adjustExercise(ex, phase, a, 0, dIndex, idx)),
+    recovery: [],
+    completed: false,
+    rule: 'This should leave you feeling better, not more tired. Stop if symptoms rise above 2/10.'
+  };
+}
+
+/* -------------------------------------------------------------------------
+ * Secondary region exercise injection
+ *
+ * When the user reports a secondary affected area, one supplementary
+ * exercise per session is appended to keep that area mobile and supported.
+ * The primary session is NOT shortened — secondary work is purely additive.
+ *
+ * Clinical rationale:
+ *   - In protect phase: no secondary loading (too much too soon)
+ *   - Restore onwards: 1 targeted exercise from the secondary region
+ *   - The secondary exercise always uses a conservative phase (restore or
+ *     capacity) regardless of how advanced the primary phase is
+ * ------------------------------------------------------------------------- */
+
+// Map region display names (as stored in assessment.secondaryRegions) → IDs
+const REGION_NAME_TO_ID = Object.fromEntries(injuryRegions.map(r => [r.name, r.id]));
+const EXPANDED_REGIONS   = new Set(['hamstring', 'quadriceps', 'adductor_groin']);
+
+// How advanced a phase to use for secondary work (always conservative)
+const SECONDARY_PHASE_MAP = {
+  protect:  null,       // skip secondary entirely in protect
+  restore:  'restore',
+  capacity: 'restore',
+  speed:    'capacity',
+  return:   'capacity'
+};
+
+function getSecondaryExercises(a, phaseId, sessionIndex) {
+  const secondaryName = a.secondaryRegions;
+  if (!secondaryName || secondaryName.trim() === '') return [];
+
+  const secondaryPhaseId = SECONDARY_PHASE_MAP[phaseId];
+  if (!secondaryPhaseId) return [];  // protect phase — no secondary work
+
+  const secondaryId = REGION_NAME_TO_ID[secondaryName];
+  if (!secondaryId) return [];
+
+  // ── Try expanded engine first ──────────────────────────────────────────
+  if (EXPANDED_REGIONS.has(secondaryId)) {
+    const mockAssessment = {
+      ...a,
+      primaryRegion: secondaryId,
+      grade: 'grade1',  // treat secondary as a milder load
+    };
+    const session = getAdaptedSession(mockAssessment, secondaryPhaseId, sessionIndex);
+    if (session && session.length > 0) {
+      // Prefer targeted block; fall back to anything
+      const targeted = session.filter(ex => ex.blockLabel === 'Targeted loading');
+      const source   = targeted.length > 0 ? targeted : session;
+      const pick     = source[sessionIndex % source.length];
+      return [{
+        ...pick,
+        blockLabel: `Secondary focus · ${secondaryName}`,
+        purpose:    `Supplementary support for ${secondaryName.toLowerCase()}. This is secondary to your main injury — keep it gentle and stop if it aggravates your primary injury.`,
+        isSecondary: true
+      }];
+    }
+  }
+
+  // ── Legacy engine fallback ─────────────────────────────────────────────
+  const legacyPool = exerciseBank[secondaryId];
+  if (!legacyPool) return [];
+  const pool = legacyPool[secondaryPhaseId] || legacyPool.protect || [];
+  if (pool.length === 0) return [];
+  const pick = pool[sessionIndex % pool.length];
+  return [{
+    ...pick,
+    blockLabel: `Secondary focus · ${secondaryName}`,
+    isSecondary: true,
+    isFromEngine: false
+  }];
+}
+
+function buildTrainingDay(phase, lane, a, wIndex, dIndex, sessionIndex) {
+  const pool     = lane[phase.id] || lane.protect || [];
   const mobility = buildMobility(phase.id, a, dIndex);
 
-  if (isFullRest) {
-    return { title: `Day ${dIndex + 1}`, sessionTitle: 'Full rest day', summary: 'No structured rehab today. Let the tissue adapt.', load: 'Rest', mobility: [], exercises: [], recovery: ['Sleep, hydration, and easy walking only if comfortable.', 'Do not test speed, stretching tolerance, or sport movements today.'], completed: false, rule: 'A full rest day is part of the plan. Do not make up missed heavy work today.' };
+  // ── Expanded engine first (hamstring, quadriceps, adductor_groin) ─────
+  const adapted = getAdaptedSession(a, phase.id, sessionIndex);
+  if (adapted && adapted.length > 0) {
+    const exercises    = applyGradeAndContextAdjustments(adapted, phase, a, wIndex);
+    const secondaryExs = getSecondaryExercises(a, phase.id, sessionIndex);
+    const allExercises = [...exercises, ...secondaryExs];
+    return {
+      title: `Day ${dIndex + 1}`,
+      sessionTitle: sessionTitle(phase.id, sessionIndex % 3),
+      summary: summaryFor(phase.id),
+      load: `${phase.intensity} · ${allExercises.length} exercises · ${estimateDuration(phase.id, allExercises.length)}`,
+      mobility: [],
+      exercises: allExercises,
+      recovery: [],
+      completed: false,
+      rule: ruleFor(phase.id, a),
+      engineSource: 'expanded'
+    };
   }
 
-  if (isActiveRecovery) {
-    return { title: `Day ${dIndex + 1}`, sessionTitle: 'Active recovery day', summary: activeRecoverySummary(phase.id), load: 'Active recovery', mobility, exercises: buildActiveRecovery(a, phase.id, dIndex).map((ex, idx) => adjustExercise(ex, phase, a, wIndex, dIndex, idx)), recovery: [], completed: false, rule: 'This should make you feel better, not trained. Keep it easy and stop if symptoms rise.' };
-  }
-
+  // ── Legacy engine fallback (knee, ankle, calf, IT band, etc.) ─────────
   const target = targetExerciseCount(phase.id, a.grade, wIndex, dIndex);
-  const chosen = buildSessionExercises(pool, phase, a, wIndex, dIndex, target).map((ex, idx) => adjustExercise(ex, phase, a, wIndex, dIndex, idx)).slice(0, 12);
-  return { title: `Day ${dIndex + 1}`, sessionTitle: sessionTitle(phase.id, dIndex), summary: summaryFor(phase.id), load: `${phase.intensity} · ${estimateDuration(phase.id, chosen.length)}`, mobility, exercises: chosen, recovery: [], completed: false, rule: ruleFor(phase.id, a) };
+  const chosen  = buildSessionExercises(pool, phase, a, wIndex, dIndex, target)
+    .map((ex, idx) => adjustExercise(ex, phase, a, wIndex, dIndex, idx))
+    .slice(0, 12);
+  const secondaryExs = getSecondaryExercises(a, phase.id, sessionIndex);
+  const allChosen    = [...chosen, ...secondaryExs];
+  return {
+    title: `Day ${dIndex + 1}`,
+    sessionTitle: sessionTitle(phase.id, dIndex),
+    summary: summaryFor(phase.id),
+    load: `${phase.intensity} · ${estimateDuration(phase.id, allChosen.length)}`,
+    mobility,
+    exercises: allChosen,
+    recovery: [],
+    completed: false,
+    rule: ruleFor(phase.id, a)
+  };
+}
+
+
+/**
+ * Apply grade and sport-demand adjustments to expanded-engine exercises.
+ * Mirrors the logic in adjustExercise() for legacy exercises so the
+ * experience is consistent.
+ */
+function applyGradeAndContextAdjustments(exercises, phase, a, wIndex) {
+  return exercises.map((ex, idx) => {
+    const copy = { ...ex };
+
+    // Grade safety adjustments
+    if (a.grade === 'grade2' || a.grade === 'unknown') {
+      copy.intensity = copy.intensity
+        .replace('RPE 7–9', 'RPE 6–7')
+        .replace('RPE 6–8', 'RPE 5–7')
+        .replace('RPE 7–8', 'RPE 6–7');
+    }
+    if (a.grade === 'grade3') {
+      copy.intensity = 'RPE 2–4 — get clinical clearance before progressing';
+    }
+
+    // Capacity progression nudge
+    if (phase.id === 'capacity' && wIndex > 0 && idx < 2) {
+      copy.prescription = copy.prescription + ' · add small load if previous session was green';
+    }
+
+    // Sport-demand context notes
+    const moveStr = (a.movements || []).join(' ');
+    if ((phase.id === 'speed' || phase.id === 'return') && /high.speed|sprinting/i.test(moveStr)) {
+      copy.cue = (copy.cue || '') + ' Keep speed gradual — never chase max effort on a sore day.';
+    }
+    if (/kicking/i.test(moveStr) && (a.primaryRegion === 'quadriceps' || a.primaryRegion === 'adductor_groin')) {
+      copy.cue = (copy.cue || '') + ' Kicking stays submax until hip and quad resisted tests are calm.';
+    }
+
+    return copy;
+  });
 }
 
 function targetExerciseCount(phaseId, gradeId, weekIndex, dayIndex) {
@@ -1151,7 +1561,7 @@ function coachResponse(text, profile) {
 
 function buildPlanNote(a, highRisk, exactArea) {
   if (highRisk) return 'This plan is conservative because your answers include high-risk signs or a severe grade. Use it only as early guidance until reviewed.';
-  const multiple = a.secondaryRegions.length ? ` It also accounts for secondary areas: ${a.secondaryRegions.join(', ')}.` : '';
+  const multiple = a.secondaryRegions ? ` It also incorporates supplementary work for the secondary area: ${a.secondaryRegions}.` : '';
   const area = exactArea ? ` Specific focus: ${exactArea.name}.` : '';
   return `Tailored to ${a.mechanism.toLowerCase()}, ${gradeLabels[a.grade].toLowerCase()}, selected equipment, pain levels, and sport demands.${area}${multiple}`;
 }
