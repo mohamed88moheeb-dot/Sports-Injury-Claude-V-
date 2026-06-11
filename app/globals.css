@@ -2128,12 +2128,12 @@ input[type='range']::-moz-range-thumb {
 }
 .ia-svg-wrapper svg { width: 100% !important; height: 100% !important; display: block; }
 
-/* ── Base: override all SVG fills to soft off-white ─────────── */
+/* ── Base: premium cobalt-blue body map ─────────────────────── */
 .ia-svg-wrapper svg path,
 .ia-svg-wrapper svg polygon,
 .ia-svg-wrapper svg rect {
-  fill: rgba(220,228,240,0.72) !important;
-  stroke: rgba(255,255,255,0.06) !important;
+  fill: rgba(82,138,220,0.55) !important;
+  stroke: rgba(120,170,240,0.30) !important;
 }
 
 /* Interactive group states */
@@ -2143,10 +2143,10 @@ input[type='range']::-moz-range-thumb {
 .ia-group rect { transition: fill 0.14s ease; }
 .ia-group:hover path,
 .ia-group:hover polygon,
-.ia-group:hover rect { fill: rgba(47,140,255,0.85) !important; opacity: 1; }
+.ia-group:hover rect { fill: rgba(59,125,216,0.90) !important; opacity: 1; }
 .ia-selected path,
 .ia-selected polygon,
-.ia-selected rect { fill: #2F8CFF !important; opacity: 1; filter: drop-shadow(0 0 8px rgba(47,140,255,0.70)); }
+.ia-selected rect { fill: #2F6FD0 !important; opacity: 1; filter: drop-shadow(0 0 10px rgba(47,110,208,0.65)); }
 .ia-dimmed { opacity: 0.12; pointer-events: none; }
 
 /* Blanket-dim in detail mode */
@@ -2548,11 +2548,11 @@ input[type='range']::-moz-range-thumb {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(0,0,0,0.75);
-  backdrop-filter: blur(32px) saturate(2.0);
-  -webkit-backdrop-filter: blur(32px) saturate(2.0);
-  border-bottom: 1px solid rgba(47,140,255,0.12);
-  box-shadow: 0 1px 0 rgba(47,140,255,0.06) inset, 0 4px 32px rgba(0,0,0,0.50);
+  background: rgba(255,255,255,0.72);
+  backdrop-filter: blur(28px) saturate(1.8);
+  -webkit-backdrop-filter: blur(28px) saturate(1.8);
+  border-bottom: 1px solid rgba(200,220,250,0.40);
+  box-shadow: 0 2px 20px rgba(40,90,180,0.07), inset 0 1px 0 rgba(255,255,255,0.90);
 }
 
 /* Sliding active pill on desktop nav */
@@ -2645,35 +2645,30 @@ input[type='range']::-moz-range-thumb {
   box-shadow: inset 0 0 0 1px rgba(47,140,255,0.30), 0 0 12px rgba(47,140,255,0.12);
 }
 
-/* ── Mobile bottom nav ────────────────────────────────────── */
-/* ── Floating glass pill nav (matches reference design) ───── */
+/* ── Mobile bottom nav — light liquid glass capsule ────────── */
 .app-nav-bottom {
   display: none;
   position: fixed;
-  /* Float above the bottom edge — not flush */
   bottom: calc(14px + env(safe-area-inset-bottom, 0px));
-  left: 8px;
-  right: 8px;
+  left: 10px;
+  right: 10px;
   z-index: 100;
 
-  /* Capsule outer shape */
   border-radius: 9999px;
-  padding: 6px;
+  padding: 5px;
 
-  /* Deep glass */
-  background: rgba(4,8,20,0.90);
-  backdrop-filter: blur(48px) saturate(2.4);
-  -webkit-backdrop-filter: blur(48px) saturate(2.4);
-  border: 1px solid rgba(255,255,255,0.10);
+  /* Light frosted glass */
+  background: rgba(235,242,255,0.72);
+  backdrop-filter: blur(32px) saturate(1.9);
+  -webkit-backdrop-filter: blur(32px) saturate(1.9);
+  border: 1px solid rgba(255,255,255,0.88);
   box-shadow:
-    0 24px 64px rgba(0,0,0,0.80),
-    0 4px 18px rgba(0,0,0,0.55),
-    inset 0 1px 0 rgba(255,255,255,0.07),
-    inset 0 -1px 0 rgba(0,0,0,0.30);
+    0 8px 32px rgba(40,90,180,0.14),
+    0 2px 8px rgba(40,90,180,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.95);
 
   justify-content: stretch;
   align-items: stretch;
-  /* overflow:hidden clips items to the pill boundary */
   overflow: hidden;
 }
 
@@ -2685,22 +2680,22 @@ input[type='range']::-moz-range-thumb {
   justify-content: center;
   gap: 3px;
   flex: 1;
-  padding: 10px 6px;
-  min-height: 52px;
+  padding: 9px 4px;
+  min-height: 50px;
   text-decoration: none;
-  color: rgba(255,255,255,0.38);
+  color: rgba(40,80,160,0.40);
   font-size: 9px;
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   position: relative;
   z-index: 1;
-  transition: color 0.2s;
+  transition: color 0.18s;
+  cursor: pointer;
   pointer-events: none; /* nav handles pointer events */
 }
-/* Active item: white icon + label */
-.app-nav-bottom-item.active       { color: #fff; }
-/* No individual hover backgrounds — the pill indicator owns that */
+/* Active item */
+.app-nav-bottom-item.active { color: var(--primary); }
 
 /* ── Body offset ──────────────────────────────────────────── */
 body { padding-top: 0; }
@@ -3265,11 +3260,11 @@ body { padding-top: 0; }
 
 /* ── Bottom nav (mobile) ────────────────────────────────── */
 .app-nav-bottom {
-  background: rgba(255,255,255,0.82) !important;
-  border: 1px solid rgba(255,255,255,0.92) !important;
-  box-shadow: 0 4px 32px rgba(40,90,180,0.14), 0 1px 0 rgba(255,255,255,0.95) !important;
+  background: rgba(235,242,255,0.72) !important;
+  border: 1px solid rgba(255,255,255,0.88) !important;
+  box-shadow: 0 8px 32px rgba(40,90,180,0.14), 0 2px 8px rgba(40,90,180,0.08), inset 0 1px 0 rgba(255,255,255,0.95) !important;
 }
-.app-nav-bottom-item { color: rgba(40,80,160,0.42) !important; }
+.app-nav-bottom-item { color: rgba(40,80,160,0.40) !important; }
 .app-nav-bottom-item.active { color: var(--primary) !important; }
 
 /* ── Primary button ─────────────────────────────────────── */
@@ -3607,20 +3602,22 @@ input[type="range"]::-webkit-slider-thumb {
   opacity: 1;
 }
 
-/* ── SVG body map — light mode ink ──────────────────────── */
+/* ── SVG body map — premium blue ────────────────────────── */
 .ia-svg-wrapper svg path,
 .ia-svg-wrapper svg polygon,
 .ia-svg-wrapper svg ellipse {
-  stroke: rgba(40,90,160,0.30) !important;
+  fill: rgba(82,138,220,0.55) !important;
+  stroke: rgba(120,170,240,0.30) !important;
 }
 .ia-svg-wrapper .ia-group:hover path,
 .ia-svg-wrapper .ia-group:hover polygon {
-  fill-opacity: 0.25 !important;
+  fill: rgba(59,125,216,0.88) !important;
 }
 .ia-svg-wrapper .ia-selected path,
 .ia-svg-wrapper .ia-selected polygon {
-  fill: rgba(59,125,216,0.32) !important;
-  stroke: rgba(59,125,216,0.60) !important;
+  fill: #2F6FD0 !important;
+  stroke: rgba(47,110,208,0.50) !important;
+  filter: drop-shadow(0 0 10px rgba(47,110,208,0.55)) !important;
 }
 
 /* ── Misc text tweaks ───────────────────────────────────── */

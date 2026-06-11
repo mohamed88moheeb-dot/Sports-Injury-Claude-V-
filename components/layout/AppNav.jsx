@@ -184,13 +184,13 @@ function MobileNav({ items, pathname }) {
           top: 0, bottom: 0,
           left: pillLeft,
           width: `${100 / n}%`,
-          background: 'rgba(255,255,255,0.92)',
-          borderRadius: 16,
-          border: '1px solid rgba(255,255,255,0.98)',
+          background: 'rgba(255,255,255,0.95)',
+          borderRadius: 9999,
+          border: '1px solid rgba(255,255,255,1)',
           boxShadow:
             'inset 0 1px 0 rgba(255,255,255,1), ' +
-            '0 4px 16px rgba(40,90,180,0.14), ' +
-            '0 0 20px rgba(59,125,216,0.10)',
+            '0 4px 18px rgba(40,90,180,0.18), ' +
+            '0 0 0 1px rgba(180,210,255,0.25)',
           pointerEvents: 'none',
           zIndex: 0,
         }}
