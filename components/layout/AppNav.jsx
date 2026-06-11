@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useRef, useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useRecovery } from '../../app/providers/RecoveryContext';
 
 const NAV_ITEMS = [
@@ -16,39 +18,144 @@ const NAV_ITEMS = [
 
 const MOBILE_ITEMS = ['/', '/dashboard', '/assessment', '/plan', '/coach'];
 
+/* ── Desktop nav with sliding active pill ──────────────────── */
+function DesktopNav({ items, pathname }) {
+  const linkRefs = useRef({});
+  const [indicator, setIndicator] = useState({ left: 0, width: 0, opacity: 0 });
+  const navRef = useRef(null);
+
+  useEffect(() => {
+    const active = linkRefs.current[pathname];
+    if (!active || !navRef.current) {
+      setIndicator(s => ({ ...s, opacity: 0 }));
+      return;
+    }
+    const navRect = navRef.current.getBoundingClientRect();
+    const rect = active.getBoundingClientRect();
+    setIndicator({ left: rect.left - navRect.left, width: rect.width, opacity: 1 });
+  }, [pathname]);
+
+  return (
+    <div className="app-nav-links" ref={navRef} style={{ position: 'relative' }}>
+      {/* Sliding background pill */}
+      <motion.div
+        className="app-nav-slide-pill"
+        animate={{ left: indicator.left, width: indicator.width, opacity: indicator.opacity }}
+        transition={{ type: 'spring', stiffness: 400, damping: 30, mass: 0.8 }}
+        style={{ position: 'absolute', top: 0, bottom: 0, borderRadius: 999, zIndex: 0 }}
+      />
+
+      {items.map(({ href, label }) => (
+        <Link
+          key={href}
+          href={href}
+          ref={el => { if (el) linkRefs.current[href] = el; }}
+          className={`app-nav-link${pathname === href ? ' active' : ''}`}
+          style={{ position: 'relative', zIndex: 1 }}
+        >
+          {label}
+        </Link>
+      ))}
+    </div>
+  );
+}
+
+/* ── Mobile bottom nav with spring icon + sliding pill ──────── */
+function MobileNav({ items, pathname }) {
+  return (
+    <nav className="app-nav-bottom" aria-label="Mobile navigation">
+      {items.map(({ href, label, icon }) => {
+        const isActive = pathname === href;
+        return (
+          <Link
+            key={href}
+            href={href}
+            className={`app-nav-bottom-item${isActive ? ' active' : ''}`}
+          >
+            <span style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              {/* Active glow blob behind icon */}
+              <AnimatePresence>
+                {isActive && (
+                  <motion.span
+                    key="blob"
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0, opacity: 0 }}
+                    transition={{ type: 'spring', stiffness: 500, damping: 28 }}
+                    style={{
+                      position: 'absolute',
+                      width: 36, height: 36,
+                      borderRadius: '50%',
+                      background: 'radial-gradient(circle, rgba(47,140,255,0.30) 0%, transparent 70%)',
+                      filter: 'blur(6px)',
+                      pointerEvents: 'none',
+                    }}
+                  />
+                )}
+              </AnimatePresence>
+
+              <motion.svg
+                viewBox="0 0 24 24"
+                width="22" height="22"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+                animate={isActive ? { scale: 1.18, y: -2 } : { scale: 1, y: 0 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 24 }}
+              >
+                <path d={icon} />
+              </motion.svg>
+            </span>
+
+            <motion.span
+              animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0.45, y: 1 }}
+              transition={{ duration: 0.2 }}
+            >
+              {label}
+            </motion.span>
+          </Link>
+        );
+      })}
+    </nav>
+  );
+}
+
+/* ── Main AppNav ────────────────────────────────────────────── */
 export function AppNav() {
   const pathname = usePathname();
   const { user } = useRecovery();
 
-  // Always show all nav items — pages handle their own auth/empty states
   const desktopItems = NAV_ITEMS;
   const mobileItems  = NAV_ITEMS.filter(i => MOBILE_ITEMS.includes(i.href));
 
   return (
     <>
-      {/* ── Desktop sticky top nav ───────────────────────────────── */}
+      {/* ── Desktop sticky top nav ───────────────────────────── */}
       <nav className="app-nav-top" aria-label="App navigation">
         <div className="app-nav-top-inner">
           <Link href="/" className="app-nav-brand">
-            <span className="app-nav-brand-dot pulse-glow" />
+            <motion.span
+              className="app-nav-brand-dot"
+              animate={{ boxShadow: ['0 0 6px rgba(47,140,255,0.6)', '0 0 18px rgba(47,140,255,0.9)', '0 0 6px rgba(47,140,255,0.6)'] }}
+              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            />
             <span>InjuryGuide</span>
           </Link>
-          <div className="app-nav-links">
-            {desktopItems.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className={`app-nav-link${pathname === href ? ' active' : ''}`}
-              >
-                {label}
-              </Link>
-            ))}
-          </div>
 
-          {/* Auth indicator on the right */}
+          <DesktopNav items={desktopItems} pathname={pathname} />
+
+          {/* Auth indicator */}
           <div className="app-nav-auth">
             {user ? (
-              <span className="app-nav-user-dot" title={user.email} />
+              <motion.span
+                className="app-nav-user-dot"
+                title={user.email}
+                animate={{ boxShadow: ['0 0 6px rgba(47,140,255,0.6)', '0 0 16px rgba(47,140,255,0.9)', '0 0 6px rgba(47,140,255,0.6)'] }}
+                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+              />
             ) : (
               <Link href="/" className="app-nav-signin">Sign in</Link>
             )}
@@ -56,21 +163,8 @@ export function AppNav() {
         </div>
       </nav>
 
-      {/* ── Mobile sticky bottom nav ─────────────────────────────── */}
-      <nav className="app-nav-bottom" aria-label="Mobile navigation">
-        {mobileItems.map(({ href, label, icon }) => (
-          <Link
-            key={href}
-            href={href}
-            className={`app-nav-bottom-item${pathname === href ? ' active' : ''}`}
-          >
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d={icon} />
-            </svg>
-            <span>{label}</span>
-          </Link>
-        ))}
-      </nav>
+      {/* ── Mobile sticky bottom nav ─────────────────────────── */}
+      <MobileNav items={mobileItems} pathname={pathname} />
     </>
   );
 }

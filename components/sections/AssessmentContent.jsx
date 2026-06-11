@@ -88,23 +88,8 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
           </Field>
         </div>
 
-        {/* ── 3. Secondary areas + Symptom side by side ──── */}
-        <div className="form-grid">
-          <Field label="Secondary areas">
-            <select
-              value={assessment.secondaryRegions}
-              onChange={(e) => setAssessment({ ...assessment, secondaryRegions: e.target.value })}
-            >
-              <option value="">None</option>
-              {injuryRegions
-                .filter((r) => r.id !== assessment.primaryRegion)
-                .map((r) => (
-                  <option key={r.id} value={r.name}>
-                    {r.name}
-                  </option>
-                ))}
-            </select>
-          </Field>
+        {/* ── 3. What are you feeling? (wider) + Secondary areas (narrower) ── */}
+        <div className="form-grid-asymmetric">
           <Field label="What are you feeling?">
             <select
               value={assessment.symptoms[0] || ''}
@@ -121,6 +106,21 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
                   {symptom}
                 </option>
               ))}
+            </select>
+          </Field>
+          <Field label="Secondary areas">
+            <select
+              value={assessment.secondaryRegions}
+              onChange={(e) => setAssessment({ ...assessment, secondaryRegions: e.target.value })}
+            >
+              <option value="">None</option>
+              {injuryRegions
+                .filter((r) => r.id !== assessment.primaryRegion)
+                .map((r) => (
+                  <option key={r.id} value={r.name}>
+                    {r.name}
+                  </option>
+                ))}
             </select>
           </Field>
         </div>
