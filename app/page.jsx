@@ -7,6 +7,41 @@ import { PageShell } from '../components/layout/PageShell';
 import { useRecovery } from './providers/RecoveryContext';
 import { hasSupabase } from '../lib/supabaseClient';
 
+const FEATURES = [
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+        <path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18" />
+      </svg>
+    ),
+    label: 'AI body scanner',
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+        <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+      </svg>
+    ),
+    label: 'Criteria-based progression',
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+      </svg>
+    ),
+    label: 'Daily rehab sessions',
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+      </svg>
+    ),
+    label: 'Progress tracking',
+  },
+];
+
 export default function LandingPage() {
   const router = useRouter();
   const {
@@ -19,7 +54,8 @@ export default function LandingPage() {
 
   return (
     <PageShell>
-      {/* ── Top bar ───────────────────────────────────────────────────── */}
+
+      {/* ── Top status bar ───────────────────────────────────────────── */}
       <header className="topbar glass-panel">
         <div className="brand-lockup">
           <HumanFrontIcon size="medium" />
@@ -43,24 +79,49 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* ── Hero ──────────────────────────────────────────────────────── */}
-      <section className="hero-card app-section app-section-hero">
+      {/* ── Hero ─────────────────────────────────────────────────────── */}
+      <section className="hero-card app-section app-section-hero" style={{ position: 'relative', overflow: 'hidden' }}>
+
+        {/* Scan line animation */}
+        <div className="hero-scan-line" />
+
+        {/* Blue beam */}
+        <div className="hero-beam" />
+
+        {/* AI badge */}
         <div className="hero-copy-wrap">
-          <p className="eyebrow stacked-eyebrow">
-            <span>Evidence Driven</span>
-          </p>
-          <h2>Build a plan around the injury you actually have.</h2>
-          <p className="hero-copy">
-            A calm recovery workspace for assessment, day-by-day rehab, progress tracking,
-            check-ins, and return-to-sport decisions.
-          </p>
-          <div className="hero-points">
-            <span>Criteria-based progression</span>
-            <span>Saved progress</span>
-            <span>Daily sessions</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+            <div className="ai-badge">
+              <span className="ai-badge-dot" />
+              AI-powered
+            </div>
+            <p className="eyebrow stacked-eyebrow" style={{ margin: 0 }}>
+              Evidence Driven
+            </p>
           </div>
 
-          {/* Signed-in CTA — replaces auth section */}
+          <h2 style={{ lineHeight: 1.0, marginBottom: 12 }}>
+            Build a plan<br />
+            around the injury<br />
+            <span style={{ color: 'var(--primary)' }}>you actually have.</span>
+          </h2>
+
+          <p className="hero-copy" style={{ maxWidth: 480 }}>
+            A precision recovery workspace — AI-assessed, criteria-based, and adapted to your body,
+            sport demands, and recovery stage.
+          </p>
+
+          {/* Feature pills */}
+          <div className="hero-points" style={{ marginTop: 20 }}>
+            {FEATURES.map(f => (
+              <span key={f.label} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span style={{ color: 'var(--primary)' }}>{f.icon}</span>
+                {f.label}
+              </span>
+            ))}
+          </div>
+
+          {/* CTA — signed in */}
           {user && (
             <div className="hero-cta-row">
               {profile ? (
@@ -78,7 +139,6 @@ export default function LandingPage() {
             </div>
           )}
         </div>
-
       </section>
 
       {/* ── Auth — only shown when signed out ────────────────────────── */}
