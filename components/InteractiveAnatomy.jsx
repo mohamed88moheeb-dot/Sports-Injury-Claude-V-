@@ -153,6 +153,8 @@ export default function InteractiveAnatomy({ assessment, setAssessment }) {
           svg.removeAttribute('width');
           svg.removeAttribute('height');
           svg.style.cssText = 'width:100%;height:auto;display:block;overflow:visible';
+          // Immediately crop to front view so both figures never flash
+          svg.setAttribute('viewBox', VIEWBOX_FRONT);
         }
         setSvgReady(true);
       })

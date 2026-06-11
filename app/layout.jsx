@@ -1,4 +1,6 @@
 import './globals.css';
+import { RecoveryProvider } from './providers/RecoveryContext';
+import { AppNav } from '../components/layout/AppNav';
 
 export const metadata = {
   title: 'Injury Recovery',
@@ -8,7 +10,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <RecoveryProvider>
+          <AppNav />
+          {children}
+        </RecoveryProvider>
+      </body>
     </html>
   );
 }
