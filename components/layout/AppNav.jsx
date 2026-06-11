@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRecovery } from '../../app/providers/RecoveryContext';
 
@@ -61,15 +61,17 @@ function DesktopNav({ items, pathname }) {
   );
 }
 
-/* ── Mobile bottom nav — click + drag/glide ─────────────────── */
+/* ── Mobile bottom nav — click + real-time drag/glide ───────── */
 function MobileNav({ items, pathname }) {
-  const router     = useRouter();
-  const navRef     = useRef(null);
-  const isDragging = useRef(false);
-  const lastHref   = useRef(null);
+  const router      = useRouter();
+  const navRef      = useRef(null);
+  const isDragging  = useRef(false);
+  // dragHref is REACT STATE — updating it triggers a re-render so the pill
+  // physically follows the finger during the drag gesture
+  const [dragHref, setDragHref] = useState(null);
 
-  /* Which item is physically under a point */
-  function hrefAtPoint(x, y) {
+  /* Which item's data-href is under a client point */
+  const hrefAtPoint = useCallback((x, y) => {
     if (!navRef.current) return null;
     const els = navRef.current.querySelectorAll('[data-href]');
     for (const el of els) {
@@ -79,38 +81,39 @@ function MobileNav({ items, pathname }) {
       }
     }
     return null;
-  }
+  }, []);
 
   function onPointerDown(e) {
     isDragging.current = true;
-    lastHref.current   = hrefAtPoint(e.clientX, e.clientY);
+    const href = hrefAtPoint(e.clientX, e.clientY);
+    if (href) setDragHref(href);
     navRef.current?.setPointerCapture(e.pointerId);
   }
 
   function onPointerMove(e) {
     if (!isDragging.current) return;
     const href = hrefAtPoint(e.clientX, e.clientY);
-    if (href && href !== lastHref.current) {
-      lastHref.current = href;
-      /* Instant visual feedback — navigation deferred to pointer-up */
-    }
+    // State update on every move → React re-renders → pill moves with finger
+    if (href) setDragHref(href);
   }
 
   function onPointerUp(e) {
     if (!isDragging.current) return;
     isDragging.current = false;
-    const href = hrefAtPoint(e.clientX, e.clientY) ?? lastHref.current;
+    const href = hrefAtPoint(e.clientX, e.clientY) ?? dragHref;
+    setDragHref(null);
     if (href) router.push(href);
-    lastHref.current = null;
     try { navRef.current?.releasePointerCapture(e.pointerId); } catch {}
   }
 
   function onPointerCancel() {
     isDragging.current = false;
-    lastHref.current   = null;
+    setDragHref(null);
   }
 
-  const activeIdx = items.findIndex(i => i.href === pathname);
+  // During drag: pill follows dragHref. After release: pill snaps to pathname.
+  const activeHref = dragHref ?? pathname;
+  const activeIdx  = items.findIndex(i => i.href === activeHref);
 
   return (
     <nav
@@ -148,7 +151,7 @@ function MobileNav({ items, pathname }) {
       )}
 
       {items.map(({ href, label, icon }) => {
-        const isActive = pathname === href;
+        const isActive = activeHref === href;
         return (
           <Link
             key={href}

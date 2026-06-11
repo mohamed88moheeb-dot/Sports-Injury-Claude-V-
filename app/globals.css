@@ -1462,7 +1462,7 @@ input[type='range']::-moz-range-thumb {
   padding: 20px 22px;
   cursor: pointer;
   transition: background .18s;
-  border-left: 4px solid var(--phase-accent, var(--line-strong));
+  /* No left colored stripe */
 }
 .phase-head:hover { background: rgba(255,255,255,0.04); }
 .phase-card.open .phase-head {
@@ -1471,17 +1471,15 @@ input[type='range']::-moz-range-thumb {
 }
 .phase-head-main { display: flex; align-items: flex-start; gap: 14px; }
 .phase-index {
+  /* Plain text label — no pill background */
   flex: 0 0 auto;
-  padding: 5px 10px;
-  border-radius: var(--r-sm);
-  background: var(--phase-accent, var(--surface-high));
-  color: #ffffff;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: .08em;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .06em;
   text-transform: uppercase;
+  color: var(--muted);
   white-space: nowrap;
-  margin-top: 2px;
+  margin-top: 1px;
 }
 .phase-label-tag {
   display: block;
@@ -1931,7 +1929,7 @@ input[type='range']::-moz-range-thumb {
   .phase-card { border-radius: var(--r-lg); }
   .phase-head { padding: 14px 16px; gap: 10px; }
   .phase-head-main { gap: 10px; }
-  .phase-index { padding: 4px 8px; font-size: 9px; }
+  .phase-index { font-size: 10px; }
   .phase-head h3 { font-size: 16px; }
   .phase-head p  { font-size: 12px; }
   .phase-head-meta strong { padding: 4px 8px; font-size: 11px; }
@@ -2649,8 +2647,8 @@ input[type='range']::-moz-range-thumb {
   position: fixed;
   /* Float above the bottom edge — not flush */
   bottom: calc(14px + env(safe-area-inset-bottom, 0px));
-  left: 14px;
-  right: 14px;
+  left: 8px;
+  right: 8px;
   z-index: 100;
 
   /* Capsule outer shape */

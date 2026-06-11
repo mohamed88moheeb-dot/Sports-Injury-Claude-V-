@@ -77,9 +77,9 @@ export function PlanContent({ profile, completeDay }) {
           <article className={`phase-card ${phase.accent} ${phaseOpen ? 'open' : ''}`} key={phase.id}>
             <button className="phase-head" onClick={() => setOpenPhase(phaseOpen ? null : pIndex)}>
               <div className="phase-head-main">
-                <span className="phase-index">Phase {pIndex + 1}</span>
                 <div>
-                  <span className="phase-label-tag">{phase.name}</span>
+                  {/* "Phase 1" plain text above, phase name below it */}
+                  <span className="phase-index">Phase {pIndex + 1} · {phase.name}</span>
                   <h3>{phase.label}</h3>
                   <p>{phase.goal}</p>
                 </div>
