@@ -2561,6 +2561,8 @@ input[type='range']::-moz-range-thumb {
   padding: 0.5rem 0 calc(0.5rem + env(safe-area-inset-bottom, 0px));
   justify-content: space-around;
   align-items: center;
+  /* Required so the Framer Motion sliding pill positions correctly */
+  overflow: hidden;
 }
 .app-nav-bottom-item {
   display: flex;

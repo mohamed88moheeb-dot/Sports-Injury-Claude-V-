@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useRef, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRecovery } from '../../app/providers/RecoveryContext';
@@ -16,13 +16,15 @@ const NAV_ITEMS = [
   { href: '/profile',    label: 'Profile',    icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z' },
 ];
 
-const MOBILE_ITEMS = ['/', '/dashboard', '/assessment', '/plan', '/coach'];
+const MOBILE_ITEMS = NAV_ITEMS.filter(i =>
+  ['/', '/dashboard', '/assessment', '/plan', '/coach'].includes(i.href)
+);
 
 /* ── Desktop nav with sliding active pill ──────────────────── */
 function DesktopNav({ items, pathname }) {
   const linkRefs = useRef({});
+  const navRef   = useRef(null);
   const [indicator, setIndicator] = useState({ left: 0, width: 0, opacity: 0 });
-  const navRef = useRef(null);
 
   useEffect(() => {
     const active = linkRefs.current[pathname];
@@ -31,7 +33,7 @@ function DesktopNav({ items, pathname }) {
       return;
     }
     const navRect = navRef.current.getBoundingClientRect();
-    const rect = active.getBoundingClientRect();
+    const rect    = active.getBoundingClientRect();
     setIndicator({ left: rect.left - navRect.left, width: rect.width, opacity: 1 });
   }, [pathname]);
 
@@ -44,7 +46,6 @@ function DesktopNav({ items, pathname }) {
         transition={{ type: 'spring', stiffness: 400, damping: 30, mass: 0.8 }}
         style={{ position: 'absolute', top: 0, bottom: 0, borderRadius: 999, zIndex: 0 }}
       />
-
       {items.map(({ href, label }) => (
         <Link
           key={href}
@@ -60,64 +61,121 @@ function DesktopNav({ items, pathname }) {
   );
 }
 
-/* ── Mobile bottom nav with sliding pill indicator ──────────── */
+/* ── Mobile bottom nav — click + drag/glide ─────────────────── */
 function MobileNav({ items, pathname }) {
-  return (
-    <nav className="app-nav-bottom" aria-label="Mobile navigation" style={{ position: 'relative' }}>
-      {/* Sliding background pill — layoutId makes it physically glide between items */}
-      <AnimatePresence>
-        {items.map(({ href }) => href === pathname && (
-          <motion.span
-            key="mobile-pill"
-            layoutId="mobile-active-pill"
-            style={{
-              position: 'absolute',
-              top: '50%', translateY: '-50%',
-              height: 48,
-              borderRadius: 14,
-              background: 'rgba(47,140,255,0.13)',
-              border: '1px solid rgba(47,140,255,0.25)',
-              boxShadow: '0 0 18px rgba(47,140,255,0.18)',
-              pointerEvents: 'none',
-              width: `${100 / items.length}%`,
-              left: `${(items.findIndex(i => i.href === pathname) / items.length) * 100}%`,
-            }}
-            transition={{ type: 'spring', stiffness: 380, damping: 28, mass: 0.8 }}
-          />
-        ))}
-      </AnimatePresence>
+  const router     = useRouter();
+  const navRef     = useRef(null);
+  const isDragging = useRef(false);
+  const lastHref   = useRef(null);
 
-      {items.map(({ href, label, icon }) => {
+  /* Which item is physically under a point */
+  function hrefAtPoint(x, y) {
+    if (!navRef.current) return null;
+    const els = navRef.current.querySelectorAll('[data-href]');
+    for (const el of els) {
+      const r = el.getBoundingClientRect();
+      if (x >= r.left && x <= r.right && y >= r.top && y <= r.bottom) {
+        return el.getAttribute('data-href');
+      }
+    }
+    return null;
+  }
+
+  function onPointerDown(e) {
+    isDragging.current = true;
+    lastHref.current   = hrefAtPoint(e.clientX, e.clientY);
+    navRef.current?.setPointerCapture(e.pointerId);
+  }
+
+  function onPointerMove(e) {
+    if (!isDragging.current) return;
+    const href = hrefAtPoint(e.clientX, e.clientY);
+    if (href && href !== lastHref.current) {
+      lastHref.current = href;
+      /* Instant visual feedback — navigation deferred to pointer-up */
+    }
+  }
+
+  function onPointerUp(e) {
+    if (!isDragging.current) return;
+    isDragging.current = false;
+    const href = hrefAtPoint(e.clientX, e.clientY) ?? lastHref.current;
+    if (href) router.push(href);
+    lastHref.current = null;
+    try { navRef.current?.releasePointerCapture(e.pointerId); } catch {}
+  }
+
+  function onPointerCancel() {
+    isDragging.current = false;
+    lastHref.current   = null;
+  }
+
+  const activeIdx = items.findIndex(i => i.href === pathname);
+
+  return (
+    <nav
+      className="app-nav-bottom"
+      ref={navRef}
+      aria-label="Mobile navigation"
+      style={{ touchAction: 'none', userSelect: 'none', cursor: 'pointer' }}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
+      onPointerCancel={onPointerCancel}
+    >
+      {/* Sliding background pill */}
+      {activeIdx >= 0 && (
+        <motion.span
+          layoutId="mobile-nav-pill"
+          style={{
+            position: 'absolute',
+            top: '50%', y: '-50%',
+            left: `${(activeIdx / items.length) * 100}%`,
+            width: `${100 / items.length}%`,
+            height: 50,
+            borderRadius: 14,
+            background: 'rgba(47,140,255,0.13)',
+            border: '1px solid rgba(47,140,255,0.28)',
+            boxShadow: '0 0 20px rgba(47,140,255,0.20), inset 0 1px 0 rgba(255,255,255,0.07)',
+            pointerEvents: 'none',
+            zIndex: 0,
+          }}
+          transition={{ type: 'spring', stiffness: 420, damping: 32, mass: 0.7 }}
+        />
+      )}
+
+      {items.map(({ href, label, icon }, idx) => {
         const isActive = pathname === href;
         return (
           <Link
             key={href}
             href={href}
+            data-href={href}
             className={`app-nav-bottom-item${isActive ? ' active' : ''}`}
-            style={{ position: 'relative', zIndex: 1 }}
+            style={{ position: 'relative', zIndex: 1, pointerEvents: 'none' }}
+            tabIndex={0}
+            aria-current={isActive ? 'page' : undefined}
           >
-            <span style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <motion.svg
-                viewBox="0 0 24 24"
-                width="22" height="22"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.75"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-                animate={isActive
-                  ? { scale: 1.2, y: -2, filter: 'drop-shadow(0 0 8px rgba(47,140,255,0.7))' }
-                  : { scale: 1,   y: 0,  filter: 'drop-shadow(0 0 0px transparent)' }}
-                transition={{ type: 'spring', stiffness: 500, damping: 24 }}
-              >
-                <path d={icon} />
-              </motion.svg>
-            </span>
+            <motion.svg
+              viewBox="0 0 24 24"
+              width="22" height="22"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.75"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+              animate={isActive
+                ? { scale: 1.2, y: -2, filter: 'drop-shadow(0 0 8px rgba(47,140,255,0.75))' }
+                : { scale: 1,   y: 0,  filter: 'drop-shadow(0 0 0px transparent)' }}
+              transition={{ type: 'spring', stiffness: 500, damping: 24 }}
+            >
+              <path d={icon} />
+            </motion.svg>
 
             <motion.span
-              animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0.45, y: 1 }}
-              transition={{ duration: 0.2 }}
+              animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0.42, y: 1 }}
+              transition={{ duration: 0.18 }}
             >
               {label}
             </motion.span>
@@ -133,32 +191,36 @@ export function AppNav() {
   const pathname = usePathname();
   const { user } = useRecovery();
 
-  const desktopItems = NAV_ITEMS;
-  const mobileItems  = NAV_ITEMS.filter(i => MOBILE_ITEMS.includes(i.href));
-
   return (
     <>
-      {/* ── Desktop sticky top nav ───────────────────────────── */}
+      {/* Desktop sticky top nav */}
       <nav className="app-nav-top" aria-label="App navigation">
         <div className="app-nav-top-inner">
           <Link href="/" className="app-nav-brand">
             <motion.span
               className="app-nav-brand-dot"
-              animate={{ boxShadow: ['0 0 6px rgba(47,140,255,0.6)', '0 0 18px rgba(47,140,255,0.9)', '0 0 6px rgba(47,140,255,0.6)'] }}
+              animate={{ boxShadow: [
+                '0 0 6px rgba(47,140,255,0.6)',
+                '0 0 18px rgba(47,140,255,0.9)',
+                '0 0 6px rgba(47,140,255,0.6)',
+              ]}}
               transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
             />
             <span>InjuryGuide</span>
           </Link>
 
-          <DesktopNav items={desktopItems} pathname={pathname} />
+          <DesktopNav items={NAV_ITEMS} pathname={pathname} />
 
-          {/* Auth indicator */}
           <div className="app-nav-auth">
             {user ? (
               <motion.span
                 className="app-nav-user-dot"
                 title={user.email}
-                animate={{ boxShadow: ['0 0 6px rgba(47,140,255,0.6)', '0 0 16px rgba(47,140,255,0.9)', '0 0 6px rgba(47,140,255,0.6)'] }}
+                animate={{ boxShadow: [
+                  '0 0 6px rgba(47,140,255,0.6)',
+                  '0 0 16px rgba(47,140,255,0.9)',
+                  '0 0 6px rgba(47,140,255,0.6)',
+                ]}}
                 transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
               />
             ) : (
@@ -168,8 +230,8 @@ export function AppNav() {
         </div>
       </nav>
 
-      {/* ── Mobile sticky bottom nav ─────────────────────────── */}
-      <MobileNav items={mobileItems} pathname={pathname} />
+      {/* Mobile sticky bottom nav */}
+      <MobileNav items={MOBILE_ITEMS} pathname={pathname} />
     </>
   );
 }
