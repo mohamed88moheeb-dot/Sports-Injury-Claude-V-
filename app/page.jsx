@@ -244,7 +244,6 @@ export default function Page() {
       {!profile ? (
               <section className="hero-card app-section app-section-hero">
                 <div className="hero-copy-wrap">
-                  <span className="section-index">Overview</span>
                   <p className="eyebrow stacked-eyebrow">
                     <span>Evidence Driven</span>
                   </p>
@@ -310,7 +309,6 @@ function AuthCard({ authMode, setAuthMode, authForm, setAuthForm, handleAuth, au
   return (
     <section className="auth-card app-section app-section-soft">
       <div>
-        <span className="section-index">Account</span>
         <p className="eyebrow stacked-eyebrow">
           <span>Secure Progress</span>
         </p>
@@ -395,9 +393,9 @@ function Dashboard({ profile, stats, setActiveTab, saving, saveMessage, assessme
           <span className="small-label">Expected return</span>
           <strong>{profile.returnRange}</strong>
         </div>
-        <div className="stat-pill-card accent-amber">
+        <div className="stat-pill-card accent-amber stat-pill-progress">
           <span className="small-label">Progress</span>
-          <strong>{stats.percent}%</strong>
+          <CircularProgress value={stats.percent} />
         </div>
         <div className="stat-pill-card accent-slate">
           <span className="small-label">Save status</span>
@@ -592,10 +590,7 @@ function PlanView({ profile, completeDay, setActiveTab }) {
         </div>
       </div>
 
-      <p className="plan-hint">
-        <span className="plan-hint-icon">i</span>
-        Tap a <strong>phase</strong> to expand it, then a <strong>week</strong>, then a <strong>day</strong> to see that session's exercises.
-      </p>
+
 
       {profile.plan.map((phase, pIndex) => {
         const phaseOpen = openPhase === pIndex;
