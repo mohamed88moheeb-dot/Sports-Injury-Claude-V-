@@ -1899,8 +1899,8 @@ input[type='range']::-moz-range-thumb {
   h2 { font-size: 28px; }
   .section-heading h2 { font-size: 24px; }
 
-  /* Touch-friendly targets */
-  .app-nav-bottom-item { min-width: 60px; padding: 0.55rem 0.9rem; min-height: 44px; justify-content: center; }
+  /* Touch-friendly targets — pill nav keeps its own sizing */
+  .app-nav-bottom { left: 10px; right: 10px; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); padding: 5px; }
   select, input[type="number"], input[type="text"], textarea { font-size: 16px !important; min-height: 44px; }
   .body-region-selector { min-height: 56px; padding: 14px 16px; }
   .tiny-check { min-height: 40px; font-size: 12px; padding: 8px 12px; }
@@ -2643,68 +2643,73 @@ input[type='range']::-moz-range-thumb {
 }
 
 /* ── Mobile bottom nav ────────────────────────────────────── */
+/* ── Floating glass pill nav (matches reference design) ───── */
 .app-nav-bottom {
   display: none;
   position: fixed;
-  bottom: 0; left: 0; right: 0;
+  /* Float above the bottom edge — not flush */
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  left: 14px;
+  right: 14px;
   z-index: 100;
-  background: rgba(0,0,0,0.82);
-  backdrop-filter: blur(36px) saturate(2.2);
-  -webkit-backdrop-filter: blur(36px) saturate(2.2);
-  border-top: 1px solid rgba(47,140,255,0.12);
-  box-shadow: 0 -8px 40px rgba(0,0,0,0.60), 0 -1px 0 rgba(47,140,255,0.08) inset;
-  padding: 0.5rem 0 calc(0.5rem + env(safe-area-inset-bottom, 0px));
-  justify-content: space-around;
-  align-items: center;
-  /* Required so the Framer Motion sliding pill positions correctly */
+
+  /* Capsule outer shape */
+  border-radius: 9999px;
+  padding: 6px;
+
+  /* Deep glass */
+  background: rgba(4,8,20,0.90);
+  backdrop-filter: blur(48px) saturate(2.4);
+  -webkit-backdrop-filter: blur(48px) saturate(2.4);
+  border: 1px solid rgba(255,255,255,0.10);
+  box-shadow:
+    0 24px 64px rgba(0,0,0,0.80),
+    0 4px 18px rgba(0,0,0,0.55),
+    inset 0 1px 0 rgba(255,255,255,0.07),
+    inset 0 -1px 0 rgba(0,0,0,0.30);
+
+  justify-content: stretch;
+  align-items: stretch;
+  /* overflow:hidden clips items to the pill boundary */
   overflow: hidden;
 }
+
+/* Each nav item fills its slice equally */
 .app-nav-bottom-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.2rem;
-  padding: 0.45rem 0.8rem;
-  border-radius: 12px;
+  justify-content: center;
+  gap: 3px;
+  flex: 1;
+  padding: 10px 6px;
+  min-height: 52px;
   text-decoration: none;
-  color: var(--muted);
-  font-size: 0.6rem;
+  color: rgba(255,255,255,0.38);
+  font-size: 9px;
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  transition: color 0.18s, background 0.18s;
-  min-width: 52px;
+  position: relative;
+  z-index: 1;
+  transition: color 0.2s;
+  pointer-events: none; /* nav handles pointer events */
 }
-.app-nav-bottom-item svg {
-  transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), filter 0.18s;
-}
-.app-nav-bottom-item:hover {
-  color: var(--ink-2);
-  background: rgba(255,255,255,0.05);
-}
-.app-nav-bottom-item.active {
-  color: var(--primary);
-  background: rgba(47,140,255,0.10);
-}
-.app-nav-bottom-item.active svg {
-  transform: scale(1.15);
-  filter: drop-shadow(0 0 8px rgba(47,140,255,0.65));
-}
-.app-nav-bottom-item:active svg {
-  transform: scale(0.90);
-  transition-duration: 0.08s;
-}
+/* Active item: white icon + label */
+.app-nav-bottom-item.active       { color: #fff; }
+/* No individual hover backgrounds — the pill indicator owns that */
 
 /* ── Body offset ──────────────────────────────────────────── */
 body { padding-top: 0; }
 
-/* ── Mobile: hide top links, show bottom nav ──────────────── */
+/* ── Mobile: hide top links, show bottom pill nav ─────────── */
 @media (max-width: 768px) {
   .app-nav-top-inner { padding: 0 1rem; height: 50px; }
   .app-nav-top { height: 50px; }
   .app-nav-links { display: none; }
   .app-nav-bottom { display: flex; }
-  .app-shell { padding-bottom: 84px; }
+  /* Extra bottom padding accounts for floating pill height + gap */
+  .app-shell { padding-bottom: calc(90px + env(safe-area-inset-bottom, 0px)); }
 }
 
 /* ═══════════════════════════════════════════════════════════

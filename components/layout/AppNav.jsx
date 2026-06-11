@@ -117,34 +117,37 @@ function MobileNav({ items, pathname }) {
       className="app-nav-bottom"
       ref={navRef}
       aria-label="Mobile navigation"
-      style={{ touchAction: 'none', userSelect: 'none', cursor: 'pointer' }}
+      style={{ touchAction: 'none', userSelect: 'none' }}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
       onPointerCancel={onPointerCancel}
     >
-      {/* Sliding background pill */}
+      {/* ── Sliding dark rounded-rect indicator (matches reference) ── */}
       {activeIdx >= 0 && (
         <motion.span
           layoutId="mobile-nav-pill"
           style={{
             position: 'absolute',
-            top: '50%', y: '-50%',
+            top: 0, bottom: 0,
             left: `${(activeIdx / items.length) * 100}%`,
             width: `${100 / items.length}%`,
-            height: 50,
-            borderRadius: 14,
-            background: 'rgba(47,140,255,0.13)',
-            border: '1px solid rgba(47,140,255,0.28)',
-            boxShadow: '0 0 20px rgba(47,140,255,0.20), inset 0 1px 0 rgba(255,255,255,0.07)',
+            /* Dark square-ish pill — NOT a full pill, radius ~16px like reference */
+            background: 'linear-gradient(160deg, rgba(22,32,58,0.98) 0%, rgba(12,18,38,0.98) 100%)',
+            borderRadius: 16,
+            border: '1px solid rgba(255,255,255,0.10)',
+            boxShadow:
+              'inset 0 1px 0 rgba(255,255,255,0.09), ' +
+              '0 4px 20px rgba(0,0,0,0.60), ' +
+              '0 0 24px rgba(47,140,255,0.12)',
             pointerEvents: 'none',
             zIndex: 0,
           }}
-          transition={{ type: 'spring', stiffness: 420, damping: 32, mass: 0.7 }}
+          transition={{ type: 'spring', stiffness: 440, damping: 34, mass: 0.65 }}
         />
       )}
 
-      {items.map(({ href, label, icon }, idx) => {
+      {items.map(({ href, label, icon }) => {
         const isActive = pathname === href;
         return (
           <Link
@@ -152,30 +155,30 @@ function MobileNav({ items, pathname }) {
             href={href}
             data-href={href}
             className={`app-nav-bottom-item${isActive ? ' active' : ''}`}
-            style={{ position: 'relative', zIndex: 1, pointerEvents: 'none' }}
             tabIndex={0}
             aria-current={isActive ? 'page' : undefined}
           >
             <motion.svg
               viewBox="0 0 24 24"
-              width="22" height="22"
+              width="23" height="23"
               fill="none"
               stroke="currentColor"
-              strokeWidth="1.75"
+              strokeWidth={isActive ? 2.0 : 1.65}
               strokeLinecap="round"
               strokeLinejoin="round"
               aria-hidden="true"
               animate={isActive
-                ? { scale: 1.2, y: -2, filter: 'drop-shadow(0 0 8px rgba(47,140,255,0.75))' }
-                : { scale: 1,   y: 0,  filter: 'drop-shadow(0 0 0px transparent)' }}
-              transition={{ type: 'spring', stiffness: 500, damping: 24 }}
+                ? { scale: 1.1, y: -1 }
+                : { scale: 1,   y: 0  }}
+              transition={{ type: 'spring', stiffness: 520, damping: 26 }}
             >
               <path d={icon} />
             </motion.svg>
 
             <motion.span
-              animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0.42, y: 1 }}
-              transition={{ duration: 0.18 }}
+              animate={isActive ? { opacity: 1 } : { opacity: 0.38 }}
+              transition={{ duration: 0.16 }}
+              style={{ fontSize: 9, fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase' }}
             >
               {label}
             </motion.span>
