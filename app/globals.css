@@ -2078,20 +2078,12 @@ input[type='range']::-moz-range-thumb {
    INTERACTIVE ANATOMY SELECTOR
    ═══════════════════════════════════════════════════════ */
 
-.ia-wrapper { margin-top: 20px; }
-
-.ia-layout {
+.ia-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
-}
-
-.ia-svg-col {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
+  gap: 10px;
+  width: 100%;
 }
 
 /* Front / Back toggle */
@@ -2106,24 +2098,25 @@ input[type='range']::-moz-range-thumb {
   backdrop-filter: blur(12px);
 }
 .ia-toggle-btn {
-  padding: 6px 18px;
+  padding: 7px 22px;
   border: none;
   border-radius: var(--r-pill);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   cursor: pointer;
   background: transparent;
   color: var(--muted);
   transition: background .15s, color .15s, box-shadow .15s;
   letter-spacing: -.01em;
+  min-height: 36px;
 }
 .ia-toggle-btn.active {
-  background: rgba(255,255,255,0.10);
-  color: var(--ink);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.30);
+  background: rgba(47,140,255,0.14);
+  color: var(--primary);
+  box-shadow: 0 0 10px rgba(47,140,255,0.18), inset 0 1px 0 rgba(255,255,255,0.07);
 }
 
-/* SVG viewport */
+/* SVG viewport — default (assessment embed) */
 .ia-svg-wrapper {
   width: 160px;
   flex-shrink: 0;
@@ -2161,7 +2154,102 @@ input[type='range']::-moz-range-thumb {
 .ia-svg-wrapper svg.ia-detail-mode .ia-group polygon,
 .ia-svg-wrapper svg.ia-detail-mode .ia-group rect { opacity: 1; pointer-events: auto; }
 
-/* Info panel */
+/* ── Compact inline info strip below the SVG ─────────────── */
+.ia-info-strip {
+  width: 100%;
+  max-width: 540px;
+  padding: 8px 4px 4px;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ia-info-hint {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+  font-style: italic;
+}
+.ia-info-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+.ia-region-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px 5px 8px;
+  background: rgba(47,140,255,0.13);
+  border: 1px solid rgba(47,140,255,0.32);
+  border-radius: var(--r-pill);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary);
+  box-shadow: 0 0 10px rgba(47,140,255,0.14);
+}
+.ia-region-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 6px var(--primary-glow);
+  flex-shrink: 0;
+}
+.ia-region-name { letter-spacing: -.01em; }
+.ia-chip-x {
+  background: none; border: none;
+  color: rgba(255,255,255,0.35); cursor: pointer;
+  font-size: 11px; padding: 0 0 0 2px; line-height: 1;
+  transition: color .15s;
+}
+.ia-chip-x:hover { color: var(--red); }
+.ia-info-arrow { font-size: 11px; color: var(--muted); flex-shrink: 0; }
+.ia-muscle-chip {
+  padding: 5px 10px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--line-med);
+  border-radius: var(--r-pill);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all .15s cubic-bezier(.34,1.56,.64,1);
+  min-height: 30px;
+}
+.ia-muscle-chip:hover {
+  border-color: var(--primary);
+  color: var(--ink);
+  background: rgba(47,140,255,0.08);
+  transform: scale(1.04);
+}
+.ia-muscle-chip.active {
+  background: rgba(47,140,255,0.16);
+  border-color: var(--primary);
+  color: var(--primary);
+  font-weight: 700;
+  box-shadow: 0 0 10px rgba(47,140,255,0.28);
+}
+.ia-change-link {
+  background: none; border: none;
+  color: var(--muted); font-size: 11px; font-weight: 600;
+  cursor: pointer; padding: 4px 6px;
+  border-radius: var(--r-sm);
+  transition: color .15s, background .15s;
+  margin-left: 2px;
+}
+.ia-change-link:hover { color: var(--primary); background: var(--primary-dim); }
+.ia-confirmed-tag {
+  font-size: 11px; font-weight: 600;
+  color: var(--primary);
+  opacity: 0.75;
+  padding: 4px 8px;
+  background: rgba(47,140,255,0.08);
+  border-radius: var(--r-pill);
+}
+
+/* Keep old panel CSS for any other use, but hidden on anatomy page */
 .ia-panel {
   width: 100%;
   max-width: 340px;
@@ -2356,6 +2444,7 @@ input[type='range']::-moz-range-thumb {
 /* ══════════════════════════════════════════════════════════════════════
    ANATOMY FULL PAGE
    ══════════════════════════════════════════════════════════════════════ */
+/* ── Anatomy standalone page ─────────────────────────────── */
 .anatomy-page {
   display: flex;
   flex-direction: column;
@@ -2363,24 +2452,21 @@ input[type='range']::-moz-range-thumb {
   min-height: calc(100dvh - 60px);
 }
 
-/* Header bar */
-.anatomy-page-header {
+/* Slim top bar: back + confirm */
+.anatomy-topbar {
   display: flex;
   align-items: center;
-  gap: 20px;
-  padding: 20px 0 16px;
+  justify-content: space-between;
+  padding: 14px 0 12px;
   border-bottom: 1px solid var(--glass-border);
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
-.anatomy-page-title { flex: 1; min-width: 0; }
-.anatomy-page-title .eyebrow { display: block; margin-bottom: 4px; }
-.anatomy-page-title h2 { font-size: 26px; margin: 0; }
 
 .anatomy-back-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 9px 16px;
+  padding: 8px 14px;
   background: rgba(255,255,255,0.06);
   border: 1px solid var(--glass-border);
   border-radius: var(--r-pill);
@@ -2389,6 +2475,7 @@ input[type='range']::-moz-range-thumb {
   font-weight: 600;
   cursor: pointer;
   flex-shrink: 0;
+  min-height: 38px;
   transition: background .18s, color .18s, transform .2s cubic-bezier(.34,1.56,.64,1);
 }
 .anatomy-back-btn:hover { background: rgba(255,255,255,0.10); color: var(--ink); transform: translateX(-2px); }
@@ -2397,38 +2484,46 @@ input[type='range']::-moz-range-thumb {
 .anatomy-confirm-disabled { opacity: 0.45; cursor: not-allowed; }
 .anatomy-confirm-disabled:hover { transform: none !important; }
 
-/* Canvas area */
-.anatomy-page-canvas {
+/* Body map canvas */
+.anatomy-canvas {
   flex: 1;
-  max-width: 700px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding: 0 0 24px;
   width: 100%;
 }
-.anatomy-page-hint {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
-  background: rgba(56,189,248,0.08);
-  border: 1px solid rgba(56,189,248,0.18);
-  border-radius: var(--r-pill);
-  font-size: 13px;
-  color: var(--ink-3);
-  margin-bottom: 20px;
+.anatomy-canvas-heading {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  color: var(--ink);
+  margin: 0 0 14px 0;
+  text-align: center;
 }
-.anatomy-page-hint svg { color: var(--blue); flex-shrink: 0; }
 
-/* Override the ia-wrapper layout on the anatomy page to be larger */
-.anatomy-page-canvas .ia-wrapper { margin-top: 0; }
-.anatomy-page-canvas .ia-layout { gap: 24px; }
-.anatomy-page-canvas .ia-svg-wrapper { width: 220px; }
-.anatomy-page-canvas .ia-panel { max-width: none; flex: 1; min-height: 200px; }
+/* On the anatomy page, make SVG much bigger */
+.anatomy-canvas .ia-svg-wrapper {
+  width: clamp(220px, 42vw, 310px);
+}
+.anatomy-canvas .ia-wrapper { gap: 12px; }
+.anatomy-canvas .ia-toggle-btn { padding: 7px 28px; font-size: 13px; }
+
+/* Info strip on anatomy page is wider */
+.anatomy-canvas .ia-info-strip { max-width: 640px; padding: 12px 8px 4px; }
+
+@media (max-width: 768px) {
+  .anatomy-canvas .ia-svg-wrapper { width: clamp(200px, 62vw, 260px); }
+}
 
 @media (max-width: 600px) {
-  .anatomy-page-header { flex-wrap: wrap; gap: 12px; }
-  .anatomy-page-title h2 { font-size: 20px; }
-  .anatomy-confirm-btn { width: 100%; }
-  .anatomy-page-canvas .ia-svg-wrapper { width: 160px; }
+  .anatomy-topbar { flex-wrap: nowrap; gap: 10px; }
+  .anatomy-confirm-btn { font-size: 13px; padding: 10px 16px; }
+  .anatomy-canvas .ia-svg-wrapper { width: min(72vw, 260px); }
+  .anatomy-canvas-heading { font-size: 16px; margin-bottom: 10px; }
+  /* Muscle chips wrap to next line naturally */
+  .anatomy-canvas .ia-info-row { justify-content: flex-start; padding: 0 4px; }
 }
 
 /* ── Diagnosis page ─────────────────────────────────────────────────── */

@@ -282,84 +282,46 @@ export default function InteractiveAnatomy({ assessment, setAssessment }) {
   /* ── Render ─────────────────────────────────────────────────────────────── */
   return (
     <div className="ia-wrapper">
-      <div className="ia-layout">
 
-        {/* ── Left: SVG column ── */}
-        <div className="ia-svg-col">
-          <div className="ia-toggle-row">
-            <div className="ia-toggle">
-              <button
-                className={`ia-toggle-btn${view === 'front' ? ' active' : ''}`}
-                onClick={() => handleToggleView('front')}
-              >Front</button>
-              <button
-                className={`ia-toggle-btn${view === 'back' ? ' active' : ''}`}
-                onClick={() => handleToggleView('back')}
-              >Back</button>
-            </div>
-          </div>
-          <div className="ia-svg-wrapper" ref={containerRef} />
+      {/* Front / Back toggle */}
+      <div className="ia-toggle-row">
+        <div className="ia-toggle">
+          <button
+            className={`ia-toggle-btn${view === 'front' ? ' active' : ''}`}
+            onClick={() => handleToggleView('front')}
+          >Front</button>
+          <button
+            className={`ia-toggle-btn${view === 'back' ? ' active' : ''}`}
+            onClick={() => handleToggleView('back')}
+          >Back</button>
         </div>
+      </div>
 
-        {/* ── Right: Info panel ── */}
-        <div className="ia-panel">
+      {/* SVG body map — centred, fills available width */}
+      <div className="ia-svg-wrapper" ref={containerRef} />
 
-          {/* Empty state */}
-          {!assessment.primaryRegion && (
-            <div className="ia-panel-empty">
-              <svg className="ia-empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <circle cx="12" cy="12" r="9" strokeDasharray="3 3"/>
-                <path d="M12 8v4M12 16h.01" strokeLinecap="round"/>
-              </svg>
-              <p className="ia-panel-empty-title">No area selected</p>
-              <p className="ia-panel-empty-sub">Tap a region on the diagram</p>
+      {/* ── Compact info strip below the SVG ── */}
+      <div className="ia-info-strip">
+        {!assessment.primaryRegion ? (
+          <span className="ia-info-hint">Tap a region on the body map above</span>
+        ) : (
+          <div className="ia-info-row">
+
+            {/* Region chip */}
+            <div className="ia-region-chip">
+              <span className="ia-region-dot" />
+              <span className="ia-region-name">{REGION_LABELS[assessment.primaryRegion]}</span>
+              <button className="ia-chip-x" onClick={resetSelection} title="Clear">✕</button>
             </div>
-          )}
 
-          {/* Selection display */}
-          {assessment.primaryRegion && (
-            <div className="ia-sel-display">
-              <p className="ia-sel-eyebrow">Injury location</p>
-
-              {/* Region row */}
-              <div className="ia-sel-row">
-                <span className="ia-sel-dot ia-sel-dot-region" />
-                <div className="ia-sel-content">
-                  <span className="ia-sel-meta">Region</span>
-                  <span className="ia-sel-value">{REGION_LABELS[assessment.primaryRegion]}</span>
-                </div>
-                <button className="ia-sel-x" onClick={resetSelection} title="Clear selection">✕</button>
-              </div>
-
-              {/* Exact area row — only shown once set */}
-              {assessment.exactArea && exactLabel && (
-                <div className="ia-sel-row ia-sel-row-exact">
-                  <span className="ia-sel-dot ia-sel-dot-exact" />
-                  <div className="ia-sel-content">
-                    <span className="ia-sel-meta">Muscle</span>
-                    <span className="ia-sel-value ia-sel-value-exact">{exactLabel}</span>
-                  </div>
-                  <button
-                    className="ia-sel-x"
-                    onClick={() => setAssessment(prev => ({ ...prev, exactArea: '' }))}
-                    title="Clear muscle"
-                  >✕</button>
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* Muscle chip picker */}
-          {mode === 'detail' && detailSubparts.length > 0 && (
-            <div className="ia-chips-block">
-              <p className="ia-chips-label">
-                {assessment.exactArea ? 'Tap to change muscle' : 'Which muscle?'}
-              </p>
-              <div className="ia-chip-grid">
+            {/* Muscle sub-selection chips — appear right beside region on same line */}
+            {mode === 'detail' && detailSubparts.length > 0 && (
+              <>
+                <span className="ia-info-arrow">→</span>
                 {detailSubparts.map(s => (
                   <button
                     key={s.id}
-                    className={`ia-chip${assessment.exactArea === s.dataId ? ' active' : ''}`}
+                    className={`ia-muscle-chip${assessment.exactArea === s.dataId ? ' active' : ''}`}
                     onClick={() => setAssessment(prev => ({
                       ...prev,
                       exactArea: prev.exactArea === s.dataId ? '' : s.dataId,
@@ -368,23 +330,17 @@ export default function InteractiveAnatomy({ assessment, setAssessment }) {
                     {s.label}
                   </button>
                 ))}
-              </div>
-            </div>
-          )}
+                <button className="ia-change-link" onClick={resetSelection}>Change</button>
+              </>
+            )}
 
-          {/* Prompt: region confirmed, no subparts available */}
-          {assessment.primaryRegion && mode === 'broad' && detailSubparts.length === 0 && (
-            <p className="ia-panel-confirm">Region confirmed. Continue below.</p>
-          )}
+            {/* Confirmed, no subparts */}
+            {assessment.primaryRegion && mode === 'broad' && detailSubparts.length === 0 && (
+              <span className="ia-confirmed-tag">✓ confirmed</span>
+            )}
 
-          {/* Change region link */}
-          {mode === 'detail' && (
-            <button className="ia-change-btn" onClick={resetSelection}>
-              ← Change region
-            </button>
-          )}
-
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );
