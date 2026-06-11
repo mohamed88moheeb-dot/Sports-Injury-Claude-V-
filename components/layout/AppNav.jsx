@@ -135,14 +135,14 @@ function MobileNav({ items, pathname }) {
             top: 0, bottom: 0,
             left: `${(activeIdx / items.length) * 100}%`,
             width: `${100 / items.length}%`,
-            /* Dark square-ish pill — NOT a full pill, radius ~16px like reference */
-            background: 'linear-gradient(160deg, rgba(22,32,58,0.98) 0%, rgba(12,18,38,0.98) 100%)',
+            /* Light frosted glass active indicator */
+            background: 'rgba(255,255,255,0.90)',
             borderRadius: 16,
-            border: '1px solid rgba(255,255,255,0.10)',
+            border: '1px solid rgba(255,255,255,0.98)',
             boxShadow:
-              'inset 0 1px 0 rgba(255,255,255,0.09), ' +
-              '0 4px 20px rgba(0,0,0,0.60), ' +
-              '0 0 24px rgba(47,140,255,0.12)',
+              'inset 0 1px 0 rgba(255,255,255,1), ' +
+              '0 4px 16px rgba(40,90,180,0.14), ' +
+              '0 0 20px rgba(59,125,216,0.10)',
             pointerEvents: 'none',
             zIndex: 0,
           }}
@@ -206,9 +206,9 @@ export function AppNav() {
             <motion.span
               className="app-nav-brand-dot"
               animate={{ boxShadow: [
-                '0 0 6px rgba(47,140,255,0.6)',
-                '0 0 18px rgba(47,140,255,0.9)',
-                '0 0 6px rgba(47,140,255,0.6)',
+                '0 0 6px rgba(59,125,216,0.5)',
+                '0 0 16px rgba(59,125,216,0.8)',
+                '0 0 6px rgba(59,125,216,0.5)',
               ]}}
               transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
             />
