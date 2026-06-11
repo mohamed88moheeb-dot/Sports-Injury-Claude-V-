@@ -271,7 +271,7 @@ p  { line-height: 1.6; }
 
 /* Topbar brand text */
 .hero-title.full-line { font-size: 17px; font-weight: 800; letter-spacing: -.04em; line-height: 1; color: var(--ink); }
-.eyebrow.full-line    { font-size: 9px;  font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--green); margin-bottom: 3px; display: block; }
+.eyebrow.full-line    { font-size: 9px;  font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--primary); text-shadow: 0 0 10px rgba(47,140,255,0.45); margin-bottom: 3px; display: block; }
 .stacked-eyebrow      { margin: 4px 0; }
 .top-actions { display: flex; align-items: center; gap: 10px; }
 .account-pill {
@@ -375,7 +375,7 @@ p  { line-height: 1.6; }
   backdrop-filter: var(--blur);
   -webkit-backdrop-filter: var(--blur);
 }
-.app-section-dark .eyebrow    { color: var(--green); }
+.app-section-dark .eyebrow    { color: var(--primary); text-shadow: 0 0 10px rgba(47,140,255,0.45); }
 .app-section-dark .small-label { color: rgba(255,255,255,.40); }
 .app-section-dark .field-label { color: rgba(255,255,255,.65); }
 .app-section-dark h2           { color: white; }
@@ -639,15 +639,16 @@ select option { background: #0D1526; color: var(--ink); }
 
 .text-btn {
   background: transparent;
-  color: var(--green);
+  color: var(--primary);
   font-weight: 600;
   font-size: 13px;
   padding: 8px 4px;
   border-bottom: 1px solid transparent;
   border-radius: 0;
-  transition: border-color .18s, opacity .18s;
+  transition: border-color .18s, opacity .18s, text-shadow .18s;
+  text-shadow: 0 0 10px rgba(47,140,255,0.30);
 }
-.text-btn:hover { border-color: var(--green); opacity: .85; }
+.text-btn:hover { border-color: var(--primary); opacity: .85; text-shadow: 0 0 14px rgba(47,140,255,0.60); }
 
 .alt-btn {
   display: inline-flex;
@@ -946,7 +947,7 @@ select option { background: #0D1526; color: var(--ink); }
   backdrop-filter: blur(28px) saturate(2.0);
   -webkit-backdrop-filter: blur(28px) saturate(2.0);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   transition: box-shadow .28s, border-color .28s, transform .28s cubic-bezier(.34,1.56,.64,1);
 }
 .section-card::before {
@@ -1036,7 +1037,7 @@ select option { background: #0D1526; color: var(--ink); }
   box-shadow: var(--shadow-lg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  z-index: 200;
+  z-index: 500;
   overflow: hidden;
   animation: msd-fade-in .14s cubic-bezier(.22,1,.36,1);
 }
@@ -1840,7 +1841,7 @@ input[type='range']::-moz-range-thumb {
   backdrop-filter: blur(28px) saturate(2.0);
   -webkit-backdrop-filter: blur(28px) saturate(2.0);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 /* Liquid blue bottom glow */
 .glass-card::after {
@@ -1888,13 +1889,35 @@ input[type='range']::-moz-range-thumb {
 }
 @media (max-width: 600px) {
   .app-shell { width: calc(100% - 16px); padding-bottom: 80px; }
-  .app-section { padding: 18px; border-radius: var(--r-lg); }
+  .app-section { padding: 16px; border-radius: var(--r-lg); }
+  .glass-card { padding: 16px; }
+  .section-card { padding: 16px; }
   .dashboard-grid { grid-template-columns: repeat(2,1fr); }
   .span-2 { grid-column: span 1; }
   .mini-stats { grid-template-columns: repeat(3,1fr); }
   .mobility-strip { flex-direction: column; }
   h2 { font-size: 28px; }
   .section-heading h2 { font-size: 24px; }
+
+  /* Touch-friendly targets */
+  .app-nav-bottom-item { min-width: 60px; padding: 0.55rem 0.9rem; min-height: 44px; justify-content: center; }
+  select, input[type="number"], input[type="text"], textarea { font-size: 16px !important; min-height: 44px; }
+  .body-region-selector { min-height: 56px; padding: 14px 16px; }
+  .tiny-check { min-height: 40px; font-size: 12px; padding: 8px 12px; }
+  .redflag-grid.compact { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+  /* Slider thumb larger on mobile */
+  input[type="range"] { height: 6px; }
+  input[type="range"]::-webkit-slider-thumb { width: 24px; height: 24px; }
+  input[type="range"]::-moz-range-thumb { width: 24px; height: 24px; }
+
+  /* Form grid always single column on mobile */
+  .form-grid-asymmetric { grid-template-columns: 1fr; gap: 12px; }
+
+  /* Assessment spacing */
+  .assessment-grid { gap: 12px; }
+
+  /* Plan mobile */
 
   /* ── Plan mobile ───────────────────────────── */
   .plan-intro { flex-direction: column; gap: 10px; }

@@ -60,10 +60,33 @@ function DesktopNav({ items, pathname }) {
   );
 }
 
-/* ── Mobile bottom nav with spring icon + sliding pill ──────── */
+/* ── Mobile bottom nav with sliding pill indicator ──────────── */
 function MobileNav({ items, pathname }) {
   return (
-    <nav className="app-nav-bottom" aria-label="Mobile navigation">
+    <nav className="app-nav-bottom" aria-label="Mobile navigation" style={{ position: 'relative' }}>
+      {/* Sliding background pill — layoutId makes it physically glide between items */}
+      <AnimatePresence>
+        {items.map(({ href }) => href === pathname && (
+          <motion.span
+            key="mobile-pill"
+            layoutId="mobile-active-pill"
+            style={{
+              position: 'absolute',
+              top: '50%', translateY: '-50%',
+              height: 48,
+              borderRadius: 14,
+              background: 'rgba(47,140,255,0.13)',
+              border: '1px solid rgba(47,140,255,0.25)',
+              boxShadow: '0 0 18px rgba(47,140,255,0.18)',
+              pointerEvents: 'none',
+              width: `${100 / items.length}%`,
+              left: `${(items.findIndex(i => i.href === pathname) / items.length) * 100}%`,
+            }}
+            transition={{ type: 'spring', stiffness: 380, damping: 28, mass: 0.8 }}
+          />
+        ))}
+      </AnimatePresence>
+
       {items.map(({ href, label, icon }) => {
         const isActive = pathname === href;
         return (
@@ -71,29 +94,9 @@ function MobileNav({ items, pathname }) {
             key={href}
             href={href}
             className={`app-nav-bottom-item${isActive ? ' active' : ''}`}
+            style={{ position: 'relative', zIndex: 1 }}
           >
             <span style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              {/* Active glow blob behind icon */}
-              <AnimatePresence>
-                {isActive && (
-                  <motion.span
-                    key="blob"
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    exit={{ scale: 0, opacity: 0 }}
-                    transition={{ type: 'spring', stiffness: 500, damping: 28 }}
-                    style={{
-                      position: 'absolute',
-                      width: 36, height: 36,
-                      borderRadius: '50%',
-                      background: 'radial-gradient(circle, rgba(47,140,255,0.30) 0%, transparent 70%)',
-                      filter: 'blur(6px)',
-                      pointerEvents: 'none',
-                    }}
-                  />
-                )}
-              </AnimatePresence>
-
               <motion.svg
                 viewBox="0 0 24 24"
                 width="22" height="22"
@@ -103,7 +106,9 @@ function MobileNav({ items, pathname }) {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 aria-hidden="true"
-                animate={isActive ? { scale: 1.18, y: -2 } : { scale: 1, y: 0 }}
+                animate={isActive
+                  ? { scale: 1.2, y: -2, filter: 'drop-shadow(0 0 8px rgba(47,140,255,0.7))' }
+                  : { scale: 1,   y: 0,  filter: 'drop-shadow(0 0 0px transparent)' }}
                 transition={{ type: 'spring', stiffness: 500, damping: 24 }}
               >
                 <path d={icon} />
