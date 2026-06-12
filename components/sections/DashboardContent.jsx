@@ -36,7 +36,6 @@ export function DashboardContent({ profile, stats, saving, saveMessage }) {
     <section className="dashboard app-section app-section-light">
       <div className="dashboard-header">
         <div>
-          <p className="eyebrow">Recovery dashboard</p>
           <h2>{profile.regionName}</h2>
           <p>
             {profile.gradeName} · {profile.mechanism} · {profile.exactAreaName || 'General area'}

@@ -245,15 +245,7 @@ export function AppNav() {
       <nav className="app-nav-top" aria-label="App navigation">
         <div className="app-nav-top-inner">
           <Link href="/" className="app-nav-brand">
-            <motion.span
-              className="app-nav-brand-dot"
-              animate={{ boxShadow: [
-                '0 0 6px rgba(59,125,216,0.5)',
-                '0 0 16px rgba(59,125,216,0.8)',
-                '0 0 6px rgba(59,125,216,0.5)',
-              ]}}
-              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            />
+            <span className="app-nav-brand-dot" />
             <span>InjuryGuide</span>
           </Link>
 
@@ -267,16 +259,7 @@ export function AppNav() {
               </div>
             )}
             {user ? (
-              <motion.span
-                className="app-nav-user-dot"
-                title={user.email}
-                animate={{ boxShadow: [
-                  '0 0 6px rgba(47,140,255,0.6)',
-                  '0 0 16px rgba(47,140,255,0.9)',
-                  '0 0 6px rgba(47,140,255,0.6)',
-                ]}}
-                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-              />
+              <span className="app-nav-user-dot" title={user.email} />
             ) : (
               <Link href="/" className="app-nav-signin">Sign in</Link>
             )}

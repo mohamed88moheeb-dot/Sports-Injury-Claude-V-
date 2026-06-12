@@ -68,7 +68,6 @@ export function PlanContent({ profile, completeDay }) {
     <section className="plan-shell app-section app-section-light">
       <div className="plan-intro section-heading">
         <div>
-          <p className="eyebrow">Phase by phase</p>
           <h2>{profile.regionName}</h2>
           <p>{profile.planNote}</p>
         </div>
