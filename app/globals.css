@@ -2729,7 +2729,12 @@ input[type='range']::-moz-range-thumb {
 }
 @media (max-width: 600px) {
   .app-shell { width: 100%; padding-bottom: 80px; }
-  .app-section { padding: 14px; border-radius: var(--r-lg); }
+  /* Give the page content a gutter on mobile */
+  .page-enter { padding: 0 16px; box-sizing: border-box; }
+  /* Plan/subpage pages manage their own horizontal padding — cancel it out */
+  .page-enter > .plan-v2,
+  .page-enter > .subpage { margin: 0 -16px; }
+  .app-section { padding: 18px 16px; border-radius: var(--r-lg); }
   .glass-card { padding: 14px; }
   .section-card { padding: 14px; gap: 12px; }
   .dashboard-grid { grid-template-columns: repeat(2,1fr); }
@@ -4055,7 +4060,7 @@ body { padding-top: 0; }
 
 /* ── Auth card — liquid glass card ──────────────────────────── */
 .auth-card-wrap {
-  margin: 8px 0 24px;
+  margin: 8px 4px 24px;
 }
 .auth-form-transparent {
   background: rgba(255,255,255,0.68) !important;
