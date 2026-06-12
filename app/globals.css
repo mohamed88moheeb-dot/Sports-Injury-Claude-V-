@@ -1262,8 +1262,8 @@ select option { background: #EEF6FF; color: var(--ink); }
 .ac-card {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 14px;
+  gap: 7px;
+  padding: 12px;
 }
 
 /* Two-col row inside cards */
@@ -1389,17 +1389,33 @@ select option { background: #EEF6FF; color: var(--ink); }
 /* Compact Field labels and inputs inside carousel */
 .ac-card .field-label {
   font-size: 10px;
-  margin-bottom: 3px;
+  margin-bottom: 2px;
+  letter-spacing: 0.04em;
 }
 .ac-card select,
 .ac-card input[type="number"] {
-  padding: 8px 12px;
+  padding: 0 12px;
+  height: 36px;
   font-size: 13px;
-  height: auto;
+  line-height: 36px;
 }
 /* Compact body region selector inside carousel */
 .ac-card .body-region-selector {
-  padding: 10px 12px;
+  padding: 8px 12px;
+}
+.ac-card .body-region-label {
+  font-size: 9px;
+  margin-bottom: 1px;
+}
+.ac-card .body-region-placeholder {
+  font-size: 12px;
+  margin: 1px 0 0;
+}
+.ac-card .body-region-selected strong {
+  font-size: 13px;
+}
+.ac-card .body-region-sub {
+  font-size: 11px;
 }
 
 /* Compact sliders inside carousel pain step */
@@ -3039,6 +3055,11 @@ input[type='range']::-moz-range-thumb {
   .app-nav-bottom { left: 10px; right: 10px; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); padding: 5px; }
   select, input[type="number"], input[type="text"], textarea { font-size: 16px !important; min-height: 44px; }
   .body-region-selector { min-height: 56px; padding: 14px 16px; }
+  /* Carousel overrides — tighter than general mobile targets */
+  .ac-card select,
+  .ac-card input[type="number"],
+  .ac-card input[type="text"] { font-size: 13px !important; min-height: 0 !important; height: 36px !important; padding: 0 12px !important; }
+  .ac-card .body-region-selector { min-height: 0 !important; padding: 7px 12px !important; }
   .tiny-check { min-height: 40px; font-size: 12px; padding: 8px 12px; }
   .redflag-grid.compact { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 

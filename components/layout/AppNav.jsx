@@ -246,7 +246,7 @@ export function AppNav() {
       <nav className="app-nav-top" aria-label="App navigation">
         <div className="app-nav-top-inner">
           <Link href="/" className="app-nav-brand">
-            <AnimatedTendonLogo size={28} />
+            <AnimatedTendonLogo size={40} />
             <span>InjuryGuide</span>
           </Link>
 

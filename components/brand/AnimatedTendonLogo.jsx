@@ -1,9 +1,64 @@
 'use client';
 
-/* AnimatedTendonLogo — GPU-safe navbar icon
-   CSS class .tl-spin-cw/.tl-spin-ccw with transform-box:fill-box
-   so transform-origin:center works correctly on SVG <g> elements. */
+/* AnimatedTendonLogo — navbar brand mark.
+   Fibrous concentric tendon rings (generated vector strands) on a blue
+   squircle, each ring rotating smoothly at a different speed/direction.
+   Reuses the .tl-spin-cw / .tl-spin-ccw keyframes in globals.css.
+   Retina-sharp at any size; respects prefers-reduced-motion. */
+
+import { useMemo } from 'react';
+
+function rng(seed) {
+  let a = seed >>> 0;
+  return function () {
+    a |= 0; a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+function strand(cx, cy, baseR, o) {
+  const p2 = o.phase * 1.7 + o.rand() * 6.283;
+  let d = '';
+  for (let i = 0; i <= o.steps; i++) {
+    const t = (i / o.steps) * Math.PI * 2;
+    const r = baseR + o.braidAmp * Math.sin(o.braidFreq * t + o.phase)
+                    + 0.45 * Math.sin((26 + (o.fineExtra | 0)) * t + p2);
+    d += (i === 0 ? 'M' : 'L') + (cx + r * Math.cos(t)).toFixed(2) + ' ' + (cy + r * Math.sin(t)).toFixed(2);
+  }
+  return d + 'Z';
+}
+function ringPath(cx, cy, R, c) {
+  const rand = rng(c.seed);
+  let d = '';
+  for (let s = 0; s < c.strands; s++) {
+    const f = c.strands === 1 ? 0.5 : s / (c.strands - 1);
+    const baseR = R + (f - 0.5) * c.spread + (rand() - 0.5) * 0.8;
+    d += strand(cx, cy, baseR, {
+      braidFreq: c.braidFreq,
+      braidAmp: c.braidAmp * (0.7 + rand() * 0.6),
+      fineExtra: Math.floor(rand() * 10),
+      phase: rand() * 6.283,
+      steps: 200,
+      rand,
+    });
+  }
+  return d;
+}
+
+const C = 256;
+const RINGS = [
+  { dir: 'cw',  dur: '26s', R: 78,  strands: 26, spread: 14, braidFreq: 5, braidAmp: 2.2, seed: 11 },
+  { dir: 'ccw', dur: '34s', R: 128, strands: 30, spread: 18, braidFreq: 6, braidAmp: 3.0, seed: 23 },
+  { dir: 'cw',  dur: '44s', R: 178, strands: 34, spread: 22, braidFreq: 7, braidAmp: 3.6, seed: 37 },
+];
+
 export function AnimatedTendonLogo({ size = 28 }) {
+  const rings = useMemo(
+    () => RINGS.map((r) => ({ ...r, d: ringPath(C, C, r.R, r) })),
+    []
+  );
+
   return (
     <span
       aria-hidden="true"
@@ -12,50 +67,24 @@ export function AnimatedTendonLogo({ size = 28 }) {
         width: size,
         height: size,
         flexShrink: 0,
-        borderRadius: Math.round(size * 0.25),
-        overflow: 'hidden',
       }}
     >
-      <svg
-        width={size}
-        height={size}
-        viewBox="0 0 56 56"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg width={size} height={size} viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <linearGradient id="tl-bg" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="#6BAAF5" />
-            <stop offset="100%" stopColor="#2D68C0" />
-          </linearGradient>
+          <filter id="tl-glow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="1.3" result="b" />
+            <feMerge>
+              <feMergeNode in="b" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
         </defs>
 
-        {/* Background */}
-        <rect width="56" height="56" rx="13" fill="url(#tl-bg)" />
-
-        {/* Icy center halo — static */}
-        <circle cx="28" cy="28" r="8" fill="rgba(200,230,255,0.20)" />
-
-        {/* Ring 1 — inner, slow CW (6s) */}
-        <g className="tl-spin-cw" style={{ '--spin-dur': '6s' }}>
-          <circle cx="28" cy="28" r="8"  fill="none" stroke="rgba(255,255,255,0.16)" strokeWidth="3.5" strokeDasharray="3 2"   />
-          <circle cx="28" cy="28" r="8"  fill="none" stroke="rgba(255,255,255,0.90)" strokeWidth="0.9" strokeDasharray="3 2"   />
-          <circle cx="28" cy="28" r="9"  fill="none" stroke="rgba(255,255,255,0.30)" strokeWidth="0.5" strokeDasharray="2 3"   />
-        </g>
-
-        {/* Ring 2 — middle, medium CCW (10s) */}
-        <g className="tl-spin-ccw" style={{ '--spin-dur': '10s' }}>
-          <circle cx="28" cy="28" r="14" fill="none" stroke="rgba(255,255,255,0.12)" strokeWidth="3"   strokeDasharray="4 3"   />
-          <circle cx="28" cy="28" r="14" fill="none" stroke="rgba(255,255,255,0.88)" strokeWidth="0.8" strokeDasharray="4 3"   />
-          <circle cx="28" cy="28" r="15" fill="none" stroke="rgba(255,255,255,0.24)" strokeWidth="0.5" strokeDasharray="2.5 4" />
-        </g>
-
-        {/* Ring 3 — outer, faster CW (14s) */}
-        <g className="tl-spin-cw" style={{ '--spin-dur': '14s' }}>
-          <circle cx="28" cy="28" r="20" fill="none" stroke="rgba(255,255,255,0.09)" strokeWidth="2.5" strokeDasharray="5 3.5" />
-          <circle cx="28" cy="28" r="20" fill="none" stroke="rgba(255,255,255,0.82)" strokeWidth="0.7" strokeDasharray="5 3.5" />
-          <circle cx="28" cy="28" r="21" fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="0.5" strokeDasharray="3 5.5" />
-        </g>
+        {rings.map((r, i) => (
+          <g key={i} className={`tl-spin-${r.dir}`} style={{ '--spin-dur': r.dur }}>
+            <path d={r.d} fill="none" stroke="#FFFFFF" strokeWidth="0.6" strokeOpacity="0.8" filter="url(#tl-glow)" />
+          </g>
+        ))}
       </svg>
     </span>
   );
