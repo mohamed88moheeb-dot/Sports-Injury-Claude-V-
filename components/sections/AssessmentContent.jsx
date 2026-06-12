@@ -132,6 +132,87 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
           <span className="step-number">2</span>
           <h3>Sport, demands, and equipment</h3>
         </div>
+        <Field label="What sports do you play?">
+          <select
+            value={assessment.sport || ''}
+            onChange={(e) => setAssessment({ ...assessment, sport: e.target.value })}
+          >
+            <option value="">Select a sport</option>
+            <optgroup label="Team sports">
+              <option>Football (soccer)</option>
+              <option>American football</option>
+              <option>Rugby</option>
+              <option>Basketball</option>
+              <option>Volleyball</option>
+              <option>Handball</option>
+              <option>Hockey (field)</option>
+              <option>Ice hockey</option>
+              <option>Baseball</option>
+              <option>Softball</option>
+              <option>Cricket</option>
+              <option>Lacrosse</option>
+              <option>Water polo</option>
+              <option>Netball</option>
+            </optgroup>
+            <optgroup label="Racket sports">
+              <option>Tennis</option>
+              <option>Badminton</option>
+              <option>Squash</option>
+              <option>Padel</option>
+              <option>Table tennis</option>
+              <option>Pickleball</option>
+            </optgroup>
+            <optgroup label="Athletics &amp; running">
+              <option>Sprinting</option>
+              <option>Middle / long distance running</option>
+              <option>Hurdles</option>
+              <option>Cross country</option>
+              <option>Trail running</option>
+              <option>Race walking</option>
+            </optgroup>
+            <optgroup label="Combat sports">
+              <option>Boxing</option>
+              <option>MMA</option>
+              <option>Wrestling</option>
+              <option>Judo</option>
+              <option>BJJ</option>
+              <option>Karate / Taekwondo</option>
+              <option>Muay Thai</option>
+            </optgroup>
+            <optgroup label="Gym &amp; strength">
+              <option>Weightlifting / Olympic lifting</option>
+              <option>Powerlifting</option>
+              <option>CrossFit</option>
+              <option>Bodybuilding</option>
+              <option>Gymnastics</option>
+              <option>Calisthenics</option>
+            </optgroup>
+            <optgroup label="Water sports">
+              <option>Swimming</option>
+              <option>Surfing</option>
+              <option>Rowing</option>
+              <option>Kayaking / Canoeing</option>
+              <option>Triathlon</option>
+            </optgroup>
+            <optgroup label="Cycling &amp; wheeled">
+              <option>Road cycling</option>
+              <option>Mountain biking</option>
+              <option>BMX</option>
+              <option>Skateboarding</option>
+              <option>Rollerskating / inline</option>
+            </optgroup>
+            <optgroup label="Court &amp; other">
+              <option>Golf</option>
+              <option>Tennis (padel)</option>
+              <option>Climbing / bouldering</option>
+              <option>Dance / cheerleading</option>
+              <option>Yoga / Pilates</option>
+              <option>General fitness</option>
+              <option>Other</option>
+            </optgroup>
+          </select>
+        </Field>
+
         <Field label="What does your sport demand?">
           <MultiSelectDropdown
             options={movements}
