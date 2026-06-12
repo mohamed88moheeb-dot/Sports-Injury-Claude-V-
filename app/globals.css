@@ -1612,7 +1612,8 @@ input[type='range']::-moz-range-thumb {
   font-weight: 700;
   letter-spacing: .06em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--primary);
+  text-shadow: 0 0 10px rgba(47,140,255,0.55), 0 0 20px rgba(47,140,255,0.25);
   white-space: nowrap;
   margin-top: 1px;
 }
@@ -1644,7 +1645,7 @@ input[type='range']::-moz-range-thumb {
 /* ── LEVEL 2: Week ──────────────────────────── */
 .week-card {
   background: rgba(255,255,255,0.65);
-  border: 1px solid rgba(59,125,216,0.14);
+  border: 1px solid rgba(47,140,255,0.38);
   border-radius: var(--r-lg);
   overflow: hidden;
   margin-top: 10px;
@@ -3635,7 +3636,7 @@ input[type="range"]::-webkit-slider-thumb {
 .phase-head {
   background: transparent !important;
 }
-.phase-index { color: var(--muted) !important; }
+.phase-index { color: var(--primary) !important; text-shadow: 0 0 10px rgba(47,140,255,0.55), 0 0 20px rgba(47,140,255,0.25) !important; }
 .week-card {
   background: rgba(255,255,255,0.50) !important;
   border-color: rgba(200,220,255,0.40) !important;
