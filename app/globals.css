@@ -1628,7 +1628,7 @@ input[type='range']::-moz-range-thumb {
    ══════════════════════════════════════════════════════════════ */
 
 /* Plan root */
-.plan-v2 { display: flex; flex-direction: column; gap: var(--space-5); }
+.plan-v2 { display: flex; flex-direction: column; gap: var(--space-5); padding: 0 var(--space-4); }
 .plan-v2-header { display: flex; flex-direction: column; gap: 6px; }
 .plan-v2-header h2 { margin: 0; }
 .plan-v2-jump { align-self: flex-start; margin-top: 4px; }
@@ -1803,6 +1803,7 @@ input[type='range']::-moz-range-thumb {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
+  padding: 0 var(--space-4);
 }
 .subpage-back {
   display: inline-flex;
@@ -2586,18 +2587,17 @@ input[type='range']::-moz-range-thumb {
 /* ── Coach ───────────────────────────────────── */
 .coach-card h2 { margin-bottom: 18px; }
 .chat-window {
-  min-height: 300px;
-  max-height: 480px;
+  min-height: 280px;
+  max-height: 460px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 18px;
+  padding: 16px;
   border-radius: var(--r-lg);
-  background: rgba(0,0,0,0.30);
-  border: 1px solid var(--glass-border);
-  backdrop-filter: var(--blur);
-  -webkit-backdrop-filter: var(--blur);
+  background: rgba(255,255,255,0.45);
+  border: 1px solid rgba(255,255,255,0.70);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.80);
   margin-bottom: 14px;
   scroll-behavior: smooth;
 }
@@ -2615,11 +2615,11 @@ input[type='range']::-moz-range-thumb {
 }
 .chat-bubble.coach {
   align-self: flex-start;
-  background: rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.92);
   color: var(--ink-2);
-  border: 1px solid var(--line-med);
+  border: 1px solid rgba(200,220,250,0.55);
   border-radius: var(--r-md) var(--r-md) var(--r-md) 4px;
-  backdrop-filter: blur(12px);
+  box-shadow: 0 1px 6px rgba(40,90,180,0.06);
 }
 .chat-bubble.user {
   align-self: flex-end;
