@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { AuthCard } from '../components/layout/AuthCard';
 import { PageShell } from '../components/layout/PageShell';
-import { DashboardContent } from '../components/sections/DashboardContent';
+import { HomeSummary } from '../components/sections/HomeSummary';
 import { useRecovery } from './providers/RecoveryContext';
 import { hasSupabase } from '../lib/supabaseClient';
 
@@ -52,11 +52,11 @@ export default function LandingPage() {
     profile, dashboardStats, saving, saveMessage,
   } = useRecovery();
 
-  // Signed-in users with a profile see the dashboard on home
+  // Signed-in users with a profile see a focused summary on home
   if (profile) {
     return (
       <PageShell>
-        <DashboardContent profile={profile} stats={dashboardStats} saving={saving} saveMessage={saveMessage} />
+        <HomeSummary profile={profile} stats={dashboardStats} />
       </PageShell>
     );
   }
