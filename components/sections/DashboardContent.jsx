@@ -69,18 +69,20 @@ export function DashboardContent({ profile, stats, saving, saveMessage }) {
           </div>
         </div>
 
-        <div className="progress-card fade-up stagger-2">
+        <div className={`progress-card fade-up stagger-2${stats.percent >= 100 ? ' plan-complete' : ''}`}>
           <div className="progress-card-top">
             <div>
-              <p className="eyebrow">Overall progress</p>
+              <p className="eyebrow">{stats.percent >= 100 ? 'Recovery complete' : 'Overall progress'}</p>
               <h3>
-                {stats.completedDays} of {stats.totalDays} days
+                {stats.percent >= 100
+                  ? 'All sessions done'
+                  : `${stats.completedDays} of ${stats.totalDays} days`}
               </h3>
             </div>
             <CircularProgress value={stats.percent} />
           </div>
           <div className="progress-track">
-            <span style={{ width: `${progressWidth}%` }} />
+            <span className={progressWidth >= 100 ? 'full' : ''} style={{ width: `${progressWidth}%` }} />
           </div>
           <div className="mini-stats">
             <Metric label="Phases" value={`${stats.completedPhases}/${stats.totalPhases}`} />

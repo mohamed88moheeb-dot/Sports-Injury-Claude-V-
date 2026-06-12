@@ -3,15 +3,16 @@
 import { useEffect, useState } from 'react';
 
 const PLAN_BUILD_STEPS = [
-  'Analysing injury mechanism and pain levels',
-  'Matching your pattern to the injury protocol library',
-  'Selecting exercises for your equipment and sport demands',
-  'Assembling phase-by-phase training sessions with rest days',
-  'Finalising your return-to-sport pathway',
+  'Reading your injury mechanism and pain levels',
+  'Matching your profile to the clinical rehab protocol library',
+  'Selecting exercises for your equipment and movement demands',
+  'Sequencing phase-by-phase sessions, loads, and rest days',
+  'Calibrating your return-to-sport timeline',
 ];
 
 export function GeneratingPlan() {
   const [step, setStep] = useState(0);
+  const allDone = step >= PLAN_BUILD_STEPS.length - 1;
 
   useEffect(() => {
     if (step >= PLAN_BUILD_STEPS.length - 1) return;
@@ -22,23 +23,30 @@ export function GeneratingPlan() {
   return (
     <section className="generating-shell app-section app-section-soft">
       <div className="gen-header">
-        <p className="eyebrow stacked-eyebrow">
-          <span>Personalising your plan</span>
-        </p>
-        <h2>Building your recovery plan...</h2>
+        <h2 className={allDone ? 'gen-heading-done' : ''}>
+          {allDone ? 'Plan built.' : 'Building your recovery plan…'}
+        </h2>
         <p className="gen-subtext">
-          Analysing your answers and assembling a full multi-phase plan matched to your injury,
-          equipment, and sport demands.
+          {allDone
+            ? 'Your personalised multi-phase plan is ready. Opening now.'
+            : 'Your injury profile is being matched against the rehab protocol library. This takes about 30 seconds.'}
         </p>
       </div>
       <div className="gen-steps">
         {PLAN_BUILD_STEPS.map((label, i) => (
           <div key={i} className={`gen-step ${i < step ? 'done' : i === step ? 'active' : ''}`}>
             <div className="gen-step-dot" />
-            <span>{label}</span>
+            <span>{i < step ? <s style={{ opacity: 0.55 }}>{label}</s> : label}</span>
+            {i < step && <span className="gen-step-check">✓</span>}
           </div>
         ))}
       </div>
+      {allDone && (
+        <div className="gen-ready">
+          <span className="gen-ready-dot" />
+          <span>Opening your plan…</span>
+        </div>
+      )}
     </section>
   );
 }

@@ -88,8 +88,9 @@ export function PlanContent({ profile, completeDay }) {
         const phaseOpen = openPhase === pIndex;
         const allDays = phase.weeks.flatMap((w) => w.days);
         const phaseCompleted = allDays.filter((d) => d.completed).length;
+        const phaseComplete = allDays.length > 0 && phaseCompleted === allDays.length;
         return (
-          <article className={`phase-card ${phase.accent} ${phaseOpen ? 'open' : ''}`} key={phase.id}>
+          <article className={`phase-card ${phase.accent} ${phaseOpen ? 'open' : ''} ${phaseComplete ? 'phase-complete' : ''}`} key={phase.id}>
             <button className="phase-head" onClick={() => setOpenPhase(phaseOpen ? null : pIndex)}>
               <div className="phase-head-main">
                 <div>
