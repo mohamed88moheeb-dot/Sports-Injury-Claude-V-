@@ -36,7 +36,7 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
         </div>
       </div>
 
-      <div className="section-card span-2 glass-card">
+      <div className="section-card span-2 glass-card fade-up stagger-1">
         <div className="step-header">
           <span className="step-number">1</span>
           <h3>Injury profile</h3>
@@ -127,7 +127,7 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
         </div>
       </div>
 
-      <div className="section-card span-2 glass-card soft-tint">
+      <div className="section-card span-2 glass-card soft-tint fade-up stagger-2">
         <div className="step-header">
           <span className="step-number">2</span>
           <h3>Sport, demands, and equipment</h3>
@@ -150,7 +150,7 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
         </Field>
       </div>
 
-      <div className="section-card span-2 glass-card">
+      <div className="section-card span-2 glass-card fade-up stagger-3">
         <div className="step-header">
           <span className="step-number">3</span>
           <h3>Pain and context</h3>
@@ -179,7 +179,7 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
         />
       </div>
 
-      <div className="section-card span-2 glass-card redflag-card">
+      <div className="section-card span-2 glass-card redflag-card fade-up stagger-4">
         <div className="section-heading-row">
           <div>
             <h3>Any of these apply?</h3>

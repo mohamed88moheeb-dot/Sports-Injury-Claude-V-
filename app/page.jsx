@@ -54,35 +54,6 @@ export default function LandingPage() {
   return (
     <PageShell>
 
-      {/* ── Top status bar ───────────────────────────────────────────── */}
-      <header className="topbar glass-panel">
-        <div className="brand-lockup">
-          {/* AI scan icon instead of body figure */}
-          <div className="topbar-icon-wrap" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="var(--primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18" />
-            </svg>
-          </div>
-          <div>
-            <p className="eyebrow full-line">Personal Recovery System</p>
-            <h3 className="hero-title full-line">Injury Guide</h3>
-          </div>
-        </div>
-        <div className="top-actions">
-          <div className="account-pill">
-            <span className={hasSupabase ? 'dot online' : 'dot offline'} />
-            <span>
-              {user ? user.email : hasSupabase ? 'Not signed in' : 'Supabase setup needed'}
-            </span>
-          </div>
-          {user && (
-            <button className="ghost-btn small" onClick={signOut}>
-              Sign out
-            </button>
-          )}
-        </div>
-      </header>
-
       {/* ── Hero ─────────────────────────────────────────────────────── */}
       <section className="hero-card app-section app-section-hero" style={{ position: 'relative', overflow: 'hidden' }}>
 

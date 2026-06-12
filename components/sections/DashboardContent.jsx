@@ -1,12 +1,19 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import HumanFrontIcon from '../HumanFrontIcon';
 import { CircularProgress } from '../ui/CircularProgress';
 import { Metric } from '../ui/Metric';
 
 export function DashboardContent({ profile, stats, saving, saveMessage }) {
   const router = useRouter();
+  // Animate progress bar from 0 → actual on mount
+  const [progressWidth, setProgressWidth] = useState(0);
+  useEffect(() => {
+    const t = requestAnimationFrame(() => setProgressWidth(stats?.percent ?? 0));
+    return () => cancelAnimationFrame(t);
+  }, [stats?.percent]);
 
   if (!profile) {
     return (
@@ -39,7 +46,7 @@ export function DashboardContent({ profile, stats, saving, saveMessage }) {
       </div>
 
       <div className="dashboard-main">
-        <div className="today-card highlight-card">
+        <div className="today-card highlight-card fade-up stagger-1">
           <div className="today-card-top">
             <div>
               <p className="eyebrow">Today's session</p>
@@ -62,7 +69,7 @@ export function DashboardContent({ profile, stats, saving, saveMessage }) {
           </div>
         </div>
 
-        <div className="progress-card">
+        <div className="progress-card fade-up stagger-2">
           <div className="progress-card-top">
             <div>
               <p className="eyebrow">Overall progress</p>
@@ -73,7 +80,7 @@ export function DashboardContent({ profile, stats, saving, saveMessage }) {
             <CircularProgress value={stats.percent} />
           </div>
           <div className="progress-track">
-            <span style={{ width: `${stats.percent}%` }} />
+            <span style={{ width: `${progressWidth}%` }} />
           </div>
           <div className="mini-stats">
             <Metric label="Phases" value={`${stats.completedPhases}/${stats.totalPhases}`} />
@@ -83,7 +90,7 @@ export function DashboardContent({ profile, stats, saving, saveMessage }) {
         </div>
       </div>
 
-      <div className="dashboard-stats-row">
+      <div className="dashboard-stats-row fade-up stagger-3">
         <div className="stat-pill-card accent-blue">
           <span className="small-label">Expected return</span>
           <strong>{profile.returnRange}</strong>
@@ -98,7 +105,7 @@ export function DashboardContent({ profile, stats, saving, saveMessage }) {
         </div>
       </div>
 
-      <div className="coach-note glass-card">
+      <div className="coach-note glass-card fade-up stagger-4">
         <span className="small-label">Recovery coach note</span>
         <p>{profile.aiStatus}</p>
       </div>

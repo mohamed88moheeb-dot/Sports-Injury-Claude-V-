@@ -2032,14 +2032,42 @@ input[type='range']::-moz-range-thumb {
 .stagger-4 { animation-delay: 0.18s; }
 .stagger-5 { animation-delay: 0.24s; }
 
+/* Page enter — route transition fade-and-rise */
+.page-enter {
+  animation: page-in 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 /* Fade in up — for individual cards entering */
 .fade-up {
   animation: fade-up 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-fill-mode: both;
+  /* Default: visible before animation fires (headless-safe) */
 }
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+/* Check pop — day status completion animation */
+@keyframes check-pop {
+  0%   { transform: scale(0.4); opacity: 0; }
+  60%  { transform: scale(1.18); }
+  100% { transform: scale(1);   opacity: 1; }
+}
+.day-status.done {
+  animation: check-pop 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Gen-step entrance — stagger the plan-building steps */
+.gen-step {
+  opacity: 0;
+  animation: fade-up 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.gen-step:nth-child(1) { animation-delay: 0.05s; }
+.gen-step:nth-child(2) { animation-delay: 0.12s; }
+.gen-step:nth-child(3) { animation-delay: 0.19s; }
+.gen-step:nth-child(4) { animation-delay: 0.26s; }
+.gen-step:nth-child(5) { animation-delay: 0.33s; }
 
 /* Spring press — iOS-like haptic feel */
 .press-spring {

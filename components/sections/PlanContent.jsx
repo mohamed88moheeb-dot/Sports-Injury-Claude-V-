@@ -2,8 +2,23 @@
 
 import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { AnimatePresence, motion } from 'framer-motion';
 import HumanFrontIcon from '../HumanFrontIcon';
 import { Chevron } from '../ui/Chevron';
+
+const ACCORDION = {
+  initial:  { height: 0, opacity: 0 },
+  animate:  { height: 'auto', opacity: 1 },
+  exit:     { height: 0, opacity: 0 },
+  transition: { duration: 0.22, ease: [0.16, 1, 0.3, 1] },
+};
+
+const ACCORDION_FAST = {
+  initial:  { height: 0, opacity: 0 },
+  animate:  { height: 'auto', opacity: 1 },
+  exit:     { height: 0, opacity: 0 },
+  transition: { duration: 0.16, ease: [0.16, 1, 0.3, 1] },
+};
 
 function findTodayPath(plan) {
   if (!plan) return null;
@@ -93,7 +108,13 @@ export function PlanContent({ profile, completeDay }) {
               </div>
             </button>
 
+            <AnimatePresence initial={false}>
             {phaseOpen && (
+              <motion.div
+                key="phase-body"
+                {...ACCORDION}
+                style={{ overflow: 'hidden' }}
+              >
               <div className="phase-body">
                 <p className="phase-description">{phase.description}</p>
                 {phase.weeks.map((week, wIndex) => {
@@ -114,7 +135,13 @@ export function PlanContent({ profile, completeDay }) {
                         </div>
                       </button>
 
+                      <AnimatePresence initial={false}>
                       {weekOpen && (
+                        <motion.div
+                          key="days-list"
+                          {...ACCORDION}
+                          style={{ overflow: 'hidden' }}
+                        >
                         <div className="days-list">
                           {week.days.map((day, dIndex) => {
                             const dayKey = `${pIndex}-${wIndex}-${dIndex}`;
@@ -144,7 +171,16 @@ export function PlanContent({ profile, completeDay }) {
                                   </div>
                                 </button>
 
+                                <AnimatePresence initial={false}>
                                 {dayOpen && (
+                                  <motion.div
+                                    key="session-card"
+                                    initial={ACCORDION_FAST.initial}
+                                    animate={ACCORDION_FAST.animate}
+                                    exit={ACCORDION_FAST.exit}
+                                    transition={ACCORDION_FAST.transition}
+                                    style={{ overflow: 'hidden' }}
+                                  >
                                   <div className="session-card">
                                     <div className="session-header">
                                       <div>
@@ -266,17 +302,23 @@ export function PlanContent({ profile, completeDay }) {
                                       <strong>Progress rule:</strong> {day.rule}
                                     </div>
                                   </div>
+                                  </motion.div>
                                 )}
+                                </AnimatePresence>
                               </div>
                             );
                           })}
                         </div>
+                        </motion.div>
                       )}
+                      </AnimatePresence>
                     </div>
                   );
                 })}
               </div>
+              </motion.div>
             )}
+            </AnimatePresence>
           </article>
         );
       })}
