@@ -66,26 +66,26 @@ export default function WeekPage() {
 
         {/* ── Week header ── */}
         <div className="subpage-header">
-          <div className="subpage-header-left">
+          <div className="subpage-header-top">
             <span className="phase-index">Phase {pIdx + 1} · Week {wIdx + 1}</span>
-            <h2>{week.focus}</h2>
-            <p>{doneDays} of {week.days.length} days completed</p>
+            <div className="subpage-progress-ring">
+              <svg viewBox="0 0 44 44" width="44" height="44">
+                <circle cx="22" cy="22" r="18" fill="none" stroke="var(--bg-3)" strokeWidth="4" />
+                <circle
+                  cx="22" cy="22" r="18" fill="none"
+                  stroke="var(--primary)" strokeWidth="4"
+                  strokeDasharray={`${2 * Math.PI * 18}`}
+                  strokeDashoffset={`${2 * Math.PI * 18 * (1 - doneDays / week.days.length)}`}
+                  strokeLinecap="round"
+                  transform="rotate(-90 22 22)"
+                  style={{ transition: 'stroke-dashoffset 0.6s ease' }}
+                />
+              </svg>
+              <span>{Math.round((doneDays / week.days.length) * 100)}%</span>
+            </div>
           </div>
-          <div className="subpage-progress-ring">
-            <svg viewBox="0 0 44 44" width="52" height="52">
-              <circle cx="22" cy="22" r="18" fill="none" stroke="var(--bg-3)" strokeWidth="4" />
-              <circle
-                cx="22" cy="22" r="18" fill="none"
-                stroke="var(--primary)" strokeWidth="4"
-                strokeDasharray={`${2 * Math.PI * 18}`}
-                strokeDashoffset={`${2 * Math.PI * 18 * (1 - doneDays / week.days.length)}`}
-                strokeLinecap="round"
-                transform="rotate(-90 22 22)"
-                style={{ transition: 'stroke-dashoffset 0.6s ease' }}
-              />
-            </svg>
-            <span>{Math.round((doneDays / week.days.length) * 100)}%</span>
-          </div>
+          <h2>{week.focus}</h2>
+          <p>{doneDays} of {week.days.length} days completed</p>
         </div>
 
         {/* ── Day list ── */}
@@ -112,9 +112,9 @@ export default function WeekPage() {
                     {isRest && <span className="rest-badge">Rest</span>}
                   </div>
                   <span>{day.summary}</span>
+                  {day.load && <small className="subpage-day-load">{day.load}</small>}
                 </div>
                 <div className="subpage-day-right">
-                  {day.load && <small>{day.load}</small>}
                   <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M9 18l6-6-6-6" />
                   </svg>

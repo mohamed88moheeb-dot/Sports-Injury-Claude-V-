@@ -24,6 +24,17 @@ function ChevronIcon({ open }) {
   );
 }
 
+function cleanPrescription(text) {
+  if (!text) return '';
+  // Extract sets × reps/time
+  const match = text.match(/(\d+\s*[×x]\s*[\d–\-]+(?:[\s\-–]\d+)?(?:\s*(?:reps?|sec|s\b|min|m\b))?)/i);
+  const perLeg = /per leg|each leg|each side/i.test(text);
+  if (match) return match[1].trim() + (perLeg ? ' · per leg' : '');
+  // Fallback: first segment before ·, comma, or long description
+  const first = text.split(/[·,]|\s{2,}/)[0].trim();
+  return first + (perLeg && !first.includes('per leg') ? ' · per leg' : '');
+}
+
 export default function DayPage() {
   const { p, w, d } = useParams();
   const router = useRouter();
@@ -78,17 +89,17 @@ export default function DayPage() {
 
         {/* ── Day header ── */}
         <div className="day-subpage-header">
-          <div>
+          <div className="day-subpage-header-top">
             <span className="phase-index">Phase {pIdx + 1} · Week {wIdx + 1}</span>
-            <h2>{day.title}</h2>
-            <p>{day.summary}</p>
+            <button
+              className={`day-complete-btn ${day.completed ? 'done' : ''}`}
+              onClick={() => completeDay(pIdx, wIdx, dIdx)}
+            >
+              {day.completed ? <><CheckIcon /> Done</> : 'Mark complete'}
+            </button>
           </div>
-          <button
-            className={`day-complete-btn ${day.completed ? 'done' : ''}`}
-            onClick={() => completeDay(pIdx, wIdx, dIdx)}
-          >
-            {day.completed ? <><CheckIcon /> Done</> : 'Mark complete'}
-          </button>
+          <h2>{day.title}</h2>
+          <p>{day.summary}</p>
         </div>
 
         {/* ── Session info strip ── */}
@@ -97,7 +108,7 @@ export default function DayPage() {
             <span className="small-label">Session</span>
             <strong>{day.sessionTitle}</strong>
           </div>
-          {day.load && (
+          {day.load && !/active recovery|rest/i.test(day.sessionTitle) && (
             <div className="day-session-strip-item">
               <span className="small-label">Load</span>
               <strong>{day.load}</strong>
@@ -163,13 +174,13 @@ export default function DayPage() {
                           <div className="day-ex-info">
                             <h5>{ex.name}</h5>
                             <div className="day-ex-tags">
-                              <span>{ex.prescription}</span>
+                              <span>{cleanPrescription(ex.prescription)}</span>
                               {ex.equipment && <span>{ex.equipment}</span>}
                             </div>
                           </div>
                         </div>
                         <div className="day-ex-right">
-                          <span className="day-ex-intensity">{ex.intensity}</span>
+                          {ex.intensity && <span className="day-ex-intensity">{ex.intensity}</span>}
                           <ChevronIcon open={exOpen} />
                         </div>
                       </button>
