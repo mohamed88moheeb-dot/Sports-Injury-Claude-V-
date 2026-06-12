@@ -12,7 +12,7 @@ export function Slider({ label, value, onChange, max = 10 }) {
       rgba(255,255,255,0.10) 100%
     )`,
     // Smooth gradient transitions as value changes
-    transition: 'background 0.25s cubic-bezier(0.34,1.56,0.64,1)',
+    transition: 'background 0.25s cubic-bezier(0.16,1,0.3,1)',
   };
 
   // Color the value readout based on level

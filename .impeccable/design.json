@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-12T00:00:00Z",
+  "title": "Design System: InjuryGuide",
+  "extensions": {
+    "colorMeta": {
+      "primary":       { "role": "primary",  "displayName": "Recovery Cobalt",  "canonical": "#3B7DD8", "tonalRamp": ["#0D2757","#163D80","#1E54A8","#2A6AC8","#3B7DD8","#5A96E0","#7EB0E8","#A8CEEF","#D3E8F8"] },
+      "primary-dark":  { "role": "primary",  "displayName": "Deep Cobalt",      "canonical": "#2D68C0", "tonalRamp": ["#0A1F4A","#122F72","#1B4294","#2558B0","#2D68C0","#4B82CE","#6E9CDA","#9ABDE8","#C6DAF4"] },
+      "primary-dim":   { "role": "primary",  "displayName": "Cobalt Mist",      "canonical": "#EAF1FB", "tonalRamp": ["#B8D0F0","#C5D9F2","#D1E1F5","#DCE9F7","#E5EFF9","#EAF1FB","#F0F5FD","#F5F8FE","#FAFCFF"] },
+      "canvas":        { "role": "neutral",  "displayName": "Canvas",           "canonical": "#EEF6FF", "tonalRamp": ["#A8C8F0","#B8D3F3","#C8DDF6","#D8E8F9","#E4F0FD","#EEF6FF","#F4F9FF","#F9FCFF","#FDFFFF"] },
+      "ink":           { "role": "neutral",  "displayName": "Deep Ink",         "canonical": "#0F1B2E", "tonalRamp": ["#0F1B2E","#182C47","#243550","#304265","#3D5878","#5470A0","#7090B8","#A0B5CC","#D0DCE8"] },
+      "muted":         { "role": "neutral",  "displayName": "Muted Blue",       "canonical": "#6080A0", "tonalRamp": ["#1A3055","#283E68","#365080","#476898","#6080A0","#7898B4","#96B0C8","#B4C8DB","#D2E0EC"] },
+      "green":         { "role": "semantic", "displayName": "Heal Green",       "canonical": "#18A05A", "tonalRamp": ["#05361E","#0A5530","#0D7040","#12884E","#18A05A","#2DB870","#52CC90","#84DDB4","#BAEECF"] },
+      "amber":         { "role": "semantic", "displayName": "Caution Amber",    "canonical": "#E8A020", "tonalRamp": ["#5A3A00","#8A5800","#B07200","#CC8A10","#E8A020","#F0BA50","#F5CE7E","#F9E2AE","#FDF2D5"] },
+      "red":           { "role": "semantic", "displayName": "Stop Red",         "canonical": "#D94F4F", "tonalRamp": ["#4D0D0D","#7A1414","#A01E1E","#BE3030","#D94F4F","#E27070","#EC9898","#F3BFBF","#F9DFDF"] },
+      "blue-accent":   { "role": "secondary","displayName": "Periwinkle Blue",  "canonical": "#5AABDE", "tonalRamp": ["#103A58","#1A5880","#2475A8","#3D90C4","#5AABDE","#7AC0E8","#9AD3F0","#BCE5F7","#DFF2FB"] },
+      "purple":        { "role": "secondary","displayName": "Rehab Purple",     "canonical": "#7C6FD4", "tonalRamp": ["#201870","#30258A","#4033A5","#5A4EC0","#7C6FD4","#9A8FDE","#B8B0E8","#D5D0F2","#ECEAF8"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Section hero headings. One per page section maximum. text-wrap: balance always." },
+      "title":   { "displayName": "Title",   "purpose": "Card headings, modal titles, section subheadings." },
+      "body":    { "displayName": "Body",    "purpose": "All prose and UI copy. Max 65ch line length." },
+      "label":   { "displayName": "Label",   "purpose": "Status pills, phase tags, nav labels, data unit labels. Always uppercase." }
+    },
+    "shadows": [
+      { "name": "lift-xs",       "value": "0 1px 4px rgba(40,90,180,0.10)",  "purpose": "Subtle separation for chips, badges, small interactive elements." },
+      { "name": "lift-sm",       "value": "0 4px 20px rgba(40,90,180,0.13)", "purpose": "Default card and panel elevation at rest." },
+      { "name": "lift-md",       "value": "0 12px 40px rgba(40,90,180,0.16)","purpose": "Hovered/focused card states; bottom nav bar." },
+      { "name": "lift-lg",       "value": "0 24px 64px rgba(40,90,180,0.20)","purpose": "Modals, drawers, elevated dialogs." },
+      { "name": "primary-glow",  "value": "0 4px 28px rgba(59,125,216,0.38)","purpose": "Primary CTA buttons only. Not reused on cards." },
+      { "name": "primary-glow-lg","value":"0 8px 40px rgba(59,125,216,0.30), 0 2px 12px rgba(59,125,216,0.18)","purpose": "Hovered primary button state." },
+      { "name": "green-glow",    "value": "0 4px 24px rgba(24,160,90,0.30)", "purpose": "Completion states; heal-phase success indicators." }
+    ],
+    "motion": [
+      { "name": "spring-snap",      "value": "stiffness: 520, damping: 36, mass: 0.55", "purpose": "Mobile nav pill snap-to-slot on drag release." },
+      { "name": "spring-icon",      "value": "stiffness: 560, damping: 28",             "purpose": "Nav icon scale + lift on active." },
+      { "name": "spring-desktop-pill","value":"stiffness: 400, damping: 30, mass: 0.8", "purpose": "Desktop nav sliding active indicator." },
+      { "name": "transition-state", "value": "0.18s ease",                              "purpose": "Button color, border, opacity state changes." },
+      { "name": "transition-lift",  "value": "0.2s cubic-bezier(0.34, 1.56, 0.64, 1)", "purpose": "Button hover lift (slight spring). Only use on transform, never on layout props." }
+    ],
+    "breakpoints": [
+      { "name": "mobile",  "value": "600px",  "notes": "Bottom nav switches on; top nav links hidden." },
+      { "name": "tablet",  "value": "900px",  "notes": "Grid columns collapse; auth card goes single-column." },
+      { "name": "desktop", "value": "1200px", "notes": "Full app-shell width cap." }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The single high-conviction action on any screen. Cobalt gradient, pill shape.",
+      "html": "<button class=\"ds-btn-primary\">Start Assessment</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 13px 24px; background: linear-gradient(135deg, #2F8CFF 0%, #1E6BFF 100%); color: #ffffff; font-family: 'Inter', sans-serif; font-weight: 800; font-size: 14px; border-radius: 999px; box-shadow: 0 4px 28px rgba(59,125,216,0.38); border: 1px solid rgba(96,165,250,0.35); cursor: pointer; transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s, background 0.18s; letter-spacing: -0.01em; white-space: nowrap; position: relative; overflow: hidden; } .ds-btn-primary::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%); border-radius: inherit; pointer-events: none; } .ds-btn-primary:hover { background: linear-gradient(135deg, #4A9FFF 0%, #2F8CFF 100%); transform: translateY(-2px) scale(1.02); box-shadow: 0 8px 40px rgba(59,125,216,0.30), 0 2px 12px rgba(59,125,216,0.18); } .ds-btn-primary:active { transform: translateY(0) scale(0.99); box-shadow: 0 4px 28px rgba(59,125,216,0.38); } .ds-btn-primary:focus-visible { outline: 2px solid #3B7DD8; outline-offset: 3px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Supporting actions. Glass background, cobalt-tinted border.",
+      "html": "<button class=\"ds-btn-secondary\">View Plan</button>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 20px; background: rgba(255,255,255,0.68); border: 1.5px solid rgba(60,120,200,0.38); color: #243550; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 14px; border-radius: 999px; cursor: pointer; transition: background 0.18s, border-color 0.18s, transform 0.2s cubic-bezier(0.34,1.56,0.64,1); } .ds-btn-secondary:hover { background: #DCECFb; border-color: rgba(60,120,200,0.38); transform: translateY(-1px); } .ds-btn-secondary:focus-visible { outline: 2px solid #3B7DD8; outline-offset: 3px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Low-priority actions, dismissals. Transparent, muted.",
+      "html": "<button class=\"ds-btn-ghost\">Skip</button>",
+      "css": ".ds-btn-ghost { padding: 9px 16px; background: transparent; border: 1.5px solid rgba(70,130,205,0.25); color: #6080A0; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 13px; border-radius: 999px; cursor: pointer; transition: border-color 0.18s, color 0.18s, background 0.18s; } .ds-btn-ghost:hover { border-color: rgba(60,120,200,0.38); color: #243550; background: rgba(255,255,255,0.68); } .ds-btn-ghost:focus-visible { outline: 2px solid #3B7DD8; outline-offset: 3px; }"
+    },
+    {
+      "name": "Text Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Inline links like 'Create account' or 'Forgot password'.",
+      "html": "<button class=\"ds-btn-text\">Create a new account</button>",
+      "css": ".ds-btn-text { background: transparent; color: #3B7DD8; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 13px; padding: 8px 4px; border: none; border-bottom: 1px solid transparent; border-radius: 0; cursor: pointer; transition: border-color 0.18s, opacity 0.18s, text-shadow 0.18s; text-shadow: 0 0 10px rgba(47,140,255,0.30); } .ds-btn-text:hover { border-bottom-color: rgba(47,140,255,0.50); opacity: 0.85; } .ds-btn-text:focus-visible { outline: 2px solid #3B7DD8; outline-offset: 2px; border-radius: 2px; }"
+    },
+    {
+      "name": "Glass Card",
+      "kind": "card",
+      "refersTo": "card-glass",
+      "description": "Primary content container. Frosted glass with specular edge and cobalt bottom glow.",
+      "html": "<div class=\"ds-glass-card\"><h3 class=\"ds-glass-card__title\">Recovery Score</h3><p class=\"ds-glass-card__body\">You're on track for return to sport by Week 6.</p></div>",
+      "css": ".ds-glass-card { background: rgba(255,255,255,0.60); border: 1px solid rgba(47,140,255,0.18); border-radius: 22px; padding: 22px; box-shadow: 0 4px 20px rgba(40,90,180,0.13); backdrop-filter: blur(20px) saturate(1.8); -webkit-backdrop-filter: blur(20px) saturate(1.8); position: relative; overflow: visible; } .ds-glass-card::before { content: ''; position: absolute; top: 0; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent 0%, rgba(96,165,250,0.35) 50%, transparent 100%); pointer-events: none; } .ds-glass-card::after { content: ''; position: absolute; bottom: -50px; left: 50%; transform: translateX(-50%); width: 80%; height: 100px; background: radial-gradient(ellipse at center, rgba(47,140,255,0.22) 0%, transparent 70%); pointer-events: none; border-radius: 50%; } .ds-glass-card__title { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: -0.04em; color: #0F1B2E; margin: 0 0 8px; } .ds-glass-card__body { font-family: 'Inter', sans-serif; font-size: 14px; line-height: 1.6; color: #3D5878; margin: 0; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input-default",
+      "description": "Standard form input. White glass background with cobalt focus ring.",
+      "html": "<div class=\"ds-input-wrap\"><label class=\"ds-input-label\" for=\"ds-email\">Email address</label><input class=\"ds-input\" id=\"ds-email\" type=\"email\" placeholder=\"athlete@example.com\" /></div>",
+      "css": ".ds-input-wrap { display: flex; flex-direction: column; gap: 5px; } .ds-input-label { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; color: #3D5878; letter-spacing: 0.01em; } .ds-input { width: 100%; height: 46px; padding: 0 14px; background: rgba(255,255,255,0.80); border: 1px solid rgba(180,210,250,0.50); border-radius: 16px; font-family: 'Inter', sans-serif; font-size: 15px; color: #0F1B2E; outline: none; transition: border-color 0.18s, box-shadow 0.18s; box-sizing: border-box; } .ds-input::placeholder { color: #6080A0; } .ds-input:focus { border-color: #3B7DD8; box-shadow: 0 0 0 3px rgba(59,125,216,0.10); }"
+    },
+    {
+      "name": "Phase Chip",
+      "kind": "chip",
+      "refersTo": "button-secondary",
+      "description": "Recovery phase tag — color-coded to the five rehab phases.",
+      "html": "<span class=\"ds-chip ds-chip--protect\">Protect</span><span class=\"ds-chip ds-chip--restore\">Restore</span><span class=\"ds-chip ds-chip--capacity\">Capacity</span>",
+      "css": ".ds-chip { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 999px; font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase; gap: 5px; } .ds-chip--protect  { background: rgba(74,143,212,0.12);  color: #4A8FD4; border: 1px solid rgba(74,143,212,0.25);  } .ds-chip--restore  { background: rgba(24,160,90,0.12);   color: #18A05A; border: 1px solid rgba(24,160,90,0.25);   } .ds-chip--capacity { background: rgba(124,111,212,0.12); color: #7C6FD4; border: 1px solid rgba(124,111,212,0.25); } .ds-chip--speed    { background: rgba(232,160,32,0.12);  color: #E8A020; border: 1px solid rgba(232,160,32,0.25);  } .ds-chip--return   { background: rgba(59,125,216,0.12);  color: #3B7DD8; border: 1px solid rgba(59,125,216,0.25);  }"
+    },
+    {
+      "name": "Desktop Nav Link",
+      "kind": "nav",
+      "refersTo": "button-ghost",
+      "description": "Top navigation link with sliding active-pill indicator.",
+      "html": "<nav class=\"ds-nav-top\"><a class=\"ds-nav-link\" href=\"#\">Home</a><a class=\"ds-nav-link ds-nav-link--active\" href=\"#\">Assessment</a><a class=\"ds-nav-link\" href=\"#\">Plan</a></nav>",
+      "css": ".ds-nav-top { display: flex; align-items: center; gap: 4px; position: relative; } .ds-nav-link { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; color: #6080A0; padding: 7px 14px; border-radius: 999px; text-decoration: none; transition: color 0.18s, background 0.18s; position: relative; z-index: 1; } .ds-nav-link:hover { color: #243550; background: rgba(59,125,216,0.06); } .ds-nav-link--active { color: #3B7DD8; font-weight: 700; } .ds-nav-link:focus-visible { outline: 2px solid #3B7DD8; outline-offset: 2px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Clinical Athenaeum",
+    "overview": "InjuryGuide occupies the precise midpoint between medical precision and athletic confidence. The interface is a well-lit consultation room, not a hospital ward — crisp white-frosted glass surfaces float over a cool misty-blue background, carrying information with authority and calm. Every element earns its opacity: surfaces that carry primary actions are more solid; contextual layers are more translucent, creating a natural depth hierarchy without artificial drama.\n\nThe aesthetic is purposefully light — a soft #EEF6FF canvas threaded with concentric cobalt rings, like the surface of still water. Against this, frosted-glass cards read as elevated, clinical documents. The cobalt blue (#3B7DD8) is the single voice of urgency and progress; it appears on CTAs, active states, and the anatomy selector — never decoratively. Motion is measured: spring-snapping, not bouncing; fading in, not flying in.\n\nThis system explicitly rejects two failure modes: it does not feel like an NHS hospital portal (sterile bureaucratic blue-on-white forms, zero personality) and it does not feel like a meditation app (soft pastels, organic blobs, slow ambient vibes).",
+    "keyCharacteristics": [
+      "Light frosted-glass surfaces on a misty-blue canvas",
+      "Single cobalt accent; all other colors are semantic (green = heal, amber = caution, red = stop)",
+      "Space Grotesk headings with aggressive negative tracking; Inter body for legibility",
+      "Spring physics for all interactive motion; no bouncing, no elastic",
+      "Glass is structural, not decorative — applied only where hierarchy demands it"
+    ],
+    "rules": [
+      { "name": "The One Voice Rule",        "body": "Recovery Cobalt (#3B7DD8) is used on ≤15% of any screen. Its rarity is the point — when it appears, the user knows to act.", "section": "colors" },
+      { "name": "The Semantic Color Rule",   "body": "Green means healed. Amber means cautious. Red means stop. Purple means capacity. These colors are never used decoratively.", "section": "colors" },
+      { "name": "The Tight-Head Rule",       "body": "Display and Title headings carry negative letter-spacing (-0.04em to -0.06em). Any heading with tracking ≥ 0 reads as amateur on this system.", "section": "typography" },
+      { "name": "The Legibility Floor Rule", "body": "Body text is never lighter than #6080A0 (--muted) on any canvas. Muted gray for elegance is the #1 reason clinical UIs become unreadable.", "section": "typography" },
+      { "name": "The Flat-By-Default Rule",  "body": "Surfaces are flat at rest. Primary Glow shadow appears only on primary buttons, never on cards or panels.", "section": "elevation" },
+      { "name": "The Blur Budget Rule",      "body": "backdrop-filter: blur(20px) is the standard. Never omit -webkit-backdrop-filter. Never go below 12px (loses the frosted effect).", "section": "elevation" }
+    ],
+    "dos": [
+      "Do use Recovery Cobalt (#3B7DD8) as the single interactive accent — on buttons, active nav, focus rings, and the anatomy selector only.",
+      "Do apply the top specular edge (::before gradient) to every glass card.",
+      "Do use Space Grotesk at 700–800 weight with negative tracking (≥ -0.04em) for all headings.",
+      "Do use semantic colors for health signals: green = healed/complete, amber = caution, red = stop/contraindicated.",
+      "Do animate with spring physics — stiffness 400–560, damping 28–36.",
+      "Do ensure placeholder text uses #6080A0 or darker (4.5:1 contrast minimum).",
+      "Do add @media (prefers-reduced-motion: reduce) alternates for every animation."
+    ],
+    "donts": [
+      "Don't make the interface feel like a generic NHS / hospital portal — no sterile bureaucratic blue-on-white grids.",
+      "Don't make the interface feel like a meditation or wellness app — no soft pastels, no organic blob shapes.",
+      "Don't use gradient text (background-clip: text). Use solid color for emphasis.",
+      "Don't apply glass cards by default to every container. Glass is purposeful.",
+      "Don't nest cards inside cards. Always wrong.",
+      "Don't use the phase colors (green, amber, purple, red) outside their semantic phase-tagging context.",
+      "Don't drop body text below #6080A0 on any light surface.",
+      "Don't use arbitrary z-index values (999, 9999). Use the semantic scale: 10→20→30→40→50→60→70.",
+      "Don't animate layout CSS properties (width, height, top, left) for interactive feedback."
+    ]
+  }
+}

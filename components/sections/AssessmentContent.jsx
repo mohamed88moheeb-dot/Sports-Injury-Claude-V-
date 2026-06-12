@@ -28,23 +28,24 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
     <section className="assessment-grid app-section app-section-soft">
       <div className="section-heading span-2">
         <div>
-          <p className="eyebrow">Build your profile</p>
           <h2>Tell us what happened.</h2>
           <p>
-            The plan adapts to location, grade, mechanism, sport demands, equipment, pain, and
-            warning signs.
+            Your plan will adapt to injury location, how it happened, sport demands, pain levels,
+            and any warning signs — so be specific.
           </p>
         </div>
       </div>
 
       <div className="section-card span-2 glass-card">
-        <p className="eyebrow">Step 1</p>
-        <h3>Injury profile</h3>
+        <div className="step-header">
+          <span className="step-number">1</span>
+          <h3>Injury profile</h3>
+        </div>
 
         {/* ── 1. Body region — always first ─────────────── */}
         <div className="body-region-selector" onClick={() => router.push('/anatomy')}>
           <div className="body-region-selector-left">
-            <p className="eyebrow">Injury location</p>
+            <span className="body-region-label">Injury location</span>
             {assessment.primaryRegion ? (
               <div className="body-region-selected">
                 <span className="body-region-dot" />
@@ -127,8 +128,10 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
       </div>
 
       <div className="section-card span-2 glass-card soft-tint">
-        <p className="eyebrow">Step 2</p>
-        <h3>Sport, demands, and equipment</h3>
+        <div className="step-header">
+          <span className="step-number">2</span>
+          <h3>Sport, demands, and equipment</h3>
+        </div>
         <Field label="What does your sport demand?">
           <MultiSelectDropdown
             options={movements}
@@ -148,8 +151,10 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
       </div>
 
       <div className="section-card span-2 glass-card">
-        <p className="eyebrow">Step 3</p>
-        <h3>Pain and context</h3>
+        <div className="step-header">
+          <span className="step-number">3</span>
+          <h3>Pain and context</h3>
+        </div>
         <div className="slider-grid">
           <Slider
             label="Pain at rest"
@@ -177,10 +182,10 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
       <div className="section-card span-2 glass-card redflag-card">
         <div className="section-heading-row">
           <div>
-            <p className="eyebrow">Optional safety screen</p>
-            <h3>Warning signs</h3>
+            <h3>Any of these apply?</h3>
             <p className="short-copy">
-              Select only what applies. These answers help the app avoid unsafe rehab suggestions.
+              Select anything that fits. If you check one, see a doctor before starting rehab — don't
+              delay. These answers prevent the app from suggesting exercises that could make things worse.
             </p>
           </div>
         </div>

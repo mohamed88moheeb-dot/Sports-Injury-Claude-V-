@@ -63,7 +63,7 @@ export function ConfidenceMeter({ value = 0, label = 'Confidence', size = 100 })
             strokeDashoffset={offset}
             filter={`url(#glow-${value})`}
             style={{
-              transition: 'stroke-dashoffset 1.0s cubic-bezier(0.34,1.56,0.64,1)',
+              transition: 'stroke-dashoffset 1.0s cubic-bezier(0.16,1,0.3,1)',
               filter: `drop-shadow(0 0 6px ${glow})`,
             }}
           />
