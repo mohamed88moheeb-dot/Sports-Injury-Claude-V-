@@ -176,6 +176,12 @@ html { scroll-behavior: smooth; }
   position: relative;
   z-index: 1;
 }
+/* Bare shell: no padding/width constraint — used for full-viewport carousel pages */
+.app-shell--bare {
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+}
 
 /* ══════════════════════════════════════════════════════
    TENDON BRAND MOTION SYSTEM
@@ -1122,7 +1128,301 @@ select option { background: #EEF6FF; color: var(--ink); }
   .dashboard-stats-row { grid-template-columns: 1fr 1fr; }
 }
 
-/* ── Assessment ─────────────────────────────── */
+/* ── Assessment Carousel ────────────────────── */
+
+/* Shell: fills the available viewport between top nav + bottom nav */
+.ac-shell {
+  display: flex;
+  flex-direction: column;
+  height: calc(100dvh - 56px - 72px); /* top nav + bottom nav */
+  max-height: 100%;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Header: persistent page heading + step indicator row */
+.ac-header {
+  padding: 14px 20px 8px;
+  flex-shrink: 0;
+}
+.ac-page-heading {
+  margin-bottom: 10px;
+}
+.ac-page-heading h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(22px, 5vw, 32px);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  color: var(--ink);
+  margin: 0 0 3px;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+.ac-page-heading p {
+  font-size: 12px;
+  color: var(--ink-3);
+  margin: 0;
+  line-height: 1.5;
+}
+.ac-step-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ac-step-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+.ac-dots {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.ac-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  transition: width 0.3s cubic-bezier(0.16,1,0.3,1), background 0.3s;
+  background: rgba(59,125,216,0.22);
+  padding: 0;
+  flex-shrink: 0;
+}
+.ac-dot.active {
+  width: 22px;
+  background: var(--primary);
+}
+.ac-dot.done {
+  background: rgba(59,125,216,0.55);
+}
+
+/* Stale plan banner */
+.ac-stale-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0 16px 8px;
+  padding: 10px 14px;
+  background: rgba(232,160,32,0.10);
+  border: 1px solid rgba(232,160,32,0.32);
+  border-radius: 12px;
+  color: rgba(120,70,0,0.90);
+  flex-shrink: 0;
+}
+.ac-stale-banner p {
+  font-size: 12px;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Track: clips slides, allows native vertical scroll but captures horizontal */
+.ac-track {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  min-height: 0;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Individual slides — GPU-composited, zero layout thrash */
+.ac-slide {
+  position: absolute;
+  inset: 0;
+  padding: 0 16px;
+  transition: transform 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  /* Promote to own compositor layer */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.ac-slide--active { transform: translate3d(0, 0, 0); }
+.ac-slide--prev   { transform: translate3d(-100%, 0, 0); }
+.ac-slide--next   { transform: translate3d(100%, 0, 0); }
+
+/* The card inside each slide — height fits content, not full stretch */
+.ac-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: auto;
+  padding: 16px;
+  overflow: visible;
+}
+
+/* Pain step: card needs to fill so textarea can flex */
+.ac-slide--active .ac-card--fill {
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Two-col row inside cards */
+.ac-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+/* Sliders container — compact spacing */
+.ac-sliders {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Compact textarea for pain step */
+.ac-textarea {
+  height: 80px;
+  min-height: 0;
+  max-height: 80px;
+  resize: none;
+  border-radius: 12px;
+  border: 1px solid rgba(180,210,250,0.50);
+  background: rgba(255,255,255,0.80);
+  padding: 9px 12px;
+  font-size: 12px;
+  color: var(--ink);
+  font-family: inherit;
+  line-height: 1.5;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.ac-textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59,125,216,0.10);
+}
+.ac-textarea::placeholder { color: var(--muted); }
+
+/* Red flags step */
+.ac-redflag-intro {
+  font-size: 12px;
+  color: var(--ink-3);
+  margin: 0;
+  line-height: 1.4;
+  flex-shrink: 0;
+}
+.ac-redflag-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+  flex: 1;
+  align-content: start;
+}
+.ac-redflag-btn {
+  background: rgba(255,255,255,0.60);
+  border: 1px solid rgba(59,125,216,0.18);
+  border-radius: 10px;
+  padding: 9px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--ink-2);
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s, color 0.18s;
+}
+.ac-redflag-btn:hover {
+  background: rgba(232,160,32,0.08);
+  border-color: rgba(232,160,32,0.40);
+}
+.ac-redflag-btn.active {
+  background: rgba(232,160,32,0.14);
+  border-color: rgba(232,160,32,0.60);
+  color: rgba(100,55,0,0.90);
+  font-weight: 600;
+}
+
+/* Bottom navigation — two equal glass arrow buttons */
+.ac-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px 14px;
+  flex-shrink: 0;
+  gap: 16px;
+}
+.ac-nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.62);
+  border: 1.5px solid rgba(59,125,216,0.22);
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  box-shadow: 0 2px 12px rgba(40,90,180,0.10), inset 0 1px 0 rgba(255,255,255,0.80);
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, opacity 0.2s, transform 0.15s cubic-bezier(0.16,1,0.3,1);
+  flex-shrink: 0;
+}
+.ac-nav-btn:disabled {
+  opacity: 0.28;
+  cursor: default;
+}
+.ac-nav-btn:not(:disabled):hover {
+  background: rgba(255,255,255,0.85);
+  box-shadow: 0 4px 20px rgba(40,90,180,0.16), inset 0 1px 0 rgba(255,255,255,0.90);
+}
+.ac-nav-btn:not(:disabled):active {
+  transform: scale(0.94);
+}
+.ac-nav-btn--forward {
+  background: rgba(47,140,255,0.18);
+  border-color: rgba(59,125,216,0.38);
+  color: var(--primary);
+}
+.ac-nav-btn--forward:not(:disabled):hover {
+  background: rgba(47,140,255,0.28);
+}
+
+/* Compact Field labels and inputs inside carousel */
+.ac-card .field-label {
+  font-size: 10px;
+  margin-bottom: 4px;
+}
+.ac-card select,
+.ac-card input[type="number"] {
+  padding: 9px 12px;
+  font-size: 13px;
+  height: auto;
+}
+
+/* Compact sliders inside carousel pain step */
+.ac-sliders .slider {
+  padding: 8px 12px;
+  gap: 5px;
+  border-radius: 12px;
+}
+.ac-sliders .slider-label {
+  font-size: 10px;
+}
+.ac-sliders .slider-val {
+  font-size: 14px;
+}
+.ac-sliders .slider-extremes {
+  font-size: 8px;
+}
+.ac-sliders .slider-track-wrap input[type="range"] {
+  height: 4px;
+}
+.ac-sliders .slider:hover {
+  transform: none;
+}
+
+/* ── Assessment (legacy grid kept for other uses) ── */
 .assessment-grid {
   display: grid;
   grid-template-columns: repeat(2,1fr);

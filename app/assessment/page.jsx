@@ -53,7 +53,7 @@ export default function AssessmentPage() {
   }
 
   return (
-    <PageShell>
+    <PageShell bare={!generating}>
       {generating ? (
         <GeneratingPlan />
       ) : (

@@ -1,10 +1,10 @@
 import { TendonBackground } from '../brand/TendonBackground';
 
-export function PageShell({ children }) {
+export function PageShell({ children, bare = false }) {
   return (
-    <main className="app-shell">
+    <main className={bare ? 'app-shell app-shell--bare' : 'app-shell'}>
       <TendonBackground />
-      <div className="page-enter">
+      <div className={bare ? '' : 'page-enter'}>
         {children}
       </div>
     </main>
