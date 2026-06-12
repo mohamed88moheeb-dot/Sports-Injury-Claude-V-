@@ -2613,7 +2613,7 @@ input[type='range']::-moz-range-thumb {
 
 /* ── Responsive ─────────────────────────────── */
 @media (max-width: 900px) {
-  .app-shell { width: calc(100% - 24px); }
+  .app-shell { width: 100%; }
   .topbar { position: static; border-radius: var(--r-lg); }
   .app-section-hero { grid-template-columns: 1fr; }
   .hero-panel { flex-direction: row; min-width: unset; }
@@ -2634,7 +2634,7 @@ input[type='range']::-moz-range-thumb {
   .chat-bubble { max-width: 92%; }
 }
 @media (max-width: 600px) {
-  .app-shell { width: calc(100% - 16px); padding-bottom: 80px; }
+  .app-shell { width: 100%; padding-bottom: 80px; }
   .app-section { padding: 14px; border-radius: var(--r-lg); }
   .glass-card { padding: 14px; }
   .section-card { padding: 14px; gap: 12px; }

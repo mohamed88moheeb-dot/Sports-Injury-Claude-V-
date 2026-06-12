@@ -17,9 +17,9 @@ const NAV_ITEMS = [
   { href: '/profile',    label: 'Profile',    icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z' },
 ];
 
-const MOBILE_ITEMS = NAV_ITEMS.filter(i =>
-  ['/', '/dashboard', '/assessment', '/plan', '/coach'].includes(i.href)
-);
+const MOBILE_ITEMS = ['/', '/assessment', '/plan', '/dashboard', '/coach']
+  .map(href => NAV_ITEMS.find(i => i.href === href))
+  .filter(Boolean);
 
 /* ── Desktop nav with sliding active pill ──────────────────── */
 function DesktopNav({ items, pathname }) {
@@ -223,7 +223,7 @@ function MobileNav({ items, pathname }) {
             <motion.span
               animate={{ opacity: isActive ? 1 : 0.38 }}
               transition={{ duration: 0.14 }}
-              style={{ fontSize: 9, fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase' }}
+              style={{ fontSize: 8, fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase' }}
             >
               {label}
             </motion.span>

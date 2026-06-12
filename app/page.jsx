@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { AuthCard } from '../components/layout/AuthCard';
 import { PageShell } from '../components/layout/PageShell';
+import { DashboardContent } from '../components/sections/DashboardContent';
 import { useRecovery } from './providers/RecoveryContext';
 import { hasSupabase } from '../lib/supabaseClient';
 
@@ -50,6 +51,15 @@ export default function LandingPage() {
     handleAuth, authMessage, authLoading,
     profile,
   } = useRecovery();
+
+  // Signed-in users with a profile see the dashboard on home
+  if (profile) {
+    return (
+      <PageShell>
+        <DashboardContent profile={profile} />
+      </PageShell>
+    );
+  }
 
   return (
     <PageShell>
