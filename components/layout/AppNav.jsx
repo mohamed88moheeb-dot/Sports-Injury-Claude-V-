@@ -6,6 +6,7 @@ import { useRef, useEffect, useState } from 'react';
 import { motion, useMotionValue, animate } from 'framer-motion';
 import { useRecovery } from '../../app/providers/RecoveryContext';
 import { hasSupabase } from '../../lib/supabaseClient';
+import { AnimatedTendonLogo } from '../brand/AnimatedTendonLogo';
 
 const NAV_ITEMS = [
   { href: '/',           label: 'Home',       icon: 'M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z' },
@@ -245,15 +246,7 @@ export function AppNav() {
       <nav className="app-nav-top" aria-label="App navigation">
         <div className="app-nav-top-inner">
           <Link href="/" className="app-nav-brand">
-            <motion.span
-              className="app-nav-brand-dot"
-              animate={{ boxShadow: [
-                '0 0 6px rgba(59,125,216,0.5)',
-                '0 0 16px rgba(59,125,216,0.8)',
-                '0 0 6px rgba(59,125,216,0.5)',
-              ]}}
-              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            />
+            <AnimatedTendonLogo size={28} />
             <span>InjuryGuide</span>
           </Link>
 
