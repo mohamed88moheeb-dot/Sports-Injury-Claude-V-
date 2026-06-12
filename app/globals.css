@@ -595,7 +595,7 @@ input, select, textarea {
   transition: border-color .18s, box-shadow .18s, background .18s;
 }
 input::placeholder, textarea::placeholder { color: var(--muted); }
-textarea { min-height: 110px; resize: vertical; }
+textarea { min-height: 80px; resize: vertical; }
 input:focus, select:focus, textarea:focus {
   border-color: var(--primary);
   background: rgba(255,255,255,0.96);
@@ -1246,13 +1246,13 @@ select option { background: #EEF6FF; color: var(--ink); }
   margin-bottom: 16px;
 }
 .slider {
-  padding: 16px 18px;
+  padding: 11px 14px;
   background: rgba(255,255,255,0.55);
   border-radius: var(--r-lg);
   border: 1px solid rgba(59,125,216,0.18);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
   transition: border-color .22s, background .22s, box-shadow .22s, transform .22s cubic-bezier(0.16,1,0.3,1);
   position: relative;
   overflow: hidden;
@@ -1877,7 +1877,14 @@ input[type='range']::-moz-range-thumb {
   gap: 16px;
   align-items: start;
 }
-.checkin-grid h2 { font-size: 26px; margin: 8px 0 18px; }
+.checkin-grid h2 { font-size: 22px; margin: 4px 0 10px; }
+
+/* Tighter rhythm inside the check-in form card */
+.checkin-grid .section-card:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 .history-list { display: grid; gap: 8px; margin-top: 4px; }
 .history-item {
   padding: 14px; background: rgba(255,255,255,0.04);
