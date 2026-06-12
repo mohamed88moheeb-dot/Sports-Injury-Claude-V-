@@ -22,10 +22,37 @@ const REGION_LABELS = {
   biceps:'Biceps', triceps:'Triceps', elbow:'Elbow', forearm:'Forearm', neck:'Neck', serratus:'Serratus',
 };
 
-export function AssessmentContent({ assessment, setAssessment, toggleArray, generateProfile }) {
+export function AssessmentContent({ assessment, setAssessment, toggleArray, generateProfile, profile }) {
   const router = useRouter();
+
+  // True when user has a plan built for a DIFFERENT region than currently selected.
+  // This means the plan is stale and must be rebuilt.
+  const planIsStale = profile && assessment.primaryRegion && assessment.primaryRegion !== profile.primaryRegion;
+
   return (
     <section className="assessment-grid app-section app-section-soft">
+      {planIsStale && (
+        <div className="span-2" style={{
+          background: 'rgba(232,160,32,0.10)',
+          border: '1px solid rgba(232,160,32,0.32)',
+          borderRadius: 14,
+          padding: '12px 16px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 10,
+          marginBottom: 4,
+        }}>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(180,110,0,0.90)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <p style={{ fontSize: 13, color: 'rgba(120,70,0,0.90)', margin: 0, lineHeight: 1.4 }}>
+            <strong>Your injury location changed.</strong> Your current plan was built for <strong>{profile.regionName}</strong>.
+            Fill in the form below and tap <em>"Build my recovery plan"</em> to generate a new plan for your updated injury.
+          </p>
+        </div>
+      )}
+
       <div className="section-heading span-2">
         <div>
           <h2>Tell us what happened.</h2>

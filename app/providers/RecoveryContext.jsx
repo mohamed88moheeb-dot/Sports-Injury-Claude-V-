@@ -261,6 +261,28 @@ export function RecoveryProvider({ children }) {
     setChatInput('');
   }
 
+  /* Clear the existing plan so a new one must be generated.
+     Called when the user selects a different injury region after already
+     having a plan — prevents stale plan data showing in dashboard/plan. */
+  function resetProfile() {
+    setProfile(null);
+    setCheckins([]);
+    // Persist the cleared state locally so a page refresh doesn't restore stale profile
+    if (!hasSupabase || !user) {
+      try {
+        const cached = localStorage.getItem('injury-recovery-local-profile');
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          localStorage.setItem('injury-recovery-local-profile', JSON.stringify({
+            ...parsed,
+            profile: null,
+            checkins: [],
+          }));
+        }
+      } catch {}
+    }
+  }
+
   const dashboardStats = useMemo(() => profile ? calculateProgress(profile.plan) : null, [profile]);
 
   const value = {
@@ -270,7 +292,7 @@ export function RecoveryProvider({ children }) {
     // assessment
     assessment, setAssessment, toggleArray, generateProfile, generating,
     // profile & plan
-    profile, checkins, completeDay, addCheckin, dashboardStats,
+    profile, checkins, completeDay, addCheckin, dashboardStats, resetProfile,
     // save status
     saving, saveMessage,
     // tab nav (for legacy tab-switching inside page.jsx during Phase 1)

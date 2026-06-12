@@ -179,116 +179,48 @@ html { scroll-behavior: smooth; }
 
 /* ══════════════════════════════════════════════════════
    TENDON BRAND MOTION SYSTEM
-   Electrical light pulses traveling through fiber rings.
-   Used by AnimatedTendonLogo (navbar) + TendonBackground (pages).
+   GPU-compositor-only animations: transform:rotate() only.
+   NO stroke-dashoffset (causes per-frame repaints = jank).
+   Used by AnimatedTendonLogo + TendonBackground.
    ══════════════════════════════════════════════════════ */
 
-/* ── Logo icon — navbar (56×56 viewBox, rendered 28×28) ──────── */
-/*   Ring circumferences: r=8→50.3  r=14→88.0  r=20→125.7        */
+/* ── Shared spin keyframes — only transform, fully GPU-composited ── */
+@keyframes tl-spin-cw  { from { transform: rotate(0deg);   } to { transform: rotate(360deg);  } }
+@keyframes tl-spin-ccw { from { transform: rotate(0deg);   } to { transform: rotate(-360deg); } }
 
-.tl-r1, .tl-r1-glow {
-  animation: tl-pulse-1 3.2s linear infinite;
-  will-change: stroke-dashoffset;
+/* transform-box: fill-box is REQUIRED for SVG <g> rotation to work.
+   Without it, browsers can't determine the rotation origin and skip the animation. */
+.tb-spin-cw, .tb-spin-ccw,
+.tl-spin-cw, .tl-spin-ccw {
+  transform-box: fill-box;
+  transform-origin: center;
+  will-change: transform;
 }
-.tl-r2, .tl-r2-glow {
-  animation: tl-pulse-2 4.8s linear infinite;
-  will-change: stroke-dashoffset;
-}
-.tl-r3, .tl-r3-glow {
-  animation: tl-pulse-3 6.4s linear infinite;
-  will-change: stroke-dashoffset;
-}
+.tb-spin-cw  { animation: tl-spin-cw  var(--spin-dur, 30s) linear infinite; }
+.tb-spin-ccw { animation: tl-spin-ccw var(--spin-dur, 30s) linear infinite; }
+.tl-spin-cw  { animation: tl-spin-cw  var(--spin-dur, 9s)  linear infinite; }
+.tl-spin-ccw { animation: tl-spin-ccw var(--spin-dur, 9s)  linear infinite; }
 
-/* Negative offset = dashes travel clockwise */
-@keyframes tl-pulse-1 {
-  from { stroke-dashoffset: 0; }
-  to   { stroke-dashoffset: -50.3; }
-}
-@keyframes tl-pulse-2 {
-  from { stroke-dashoffset: 0; }
-  to   { stroke-dashoffset: -88.0; }
-}
-@keyframes tl-pulse-3 {
-  from { stroke-dashoffset: 0; }
-  to   { stroke-dashoffset: -125.7; }
-}
-
-/* Soft brightness breathe on top of the traveling dashes */
-.tl-r1 { animation: tl-pulse-1 3.2s linear infinite, tl-breathe 4s ease-in-out infinite; }
-.tl-r2 { animation: tl-pulse-2 4.8s linear infinite, tl-breathe 5s ease-in-out 0.6s infinite; }
-.tl-r3 { animation: tl-pulse-3 6.4s linear infinite, tl-breathe 6s ease-in-out 1.2s infinite; }
-
-@keyframes tl-breathe {
-  0%, 100% { opacity: 0.80; }
-  50%       { opacity: 1;    }
-}
-
-/* ── Background rings (TendonBackground SVG) ────────────────── */
-/*   Ring circumferences: r=90→565  r=150→942  r=215→1351  r=290→1822 */
-
-/* Glow halos — slow breathing only */
-.tb-r1-glow { animation: tb-breathe-1 12s ease-in-out infinite; }
-.tb-r2-glow { animation: tb-breathe-2 16s ease-in-out 2s infinite; }
-.tb-r3-glow { animation: tb-breathe-3 20s ease-in-out 4s infinite; }
-.tb-r4-glow { animation: tb-breathe-4 26s ease-in-out 6s infinite; }
-.tb-center-pulse { animation: tb-center 10s ease-in-out infinite; }
-
-/* Crisp fiber lines — traveling pulse + gentle breathe */
-.tb-r1 { animation: tb-fiber-1 20s linear infinite, tb-breathe-1 12s ease-in-out infinite; }
-.tb-r2 { animation: tb-fiber-2 30s linear infinite, tb-breathe-2 16s ease-in-out 2s infinite; }
-.tb-r3 { animation: tb-fiber-3 42s linear infinite, tb-breathe-3 20s ease-in-out 4s infinite; }
-.tb-r4 { animation: tb-fiber-4 56s linear infinite, tb-breathe-4 26s ease-in-out 6s infinite; }
-
-@keyframes tb-fiber-1 {
-  from { stroke-dashoffset: 0; }
-  to   { stroke-dashoffset: -565; }
-}
-@keyframes tb-fiber-2 {
-  from { stroke-dashoffset: 0; }
-  to   { stroke-dashoffset: 942; }    /* counter-clockwise */
-}
-@keyframes tb-fiber-3 {
-  from { stroke-dashoffset: 0; }
-  to   { stroke-dashoffset: -1351; }
-}
-@keyframes tb-fiber-4 {
-  from { stroke-dashoffset: 0; }
-  to   { stroke-dashoffset: 1822; }   /* counter-clockwise */
-}
-
-@keyframes tb-breathe-1 {
-  0%, 100% { opacity: 0.75; }
-  50%       { opacity: 1.00; }
-}
-@keyframes tb-breathe-2 {
-  0%, 100% { opacity: 0.60; }
-  50%       { opacity: 0.90; }
-}
-@keyframes tb-breathe-3 {
-  0%, 100% { opacity: 0.45; }
-  50%       { opacity: 0.75; }
-}
-@keyframes tb-breathe-4 {
-  0%, 100% { opacity: 0.30; }
-  50%       { opacity: 0.58; }
-}
+/* ── Shared breathe — opacity only, also GPU-composited ── */
 @keyframes tb-center {
-  0%, 100% { opacity: 0.55; }
-  50%       { opacity: 0.90; }
+  0%, 100% { opacity: 0.5; }
+  50%       { opacity: 0.9; }
+}
+.tb-center-pulse {
+  animation: tb-center 10s ease-in-out infinite;
+  will-change: opacity;
 }
 
-/* ── Reduced-motion overrides ─────────────────────────────────── */
+/* ── Reduced-motion: freeze everything ── */
 @media (prefers-reduced-motion: reduce) {
-  .tl-r1, .tl-r2, .tl-r3,
-  .tl-r1-glow, .tl-r2-glow, .tl-r3-glow {
-    animation: none;
+  [style*="tl-spin"],
+  [style*="tb-spin"] {
+    animation: none !important;
   }
-  .tb-r1, .tb-r2, .tb-r3, .tb-r4,
-  .tb-r1-glow, .tb-r2-glow, .tb-r3-glow, .tb-r4-glow,
-  .tb-center-pulse {
-    animation: none;
-  }
+  .tb-center-pulse { animation: none; }
 }
+
+/* (old tl-r / tb-r classes removed — now using inline transform:rotate) */
 
 /* ── Typography ─────────────────────────────── */
 .eyebrow {

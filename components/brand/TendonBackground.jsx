@@ -1,13 +1,25 @@
 'use client';
 
-/* TendonBackground — delicate oversized tendon-ring backdrop
-   Thin traveling fiber lines, no heavy filters, truly subtle.
-   Position: fixed behind all content. Respects prefers-reduced-motion. */
+/* TendonBackground — GPU-safe tendon-ring backdrop
+   Uses CSS class .tb-spin-cw/.tb-spin-ccw with transform-box:fill-box
+   so transform-origin:center works correctly on SVG <g> elements. */
 export function TendonBackground() {
+  const cx = 195;
+  const cy = 300;
+
+  const rings = [
+    { r: 90,  dash: '7 5',   dur: '22s',  dir: 'cw',  glow: 0.12, line: 0.40, strand: 0.16 },
+    { r: 150, dash: '10 7',  dur: '34s',  dir: 'ccw', glow: 0.09, line: 0.30, strand: 0.12 },
+    { r: 215, dash: '13 9',  dur: '48s',  dir: 'cw',  glow: 0.06, line: 0.22, strand: 0.09 },
+    { r: 290, dash: '16 11', dur: '64s',  dir: 'ccw', glow: 0.04, line: 0.15, strand: 0.06 },
+  ];
+
   return (
     <svg
       aria-hidden="true"
+      focusable="false"
       xmlns="http://www.w3.org/2000/svg"
+      pointerEvents="none"
       style={{
         position: 'fixed',
         inset: 0,
@@ -15,108 +27,46 @@ export function TendonBackground() {
         height: '100%',
         pointerEvents: 'none',
         zIndex: 0,
-        overflow: 'visible',
+        overflow: 'hidden',
       }}
       viewBox="0 0 390 844"
       preserveAspectRatio="xMidYMid slice"
     >
-      {/*
-        All rings centered at (195, 310) — upper-center of viewport.
-        Each ring uses DUAL layers: a slightly thicker semi-transparent
-        "glow" circle + a razor-thin bright circle on top.
-        No SVG filters — they cause dark artifacts on light backgrounds.
-        Circumferences: r=90→565  r=150→942  r=215→1351  r=290→1822
-      */}
+      {rings.map(({ r, dash, dur, dir, glow, line, strand }) => (
+        <g
+          key={r}
+          className={`tb-spin-${dir}`}
+          style={{ '--spin-dur': dur }}
+        >
+          {/* Soft glow halo */}
+          <circle cx={cx} cy={cy} r={r}
+            fill="none"
+            stroke={`rgba(180,215,255,${glow})`}
+            strokeWidth="18"
+            strokeDasharray={dash}
+          />
+          {/* Primary fiber line */}
+          <circle cx={cx} cy={cy} r={r}
+            fill="none"
+            stroke={`rgba(255,255,255,${line})`}
+            strokeWidth="0.75"
+            strokeDasharray={dash}
+          />
+          {/* Offset secondary strand */}
+          <circle cx={cx} cy={cy} r={r + 3}
+            fill="none"
+            stroke={`rgba(255,255,255,${strand})`}
+            strokeWidth="0.5"
+            strokeDasharray={`${parseFloat(dash) * 0.6} ${parseFloat(dash.split(' ')[1]) * 1.8}`}
+          />
+        </g>
+      ))}
 
-      {/* ── Ring 1 — innermost (r=90) ── */}
-      <circle cx="195" cy="310" r="90"
+      {/* Static icy center halo — opacity breathe only */}
+      <circle cx={cx} cy={cy} r="52"
         fill="none"
-        stroke="rgba(100,160,240,0.10)" strokeWidth="12"
-        strokeDasharray="7 5"
-        className="tb-r1-glow"
-      />
-      <circle cx="195" cy="310" r="90"
-        fill="none"
-        stroke="rgba(255,255,255,0.45)" strokeWidth="0.8"
-        strokeDasharray="7 5"
-        className="tb-r1"
-      />
-      {/* offset fiber strand */}
-      <circle cx="195" cy="310" r="92"
-        fill="none"
-        stroke="rgba(255,255,255,0.18)" strokeWidth="0.5"
-        strokeDasharray="4 8"
-        className="tb-r1"
-        style={{ animationDelay: '-4s' }}
-      />
-
-      {/* ── Ring 2 (r=150) ── */}
-      <circle cx="195" cy="310" r="150"
-        fill="none"
-        stroke="rgba(100,160,240,0.08)" strokeWidth="14"
-        strokeDasharray="10 7"
-        className="tb-r2-glow"
-      />
-      <circle cx="195" cy="310" r="150"
-        fill="none"
-        stroke="rgba(255,255,255,0.35)" strokeWidth="0.7"
-        strokeDasharray="10 7"
-        className="tb-r2"
-      />
-      <circle cx="195" cy="310" r="153"
-        fill="none"
-        stroke="rgba(255,255,255,0.14)" strokeWidth="0.5"
-        strokeDasharray="6 11"
-        className="tb-r2"
-        style={{ animationDelay: '-8s' }}
-      />
-
-      {/* ── Ring 3 (r=215) ── */}
-      <circle cx="195" cy="310" r="215"
-        fill="none"
-        stroke="rgba(100,160,240,0.06)" strokeWidth="16"
-        strokeDasharray="13 9"
-        className="tb-r3-glow"
-      />
-      <circle cx="195" cy="310" r="215"
-        fill="none"
-        stroke="rgba(255,255,255,0.26)" strokeWidth="0.65"
-        strokeDasharray="13 9"
-        className="tb-r3"
-      />
-      <circle cx="195" cy="310" r="218"
-        fill="none"
-        stroke="rgba(255,255,255,0.10)" strokeWidth="0.5"
-        strokeDasharray="8 14"
-        className="tb-r3"
-        style={{ animationDelay: '-12s' }}
-      />
-
-      {/* ── Ring 4 — outermost (r=290) ── */}
-      <circle cx="195" cy="310" r="290"
-        fill="none"
-        stroke="rgba(100,160,240,0.04)" strokeWidth="18"
-        strokeDasharray="16 11"
-        className="tb-r4-glow"
-      />
-      <circle cx="195" cy="310" r="290"
-        fill="none"
-        stroke="rgba(255,255,255,0.18)" strokeWidth="0.6"
-        strokeDasharray="16 11"
-        className="tb-r4"
-      />
-      <circle cx="195" cy="310" r="294"
-        fill="none"
-        stroke="rgba(255,255,255,0.07)" strokeWidth="0.5"
-        strokeDasharray="10 17"
-        className="tb-r4"
-        style={{ animationDelay: '-18s' }}
-      />
-
-      {/* ── Soft icy center halo (radial, no filter needed) ── */}
-      <circle cx="195" cy="310" r="55"
-        fill="none"
-        stroke="rgba(180,215,255,0.22)" strokeWidth="38"
+        stroke="rgba(180,215,255,0.18)"
+        strokeWidth="40"
         className="tb-center-pulse"
       />
     </svg>

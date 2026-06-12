@@ -7,8 +7,18 @@ import { useRecovery } from '../providers/RecoveryContext';
 
 export default function AnatomyPage() {
   const router = useRouter();
-  const { assessment, setAssessment } = useRecovery();
+  const { assessment, setAssessment, profile, resetProfile } = useRecovery();
   const hasSelection = !!assessment.primaryRegion;
+
+  function handleConfirm() {
+    if (!hasSelection) return;
+    // If the user already has a plan AND selected a different injury region,
+    // clear the stale plan so dashboard/plan don't show wrong data.
+    if (profile && assessment.primaryRegion !== profile.primaryRegion) {
+      resetProfile();
+    }
+    router.push('/assessment');
+  }
 
   return (
     <PageShell>
@@ -26,7 +36,7 @@ export default function AnatomyPage() {
 
           <button
             className={`primary-btn anatomy-confirm-btn${!hasSelection ? ' anatomy-confirm-disabled' : ''}`}
-            onClick={() => hasSelection && router.push('/assessment')}
+            onClick={handleConfirm}
             disabled={!hasSelection}
           >
             Confirm{hasSelection ? ' →' : ''}
