@@ -3,7 +3,6 @@
 import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
-import HumanFrontIcon from '../HumanFrontIcon';
 import { Chevron } from '../ui/Chevron';
 
 const ACCORDION = {
@@ -73,9 +72,6 @@ export function PlanContent({ profile, completeDay }) {
           <p>{profile.planNote}</p>
         </div>
         <div className="plan-intro-actions">
-          <div className="mini-anatomy-preview">
-            <HumanFrontIcon size="small" />
-          </div>
           {todayPath && (
             <button className="secondary-btn" onClick={jumpToToday}>
               Jump to today
@@ -94,14 +90,12 @@ export function PlanContent({ profile, completeDay }) {
             <button className="phase-head" onClick={() => setOpenPhase(phaseOpen ? null : pIndex)}>
               <div className="phase-head-main">
                 <div>
-                  {/* "Phase 1" plain text above, phase name below it */}
-                  <span className="phase-index">Phase {pIndex + 1} · {phase.name}</span>
+                  <span className="phase-index">Phase {pIndex + 1}</span>
                   <h3>{phase.label}</h3>
                   <p>{phase.goal}</p>
                 </div>
               </div>
               <div className="phase-head-meta">
-                <strong>{phaseCompleted}/{allDays.length} days</strong>
                 <span className="phase-weeks-tag">
                   {phase.weeks.length} {phase.weeks.length === 1 ? 'week' : 'weeks'}
                 </span>
@@ -127,7 +121,6 @@ export function PlanContent({ profile, completeDay }) {
                       <button className="week-head" onClick={() => setOpenWeek(weekOpen ? null : weekKey)}>
                         <span className="week-index">W{wIndex + 1}</span>
                         <div className="week-head-main">
-                          <strong>{week.title}</strong>
                           <span>{week.focus}</span>
                         </div>
                         <div className="week-head-meta">
@@ -156,9 +149,6 @@ export function PlanContent({ profile, completeDay }) {
                                 id={`day-${dayKey}`}
                               >
                                 <button className="day-head" onClick={() => setOpenDay(dayOpen ? null : dayKey)}>
-                                  <span className={`day-status ${day.completed ? 'done' : ''} ${isRest ? 'rest' : ''}`}>
-                                    {day.completed ? '✓' : isRest ? '–' : dIndex + 1}
-                                  </span>
                                   <div className="day-head-main">
                                     <div className="day-head-title-row">
                                       <strong>{day.title}</strong>

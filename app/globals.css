@@ -762,6 +762,21 @@ select option { background: #EEF6FF; color: var(--ink); }
 /* h2 size handled by global clamp — no override */
 .dashboard-header p  { color: var(--ink-3); font-size: 14px; margin-top: 6px; }
 
+/* Confidence widget replacing the body icon */
+.dashboard-confidence-widget {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+/* Glowy blue text inside the donut when in the confidence widget */
+.dashboard-confidence-widget .circle-progress span {
+  color: var(--primary);
+  text-shadow: 0 0 10px rgba(47,140,255,0.7), 0 0 20px rgba(47,140,255,0.4);
+  font-weight: 900;
+}
+
 .dashboard-main {
   display: grid;
   grid-template-columns: 1.3fr 1fr;
@@ -771,15 +786,15 @@ select option { background: #EEF6FF; color: var(--ink); }
 
 /* Today card */
 .today-card.highlight-card {
-  background: linear-gradient(135deg, #030B1A 0%, #061B3A 60%, #030B1A 100%);
+  background: var(--glass-bg);
   border: 1px solid rgba(47,140,255,0.22);
-  color: white;
+  color: var(--ink);
   border-radius: var(--r-lg);
   padding: 24px;
   display: flex;
   flex-direction: column;
   gap: var(--space-5);
-  box-shadow: var(--shadow-lg), 0 0 70px rgba(30,107,255,0.08);
+  box-shadow: var(--shadow-md);
   position: relative;
   overflow: hidden;
 }
@@ -789,18 +804,10 @@ select option { background: #EEF6FF; color: var(--ink); }
   top: -60px; right: -60px;
   width: 300px; height: 300px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(47,140,255,.22) 0%, transparent 68%);
+  background: radial-gradient(circle, rgba(47,140,255,.08) 0%, transparent 68%);
   pointer-events: none;
 }
-.today-card.highlight-card::after {
-  content: '';
-  position: absolute;
-  bottom: -40px; left: -30px;
-  width: 200px; height: 200px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(56,189,248,.12) 0%, transparent 70%);
-  pointer-events: none;
-}
+.today-card.highlight-card::after { display: none; }
 .today-card-top {
   display: flex;
   align-items: flex-start;
@@ -810,9 +817,9 @@ select option { background: #EEF6FF; color: var(--ink); }
   z-index: 1;
 }
 .today-card-top .eyebrow { color: var(--primary); display: block; margin-bottom: 6px; }
-.today-card-top h3 { color: white; font-size: 22px; }
+.today-card-top h3 { color: var(--ink); font-size: 22px; }
 .today-card.highlight-card > p {
-  color: rgba(255,255,255,.60);
+  color: var(--ink-3);
   font-size: 14px;
   line-height: 1.55;
   position: relative;
@@ -822,9 +829,9 @@ select option { background: #EEF6FF; color: var(--ink); }
   flex: 0 0 auto;
   padding: 6px 12px;
   border-radius: var(--r-pill);
-  background: rgba(255,255,255,.08);
-  border: 1px solid rgba(255,255,255,.14);
-  color: rgba(255,255,255,.85);
+  background: rgba(47,140,255,.10);
+  border: 1px solid rgba(47,140,255,.28);
+  color: var(--primary);
   font-size: 11px;
   font-weight: 700;
   white-space: nowrap;
@@ -841,16 +848,16 @@ select option { background: #EEF6FF; color: var(--ink); }
 .today-preview span {
   padding: 7px 12px;
   border-radius: var(--r-pill);
-  background: rgba(255,255,255,.08);
-  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(47,140,255,.06);
+  border: 1px solid rgba(47,140,255,.14);
   font-size: 12px;
   font-weight: 600;
-  color: rgba(255,255,255,.80);
+  color: var(--ink-2);
 }
 .today-card.highlight-card .today-preview span {
-  background: rgba(255,255,255,.06);
-  border-color: rgba(255,255,255,.12);
-  color: rgba(255,255,255,.75);
+  background: rgba(47,140,255,.06);
+  border-color: rgba(47,140,255,.14);
+  color: var(--ink-2);
 }
 .today-actions {
   display: flex;
@@ -861,13 +868,13 @@ select option { background: #EEF6FF; color: var(--ink); }
   z-index: 1;
 }
 .today-card.highlight-card .secondary-btn {
-  background: rgba(255,255,255,.08);
-  border-color: rgba(255,255,255,.18);
-  color: rgba(255,255,255,.88);
+  background: rgba(47,140,255,.07);
+  border-color: rgba(47,140,255,.22);
+  color: var(--primary);
 }
 .today-card.highlight-card .secondary-btn:hover {
-  background: rgba(255,255,255,.14);
-  border-color: rgba(255,255,255,.28);
+  background: rgba(47,140,255,.13);
+  border-color: rgba(47,140,255,.36);
 }
 
 /* Progress ring card */
@@ -934,7 +941,7 @@ select option { background: #EEF6FF; color: var(--ink); }
 /* Secondary stats row */
 .dashboard-stats-row {
   display: grid;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(2,1fr);
   gap: var(--space-4);
 }
 .stat-pill-card {
@@ -1011,7 +1018,6 @@ select option { background: #EEF6FF; color: var(--ink); }
   .dashboard-header { flex-direction: column; align-items: flex-start; gap: 10px; }
   .dashboard-header .human-front-icon, .dashboard-header svg { display: none; }
   .dashboard-stats-row { grid-template-columns: 1fr 1fr; }
-  .dashboard-stats-row .stat-pill-card:last-child { grid-column: span 2; }
 }
 
 /* ── Assessment ─────────────────────────────── */
@@ -2675,27 +2681,67 @@ input[type='range']::-moz-range-thumb {
   text-align: center;
 }
 
-/* On the anatomy page, make SVG much bigger */
-.anatomy-canvas .ia-svg-wrapper {
-  width: clamp(220px, 42vw, 310px);
+/* On the anatomy page: 1fr auto 1fr keeps SVG perfectly centered at all widths */
+.anatomy-canvas .ia-wrapper {
+  display: grid;
+  grid-template-areas:
+    ".    toggle ."
+    "info svg    .";
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 8px 0;
+  width: 100%;
 }
-.anatomy-canvas .ia-wrapper { gap: 12px; }
+.anatomy-canvas .ia-toggle-row  { grid-area: toggle; justify-content: center; }
+.anatomy-canvas .ia-svg-wrapper { grid-area: svg; width: clamp(220px, 42vw, 310px); }
+
+/* Info strip: lives in the left 1fr column, chips left-aligned */
+.anatomy-canvas .ia-info-strip  {
+  grid-area: info;
+  width: 100%;
+  max-width: none;
+  padding: 0 16px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 0;
+}
+.anatomy-canvas .ia-info-row {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 6px;
+}
+/* Arrow not needed in vertical stack */
+.anatomy-canvas .ia-info-arrow { display: none; }
+
 .anatomy-canvas .ia-toggle-btn { padding: 7px 28px; font-size: 13px; }
 
-/* Info strip on anatomy page is wider */
-.anatomy-canvas .ia-info-strip { max-width: 640px; padding: 12px 8px 4px; }
-
-@media (max-width: 768px) {
-  .anatomy-canvas .ia-svg-wrapper { width: clamp(200px, 62vw, 260px); }
-}
-
-@media (max-width: 600px) {
+/* On narrow phones, collapse to full-width stacked layout */
+@media (max-width: 520px) {
   .anatomy-topbar { flex-wrap: nowrap; gap: 10px; }
   .anatomy-confirm-btn { font-size: 13px; padding: 10px 16px; }
-  .anatomy-canvas .ia-svg-wrapper { width: min(72vw, 260px); }
   .anatomy-canvas-heading { font-size: 16px; margin-bottom: 10px; }
-  /* Muscle chips wrap to next line naturally */
-  .anatomy-canvas .ia-info-row { justify-content: flex-start; padding: 0 4px; }
+
+  .anatomy-canvas .ia-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .anatomy-canvas .ia-svg-wrapper { width: clamp(200px, 72vw, 280px); }
+  .anatomy-canvas .ia-info-strip {
+    align-items: flex-start;
+    padding: 0 4px;
+  }
+  .anatomy-canvas .ia-info-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .anatomy-canvas .ia-info-arrow { display: inline; }
 }
 
 /* ── Diagnosis page ─────────────────────────────────────────────────── */
@@ -3535,9 +3581,9 @@ input[type="range"]::-webkit-slider-thumb {
 /* ── Anatomy page ───────────────────────────────────────── */
 .anatomy-page { background: transparent !important; }
 .anatomy-topbar {
-  background: rgba(255,255,255,0.72) !important;
-  border-bottom: 1px solid rgba(200,220,255,0.35) !important;
-  box-shadow: 0 2px 16px rgba(40,90,180,0.08) !important;
+  background: transparent !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
 }
 .anatomy-back-btn {
   color: var(--ink-3) !important;

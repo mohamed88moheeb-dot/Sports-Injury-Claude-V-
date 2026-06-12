@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import HumanFrontIcon from '../HumanFrontIcon';
 import { CircularProgress } from '../ui/CircularProgress';
 import { Metric } from '../ui/Metric';
 
@@ -42,7 +41,10 @@ export function DashboardContent({ profile, stats, saving, saveMessage }) {
             {profile.gradeName} · {profile.mechanism} · {profile.exactAreaName || 'General area'}
           </p>
         </div>
-        <HumanFrontIcon size="medium" />
+        <div className="dashboard-confidence-widget">
+          <CircularProgress value={stats.percent ?? 0} />
+          <span className="small-label">Confidence Score</span>
+        </div>
       </div>
 
       <div className="dashboard-main">
@@ -96,10 +98,6 @@ export function DashboardContent({ profile, stats, saving, saveMessage }) {
         <div className="stat-pill-card accent-blue">
           <span className="small-label">Expected return</span>
           <strong>{profile.returnRange}</strong>
-        </div>
-        <div className="stat-pill-card accent-amber stat-pill-progress">
-          <span className="small-label">Progress</span>
-          <CircularProgress value={stats.percent} />
         </div>
         <div className="stat-pill-card accent-slate">
           <span className="small-label">Save status</span>

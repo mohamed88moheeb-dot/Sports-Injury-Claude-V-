@@ -29,7 +29,7 @@ export default function AnatomyPage() {
             onClick={() => hasSelection && router.push('/assessment')}
             disabled={!hasSelection}
           >
-            {hasSelection ? 'Confirm →' : 'Select a region'}
+            Confirm{hasSelection ? ' →' : ''}
           </button>
         </div>
 
