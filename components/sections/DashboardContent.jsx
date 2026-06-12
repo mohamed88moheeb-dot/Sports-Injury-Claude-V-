@@ -52,7 +52,7 @@ export function DashboardContent({ profile, stats, saving, saveMessage }) {
           </div>
         </div>
         <div className="dashboard-confidence-widget">
-          <CircularProgress value={stats.percent ?? 0} />
+          <CircularProgress value={stats?.percent ?? 0} />
           <span className="small-label">Confidence Score</span>
         </div>
       </div>

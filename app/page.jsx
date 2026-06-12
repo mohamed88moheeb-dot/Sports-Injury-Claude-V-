@@ -49,14 +49,14 @@ export default function LandingPage() {
     authMode, setAuthMode,
     authForm, setAuthForm,
     handleAuth, authMessage, authLoading,
-    profile,
+    profile, dashboardStats, saving, saveMessage,
   } = useRecovery();
 
   // Signed-in users with a profile see the dashboard on home
   if (profile) {
     return (
       <PageShell>
-        <DashboardContent profile={profile} />
+        <DashboardContent profile={profile} stats={dashboardStats} saving={saving} saveMessage={saveMessage} />
       </PageShell>
     );
   }
