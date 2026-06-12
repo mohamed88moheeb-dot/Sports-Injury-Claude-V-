@@ -1,23 +1,7 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { AnimatePresence, motion } from 'framer-motion';
-import { Chevron } from '../ui/Chevron';
-
-const ACCORDION = {
-  initial:  { height: 0, opacity: 0 },
-  animate:  { height: 'auto', opacity: 1 },
-  exit:     { height: 0, opacity: 0 },
-  transition: { duration: 0.22, ease: [0.16, 1, 0.3, 1] },
-};
-
-const ACCORDION_FAST = {
-  initial:  { height: 0, opacity: 0 },
-  animate:  { height: 'auto', opacity: 1 },
-  exit:     { height: 0, opacity: 0 },
-  transition: { duration: 0.16, ease: [0.16, 1, 0.3, 1] },
-};
 
 function findTodayPath(plan) {
   if (!plan) return null;
@@ -31,18 +15,21 @@ function findTodayPath(plan) {
   return null;
 }
 
-export function PlanContent({ profile, completeDay }) {
+export function PlanContent({ profile }) {
   const router = useRouter();
   const todayPath = useMemo(() => findTodayPath(profile?.plan), [profile]);
-  const [openPhase, setOpenPhase] = useState(todayPath?.[0] ?? 0);
-  const [openWeek, setOpenWeek] = useState(todayPath ? `${todayPath[0]}-${todayPath[1]}` : '0-0');
-  const [openDay, setOpenDay] = useState(todayPath ? todayPath.join('-') : null);
-  const [openExercise, setOpenExercise] = useState({});
-  const [openAlt, setOpenAlt] = useState({});
+  const [activePhase, setActivePhase] = useState(todayPath?.[0] ?? 0);
+  const carouselRef = useRef(null);
+
+  // Scroll active phase card into view
+  useEffect(() => {
+    const el = carouselRef.current?.children[activePhase];
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }, [activePhase]);
 
   if (!profile) {
     return (
-      <section className="empty-state app-section app-section-light">
+      <section className="empty-state">
         <h2>No plan yet.</h2>
         <p>Complete the assessment to create your day-by-day plan.</p>
         <button className="primary-btn" onClick={() => router.push('/assessment')}>
@@ -52,267 +39,95 @@ export function PlanContent({ profile, completeDay }) {
     );
   }
 
-  function jumpToToday() {
-    if (!todayPath) return;
-    const [p, w, d] = todayPath;
-    setOpenPhase(p);
-    setOpenWeek(`${p}-${w}`);
-    setOpenDay(`${p}-${w}-${d}`);
-    requestAnimationFrame(() => {
-      document.getElementById(`day-${p}-${w}-${d}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    });
-  }
+  const phase = profile.plan[activePhase];
+  const allDays = phase?.weeks.flatMap((w) => w.days) ?? [];
+  const completedDays = allDays.filter((d) => d.completed).length;
 
   return (
-    <section className="plan-shell app-section app-section-light">
-      <div className="plan-intro section-heading">
-        <div>
-          <p className="eyebrow">Phase by phase</p>
-          <h2>{profile.regionName}</h2>
-          <p>{profile.planNote}</p>
-        </div>
-        <div className="plan-intro-actions">
-          {todayPath && (
-            <button className="secondary-btn" onClick={jumpToToday}>
-              Jump to today
-            </button>
-          )}
+    <section className="plan-v2">
+
+      {/* ── Header ── */}
+      <div className="plan-v2-header">
+        <p className="eyebrow">Recovery plan</p>
+        <h2>{profile.regionName}</h2>
+        {todayPath && (
+          <button
+            className="secondary-btn plan-v2-jump"
+            onClick={() => {
+              const [p, w, d] = todayPath;
+              setActivePhase(p);
+              router.push(`/plan/day/${p}/${w}/${d}`);
+            }}
+          >
+            Jump to today
+          </button>
+        )}
+      </div>
+
+      {/* ── Phase Carousel ── */}
+      <div className="phase-carousel-wrap">
+        <div className="phase-carousel" ref={carouselRef}>
+          {profile.plan.map((ph, pIdx) => {
+            const days = ph.weeks.flatMap((w) => w.days);
+            const done = days.filter((d) => d.completed).length;
+            const pct = days.length ? Math.round((done / days.length) * 100) : 0;
+            const isActive = activePhase === pIdx;
+            return (
+              <button
+                key={ph.id}
+                className={`phase-carousel-card ${isActive ? 'active' : ''}`}
+                onClick={() => setActivePhase(pIdx)}
+              >
+                <span className="phase-carousel-index">Phase {pIdx + 1}</span>
+                <span className="phase-carousel-label">{ph.label}</span>
+                <div className="phase-carousel-bar">
+                  <div className="phase-carousel-bar-fill" style={{ width: `${pct}%` }} />
+                </div>
+                <span className="phase-carousel-pct">{pct}%</span>
+              </button>
+            );
+          })}
         </div>
       </div>
 
-      {profile.plan.map((phase, pIndex) => {
-        const phaseOpen = openPhase === pIndex;
-        const allDays = phase.weeks.flatMap((w) => w.days);
-        const phaseCompleted = allDays.filter((d) => d.completed).length;
-        const phaseComplete = allDays.length > 0 && phaseCompleted === allDays.length;
-        return (
-          <article className={`phase-card ${phase.accent} ${phaseOpen ? 'open' : ''} ${phaseComplete ? 'phase-complete' : ''}`} key={phase.id}>
-            <button className="phase-head" onClick={() => setOpenPhase(phaseOpen ? null : pIndex)}>
-              <div className="phase-head-main">
-                <div>
-                  <span className="phase-index">Phase {pIndex + 1}</span>
-                  <h3>{phase.label}</h3>
-                  <p>{phase.goal}</p>
-                </div>
-              </div>
-              <div className="phase-head-meta">
-                <span className="phase-weeks-tag">
-                  {phase.weeks.length} {phase.weeks.length === 1 ? 'week' : 'weeks'}
-                </span>
-                <Chevron open={phaseOpen} />
-              </div>
-            </button>
+      {/* ── Active Phase Detail ── */}
+      {phase && (
+        <div className="plan-v2-phase-detail">
+          <div className="plan-v2-phase-meta">
+            <div>
+              <span className="phase-index">Phase {activePhase + 1}</span>
+              <h3>{phase.label}</h3>
+              <p>{phase.goal}</p>
+            </div>
+            <span className="plan-v2-progress-pill">{completedDays}/{allDays.length} days</span>
+          </div>
 
-            <AnimatePresence initial={false}>
-            {phaseOpen && (
-              <motion.div
-                key="phase-body"
-                {...ACCORDION}
-                style={{ overflow: 'hidden' }}
-              >
-              <div className="phase-body">
-                <p className="phase-description">{phase.description}</p>
-                {phase.weeks.map((week, wIndex) => {
-                  const weekKey = `${pIndex}-${wIndex}`;
-                  const weekOpen = openWeek === weekKey;
-                  const weekCompleted = week.days.filter((d) => d.completed).length;
-                  return (
-                    <div className={`week-card ${weekOpen ? 'open' : ''}`} key={weekKey}>
-                      <button className="week-head" onClick={() => setOpenWeek(weekOpen ? null : weekKey)}>
-                        <span className="week-index">W{wIndex + 1}</span>
-                        <div className="week-head-main">
-                          <span>{week.focus}</span>
-                        </div>
-                        <div className="week-head-meta">
-                          <small>{weekCompleted}/{week.days.length} done</small>
-                          <Chevron open={weekOpen} />
-                        </div>
-                      </button>
-
-                      <AnimatePresence initial={false}>
-                      {weekOpen && (
-                        <motion.div
-                          key="days-list"
-                          {...ACCORDION}
-                          style={{ overflow: 'hidden' }}
-                        >
-                        <div className="days-list">
-                          {week.days.map((day, dIndex) => {
-                            const dayKey = `${pIndex}-${wIndex}-${dIndex}`;
-                            const dayOpen = openDay === dayKey;
-                            const isToday = todayPath && todayPath.join('-') === dayKey;
-                            const isRest = day.exercises.length === 0;
-                            return (
-                              <div
-                                className={`day-card ${day.completed ? 'completed' : ''} ${dayOpen ? 'open' : ''} ${isToday ? 'is-today' : ''}`}
-                                key={dayKey}
-                                id={`day-${dayKey}`}
-                              >
-                                <button className="day-head" onClick={() => setOpenDay(dayOpen ? null : dayKey)}>
-                                  <div className="day-head-main">
-                                    <div className="day-head-title-row">
-                                      <strong>{day.title}</strong>
-                                      {isToday && <span className="today-badge">Today</span>}
-                                    </div>
-                                    <span>{day.summary}</span>
-                                  </div>
-                                  <div className="day-head-meta">
-                                    <small>{day.load}</small>
-                                    <Chevron open={dayOpen} />
-                                  </div>
-                                </button>
-
-                                <AnimatePresence initial={false}>
-                                {dayOpen && (
-                                  <motion.div
-                                    key="session-card"
-                                    initial={ACCORDION_FAST.initial}
-                                    animate={ACCORDION_FAST.animate}
-                                    exit={ACCORDION_FAST.exit}
-                                    transition={ACCORDION_FAST.transition}
-                                    style={{ overflow: 'hidden' }}
-                                  >
-                                  <div className="session-card">
-                                    <div className="session-header">
-                                      <div>
-                                        <p className="eyebrow">Session</p>
-                                        <h4>{day.sessionTitle}</h4>
-                                      </div>
-                                      <button
-                                        className={day.completed ? 'secondary-btn done' : 'secondary-btn'}
-                                        onClick={() => completeDay(pIndex, wIndex, dIndex)}
-                                      >
-                                        {day.completed ? 'Mark incomplete' : 'Mark complete'}
-                                      </button>
-                                    </div>
-
-                                    {day.recovery?.length > 0 && (
-                                      <div className="recovery-box">
-                                        {day.recovery.map((item, i) => <p key={i}>{item}</p>)}
-                                      </div>
-                                    )}
-
-                                    {day.mobility?.length > 0 && (
-                                      <div className="mobility-strip">
-                                        <div>
-                                          <span className="field-label">Mobility / warm-up</span>
-                                          <p>Separate from the main rehab exercise count.</p>
-                                        </div>
-                                        <div className="mobility-list">
-                                          {day.mobility.map((m, i) => (
-                                            <span key={i}>{m.name} · {m.prescription}</span>
-                                          ))}
-                                        </div>
-                                      </div>
-                                    )}
-
-                                    <div className="session-blocks">
-                                      {(() => {
-                                        let lastBlockLabel = null;
-                                        return day.exercises.map((ex, eIndex) => {
-                                          const key = `${dayKey}-${eIndex}`;
-                                          const exOpen = !!openExercise[key];
-                                          const thisBlock = ex.blockLabel || null;
-                                          const showBlockHeader = thisBlock && thisBlock !== lastBlockLabel;
-                                          if (showBlockHeader) lastBlockLabel = thisBlock;
-                                          return (
-                                            <div key={key}>
-                                              {showBlockHeader && (
-                                                <div className="session-block-header">{thisBlock}</div>
-                                              )}
-                                              <div className="exercise-card">
-                                                <button
-                                                  className="exercise-main"
-                                                  onClick={() => setOpenExercise({ ...openExercise, [key]: !exOpen })}
-                                                >
-                                                  <div className="exercise-title-row">
-                                                    <h5>{ex.name}</h5>
-                                                    <div className="exercise-title-meta">
-                                                      <span>{ex.intensity}</span>
-                                                      <Chevron open={exOpen} />
-                                                    </div>
-                                                  </div>
-                                                  <div className="exercise-details">
-                                                    <span>{ex.prescription}</span>
-                                                    <span>{ex.equipment}</span>
-                                                  </div>
-                                                </button>
-                                                {exOpen && (
-                                                  <div className="exercise-expanded">
-                                                    {ex.purpose && <p className="ex-purpose">{ex.purpose}</p>}
-                                                    <div className="video-placeholder">
-                                                      <span>Video demo placeholder</span>
-                                                      <small>{ex.video}</small>
-                                                    </div>
-                                                    <p>{ex.cue}</p>
-                                                    {ex.commonMistakes?.length > 0 && (
-                                                      <div className="ex-mistakes">
-                                                        <span className="ex-mistakes-label">Common mistakes to avoid</span>
-                                                        <ul>
-                                                          {ex.commonMistakes.map((m, mi) => <li key={mi}>{m}</li>)}
-                                                        </ul>
-                                                      </div>
-                                                    )}
-                                                    <button
-                                                      className="alt-btn"
-                                                      onClick={() => setOpenAlt({ ...openAlt, [key]: !openAlt[key] })}
-                                                    >
-                                                      Too hard? Show easier option
-                                                    </button>
-                                                    {openAlt[key] && (
-                                                      <div className="alternative-box">
-                                                        <strong>{ex.alternative.name}</strong>
-                                                        <span>{ex.alternative.prescription}</span>
-                                                        <p>{ex.alternative.cue}</p>
-                                                      </div>
-                                                    )}
-                                                    {ex.painRule && (
-                                                      <p className="ex-pain-rule">
-                                                        <span>Pain rule: </span>{ex.painRule}
-                                                      </p>
-                                                    )}
-                                                  </div>
-                                                )}
-                                              </div>
-                                            </div>
-                                          );
-                                        });
-                                      })()}
-                                    </div>
-
-                                    {day.exercises.length === 0 && (
-                                      <div className="rest-visual">
-                                        <div className="mini-anatomy-preview">
-                                          <HumanFrontIcon size="small" />
-                                        </div>
-                                        <p>Complete rest today. Recovery is the training stimulus.</p>
-                                      </div>
-                                    )}
-
-                                    <div className="day-rule">
-                                      <strong>Progress rule:</strong> {day.rule}
-                                    </div>
-                                  </div>
-                                  </motion.div>
-                                )}
-                                </AnimatePresence>
-                              </div>
-                            );
-                          })}
-                        </div>
-                        </motion.div>
-                      )}
-                      </AnimatePresence>
-                    </div>
-                  );
-                })}
-              </div>
-              </motion.div>
-            )}
-            </AnimatePresence>
-          </article>
-        );
-      })}
+          {/* ── Week Cards ── */}
+          <div className="plan-v2-weeks">
+            {phase.weeks.map((week, wIdx) => {
+              const wDone = week.days.filter((d) => d.completed).length;
+              const hasToday = todayPath && todayPath[0] === activePhase && todayPath[1] === wIdx;
+              return (
+                <button
+                  key={`${activePhase}-${wIdx}`}
+                  className={`plan-v2-week-card ${hasToday ? 'has-today' : ''}`}
+                  onClick={() => router.push(`/plan/week/${activePhase}/${wIdx}`)}
+                >
+                  <span className="plan-v2-week-index">W{wIdx + 1}</span>
+                  <div className="plan-v2-week-info">
+                    <span className="plan-v2-week-focus">{week.focus}</span>
+                    <span className="plan-v2-week-count">{wDone}/{week.days.length} days done</span>
+                  </div>
+                  {hasToday && <span className="plan-v2-today-dot">Today</span>}
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M9 18l6-6-6-6" />
+                  </svg>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </section>
   );
 }

@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { supabase, hasSupabase } from '../../lib/supabaseClient';
 import { getAdaptedSession } from '../../lib/injuryEngine/planAdapter';
+import { injuryKnowledge } from '../../data/injuryKnowledge';
 import {
   injuryRegions,
   grades,
@@ -69,6 +70,28 @@ export function useRecovery() {
  * Provider
  * ───────────────────────────────────────────────────────────────────────── */
 
+// Migrate stale display names from old naming conventions
+const REGION_NAME_MAP = {
+  'Quadriceps / anterior thigh': 'Quadriceps',
+  'Quadriceps / Anterior Thigh': 'Quadriceps',
+  'Calf / shin': 'Calves',
+  'Calf / Shin': 'Calves',
+  'Adductor / groin': 'Adductors',
+  'Adductor / Groin': 'Adductors',
+  'Back / Lats': 'Back',
+  'Back / lats': 'Back',
+};
+function normaliseProfileNames(profile) {
+  if (!profile) return profile;
+  const regionName = REGION_NAME_MAP[profile.regionName] ?? profile.regionName;
+  return {
+    ...profile,
+    regionName,
+    // Backfill injuryTitle for profiles generated before this field existed
+    injuryTitle: profile.injuryTitle ?? null,
+  };
+}
+
 export function RecoveryProvider({ children }) {
   const [user, setUser] = useState(null);
   const [authMode, setAuthMode] = useState('signin');
@@ -110,7 +133,7 @@ export function RecoveryProvider({ children }) {
     if (cached) {
       try {
         const parsed = JSON.parse(cached);
-        setProfile(parsed.profile || null);
+        setProfile(normaliseProfileNames(parsed.profile) || null);
         setCheckins(parsed.checkins || []);
         setAssessment(parsed.assessment ? { ...emptyAssessment, ...parsed.assessment } : emptyAssessment);
       } catch {}
@@ -127,7 +150,7 @@ export function RecoveryProvider({ children }) {
       .maybeSingle();
 
     if (!error && data) {
-      setProfile(data.profile_data?.profile || null);
+      setProfile(normaliseProfileNames(data.profile_data?.profile) || null);
       setCheckins(data.profile_data?.checkins || []);
       setAssessment(data.profile_data?.assessment ? { ...emptyAssessment, ...data.profile_data.assessment } : emptyAssessment);
       setSaveMessage('Progress loaded');
@@ -291,6 +314,53 @@ function deriveGrade(a) {
   return 'grade1';
 }
 
+function resolveInjuryTitle(a, regionName) {
+  const knowledge = injuryKnowledge[a.primaryRegion];
+  if (!knowledge?.injurySubtypes?.length) {
+    // Unsupported region — generic fallback
+    if (/overload|overuse|gradual/i.test(a.grade || '') || /overload|overuse|gradual/i.test(a.mechanism || '')) return `${regionName} overload`;
+    if (/grade3|grade 3|severe/i.test(a.grade || '')) return `${regionName} tear`;
+    return `${regionName} strain`;
+  }
+
+  const subtypes = knowledge.injurySubtypes;
+  const gradeId  = a.grade || '';
+  const mechStr  = (a.mechanism || '').toLowerCase();
+  const exactId  = (a.exactArea || '').toLowerCase();
+  const symptoms = (a.symptoms || []).join(' ').toLowerCase();
+
+  // 1. Severe / grade 3 → refer/severe_risk subtype
+  if (/grade3|grade_3/i.test(gradeId)) {
+    const severe = subtypes.find((s) => s.riskLevel === 'refer' && /severe|tear|rupture/i.test(s.name));
+    if (severe) return severe.name;
+  }
+
+  // 2. Overload mechanism → overload subtype
+  if (/overload/i.test(gradeId) || /overuse|gradual|load|training/i.test(mechStr)) {
+    const overload = subtypes.find((s) => /overload|tightness|tendinopathy|syndrome/i.test(s.name));
+    if (overload) return overload.name;
+  }
+
+  // 3. Tendon signals
+  const tendonSignal = /tendon|achilles|insertion|above.*knee|below.*knee/i.test(exactId) ||
+                       /tendon|achilles/i.test(symptoms) ||
+                       /chronic|morning|stiffness/i.test(mechStr);
+  if (tendonSignal) {
+    const tendon = subtypes.find((s) => /tendon|tendinopathy|achilles/i.test(s.name) && s.riskLevel !== 'refer');
+    if (tendon) return tendon.name;
+  }
+
+  // 4. Match exactArea id against subtype ids (partial)
+  if (exactId) {
+    const match = subtypes.find((s) => s.id.includes(exactId) || exactId.includes(s.id.replace(/_strain|_sprain|_pain/g, '')));
+    if (match) return match.name;
+  }
+
+  // 5. Default: first non-refer acute subtype
+  const def = subtypes.find((s) => s.riskLevel !== 'refer');
+  return def ? def.name : `${regionName} injury`;
+}
+
 function buildProfile(a) {
   const region = regionObjects[a.primaryRegion] || injuryRegions[0];
   const grade = grades.find((g) => g.id === a.grade) || grades[1];
@@ -304,6 +374,7 @@ function buildProfile(a) {
     createdAt: new Date().toISOString(),
     primaryRegion: a.primaryRegion,
     regionName: region.name,
+    injuryTitle: resolveInjuryTitle(a, region.name),
     exactAreaName: exactArea?.name || 'General area',
     gradeName: grade.name,
     mechanism: a.mechanism,

@@ -1,8 +1,8 @@
 export const injuryRegions = [
   { id: 'hamstring', name: 'Hamstring', pictogram: 'posterior-thigh', returnRanges: { overload: '3–10 days', grade1: '1–3 weeks', grade2: '3–8 weeks', grade3: '8–16+ weeks' } },
-  { id: 'quadriceps', name: 'Quadriceps / anterior thigh', pictogram: 'anterior-thigh', returnRanges: { overload: '3–10 days', grade1: '1–3 weeks', grade2: '3–7 weeks', grade3: '8–14+ weeks' } },
-  { id: 'calf_shin', name: 'Calf / shin', pictogram: 'lower-leg', returnRanges: { overload: '5–14 days', grade1: '1–3 weeks', grade2: '3–8 weeks', grade3: '8–16+ weeks' } },
-  { id: 'adductor_groin', name: 'Adductor / groin', pictogram: 'groin', returnRanges: { overload: '5–14 days', grade1: '1–3 weeks', grade2: '3–8 weeks', grade3: '8–12+ weeks' } },
+  { id: 'quadriceps', name: 'Quadriceps', pictogram: 'anterior-thigh', returnRanges: { overload: '3–10 days', grade1: '1–3 weeks', grade2: '3–7 weeks', grade3: '8–14+ weeks' } },
+  { id: 'calf_shin', name: 'Calves', pictogram: 'lower-leg', returnRanges: { overload: '5–14 days', grade1: '1–3 weeks', grade2: '3–8 weeks', grade3: '8–16+ weeks' } },
+  { id: 'adductor_groin', name: 'Adductors', pictogram: 'groin', returnRanges: { overload: '5–14 days', grade1: '1–3 weeks', grade2: '3–8 weeks', grade3: '8–12+ weeks' } },
   { id: 'it_band', name: 'IT band / lateral chain', pictogram: 'lateral-thigh', returnRanges: { overload: '1–3 weeks', grade1: '2–4 weeks', grade2: '4–8 weeks', grade3: 'specialist review' } },
   { id: 'abdomen', name: 'Abdomen / core / hernia-risk', pictogram: 'core', returnRanges: { overload: '1–3 weeks', grade1: '2–5 weeks', grade2: '4–10 weeks', grade3: 'specialist review' } },
   { id: 'ankle', name: 'Ankle', pictogram: 'ankle', returnRanges: { overload: '3–10 days', grade1: '1–2 weeks', grade2: '3–6 weeks', grade3: '6–12+ weeks' } },

@@ -14,10 +14,10 @@ import {
 } from '../../data/rehabKnowledge';
 
 const REGION_LABELS = {
-  hamstring:'Hamstrings', quadriceps:'Quadriceps', adductor_groin:'Adductor / Groin',
-  hip_flexor:'Hip flexor', abductor:'Abductor / TFL', calf_shin:'Calf / Shin',
+  hamstring:'Hamstrings', quadriceps:'Quadriceps', adductor_groin:'Adductors',
+  hip_flexor:'Hip flexor', abductor:'Abductor / TFL', calf_shin:'Calves',
   knee:'Knee', ankle:'Ankle', glutes:'Glutes', lower_back:'Lower back',
-  back:'Back / Lats', it_band:'IT band', shoulder:'Shoulder', chest:'Chest',
+  back:'Back', it_band:'IT band', shoulder:'Shoulder', chest:'Chest',
   abdomen:'Abdomen', obliques:'Obliques', lower_abdomen:'Lower abdomen',
   biceps:'Biceps', triceps:'Triceps', elbow:'Elbow', forearm:'Forearm', neck:'Neck', serratus:'Serratus',
 };

@@ -5,6 +5,16 @@ import { useEffect, useState } from 'react';
 import { CircularProgress } from '../ui/CircularProgress';
 import { Metric } from '../ui/Metric';
 
+function injuryTitle(profile) {
+  if (profile.injuryTitle) return profile.injuryTitle;
+  // Fallback for old profiles without injuryTitle stored
+  const region = profile.regionName || '';
+  const grade = profile.gradeName || '';
+  if (/overload/i.test(grade)) return `${region} overload`;
+  if (/grade iii|grade 3|severe/i.test(grade)) return `${region} tear`;
+  return `${region} strain`;
+}
+
 export function DashboardContent({ profile, stats, saving, saveMessage }) {
   const router = useRouter();
   // Animate progress bar from 0 → actual on mount
@@ -34,12 +44,12 @@ export function DashboardContent({ profile, stats, saving, saveMessage }) {
   return (
     <section className="dashboard app-section app-section-light">
       <div className="dashboard-header">
-        <div>
-          <p className="eyebrow">Recovery dashboard</p>
-          <h2>{profile.regionName}</h2>
-          <p>
-            {profile.gradeName} · {profile.mechanism} · {profile.exactAreaName || 'General area'}
-          </p>
+        <div className="dashboard-header-text">
+          <h2>{injuryTitle(profile)}</h2>
+          <div className="dashboard-header-sub">
+            <span>{profile.exactAreaName || profile.regionName}</span>
+            <span className="dashboard-grade-chip">{profile.gradeName}</span>
+          </div>
         </div>
         <div className="dashboard-confidence-widget">
           <CircularProgress value={stats.percent ?? 0} />

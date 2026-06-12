@@ -1198,7 +1198,7 @@ const maintenancePlan = {
 
 const quadriceps = {
   id: 'quadriceps',
-  name: 'Quadriceps / anterior thigh',
+  name: 'Quadriceps',
   shortDescription:
     'Anterior-thigh injuries spanning quad strains, contusions, extensor-tendon pain, and nerve-related patterns.',
   anatomyRegions,
