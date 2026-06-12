@@ -110,19 +110,38 @@
 
 /* ── Reset ─────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  /* Fallback so iOS rubber-band overscroll never reveals a white/blue frame */
+  background-color: #4D8FE0;
+  overscroll-behavior: none;
+  min-height: 100%;
+}
 
 body {
   font-family: var(--font);
   color: var(--ink);
-  /* Electric blue top, fading to white at bottom */
-  background-color: #EEF5FF;
-  background-image:
-    linear-gradient(180deg, #4D8FE0 0%, #7DB3F0 18%, #A8CCEF 34%, #C8DEFA 50%, #E0EEFB 66%, #F2F8FF 82%, #FFFFFF 100%);
+  /* Transparent so the fixed gradient layer (body::after) shows through.
+     The gradient is painted edge-to-edge via a pinned full-viewport layer
+     so it never appears as a content-box rectangle on real phones. */
+  background-color: transparent;
   min-height: 100dvh;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   color-scheme: light;
+  overscroll-behavior: none;
+}
+
+/* Full-viewport gradient backdrop — pinned, never a content-box rectangle */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(180deg, #4D8FE0 0%, #7DB3F0 18%, #A8CCEF 34%, #C8DEFA 50%, #E0EEFB 66%, #F2F8FF 82%, #FFFFFF 100%);
 }
 
 h1, h2, h3, h4, h5, h6,
