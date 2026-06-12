@@ -105,7 +105,7 @@ export function DashboardContent({ profile, stats, saving, saveMessage }) {
         </div>
       </div>
 
-      <div className="coach-note glass-card fade-up stagger-4">
+      <div className="coach-note fade-up stagger-4">
         <span className="small-label">Recovery coach note</span>
         <p>{profile.aiStatus}</p>
       </div>
