@@ -2,7 +2,7 @@
 
 export function CoachContent({ chat, chatInput, setChatInput, sendChat }) {
   return (
-    <section className="coach-card app-section app-section-dark">
+    <section className="coach-card">
       <p className="eyebrow">Recovery coach</p>
       <h2>Ask about pain, training, or returning to sport.</h2>
       <div className="chat-window">
