@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { Field } from '../ui/Field';
 import { Slider } from '../ui/Slider';
 import { MultiSelectDropdown } from '../ui/MultiSelectDropdown';
-import { GlassSelect } from '../ui/GlassSelect';
 import {
   injuryRegions,
   movements,
@@ -233,62 +232,82 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
               </div>
             </div>
 
-                <GlassSelect
-              label="How it happened"
-              value={assessment.mechanism}
-              onChange={(v) => setAssessment({ ...assessment, mechanism: v })}
-              options={mechanisms}
-            />
+                <Field label="How it happened">
+              <select
+                value={assessment.mechanism}
+                onChange={(e) => setAssessment({ ...assessment, mechanism: e.target.value })}
+              >
+                {mechanisms.map(m => <option key={m} value={m}>{m}</option>)}
+              </select>
+            </Field>
 
-            <GlassSelect
-              label="Days since injury"
-              value={assessment.daysSince != null ? String(assessment.daysSince) : ''}
-              onChange={(v) => setAssessment({ ...assessment, daysSince: Number(v) })}
-              placeholder="Select or type days"
-              searchable
-              options={Array.from({ length: 201 }, (_, i) => ({
-                value: String(i),
-                label: i === 0 ? 'Today' : i === 1 ? '1 day' : `${i} days`,
-              }))}
-            />
+            <Field label="Days since injury">
+              <input
+                type="number" min="0"
+                value={assessment.daysSince}
+                onChange={(e) => setAssessment({ ...assessment, daysSince: Number(e.target.value) })}
+              />
+            </Field>
 
-            <GlassSelect
-              label="Symptom"
-              value={assessment.symptoms[0] || ''}
-              onChange={(v) => setAssessment({ ...assessment, symptoms: v ? [v] : [] })}
-              options={[{ value: '', label: 'Select symptom' }, ...symptomTypes.map(s => ({ value: s, label: s }))]}
-              placeholder="Select symptom"
-            />
+            <Field label="Symptom">
+              <select
+                value={assessment.symptoms[0] || ''}
+                onChange={(e) => setAssessment({ ...assessment, symptoms: e.target.value ? [e.target.value] : [] })}
+              >
+                <option value="">Select symptom</option>
+                {symptomTypes.map(s => <option key={s} value={s}>{s}</option>)}
+              </select>
+            </Field>
 
-            <GlassSelect
-              label="Secondary area"
-              value={assessment.secondaryRegions || ''}
-              onChange={(v) => setAssessment({ ...assessment, secondaryRegions: v })}
-              options={[{ value: '', label: 'None' }, ...injuryRegions.filter(r => r.id !== assessment.primaryRegion).map(r => ({ value: r.name, label: r.name }))]}
-              placeholder="None"
-            />
+            <Field label="Secondary area">
+              <select
+                value={assessment.secondaryRegions || ''}
+                onChange={(e) => setAssessment({ ...assessment, secondaryRegions: e.target.value })}
+              >
+                <option value="">None</option>
+                {injuryRegions.filter(r => r.id !== assessment.primaryRegion).map(r => (
+                  <option key={r.id} value={r.name}>{r.name}</option>
+                ))}
+              </select>
+            </Field>
           </div>
         </div>
 
         {/* STEP 2 — Sport, demands & equipment */}
         <div className={slidePos(1)}>
           <div className="ac-card">
-            <GlassSelect
-              label="Sport"
-              value={assessment.sport || ''}
-              onChange={(v) => setAssessment({ ...assessment, sport: v })}
-              placeholder="Select a sport"
-              options={[
-                { group: 'Team sports', items: ['Football (soccer)', 'American football', 'Rugby', 'Basketball', 'Volleyball', 'Handball', 'Hockey (field)', 'Ice hockey', 'Baseball', 'Softball', 'Cricket', 'Lacrosse', 'Water polo', 'Netball'] },
-                { group: 'Racket sports', items: ['Tennis', 'Badminton', 'Squash', 'Padel', 'Table tennis', 'Pickleball'] },
-                { group: 'Athletics & running', items: ['Sprinting', 'Middle / long distance running', 'Hurdles', 'Cross country', 'Trail running', 'Race walking'] },
-                { group: 'Combat sports', items: ['Boxing', 'MMA', 'Wrestling', 'Judo', 'BJJ', 'Karate / Taekwondo', 'Muay Thai'] },
-                { group: 'Gym & strength', items: ['Weightlifting / Olympic lifting', 'Powerlifting', 'CrossFit', 'Bodybuilding', 'Gymnastics', 'Calisthenics'] },
-                { group: 'Water sports', items: ['Swimming', 'Surfing', 'Rowing', 'Kayaking / Canoeing', 'Triathlon'] },
-                { group: 'Cycling & wheeled', items: ['Road cycling', 'Mountain biking', 'BMX', 'Skateboarding', 'Rollerskating / inline'] },
-                { group: 'Court & other', items: ['Golf', 'Climbing / bouldering', 'Dance / cheerleading', 'Yoga / Pilates', 'General fitness', 'Other'] },
-              ]}
-            />
+            <Field label="Sport">
+              <select
+                value={assessment.sport || ''}
+                onChange={(e) => setAssessment({ ...assessment, sport: e.target.value })}
+              >
+                <option value="">Select a sport</option>
+                <optgroup label="Team sports">
+                  {['Football (soccer)','American football','Rugby','Basketball','Volleyball','Handball','Hockey (field)','Ice hockey','Baseball','Softball','Cricket','Lacrosse','Water polo','Netball'].map(s => <option key={s}>{s}</option>)}
+                </optgroup>
+                <optgroup label="Racket sports">
+                  {['Tennis','Badminton','Squash','Padel','Table tennis','Pickleball'].map(s => <option key={s}>{s}</option>)}
+                </optgroup>
+                <optgroup label="Athletics & running">
+                  {['Sprinting','Middle / long distance running','Hurdles','Cross country','Trail running','Race walking'].map(s => <option key={s}>{s}</option>)}
+                </optgroup>
+                <optgroup label="Combat sports">
+                  {['Boxing','MMA','Wrestling','Judo','BJJ','Karate / Taekwondo','Muay Thai'].map(s => <option key={s}>{s}</option>)}
+                </optgroup>
+                <optgroup label="Gym & strength">
+                  {['Weightlifting / Olympic lifting','Powerlifting','CrossFit','Bodybuilding','Gymnastics','Calisthenics'].map(s => <option key={s}>{s}</option>)}
+                </optgroup>
+                <optgroup label="Water sports">
+                  {['Swimming','Surfing','Rowing','Kayaking / Canoeing','Triathlon'].map(s => <option key={s}>{s}</option>)}
+                </optgroup>
+                <optgroup label="Cycling & wheeled">
+                  {['Road cycling','Mountain biking','BMX','Skateboarding','Rollerskating / inline'].map(s => <option key={s}>{s}</option>)}
+                </optgroup>
+                <optgroup label="Court & other">
+                  {['Golf','Climbing / bouldering','Dance / cheerleading','Yoga / Pilates','General fitness','Other'].map(s => <option key={s}>{s}</option>)}
+                </optgroup>
+              </select>
+            </Field>
 
             <Field label="Sport demands">
               <MultiSelectDropdown

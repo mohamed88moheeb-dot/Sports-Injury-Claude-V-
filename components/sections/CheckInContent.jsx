@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { Field } from '../ui/Field';
 import { Slider } from '../ui/Slider';
-import { GlassSelect } from '../ui/GlassSelect';
 
 export function CheckInContent({ addCheckin, checkins }) {
   const [status, setStatus] = useState({
@@ -33,18 +32,28 @@ export function CheckInContent({ addCheckin, checkins }) {
             invertColor
           />
         </div>
-        <GlassSelect
-          label="Swelling / tightness"
-          value={status.swelling}
-          onChange={(v) => setStatus({ ...status, swelling: v })}
-          options={['No change', 'Better', 'Worse', 'New swelling']}
-        />
-        <GlassSelect
-          label="Next-day response"
-          value={status.response}
-          onChange={(v) => setStatus({ ...status, response: v })}
-          options={['Stable', 'Better than yesterday', 'Sore but settled', 'Worse than yesterday']}
-        />
+        <Field label="Swelling / tightness">
+          <select
+            value={status.swelling}
+            onChange={(e) => setStatus({ ...status, swelling: e.target.value })}
+          >
+            <option>No change</option>
+            <option>Better</option>
+            <option>Worse</option>
+            <option>New swelling</option>
+          </select>
+        </Field>
+        <Field label="Next-day response">
+          <select
+            value={status.response}
+            onChange={(e) => setStatus({ ...status, response: e.target.value })}
+          >
+            <option>Stable</option>
+            <option>Better than yesterday</option>
+            <option>Sore but settled</option>
+            <option>Worse than yesterday</option>
+          </select>
+        </Field>
         <textarea
           placeholder="Notes"
           value={status.notes}
