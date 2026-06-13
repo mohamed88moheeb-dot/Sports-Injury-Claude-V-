@@ -40,7 +40,7 @@ const BROAD_REGION_MAP = {
 
 // dataId = the ID used in rehabKnowledge.js muscleComponents (rehab engine key)
 // id     = the SVG group ID used for visual highlighting
-const DETAIL_REGION_MAP = {
+export const DETAIL_REGION_MAP = {
   hamstring: [
     { id: 'back_biceps_femoris',  dataId: 'biceps_femoris_long', label: 'Biceps femoris (lateral)' },
     { id: 'back_semitendinosus',  dataId: 'semitendinosus',      label: 'Semitendinosus (medial)' },

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import InteractiveAnatomy from '../../components/InteractiveAnatomy';
+import InteractiveAnatomy, { DETAIL_REGION_MAP } from '../../components/InteractiveAnatomy';
 import { PageShell } from '../../components/layout/PageShell';
 import { useRecovery } from '../providers/RecoveryContext';
 
@@ -10,6 +10,9 @@ export default function AnatomyPage() {
   const router = useRouter();
   const { assessment, setAssessment, profile, resetProfile } = useRecovery();
   const hasSelection = !!assessment.primaryRegion;
+  // Glow when fully done: primary selected + either no sub-muscles or exact area also picked
+  const regionHasSubs = assessment.primaryRegion && !!DETAIL_REGION_MAP[assessment.primaryRegion];
+  const fullySelected = hasSelection && (!regionHasSubs || !!assessment.exactArea);
   const [view, setView] = useState('front');
 
   function handleConfirm() {
@@ -43,7 +46,7 @@ export default function AnatomyPage() {
           </div>
 
           <button
-            className="pill-nav-btn pill-nav-btn--sm pill-nav-btn--confirm"
+            className={`pill-nav-btn pill-nav-btn--sm pill-nav-btn--confirm${fullySelected ? ' pill-nav-btn--glowing' : ''}`}
             onClick={handleConfirm}
             aria-label="Confirm"
           >
