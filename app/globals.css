@@ -5149,9 +5149,9 @@ input[type="range"]::-webkit-slider-thumb {
   border-color: rgba(255,255,255,0.35) !important;
   color: rgba(255,255,255,0.90) !important;
 }
-/* Confirm tick glows electric blue when selection is complete */
 /* Glowing confirm button — used in anatomy topbar AND assessment nav */
-.pill-nav-btn--glowing {
+.pill-nav-btn--glowing,
+.anatomy-topbar .pill-nav-btn--glowing {
   background: rgba(47,140,255,0.22) !important;
   border: 1px solid rgba(47,140,255,0.55) !important;
   box-shadow:
@@ -5160,7 +5160,8 @@ input[type="range"]::-webkit-slider-thumb {
     inset 0 1px 0 rgba(255,255,255,0.30) !important;
   animation: confirm-pulse 2s ease-in-out infinite;
 }
-.pill-nav-btn--glowing .pill-nav-circle {
+.pill-nav-btn--glowing .pill-nav-circle,
+.anatomy-topbar .pill-nav-btn--glowing .pill-nav-circle {
   background: rgba(47,140,255,0.30) !important;
   border-color: rgba(47,140,255,0.60) !important;
   color: #fff !important;
