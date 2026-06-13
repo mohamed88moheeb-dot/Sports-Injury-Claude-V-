@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Field } from '../ui/Field';
 import { Slider } from '../ui/Slider';
 import { MultiSelectDropdown } from '../ui/MultiSelectDropdown';
+import { GlassSelect } from '../ui/GlassSelect';
 import {
   injuryRegions,
   movements,
@@ -205,12 +206,12 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
 
         {/* STEP 1 — Injury profile */}
         <div className={slidePos(0)}>
-          <div className="ac-card glass-card">
+          <div className="ac-card">
 
             {/* Injury location */}
+            <span className="body-region-label">Injury location</span>
             <div className="body-region-selector" onClick={() => router.push('/anatomy')}>
               <div className="body-region-selector-left">
-                <span className="body-region-label">Injury location</span>
                 {assessment.primaryRegion ? (
                   <div className="body-region-selected">
                     <span className="body-region-dot" />
@@ -232,129 +233,62 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
               </div>
             </div>
 
-                <Field label="How it happened">
-              <select
-                value={assessment.mechanism}
-                onChange={(e) => setAssessment({ ...assessment, mechanism: e.target.value })}
-              >
-                {mechanisms.map((m) => <option key={m}>{m}</option>)}
-              </select>
-            </Field>
+                <GlassSelect
+              label="How it happened"
+              value={assessment.mechanism}
+              onChange={(v) => setAssessment({ ...assessment, mechanism: v })}
+              options={mechanisms}
+            />
 
-            <Field label="Days since injury">
-              <input
-                type="number" min="0"
-                value={assessment.daysSince}
-                onChange={(e) => setAssessment({ ...assessment, daysSince: Number(e.target.value) })}
-              />
-            </Field>
+            <GlassSelect
+              label="Days since injury"
+              value={assessment.daysSince != null ? String(assessment.daysSince) : ''}
+              onChange={(v) => setAssessment({ ...assessment, daysSince: Number(v) })}
+              placeholder="Select or type days"
+              searchable
+              options={Array.from({ length: 201 }, (_, i) => ({
+                value: String(i),
+                label: i === 0 ? 'Today' : i === 1 ? '1 day' : `${i} days`,
+              }))}
+            />
 
-            <Field label="Symptom">
-              <select
-                value={assessment.symptoms[0] || ''}
-                onChange={(e) => setAssessment({ ...assessment, symptoms: e.target.value ? [e.target.value] : [] })}
-              >
-                <option value="">Select symptom</option>
-                {symptomTypes.map((s) => <option key={s} value={s}>{s}</option>)}
-              </select>
-            </Field>
+            <GlassSelect
+              label="Symptom"
+              value={assessment.symptoms[0] || ''}
+              onChange={(v) => setAssessment({ ...assessment, symptoms: v ? [v] : [] })}
+              options={[{ value: '', label: 'Select symptom' }, ...symptomTypes.map(s => ({ value: s, label: s }))]}
+              placeholder="Select symptom"
+            />
 
-            <Field label="Secondary area">
-              <select
-                value={assessment.secondaryRegions}
-                onChange={(e) => setAssessment({ ...assessment, secondaryRegions: e.target.value })}
-              >
-                <option value="">None</option>
-                {injuryRegions
-                  .filter((r) => r.id !== assessment.primaryRegion)
-                  .map((r) => <option key={r.id} value={r.name}>{r.name}</option>)}
-              </select>
-            </Field>
+            <GlassSelect
+              label="Secondary area"
+              value={assessment.secondaryRegions || ''}
+              onChange={(v) => setAssessment({ ...assessment, secondaryRegions: v })}
+              options={[{ value: '', label: 'None' }, ...injuryRegions.filter(r => r.id !== assessment.primaryRegion).map(r => ({ value: r.name, label: r.name }))]}
+              placeholder="None"
+            />
           </div>
         </div>
 
         {/* STEP 2 — Sport, demands & equipment */}
         <div className={slidePos(1)}>
-          <div className="ac-card glass-card">
-            <Field label="Sport">
-              <select
-                value={assessment.sport || ''}
-                onChange={(e) => setAssessment({ ...assessment, sport: e.target.value })}
-              >
-                <option value="">Select a sport</option>
-                <optgroup label="Team sports">
-                  <option>Football (soccer)</option>
-                  <option>American football</option>
-                  <option>Rugby</option>
-                  <option>Basketball</option>
-                  <option>Volleyball</option>
-                  <option>Handball</option>
-                  <option>Hockey (field)</option>
-                  <option>Ice hockey</option>
-                  <option>Baseball</option>
-                  <option>Softball</option>
-                  <option>Cricket</option>
-                  <option>Lacrosse</option>
-                  <option>Water polo</option>
-                  <option>Netball</option>
-                </optgroup>
-                <optgroup label="Racket sports">
-                  <option>Tennis</option>
-                  <option>Badminton</option>
-                  <option>Squash</option>
-                  <option>Padel</option>
-                  <option>Table tennis</option>
-                  <option>Pickleball</option>
-                </optgroup>
-                <optgroup label="Athletics &amp; running">
-                  <option>Sprinting</option>
-                  <option>Middle / long distance running</option>
-                  <option>Hurdles</option>
-                  <option>Cross country</option>
-                  <option>Trail running</option>
-                  <option>Race walking</option>
-                </optgroup>
-                <optgroup label="Combat sports">
-                  <option>Boxing</option>
-                  <option>MMA</option>
-                  <option>Wrestling</option>
-                  <option>Judo</option>
-                  <option>BJJ</option>
-                  <option>Karate / Taekwondo</option>
-                  <option>Muay Thai</option>
-                </optgroup>
-                <optgroup label="Gym &amp; strength">
-                  <option>Weightlifting / Olympic lifting</option>
-                  <option>Powerlifting</option>
-                  <option>CrossFit</option>
-                  <option>Bodybuilding</option>
-                  <option>Gymnastics</option>
-                  <option>Calisthenics</option>
-                </optgroup>
-                <optgroup label="Water sports">
-                  <option>Swimming</option>
-                  <option>Surfing</option>
-                  <option>Rowing</option>
-                  <option>Kayaking / Canoeing</option>
-                  <option>Triathlon</option>
-                </optgroup>
-                <optgroup label="Cycling &amp; wheeled">
-                  <option>Road cycling</option>
-                  <option>Mountain biking</option>
-                  <option>BMX</option>
-                  <option>Skateboarding</option>
-                  <option>Rollerskating / inline</option>
-                </optgroup>
-                <optgroup label="Court &amp; other">
-                  <option>Golf</option>
-                  <option>Climbing / bouldering</option>
-                  <option>Dance / cheerleading</option>
-                  <option>Yoga / Pilates</option>
-                  <option>General fitness</option>
-                  <option>Other</option>
-                </optgroup>
-              </select>
-            </Field>
+          <div className="ac-card">
+            <GlassSelect
+              label="Sport"
+              value={assessment.sport || ''}
+              onChange={(v) => setAssessment({ ...assessment, sport: v })}
+              placeholder="Select a sport"
+              options={[
+                { group: 'Team sports', items: ['Football (soccer)', 'American football', 'Rugby', 'Basketball', 'Volleyball', 'Handball', 'Hockey (field)', 'Ice hockey', 'Baseball', 'Softball', 'Cricket', 'Lacrosse', 'Water polo', 'Netball'] },
+                { group: 'Racket sports', items: ['Tennis', 'Badminton', 'Squash', 'Padel', 'Table tennis', 'Pickleball'] },
+                { group: 'Athletics & running', items: ['Sprinting', 'Middle / long distance running', 'Hurdles', 'Cross country', 'Trail running', 'Race walking'] },
+                { group: 'Combat sports', items: ['Boxing', 'MMA', 'Wrestling', 'Judo', 'BJJ', 'Karate / Taekwondo', 'Muay Thai'] },
+                { group: 'Gym & strength', items: ['Weightlifting / Olympic lifting', 'Powerlifting', 'CrossFit', 'Bodybuilding', 'Gymnastics', 'Calisthenics'] },
+                { group: 'Water sports', items: ['Swimming', 'Surfing', 'Rowing', 'Kayaking / Canoeing', 'Triathlon'] },
+                { group: 'Cycling & wheeled', items: ['Road cycling', 'Mountain biking', 'BMX', 'Skateboarding', 'Rollerskating / inline'] },
+                { group: 'Court & other', items: ['Golf', 'Climbing / bouldering', 'Dance / cheerleading', 'Yoga / Pilates', 'General fitness', 'Other'] },
+              ]}
+            />
 
             <Field label="Sport demands">
               <MultiSelectDropdown
@@ -378,7 +312,7 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
 
         {/* STEP 3 — Pain & context */}
         <div className={slidePos(2)}>
-          <div className="ac-card glass-card">
+          <div className="ac-card">
             <div className="ac-sliders">
               <Slider
                 label="Pain at rest"
@@ -398,7 +332,7 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
             </div>
             <textarea
               className="ac-textarea"
-              placeholder="Describe in your own words — e.g. felt a pull while sprinting, pain when lengthening the leg…"
+              placeholder="Describe what happened in your own words…"
               value={assessment.story}
               onChange={(e) => setAssessment({ ...assessment, story: e.target.value })}
             />
@@ -407,7 +341,7 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
 
         {/* STEP 4 — Red flags */}
         <div className={slidePos(3)}>
-          <div className="ac-card glass-card">
+          <div className="ac-card">
             <p className="ac-redflag-intro">
               Select anything that applies. If you tick one, see a doctor before starting rehab.
             </p>
@@ -432,25 +366,29 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
       <div className="ac-nav">
         <button
           type="button"
-          className="ac-nav-btn"
+          className="pill-nav-btn pill-nav-btn--sm"
           onClick={handleBack}
           disabled={step === 0}
           aria-label="Previous step"
         >
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M15 18l-6-6 6-6"/>
-          </svg>
+          <span className="pill-nav-circle">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M15 18l-6-6 6-6"/>
+            </svg>
+          </span>
         </button>
 
         <button
           type="button"
-          className="ac-nav-btn ac-nav-btn--forward"
+          className="pill-nav-btn pill-nav-btn--sm pill-nav-btn--confirm"
           onClick={handleNext}
           aria-label={step === STEPS.length - 1 ? 'Build recovery plan' : 'Next step'}
         >
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M9 18l6-6-6-6"/>
-          </svg>
+          <span className="pill-nav-circle">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </span>
         </button>
       </div>
 

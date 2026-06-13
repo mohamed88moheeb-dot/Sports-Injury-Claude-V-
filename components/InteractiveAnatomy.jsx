@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 /* ─── Maps ──────────────────────────────────────────────────────────────── */
 
@@ -129,10 +129,12 @@ const VIEWBOX_BACK  = '52.05 0 47.6 88.67';
 
 /* ─── Component ─────────────────────────────────────────────────────────── */
 
-export default function InteractiveAnatomy({ assessment, setAssessment }) {
+export default function InteractiveAnatomy({ assessment, setAssessment, view: viewProp, setView: setViewProp, pillsOnTop = false }) {
   const containerRef = useRef(null);
   const stateRef     = useRef({});
-  const [view,        setView]        = useState('front');
+  const [viewInternal, setViewInternal] = useState('front');
+  const view    = viewProp    ?? viewInternal;
+  const setView = setViewProp ?? setViewInternal;
   const [mode,        setMode]        = useState('broad');
   const [broadRegion, setBroadRegion] = useState(null);
   const [svgReady,    setSvgReady]    = useState(false);
@@ -276,71 +278,148 @@ export default function InteractiveAnatomy({ assessment, setAssessment }) {
   }
 
   const detailSubparts = broadRegion ? (DETAIL_REGION_MAP[broadRegion] || []) : [];
-
   const exactLabel = detailSubparts.find(s => s.dataId === assessment.exactArea)?.label;
+
+  // Dropdown state
+  const [regionOpen,  setRegionOpen]  = useState(false);
+  const [muscleOpen,  setMuscleOpen]  = useState(false);
+
+  const closeAll = useCallback(() => { setRegionOpen(false); setMuscleOpen(false); }, []);
+
+  // Close on outside click
+  useEffect(() => {
+    if (!regionOpen && !muscleOpen) return;
+    const handler = (e) => {
+      if (!e.target.closest('.ia-selection-pill-row')) closeAll();
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [regionOpen, muscleOpen, closeAll]);
+
+  function selectRegion(key) {
+    const view = REGION_VIEW_MAP[key];
+    if (view) { setView(view); stateRef.current.setView?.(view); }
+    setBroadRegion(key);
+    setAssessment(prev => ({ ...prev, primaryRegion: key, exactArea: '' }));
+    const subs = DETAIL_REGION_MAP[key] || [];
+    setMode(subs.length > 0 ? 'detail' : 'broad');
+    setRegionOpen(false);
+    setMuscleOpen(false);
+  }
+
+  function selectExact(dataId) {
+    setAssessment(prev => ({ ...prev, exactArea: prev.exactArea === dataId ? '' : dataId }));
+    setMuscleOpen(false);
+  }
 
   /* ── Render ─────────────────────────────────────────────────────────────── */
   return (
     <div className="ia-wrapper">
 
-      {/* Front / Back toggle */}
-      <div className="ia-toggle-row">
-        <div className="ia-toggle">
-          <button
-            className={`ia-toggle-btn${view === 'front' ? ' active' : ''}`}
-            onClick={() => handleToggleView('front')}
-          >Front</button>
-          <button
-            className={`ia-toggle-btn${view === 'back' ? ' active' : ''}`}
-            onClick={() => handleToggleView('back')}
-          >Back</button>
+      {/* Front / Back toggle — only shown when not controlled from outside */}
+      {!viewProp && (
+        <div className="ia-toggle-row">
+          <div className="ia-view-pill">
+            <button
+              className={`ia-view-circle${view === 'front' ? ' active' : ''}`}
+              onClick={() => handleToggleView('front')}
+            >Front</button>
+            <button
+              className={`ia-view-circle${view === 'back' ? ' active' : ''}`}
+              onClick={() => handleToggleView('back')}
+            >Back</button>
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* Pills on top (replaces heading) */}
+      {pillsOnTop && <PillRow assessment={assessment} setAssessment={setAssessment} detailSubparts={detailSubparts} regionOpen={regionOpen} setRegionOpen={setRegionOpen} muscleOpen={muscleOpen} setMuscleOpen={setMuscleOpen} exactLabel={exactLabel} selectRegion={selectRegion} selectExact={selectExact} resetSelection={resetSelection} />}
 
       {/* SVG body map — centred, fills available width */}
       <div className="ia-svg-wrapper" ref={containerRef} />
 
-      {/* ── Compact info strip below the SVG ── */}
-      <div className="ia-info-strip">
-        {!assessment.primaryRegion ? (
-          <span className="ia-info-hint">Tap a region on the body map above</span>
-        ) : (
-          <div className="ia-info-row">
+      {/* Pills on bottom (default, e.g. embedded in assessment) */}
+      {!pillsOnTop && (
+        <PillRow
+          assessment={assessment} setAssessment={setAssessment}
+          detailSubparts={detailSubparts} exactLabel={exactLabel}
+          regionOpen={regionOpen} setRegionOpen={setRegionOpen}
+          muscleOpen={muscleOpen} setMuscleOpen={setMuscleOpen}
+          selectRegion={selectRegion} selectExact={selectExact}
+          resetSelection={resetSelection}
+        />
+      )}
 
-            {/* Region chip */}
-            <div className="ia-region-chip">
-              <span className="ia-region-dot" />
-              <span className="ia-region-name">{REGION_LABELS[assessment.primaryRegion]}</span>
-              <button className="ia-chip-x" onClick={resetSelection} title="Clear">✕</button>
+    </div>
+  );
+}
+
+/* ── Shared pill row ─────────────────────────────────────────────────── */
+function PillRow({ assessment, setAssessment, detailSubparts, exactLabel, regionOpen, setRegionOpen, muscleOpen, setMuscleOpen, selectRegion, selectExact, resetSelection }) {
+  return (
+    <div className="ia-selection-pill-row">
+      <div className="ia-pill-group">
+
+        {/* Region pill */}
+        <div className="ia-pill-dropdown">
+          <div className={`ia-selection-pill${assessment.primaryRegion ? ' ia-selection-pill--selected' : ' ia-selection-pill--hint'}`}>
+            <button className="ia-pill-main" onClick={() => { setRegionOpen(o => !o); setMuscleOpen(false); }}>
+              {assessment.primaryRegion ? (
+                <>
+                  <span className="ia-selection-label">{REGION_LABELS[assessment.primaryRegion]}</span>
+                </>
+              ) : (
+                <span className="ia-selection-hint-text">Select muscle</span>
+              )}
+              <span className="ia-pill-chevron">▾</span>
+            </button>
+            {assessment.primaryRegion && (
+              <button className="ia-pill-x" onClick={resetSelection} title="Clear">✕</button>
+            )}
+          </div>
+          {regionOpen && (
+            <div className="ia-dropdown">
+              {Object.entries(REGION_LABELS).map(([key, label]) => (
+                <button
+                  key={key}
+                  className={`ia-dropdown-item${assessment.primaryRegion === key ? ' active' : ''}`}
+                  onClick={() => selectRegion(key)}
+                >{label}</button>
+              ))}
             </div>
+          )}
+        </div>
 
-            {/* Muscle sub-selection chips — appear right beside region on same line */}
-            {mode === 'detail' && detailSubparts.length > 0 && (
-              <>
-                <span className="ia-info-arrow">→</span>
+        {/* Sub-muscle pill */}
+        {assessment.primaryRegion && detailSubparts.length > 0 && (
+          <div className="ia-pill-dropdown">
+            <div className={`ia-selection-pill${assessment.exactArea ? ' ia-selection-pill--selected' : ' ia-selection-pill--hint'}`}>
+              <button className="ia-pill-main" onClick={() => { setMuscleOpen(o => !o); setRegionOpen(false); }}>
+                {assessment.exactArea ? (
+                  <span className="ia-selection-label">{exactLabel}</span>
+                ) : (
+                  <span className="ia-selection-hint-text">Select specific</span>
+                )}
+                <span className="ia-pill-chevron">▾</span>
+              </button>
+              {assessment.exactArea && (
+                <button className="ia-pill-x" onClick={() => setAssessment(prev => ({ ...prev, exactArea: '' }))} title="Clear">✕</button>
+              )}
+            </div>
+            {muscleOpen && (
+              <div className="ia-dropdown">
                 {detailSubparts.map(s => (
                   <button
                     key={s.id}
-                    className={`ia-muscle-chip${assessment.exactArea === s.dataId ? ' active' : ''}`}
-                    onClick={() => setAssessment(prev => ({
-                      ...prev,
-                      exactArea: prev.exactArea === s.dataId ? '' : s.dataId,
-                    }))}
-                  >
-                    {s.label}
-                  </button>
+                    className={`ia-dropdown-item${assessment.exactArea === s.dataId ? ' active' : ''}`}
+                    onClick={() => selectExact(s.dataId)}
+                  >{s.label}</button>
                 ))}
-                <button className="ia-change-link" onClick={resetSelection}>Change</button>
-              </>
+              </div>
             )}
-
-            {/* Confirmed, no subparts */}
-            {assessment.primaryRegion && mode === 'broad' && detailSubparts.length === 0 && (
-              <span className="ia-confirmed-tag">✓ confirmed</span>
-            )}
-
           </div>
         )}
+
       </div>
     </div>
   );

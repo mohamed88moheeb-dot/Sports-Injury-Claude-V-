@@ -182,15 +182,15 @@ function MobileNav({ items, pathname }) {
       <motion.span
         style={{
           position: 'absolute',
-          top: 0, bottom: 0,
+          top: 4, bottom: 4,
           left: pillLeft,
           width: `${100 / n}%`,
-          background: 'rgba(255,255,255,0.22)',
+          background: 'rgba(255,255,255,0.28)',
           borderRadius: 9999,
-          border: '1px solid rgba(255,255,255,0.55)',
+          border: '1px solid rgba(255,255,255,0.60)',
           boxShadow:
-            'inset 0 1px 0 rgba(255,255,255,0.60), ' +
-            '0 2px 12px rgba(40,90,180,0.10)',
+            'inset 0 1px 0 rgba(255,255,255,0.70), ' +
+            '0 2px 12px rgba(47,140,255,0.18)',
           pointerEvents: 'none',
           zIndex: 0,
         }}

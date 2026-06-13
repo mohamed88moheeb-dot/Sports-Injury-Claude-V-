@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import InteractiveAnatomy from '../../components/InteractiveAnatomy';
 import { PageShell } from '../../components/layout/PageShell';
@@ -9,6 +10,7 @@ export default function AnatomyPage() {
   const router = useRouter();
   const { assessment, setAssessment, profile, resetProfile } = useRecovery();
   const hasSelection = !!assessment.primaryRegion;
+  const [view, setView] = useState('front');
 
   function handleConfirm() {
     if (!hasSelection) return;
@@ -24,29 +26,39 @@ export default function AnatomyPage() {
     <PageShell>
       <div className="anatomy-page">
 
-        {/* ── Slim top bar: back + confirm ── */}
+        {/* ── Slim top bar: back + toggle + confirm ── */}
         <div className="anatomy-topbar">
-          <button className="anatomy-back-btn" onClick={() => router.push('/assessment')}>
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
-              strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M19 12H5M12 5l-7 7 7 7" />
-            </svg>
-            Back
+          <button className="pill-nav-btn pill-nav-btn--sm" onClick={() => router.push('/assessment')} aria-label="Back">
+            <span className="pill-nav-circle">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor"
+                strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </span>
           </button>
 
+          <div className="ia-view-pill">
+            <button className={`ia-view-circle${view === 'front' ? ' active' : ''}`} onClick={() => setView('front')}>Front</button>
+            <button className={`ia-view-circle${view === 'back' ? ' active' : ''}`} onClick={() => setView('back')}>Back</button>
+          </div>
+
           <button
-            className={`primary-btn anatomy-confirm-btn${!hasSelection ? ' anatomy-confirm-disabled' : ''}`}
+            className="pill-nav-btn pill-nav-btn--sm pill-nav-btn--confirm"
             onClick={handleConfirm}
-            disabled={!hasSelection}
+            aria-label="Confirm"
           >
-            Confirm{hasSelection ? ' →' : ''}
+            <span className="pill-nav-circle">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor"
+                strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </span>
           </button>
         </div>
 
-        {/* ── Body map: title sits right above the SVG ── */}
+        {/* ── Body map ── */}
         <div className="anatomy-canvas">
-          <p className="anatomy-canvas-heading">Where is the injury?</p>
-          <InteractiveAnatomy assessment={assessment} setAssessment={setAssessment} />
+          <InteractiveAnatomy assessment={assessment} setAssessment={setAssessment} view={view} setView={setView} pillsOnTop />
         </div>
 
       </div>

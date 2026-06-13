@@ -1301,7 +1301,7 @@ select option { background: #EEF6FF; color: var(--ink); }
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(59,125,216,0.10);
 }
-.ac-textarea::placeholder { color: var(--muted); }
+.ac-textarea::placeholder { color: var(--muted); font-size: 10px; }
 
 /* Red flags step */
 .ac-redflag-intro {
@@ -1402,10 +1402,16 @@ select option { background: #EEF6FF; color: var(--ink); }
 /* Compact body region selector inside carousel */
 .ac-card .body-region-selector {
   padding: 8px 12px;
+  margin: 0 0 8px;
 }
-.ac-card .body-region-label {
-  font-size: 9px;
-  margin-bottom: 1px;
+/* label now lives ABOVE the selector row — match Field label styling */
+.ac-card > .body-region-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary, #6b7a99);
+  margin: 0 0 4px 2px;
 }
 .ac-card .body-region-placeholder {
   font-size: 12px;
@@ -1418,27 +1424,13 @@ select option { background: #EEF6FF; color: var(--ink); }
   font-size: 11px;
 }
 
-/* Compact sliders inside carousel pain step */
-.ac-sliders .slider {
-  padding: 8px 12px;
-  gap: 5px;
-  border-radius: 12px;
+/* ── Slider container ── */
+.ac-sliders {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
 }
-.ac-sliders .slider-label {
-  font-size: 10px;
-}
-.ac-sliders .slider-val {
-  font-size: 14px;
-}
-.ac-sliders .slider-extremes {
-  font-size: 8px;
-}
-.ac-sliders .slider-track-wrap input[type="range"] {
-  height: 4px;
-}
-.ac-sliders .slider:hover {
-  transform: none;
-}
+.ac-sliders .slider { display: none; }
 
 /* ── Assessment (legacy grid kept for other uses) ── */
 .assessment-grid {
@@ -1663,6 +1655,118 @@ select option { background: #EEF6FF; color: var(--ink); }
   transition: background .12s, color .12s;
 }
 .msd-clear:hover { background: var(--bg-2); color: var(--ink); }
+
+/* ── Pill Slider — fill-inside-pill macOS style ───────────────────── */
+.gs-pill-slider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 44px;
+  border-radius: 999px;
+  overflow: hidden;
+  cursor: pointer;
+  touch-action: none;
+  user-select: none;
+  outline: none;
+  background: rgba(255,255,255,0.62);
+  backdrop-filter: blur(28px) saturate(1.4);
+  -webkit-backdrop-filter: blur(28px) saturate(1.4);
+  border: 1px solid rgba(255,255,255,0.85);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.90),
+    inset 0 -1px 0 rgba(0,0,0,0.03),
+    0 2px 12px rgba(40,90,180,0.08);
+  transition: box-shadow .18s;
+}
+.gs-pill-slider:focus-visible {
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.70),
+    0 0 0 3px rgba(47,140,255,0.18),
+    0 2px 12px rgba(40,90,180,0.06);
+}
+
+/* Filled zone */
+.gs-pill-fill {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  border-radius: 999px;
+  background: rgba(59,125,216,0.14);
+  transition: width 0.06s cubic-bezier(0.16,1,0.3,1);
+  pointer-events: none;
+}
+
+/* Thumb — thin vertical glowing line */
+.gs-pill-thumb {
+  position: absolute;
+  top: 14%;
+  bottom: 14%;
+  width: 2.5px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.95);
+  box-shadow: 0 0 8px rgba(255,255,255,0.90), 0 0 16px rgba(255,255,255,0.50);
+  pointer-events: none;
+  transition: left 0.06s cubic-bezier(0.16,1,0.3,1);
+}
+.gs-pill-slider:active .gs-pill-thumb {
+  background: #fff;
+  box-shadow: 0 0 12px rgba(255,255,255,1), 0 0 24px rgba(255,255,255,0.60);
+}
+
+/* Dots in unfilled zone */
+.gs-pill-dot {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 3px; height: 3px;
+  border-radius: 50%;
+  background: rgba(59,125,216,0.25);
+  pointer-events: none;
+}
+
+/* Label */
+.gs-pill-label {
+  position: relative;
+  z-index: 1;
+  padding-left: 18px;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(100,110,130,0.85);
+  letter-spacing: 0.01em;
+  flex: 1;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* Value */
+.gs-pill-value {
+  position: relative;
+  z-index: 1;
+  padding-right: 18px;
+  font-size: 15px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  color: rgba(100,110,130,0.85);
+  transition: color 0.25s;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.gs-pill-max {
+  font-size: 9px;
+  font-weight: 500;
+  opacity: 0.55;
+}
+
+/* Silence old classes */
+.gs-slider-wrap { display: contents; }
+.gs-slider-pill-row,
+.gs-slider-row,
+.gs-slider-label,
+.gs-slider-value,
+.gs-slider-track-area,
+.gs-slider-extremes { display: none; }
 
 /* Pain sliders */
 .slider-grid {
@@ -3052,7 +3156,7 @@ input[type='range']::-moz-range-thumb {
   .eyebrow { font-size: 9px; letter-spacing: .08em; }
 
   /* Touch-friendly targets — pill nav keeps its own sizing */
-  .app-nav-bottom { left: 10px; right: 10px; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); padding: 5px; }
+  .app-nav-bottom { left: 10px; right: 10px; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); padding: 0; }
   select, input[type="number"], input[type="text"], textarea { font-size: 16px !important; min-height: 44px; }
   .body-region-selector { min-height: 56px; padding: 14px 16px; }
   /* Carousel overrides — tighter than general mobile targets */
@@ -3334,6 +3438,47 @@ input[type='range']::-moz-range-thumb {
   background: rgba(47,140,255,0.14);
   color: var(--primary);
   box-shadow: 0 0 10px rgba(47,140,255,0.18), inset 0 1px 0 rgba(255,255,255,0.07);
+}
+
+/* ── Front / Back view pill ───────────────────────────────────────── */
+.ia-view-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 999px;
+  background: linear-gradient(145deg, rgba(255,255,255,0.18) 0%, rgba(180,220,255,0.08) 100%);
+  border: 1.5px solid rgba(255,255,255,0.22);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.30),
+    inset 0 -1px 0 rgba(0,0,0,0.10),
+    0 4px 16px rgba(47,140,255,0.15),
+    0 1px 4px rgba(0,0,0,0.12);
+  backdrop-filter: blur(20px) saturate(1.6);
+}
+.ia-view-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  padding: 0 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: transparent;
+  color: rgba(255,255,255,0.55);
+  transition: background .18s, border-color .18s, color .18s, box-shadow .18s;
+}
+.ia-view-circle.active {
+  background: linear-gradient(145deg, rgba(255,255,255,0.22) 0%, rgba(180,220,255,0.12) 100%);
+  border-color: rgba(255,255,255,0.35);
+  color: rgba(255,255,255,0.92);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.4),
+    0 2px 8px rgba(47,140,255,0.20);
 }
 
 /* SVG viewport — default (assessment embed) */
@@ -3670,7 +3815,8 @@ input[type='range']::-moz-range-thumb {
   display: flex;
   flex-direction: column;
   gap: 0;
-  min-height: calc(100dvh - 60px);
+  height: calc(100dvh - 56px - 72px);
+  overflow: hidden;
 }
 
 /* Slim top bar: back + confirm */
@@ -3678,9 +3824,9 @@ input[type='range']::-moz-range-thumb {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 0 12px;
+  padding: 12px 0 10px;
   border-bottom: 1px solid var(--glass-border);
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 
 .anatomy-back-btn {
@@ -3703,6 +3849,199 @@ input[type='range']::-moz-range-thumb {
 
 .anatomy-confirm-btn { flex-shrink: 0; }
 .anatomy-confirm-disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* ── Pill nav button (demo on anatomy page) ─────────────────────────── */
+.pill-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 88px;
+  height: 44px;
+  padding: 5px;
+  border-radius: 999px;
+  background: linear-gradient(145deg, rgba(255,255,255,0.18) 0%, rgba(180,220,255,0.08) 100%);
+  border: 1.5px solid rgba(255,255,255,0.22);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.30),
+    inset 0 -1px 0 rgba(0,0,0,0.10),
+    0 4px 16px rgba(47,140,255,0.15),
+    0 1px 4px rgba(0,0,0,0.12);
+  backdrop-filter: blur(20px) saturate(1.6);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: box-shadow .2s, transform .2s cubic-bezier(0.16,1,0.3,1);
+}
+.pill-nav-btn:hover {
+  transform: scale(1.04);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.35),
+    inset 0 -1px 0 rgba(0,0,0,0.10),
+    0 6px 22px rgba(47,140,255,0.28),
+    0 1px 4px rgba(0,0,0,0.14);
+}
+.pill-nav-btn:active { transform: scale(0.97); }
+.pill-nav-btn:disabled { opacity: 0.28; cursor: default; pointer-events: none; }
+
+.pill-nav-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, rgba(255,255,255,0.22) 0%, rgba(180,220,255,0.12) 100%);
+  border: 1px solid rgba(255,255,255,0.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.4),
+    0 2px 8px rgba(47,140,255,0.20),
+    0 0 0 1px rgba(47,140,255,0.12);
+  color: rgba(120,130,150,0.75);
+  flex-shrink: 0;
+  transition: box-shadow .2s, background .2s, border-color .2s;
+}
+
+/* Small variant */
+.pill-nav-btn--sm {
+  width: 60px;
+  height: 30px;
+  padding: 3px;
+}
+.pill-nav-btn--sm .pill-nav-circle {
+  width: 24px;
+  height: 24px;
+}
+
+/* Confirm pill — circle on the right */
+.pill-nav-btn--confirm { justify-content: flex-end; }
+
+/* ── Anatomy selection pill + dropdowns ─────────────────────────────── */
+.ia-selection-pill-row {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 4px 16px;
+}
+/* When pills are at the top, dropdown opens downward */
+.ia-wrapper > .ia-selection-pill-row .ia-dropdown {
+  bottom: auto;
+  top: calc(100% + 6px);
+}
+.ia-pill-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+.ia-pill-dropdown {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.ia-selection-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: 0;
+  border-radius: 999px;
+  background: linear-gradient(145deg, rgba(255,255,255,0.18) 0%, rgba(180,220,255,0.08) 100%);
+  border: 1.5px solid rgba(255,255,255,0.22);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.30),
+    0 4px 16px rgba(47,140,255,0.15),
+    0 1px 4px rgba(0,0,0,0.10);
+  backdrop-filter: blur(20px) saturate(1.6);
+  transition: border-color .18s, box-shadow .18s;
+  overflow: hidden;
+}
+.ia-pill-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 8px 5px 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.ia-selection-pill--hint {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.10);
+  box-shadow: none;
+}
+.ia-selection-hint-text {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.45);
+  white-space: nowrap;
+}
+.ia-selection-pill--selected .ia-selection-label {
+  color: rgba(255,255,255,0.92);
+  text-shadow: none;
+}
+.ia-selection-label {
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.ia-pill-chevron {
+  font-size: 10px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1;
+  flex-shrink: 0;
+}
+.ia-pill-x {
+  padding: 0 8px 0 4px;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.5);
+  font-size: 9px;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: color .15s;
+}
+.ia-pill-x:hover { color: #fff; }
+
+/* Dropdown */
+.ia-dropdown {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 180px;
+  max-height: 220px;
+  overflow-y: auto;
+  background: rgba(20, 40, 80, 0.85);
+  backdrop-filter: blur(24px) saturate(1.8);
+  border: 1.5px solid rgba(255,255,255,0.16);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.28), 0 2px 8px rgba(47,140,255,0.15);
+  padding: 6px;
+  z-index: 100;
+  scrollbar-width: none;
+}
+.ia-dropdown-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: rgba(255,255,255,0.65);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .12s, color .12s;
+  white-space: nowrap;
+}
+.ia-dropdown-item:hover { background: rgba(47,140,255,0.18); color: #fff; }
+.ia-dropdown-item.active {
+  color: #2F8CFF;
+  background: rgba(47,140,255,0.14);
+  font-weight: 700;
+  text-shadow: 0 0 8px rgba(47,140,255,0.5);
+}
 .anatomy-confirm-disabled:hover { transform: none !important; }
 
 /* Body map canvas */
@@ -3712,15 +4051,17 @@ input[type='range']::-moz-range-thumb {
   flex-direction: column;
   align-items: center;
   gap: 0;
-  padding: 0 0 24px;
+  padding: 0 0 8px;
   width: 100%;
+  overflow: hidden;
 }
 .anatomy-canvas-heading {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   letter-spacing: -.02em;
   color: var(--ink);
-  margin: 0 0 14px 0;
+  text-shadow: none;
+  margin: 4px 0 6px 0;
   text-align: center;
 }
 
@@ -3734,6 +4075,9 @@ input[type='range']::-moz-range-thumb {
   align-items: center;
   gap: 8px 0;
   width: 100%;
+  flex: 1;
+  min-height: 0;
+  max-height: 100%;
 }
 .anatomy-canvas .ia-toggle-row  { grid-area: toggle; justify-content: center; }
 .anatomy-canvas .ia-svg-wrapper { grid-area: svg; width: clamp(220px, 42vw, 310px); }
@@ -3771,9 +4115,11 @@ input[type='range']::-moz-range-thumb {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 4px;
+    flex: 1;
+    min-height: 0;
   }
-  .anatomy-canvas .ia-svg-wrapper { width: clamp(200px, 72vw, 280px); }
+  .anatomy-canvas .ia-svg-wrapper { width: clamp(180px, 68vw, 260px); max-height: 62dvh; }
   .anatomy-canvas .ia-info-strip {
     align-items: flex-start;
     padding: 0 4px;
@@ -3785,6 +4131,149 @@ input[type='range']::-moz-range-thumb {
     justify-content: flex-start;
   }
   .anatomy-canvas .ia-info-arrow { display: inline; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   GLASS SELECT — liquid-glass pill trigger + smooth dropdown
+   ══════════════════════════════════════════════════════════════════════ */
+.gs-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+.gs-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--text-secondary, #6b7a99);
+  padding-left: 2px;
+}
+.gs-trigger-wrap {
+  position: relative;
+  width: 100%;
+}
+.gs-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 14px;
+  height: 36px;
+  border-radius: var(--r-pill, 999px);
+  background: rgba(255,255,255,0.72);
+  border: 1px solid rgba(59,125,216,0.14);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  cursor: pointer;
+  transition: border-color .18s, box-shadow .18s;
+  text-align: left;
+}
+.gs-trigger--open {
+  border-color: rgba(47,140,255,0.4);
+  box-shadow: 0 0 0 3px rgba(47,140,255,0.10);
+}
+.gs-value {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink, #1a2340);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.gs-placeholder {
+  font-size: 13px;
+  color: rgba(100,120,160,0.6);
+}
+.gs-chevron {
+  color: rgba(47,140,255,0.6);
+  flex-shrink: 0;
+  margin-left: 6px;
+  transition: transform .2s cubic-bezier(0.16,1,0.3,1);
+  display: flex;
+  align-items: center;
+}
+
+/* Panel */
+/* Search input inside panel */
+.gs-search-wrap {
+  padding: 8px 8px 4px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.gs-search-input {
+  width: 100%;
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 10px;
+  padding: 7px 12px;
+  font-size: 13px;
+  color: #fff;
+  outline: none;
+  font-family: inherit;
+  transition: border-color .15s;
+}
+.gs-search-input::placeholder { color: rgba(255,255,255,0.35); }
+.gs-search-input:focus { border-color: rgba(47,140,255,0.50); }
+
+.gs-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 200;
+  background: rgba(18, 36, 72, 0.82);
+  backdrop-filter: blur(28px) saturate(1.8);
+  border: 1.5px solid rgba(255,255,255,0.14);
+  border-radius: 16px;
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.28),
+    0 2px 8px rgba(47,140,255,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.10);
+  overflow: hidden;
+  animation: gs-drop .18s cubic-bezier(0.16,1,0.3,1);
+}
+@keyframes gs-drop {
+  from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+.gs-list {
+  max-height: 220px;
+  overflow-y: auto;
+  padding: 6px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.gs-list::-webkit-scrollbar { display: none; }
+
+.gs-group-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  padding: 8px 12px 4px;
+}
+.gs-option {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 9px 14px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: rgba(255,255,255,0.7);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .12s, color .12s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.gs-option:hover { background: rgba(47,140,255,0.18); color: #fff; }
+.gs-option.active {
+  background: rgba(47,140,255,0.22);
+  color: #2F8CFF;
+  font-weight: 700;
 }
 
 /* ── Diagnosis page ─────────────────────────────────────────────────── */
@@ -3835,7 +4324,11 @@ input[type='range']::-moz-range-thumb {
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: 1rem;
-  color: var(--ink);
+  color: #ffffff;
+  text-shadow:
+    0 0 8px rgba(255, 255, 255, 0.9),
+    0 0 18px rgba(180, 220, 255, 0.7),
+    0 0 36px rgba(47, 140, 255, 0.5);
   text-decoration: none;
   letter-spacing: -0.02em;
   flex-shrink: 0;
@@ -3860,13 +4353,16 @@ input[type='range']::-moz-range-thumb {
   border-radius: var(--r-pill);
   font-size: 0.8125rem;
   font-weight: 600;
-  color: var(--primary);
-  border: 1px solid rgba(47,140,255,0.30);
-  background: rgba(47,140,255,0.08);
-  transition: background .18s, border-color .18s;
+  color: rgba(255,255,255,0.88);
+  border: 1.5px solid rgba(255,255,255,0.22);
+  background: linear-gradient(145deg, rgba(255,255,255,0.18) 0%, rgba(180,220,255,0.08) 100%);
+  backdrop-filter: blur(20px) saturate(1.6);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 2px 8px rgba(47,140,255,0.12);
+  text-shadow: none;
+  transition: background .18s, border-color .18s, box-shadow .18s;
   white-space: nowrap;
 }
-.app-nav-signin:hover { background: rgba(47,140,255,0.14); border-color: rgba(47,140,255,0.50); }
+.app-nav-signin:hover { background: linear-gradient(145deg, rgba(255,255,255,0.26) 0%, rgba(180,220,255,0.14) 100%); border-color: rgba(255,255,255,0.35); color: #fff; }
 .app-nav-user-dot {
   width: 8px; height: 8px;
   border-radius: 50%;
@@ -3907,17 +4403,19 @@ input[type='range']::-moz-range-thumb {
   z-index: 100;
 
   border-radius: 9999px;
-  padding: 5px;
+  /* NO padding — keeps pill % coordinates aligned with flex items */
+  padding: 0;
 
-  /* Light frosted glass */
-  background: rgba(235,242,255,0.72);
-  backdrop-filter: blur(32px) saturate(1.9);
-  -webkit-backdrop-filter: blur(32px) saturate(1.9);
-  border: 1px solid rgba(255,255,255,0.88);
+  /* Liquid-glass pill */
+  background: linear-gradient(145deg, rgba(255,255,255,0.18) 0%, rgba(180,220,255,0.08) 100%);
+  backdrop-filter: blur(20px) saturate(1.6);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6);
+  border: 1.5px solid rgba(255,255,255,0.22);
   box-shadow:
-    0 8px 32px rgba(40,90,180,0.14),
-    0 2px 8px rgba(40,90,180,0.08),
-    inset 0 1px 0 rgba(255,255,255,0.95);
+    inset 0 1px 0 rgba(255,255,255,0.30),
+    inset 0 -1px 0 rgba(0,0,0,0.10),
+    0 4px 16px rgba(47,140,255,0.15),
+    0 1px 4px rgba(0,0,0,0.12);
 
   justify-content: stretch;
   align-items: stretch;
@@ -3932,22 +4430,24 @@ input[type='range']::-moz-range-thumb {
   justify-content: center;
   gap: 3px;
   flex: 1;
-  padding: 9px 4px;
-  min-height: 50px;
+  padding: 10px 4px;
+  min-height: 64px;
   text-decoration: none;
-  color: rgba(40,80,160,0.40);
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  /* Electric blue inactive */
+  color: rgba(47, 120, 255, 0.40);
+  font-size: 6px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
   position: relative;
   z-index: 1;
   transition: color 0.18s;
   cursor: pointer;
-  pointer-events: none; /* nav handles pointer events */
+  pointer-events: none;
+  text-align: center;
 }
-/* Active item */
-.app-nav-bottom-item.active { color: var(--primary); }
+/* Active item — bright electric blue */
+.app-nav-bottom-item.active { color: #2F8CFF; }
 
 /* ── Body offset ──────────────────────────────────────────── */
 body { padding-top: 0; }
@@ -4522,12 +5022,16 @@ body { padding-top: 0; }
 
 /* ── Bottom nav (mobile) ────────────────────────────────── */
 .app-nav-bottom {
-  background: rgba(235,242,255,0.72) !important;
-  border: 1px solid rgba(255,255,255,0.88) !important;
-  box-shadow: 0 8px 32px rgba(40,90,180,0.14), 0 2px 8px rgba(40,90,180,0.08), inset 0 1px 0 rgba(255,255,255,0.95) !important;
+  background: linear-gradient(145deg, rgba(255,255,255,0.18) 0%, rgba(180,220,255,0.08) 100%) !important;
+  border: 1.5px solid rgba(255,255,255,0.22) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.30),
+    inset 0 -1px 0 rgba(0,0,0,0.10),
+    0 4px 16px rgba(47,140,255,0.15),
+    0 1px 4px rgba(0,0,0,0.12) !important;
 }
-.app-nav-bottom-item { color: rgba(40,80,160,0.40) !important; }
-.app-nav-bottom-item.active { color: var(--primary) !important; }
+.app-nav-bottom-item { color: rgba(47, 120, 255, 0.40) !important; }
+.app-nav-bottom-item.active { color: #2F8CFF !important; }
 
 /* ── Primary button ─────────────────────────────────────── */
 .primary-btn {

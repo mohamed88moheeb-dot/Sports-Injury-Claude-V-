@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Field } from '../ui/Field';
 import { Slider } from '../ui/Slider';
+import { GlassSelect } from '../ui/GlassSelect';
 
 export function CheckInContent({ addCheckin, checkins }) {
   const [status, setStatus] = useState({
@@ -15,42 +16,35 @@ export function CheckInContent({ addCheckin, checkins }) {
 
   return (
     <section className="checkin-grid app-section app-section-soft">
-      <div className="section-card glass-card">
+      <div className="section-card">
         <p className="eyebrow">Daily check-in</p>
         <h2>How did the injury respond?</h2>
-        <Slider
-          label="Pain today"
-          value={status.pain}
-          onChange={(v) => setStatus({ ...status, pain: v })}
+        <div className="ac-sliders">
+          <Slider
+            label="Pain today"
+            value={status.pain}
+            onChange={(v) => setStatus({ ...status, pain: v })}
+          />
+          <Slider
+            label="Confidence to move"
+            value={status.confidence}
+            max={100}
+            onChange={(v) => setStatus({ ...status, confidence: v })}
+            invertColor
+          />
+        </div>
+        <GlassSelect
+          label="Swelling / tightness"
+          value={status.swelling}
+          onChange={(v) => setStatus({ ...status, swelling: v })}
+          options={['No change', 'Better', 'Worse', 'New swelling']}
         />
-        <Slider
-          label="Confidence to move"
-          value={status.confidence}
-          max={100}
-          onChange={(v) => setStatus({ ...status, confidence: v })}
+        <GlassSelect
+          label="Next-day response"
+          value={status.response}
+          onChange={(v) => setStatus({ ...status, response: v })}
+          options={['Stable', 'Better than yesterday', 'Sore but settled', 'Worse than yesterday']}
         />
-        <Field label="Swelling / tightness">
-          <select
-            value={status.swelling}
-            onChange={(e) => setStatus({ ...status, swelling: e.target.value })}
-          >
-            <option>No change</option>
-            <option>Better</option>
-            <option>Worse</option>
-            <option>New swelling</option>
-          </select>
-        </Field>
-        <Field label="Next-day response">
-          <select
-            value={status.response}
-            onChange={(e) => setStatus({ ...status, response: e.target.value })}
-          >
-            <option>Stable</option>
-            <option>Better than yesterday</option>
-            <option>Sore but settled</option>
-            <option>Worse than yesterday</option>
-          </select>
-        </Field>
         <textarea
           placeholder="Notes"
           value={status.notes}
@@ -61,7 +55,7 @@ export function CheckInContent({ addCheckin, checkins }) {
         </button>
       </div>
 
-      <div className="section-card glass-card">
+      <div className="section-card">
         <p className="eyebrow">History</p>
         <h2>Recent entries</h2>
         <div className="history-list">
