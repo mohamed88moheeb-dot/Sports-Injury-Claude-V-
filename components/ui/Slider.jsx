@@ -24,6 +24,7 @@ export function Slider({
   }, [min, max]); // eslint-disable-line
 
   const onPointerDown = (e) => {
+    e.stopPropagation();
     dragging.current = true;
     pillRef.current.setPointerCapture(e.pointerId);
     // Snap on initial tap
@@ -31,6 +32,7 @@ export function Slider({
   };
   const onPointerMove = (e) => {
     if (!dragging.current) return;
+    e.stopPropagation();
     // Continuous (no snap) during drag for silky glide
     onChange(rawFromX(e.clientX));
   };
@@ -47,6 +49,9 @@ export function Slider({
     if (e.key === 'Home') onChange(min);
     if (e.key === 'End')  onChange(max);
   };
+
+  // Stop touch events from bubbling to the carousel's swipe detector
+  const stopTouch = (e) => e.stopPropagation();
 
   const pct   = ((value - min) / (max - min)) * 100;
   const steps = Math.floor((max - min) / step);
@@ -76,6 +81,9 @@ export function Slider({
       onPointerUp={onPointerUp}
       onPointerCancel={onPointerUp}
       onKeyDown={onKeyDown}
+      onTouchStart={stopTouch}
+      onTouchMove={stopTouch}
+      onTouchEnd={stopTouch}
     >
       {/* Filled zone */}
       <div className="gs-pill-fill" style={{ width: `${pct}%` }} />

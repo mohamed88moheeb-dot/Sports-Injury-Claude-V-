@@ -95,6 +95,8 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
   }
 
   function onTouchStart(e) {
+    // Ignore touches that originate on a slider — let the slider handle them
+    if (e.target.closest('.gs-pill-slider')) return;
     touchStartX.current = e.touches[0].clientX;
     touchStartY.current = e.touches[0].clientY;
     isDragging.current  = false;
@@ -103,6 +105,8 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
 
   function onTouchMove(e) {
     if (touchStartX.current === null) return;
+    // Ignore if the gesture started on a slider
+    if (e.target.closest('.gs-pill-slider')) return;
     const dx = e.touches[0].clientX - touchStartX.current;
     const dy = e.touches[0].clientY - touchStartY.current;
 
