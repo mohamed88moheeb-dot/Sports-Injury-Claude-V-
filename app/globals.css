@@ -1763,55 +1763,6 @@ select option { background: #EEF6FF; color: var(--ink); }
   opacity: 0.55;
 }
 
-/* Native range input — invisible, on top, handles all touch/drag natively.
-   Selectors are scoped under .gs-pill-slider so they out-specify the legacy
-   `input[type="range"]` rules elsewhere (which otherwise force height:6px). */
-.gs-pill-slider .gs-pill-input {
-  position: absolute;
-  inset: 0;
-  width: 100% !important;
-  height: 100% !important;
-  min-height: 100% !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  z-index: 2;
-  background: transparent !important;
-  border: none !important;
-  outline: none;
-  cursor: pointer;
-  opacity: 0;            /* invisible — the pill underneath is the visual */
-  -webkit-appearance: none;
-  appearance: none;
-  touch-action: none;    /* own all touch gestures; no scroll/zoom hijack */
-}
-/* Full-height, near-zero-width thumb so value↔position is linear edge-to-edge
-   and the (invisible) thumb spans the whole pill for easy grabbing. */
-.gs-pill-slider .gs-pill-input::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 1px !important;
-  height: 44px !important;
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-}
-.gs-pill-slider .gs-pill-input::-moz-range-thumb {
-  width: 1px !important;
-  height: 44px !important;
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-}
-.gs-pill-slider .gs-pill-input::-webkit-slider-runnable-track {
-  height: 100% !important;
-  background: transparent !important;
-  border: none !important;
-}
-.gs-pill-slider .gs-pill-input::-moz-range-track {
-  height: 100% !important;
-  background: transparent !important;
-  border: none !important;
-}
 
 /* Silence old classes */
 .gs-slider-wrap { display: contents; }
