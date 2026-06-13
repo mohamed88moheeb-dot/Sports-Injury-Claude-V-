@@ -1,14 +1,20 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useLayoutEffect } from 'react';
 
 /**
  * Slider — liquid-glass pill with fill, glowy thumb, dots, label & value.
  *
- * Uses POINTER EVENTS with pointer capture: one unified code path for mouse,
- * pen and touch. You can grab anywhere on the pill and it drag-follows. The
- * pill is painted directly to the DOM during the drag (zero React re-renders)
- * and committed to state once on release — smooth on every device.
+ * Pointer Events + pointer capture (one path for mouse/pen/touch).
+ *
+ * Mobile-perf critical details:
+ *  • Fill moves via transform: scaleX(), thumb via translate3d() — both are
+ *    GPU-composited, so dragging triggers NO layout, NO repaint, and does NOT
+ *    force the pill's backdrop-filter blur to recompute every frame.
+ *  • The bounding rect is measured ONCE on pointerdown and cached, so there's
+ *    zero layout reflow during the drag.
+ *  • State is committed once on release; the pill is painted directly to the
+ *    DOM during the drag (no React re-renders).
  */
 export function Slider({
   label,
@@ -25,6 +31,7 @@ export function Slider({
   const numRef   = useRef(null);
   const valRef   = useRef(null);
   const dragging = useRef(false);
+  const rectRef  = useRef(null);   // cached geometry during a drag
 
   const clamp = (v) => Math.min(max, Math.max(min, v));
   const snap  = (v) => Math.round(v / step) * step;
@@ -33,30 +40,40 @@ export function Slider({
     ? (pct >= 70 ? 'rgba(100,110,130,0.85)' : pct >= 40 ? '#F59316' : '#EF4444')
     : (pct >= 70 ? '#EF4444' : pct >= 40 ? '#F59316' : 'rgba(100,110,130,0.85)');
 
+  const rect = () => rectRef.current || pillRef.current.getBoundingClientRect();
+
   const valFromX = (clientX) => {
-    const rect = pillRef.current.getBoundingClientRect();
-    const rel  = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+    const r = rect();
+    const rel = Math.max(0, Math.min(1, (clientX - r.left) / r.width));
     return clamp(min + rel * (max - min));
   };
 
-  // Paint straight to the DOM — instant, no React re-render.
+  // Paint via transforms only — composited, no layout/paint/blur-recompute.
   const paint = (v) => {
-    const pct = ((v - min) / (max - min)) * 100;
-    if (fillRef.current)  fillRef.current.style.width = pct + '%';
+    const ratio = (v - min) / (max - min);
+    const w = rect().width;
+    if (fillRef.current)  fillRef.current.style.transform = `scaleX(${ratio})`;
     if (thumbRef.current) {
-      thumbRef.current.style.left    = pct + '%';
-      thumbRef.current.style.opacity = (pct > 0 && pct < 100) ? '1' : '0';
+      thumbRef.current.style.transform = `translate3d(${ratio * w - 1.25}px,0,0)`;
+      thumbRef.current.style.opacity   = (ratio > 0 && ratio < 1) ? '1' : '0';
     }
     if (numRef.current) numRef.current.textContent = String(Math.round(v));
-    if (valRef.current) valRef.current.style.color = colorFor(pct);
+    if (valRef.current) valRef.current.style.color = colorFor(ratio * 100);
     pillRef.current?.querySelectorAll('.gs-pill-dot').forEach((d) => {
-      d.style.opacity = (parseFloat(d.style.left) > pct + 2) ? '' : '0';
+      d.style.opacity = (parseFloat(d.style.left) > ratio * 100 + 2) ? '' : '0';
     });
   };
+
+  // Sync DOM to value on mount + whenever value changes externally.
+  useLayoutEffect(() => {
+    if (!dragging.current) paint(value);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value, min, max]);
 
   const onPointerDown = (e) => {
     e.preventDefault();
     e.stopPropagation();
+    rectRef.current = pillRef.current.getBoundingClientRect(); // measure ONCE
     dragging.current = true;
     try { pillRef.current.setPointerCapture(e.pointerId); } catch {}
     pillRef.current.classList.add('is-dragging');
@@ -67,7 +84,7 @@ export function Slider({
     if (!dragging.current) return;
     e.preventDefault();
     e.stopPropagation();
-    paint(valFromX(e.clientX));        // DOM only — silky
+    paint(valFromX(e.clientX));   // cached rect → zero reflow
   };
 
   const onPointerUp = (e) => {
@@ -77,7 +94,8 @@ export function Slider({
     try { pillRef.current.releasePointerCapture(e.pointerId); } catch {}
     const v = snap(valFromX(e.clientX));
     paint(v);
-    onChange(v);                        // single React commit on release
+    rectRef.current = null;
+    onChange(v);                  // single React commit
   };
 
   const onKeyDown = (e) => {
@@ -87,8 +105,8 @@ export function Slider({
     if (e.key === 'End')  onChange(max);
   };
 
-  const pct0  = ((value - min) / (max - min)) * 100;
-  const steps = Math.floor((max - min) / step);
+  const ratio0 = (value - min) / (max - min);
+  const steps  = Math.floor((max - min) / step);
   const DOT_COUNT = Math.min(steps - 1, 9);
   const dots = DOT_COUNT > 0
     ? Array.from({ length: DOT_COUNT }, (_, i) => ((i + 1) / (DOT_COUNT + 1)) * 100)
@@ -111,14 +129,9 @@ export function Slider({
       onKeyDown={onKeyDown}
       style={{ touchAction: 'none' }}
     >
-      <div ref={fillRef} className="gs-pill-fill" style={{ width: `${pct0}%` }} />
+      <div ref={fillRef} className="gs-pill-fill" style={{ transform: `scaleX(${ratio0})` }} />
 
-      <div
-        ref={thumbRef}
-        className="gs-pill-thumb"
-        style={{ left: `${pct0}%`, opacity: pct0 > 0 && pct0 < 100 ? 1 : 0 }}
-        aria-hidden="true"
-      />
+      <div ref={thumbRef} className="gs-pill-thumb" style={{ opacity: ratio0 > 0 && ratio0 < 1 ? 1 : 0 }} aria-hidden="true" />
 
       {dots.map((p, i) => (
         <span key={i} className="gs-pill-dot" style={{ left: `${p}%` }} aria-hidden="true" />
@@ -126,7 +139,7 @@ export function Slider({
 
       <span className="gs-pill-label">{label}</span>
 
-      <span ref={valRef} className="gs-pill-value" style={{ color: colorFor(pct0) }}>
+      <span ref={valRef} className="gs-pill-value" style={{ color: colorFor(ratio0 * 100) }}>
         <span ref={numRef}>{Math.round(value)}</span><span className="gs-pill-max">/{max}</span>
       </span>
     </div>
