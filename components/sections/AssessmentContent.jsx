@@ -403,14 +403,20 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
 
         <button
           type="button"
-          className="pill-nav-btn pill-nav-btn--sm pill-nav-btn--confirm"
+          className={`pill-nav-btn pill-nav-btn--sm pill-nav-btn--confirm${step === STEPS.length - 1 ? ' pill-nav-btn--glowing' : ''}`}
           onClick={handleNext}
           aria-label={step === STEPS.length - 1 ? 'Build recovery plan' : 'Next step'}
         >
           <span className="pill-nav-circle">
-            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M9 18l6-6-6-6"/>
-            </svg>
+            {step === STEPS.length - 1 ? (
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            ) : (
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 18l6-6-6-6"/>
+              </svg>
+            )}
           </span>
         </button>
       </div>

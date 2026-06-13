@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useEffect } from 'react';
 
 export function Slider({
   label,
@@ -11,7 +11,7 @@ export function Slider({
   step = 1,
   invertColor = false,
 }) {
-  const pillRef = useRef(null);
+  const pillRef  = useRef(null);
   const dragging = useRef(false);
 
   const clamp = (v) => Math.min(max, Math.max(min, v));
@@ -23,25 +23,67 @@ export function Slider({
     return clamp(min + rel * (max - min));
   }, [min, max]); // eslint-disable-line
 
+  /* ── Mouse / pen via Pointer Events ──────────────────────────────── */
   const onPointerDown = (e) => {
+    // Only handle mouse/pen here — touch is handled by native touch events below
+    if (e.pointerType === 'touch') return;
     e.stopPropagation();
     dragging.current = true;
     pillRef.current.setPointerCapture(e.pointerId);
-    // Snap on initial tap
     onChange(snap(rawFromX(e.clientX)));
   };
   const onPointerMove = (e) => {
+    if (e.pointerType === 'touch') return;
     if (!dragging.current) return;
     e.stopPropagation();
-    // Continuous (no snap) during drag for silky glide
     onChange(rawFromX(e.clientX));
   };
   const onPointerUp = (e) => {
+    if (e.pointerType === 'touch') return;
     if (!dragging.current) return;
     dragging.current = false;
-    // Snap to step on release
     onChange(snap(rawFromX(e.clientX)));
   };
+
+  /* ── Touch Events — registered imperatively so we can use passive:false ── */
+  useEffect(() => {
+    const el = pillRef.current;
+    if (!el) return;
+
+    function onTouchStart(e) {
+      e.stopPropagation();
+      dragging.current = true;
+      // Snap on initial touch
+      onChange(snap(rawFromX(e.touches[0].clientX)));
+    }
+
+    function onTouchMove(e) {
+      if (!dragging.current) return;
+      e.preventDefault();   // stop page scroll
+      e.stopPropagation();  // stop carousel swipe
+      onChange(rawFromX(e.touches[0].clientX));
+    }
+
+    function onTouchEnd(e) {
+      if (!dragging.current) return;
+      dragging.current = false;
+      e.stopPropagation();
+      onChange(snap(rawFromX(e.changedTouches[0].clientX)));
+    }
+
+    el.addEventListener('touchstart',  onTouchStart, { passive: true  });
+    el.addEventListener('touchmove',   onTouchMove,  { passive: false }); // needs preventDefault
+    el.addEventListener('touchend',    onTouchEnd,   { passive: true  });
+    el.addEventListener('touchcancel', onTouchEnd,   { passive: true  });
+
+    return () => {
+      el.removeEventListener('touchstart',  onTouchStart);
+      el.removeEventListener('touchmove',   onTouchMove);
+      el.removeEventListener('touchend',    onTouchEnd);
+      el.removeEventListener('touchcancel', onTouchEnd);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [min, max, step]);
 
   const onKeyDown = (e) => {
     if (e.key === 'ArrowRight' || e.key === 'ArrowUp')   onChange(clamp(snap(value + step)));
@@ -49,9 +91,6 @@ export function Slider({
     if (e.key === 'Home') onChange(min);
     if (e.key === 'End')  onChange(max);
   };
-
-  // Stop touch events from bubbling to the carousel's swipe detector
-  const stopTouch = (e) => e.stopPropagation();
 
   const pct   = ((value - min) / (max - min)) * 100;
   const steps = Math.floor((max - min) / step);
@@ -81,9 +120,6 @@ export function Slider({
       onPointerUp={onPointerUp}
       onPointerCancel={onPointerUp}
       onKeyDown={onKeyDown}
-      onTouchStart={stopTouch}
-      onTouchMove={stopTouch}
-      onTouchEnd={stopTouch}
     >
       {/* Filled zone */}
       <div className="gs-pill-fill" style={{ width: `${pct}%` }} />
