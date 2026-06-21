@@ -1,0 +1,116 @@
+{
+  "exercise_id": "RF-EX-001",
+  "module": "rectus_femoris",
+  "name": "Reclined knee extension ISO",
+  "aliases": [
+    "reclined knee extension isometric",
+    "RF-biased knee extension ISO"
+  ],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "anterior_thigh",
+    "knee"
+  ],
+  "target_tissues": [
+    "rectus_femoris",
+    "quadriceps"
+  ],
+  "exercise_family": "knee_extension_biased_loading",
+  "primary_function": [
+    "isometric_anterior_thigh_loading",
+    "rectus_femoris_biased_knee_extension"
+  ],
+  "movement_category": [
+    "knee_extension",
+    "isometric_loading"
+  ],
+  "joint_actions": [
+    "knee_extension"
+  ],
+  "contraction_bias": [
+    "isometric"
+  ],
+  "position_tags": [
+    "reclined",
+    "hip_flexed_context",
+    "knee_extension"
+  ],
+  "tissue_demand_tags": [
+    "rectus_femoris_load",
+    "quadriceps_load"
+  ],
+  "speed_power_demand": "low",
+  "stretch_demand": "low_to_moderate",
+  "impact_demand": "none",
+  "field_demand_tags": [],
+  "equipment": [
+    "bench_or_reclined_support",
+    "optional_external_resistance"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile"
+  ],
+  "allowed_when": [
+    "metadata_candidate_only",
+    "requires_future_rule_authoring"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [
+    "Aspetar_Rectus_Femoris_Injury_Rehabilitation_Pathway_2026"
+  ],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-REHAB-001",
+    "RF-REHAB-002",
+    "RF-REHAB-003",
+    "RF-REHAB-004"
+  ],
+  "notes": "Metadata only. Source context may describe a reclined setup, but this object carries no active dosage, no progression authorization, and no clearance."
+}

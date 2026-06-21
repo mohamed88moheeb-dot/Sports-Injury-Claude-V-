@@ -1,0 +1,155 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "internal://rf/rules/rfRuleObject.schema.json",
+  "title": "RF Rule Object (Gate B authoring scaffold)",
+  "$comment": "NON-EXECUTABLE structural schema for future Gate B machine-readable Rectus Femoris (RF) rule objects. It documents SHAPE, PROVENANCE, STATUS DISCIPLINE, and PROHIBITED-FIELD patterns only. It does NOT validate clinical correctness, and authoring a conformant object grants it no authority. During this development authoring phase, approval_status MUST NOT be 'approved'. The companion validator scripts/validate-rf-rule-package.mjs enforces these rules (some, like the prohibited-key patterns and the RF/QRF id formats, are enforced programmatically there because they exceed plain draft-07 expressiveness).",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "rule_id",
+    "rule_family",
+    "source_spec_rule_id",
+    "approval_status",
+    "permitted_use",
+    "architecture_refs",
+    "evidence_claim_ids",
+    "input_contract",
+    "decision_contract",
+    "safety_state_output",
+    "blocked_targets",
+    "prohibited_outputs",
+    "test_fixtures",
+    "notes"
+  ],
+  "properties": {
+    "rule_id": {
+      "type": "string",
+      "description": "Stable unique identifier for this authored rule object."
+    },
+    "rule_family": {
+      "type": "string",
+      "description": "Domain family, e.g. safety, diagnosis, rehabilitation, recurrence, field, readiness."
+    },
+    "source_spec_rule_id": {
+      "type": "string",
+      "pattern": "^RF-[A-Z]+-[0-9]{3}$",
+      "description": "The RF v1.2 rule ID this object implements, e.g. RF-SAF-001."
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": ["pending", "rejected", "superseded"],
+      "description": "Lifecycle status. 'approved' is intentionally NOT permitted during this development authoring phase."
+    },
+    "permitted_use": {
+      "type": "string",
+      "enum": [
+        "evidence_record_only",
+        "logic_with_uncertainty",
+        "safety_referral_trigger",
+        "prohibited_autonomous_rule"
+      ],
+      "description": "The strongest role the rule may play (mirrors RF v1.2 §4.2)."
+    },
+    "architecture_refs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of V3.1 architecture references, e.g. V3.1-7, V3.1-21. May be empty for clinical-content-only rules (v1.2 §4.3); provenance is satisfied as long as at least one of architecture_refs or evidence_claim_ids is non-empty (enforced by the validator)."
+    },
+    "evidence_claim_ids": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^QRF-[0-9]{3}$" },
+      "description": "QRF evidence-claim IDs, each preserving its individual grade. May be empty for architecture-only rules (V3.1 §4.3)."
+    },
+    "input_contract": {
+      "type": "object",
+      "description": "Structural placeholder for required inputs. No clinical content in this phase."
+    },
+    "decision_contract": {
+      "type": "object",
+      "description": "Structural placeholder for the decision. No executable decision logic in this phase."
+    },
+    "safety_state_output": {
+      "type": ["string", "null"],
+      "enum": [
+        "CLEAR",
+        "CLEAR_WITH_MONITORING",
+        "INFORMATION_REQUIRED",
+        "TEST_BLOCKED",
+        "REHAB_BLOCKED",
+        "URGENT_REFERRAL",
+        "EMERGENCY_SIGNPOSTING",
+        "OUT_OF_SCOPE",
+        null
+      ],
+      "description": "One of the closed V3.1 §21 safety states, or null when not a safety rule."
+    },
+    "blocked_targets": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["test", "rehab", "rtp", "all"] },
+      "description": "Targets blocked by this rule's safety output."
+    },
+    "prohibited_outputs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Prohibited inferences this rule must never emit."
+    },
+    "test_fixtures": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "IDs of positive/negative/adversarial fixtures for this rule."
+    },
+    "notes": {
+      "type": ["string", "null"],
+      "description": "Author notes; non-normative."
+    },
+    "executable": {
+      "type": "boolean",
+      "const": false,
+      "description": "If present, MUST be false. No rule object is executable in this phase."
+    }
+  },
+  "x_prohibited_patterns": {
+    "$comment": "Documented prohibitions enforced programmatically by the validator (deep key scan, case-insensitive). Listed here for authoring guidance only.",
+    "numeric_confidence": [
+      "confidence_value",
+      "confidence_score",
+      "confidence_percent",
+      "confidence_percentage",
+      "confidence_numeric",
+      "numeric_confidence",
+      "percent_confidence"
+    ],
+    "universal_dosage": [
+      "sets",
+      "reps",
+      "repetitions",
+      "frequency",
+      "weekly_frequency",
+      "intensity",
+      "rest",
+      "rest_seconds",
+      "rest_period",
+      "progression_increment",
+      "dosage",
+      "fixed_dose"
+    ],
+    "fixed_rts_dates": [
+      "return_date",
+      "rts_date",
+      "return_to_sport_date",
+      "return_to_play_date",
+      "expected_return_date",
+      "fixed_return",
+      "return_in_days",
+      "return_in_weeks"
+    ],
+    "diagnosis_authorizes_plan": [
+      "diagnosis_authorizes_plan",
+      "diagnosis_authorises_plan",
+      "diagnosis_authorizes_rehab",
+      "auto_authorize_plan",
+      "plan_from_diagnosis",
+      "diagnosis_grants_plan"
+    ]
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "exercise_id": "RF-EX-027",
+  "module": "rectus_femoris",
+  "name": "Supine hamstring dynamic mobility",
+  "aliases": [
+    "supine hamstring mobility",
+    "dynamic hamstring mobility"
+  ],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "hip",
+    "posterior_thigh",
+    "lower_limb"
+  ],
+  "target_tissues": [
+    "hamstrings",
+    "posterior_chain"
+  ],
+  "exercise_family": "posterior_chain_mobility_support",
+  "primary_function": [
+    "posterior_chain_mobility",
+    "lower_limb_mobility_support"
+  ],
+  "movement_category": [
+    "mobility",
+    "dynamic_mobility_support"
+  ],
+  "joint_actions": [
+    "hip_flexion_context",
+    "knee_extension_context"
+  ],
+  "contraction_bias": [
+    "mobility"
+  ],
+  "position_tags": [
+    "supine",
+    "posterior_chain_mobility"
+  ],
+  "tissue_demand_tags": [
+    "posterior_chain_mobility_demand",
+    "supporting_exercise_metadata"
+  ],
+  "speed_power_demand": "low",
+  "stretch_demand": "moderate",
+  "impact_demand": "none",
+  "field_demand_tags": [],
+  "equipment": [
+    "bodyweight"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile"
+  ],
+  "allowed_when": [
+    "metadata_candidate_only",
+    "requires_future_rule_authoring",
+    "supporting_exercise_metadata"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity",
+    "lumbopelvic_control_loss"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [
+    "Gonzalez_de_la_Flor_Garcia_Perez_de_Sevilla_2024_RF_strain_case_report"
+  ],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-REHAB-001",
+    "RF-REHAB-006"
+  ],
+  "notes": "Posterior-chain mobility support from RF case report. Not RF-specific tissue loading."
+}

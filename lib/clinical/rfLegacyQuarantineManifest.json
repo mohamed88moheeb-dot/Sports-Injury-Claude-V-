@@ -1,0 +1,171 @@
+{
+  "$schema": "internal://rf-legacy-quarantine-manifest/v1",
+  "manifestVersion": "2.0.0",
+  "generatedOn": "2026-06-15",
+  "purpose": "Lists legacy modules and exports that MUST NOT be imported by the future governed Rectus Femoris (RF) path until they are reviewed, refactored, or replaced. Verdicts in this revision are verified against the actual governing documents now present in the repository.",
+  "governingDocuments": {
+    "rfClinicalRuleSpecification": "v1.2",
+    "masterArchitecture": "V3.1",
+    "presentInRepository": true,
+    "repositoryPaths": {
+      "masterArchitecture": "docs/governance/Master_Architecture_V3.1_Final.md",
+      "rfClinicalRuleSpecification": "docs/governance/Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2.md"
+    },
+    "authoritativeOriginals": {
+      "location": "separate clinical-system repository (read-only reference snapshots committed here)",
+      "masterArchitectureOriginal": "/Users/mohamedmoheeb/Desktop/Sports_Injury_Platform_Clinical_System/01_Architecture_Current/Master_Architecture_V3.1_Final.md",
+      "rfClinicalRuleSpecificationOriginal": "/Users/mohamedmoheeb/Desktop/Sports_Injury_Platform_Clinical_System/04_Clinical_Rules/Lower_Body/Rectus_Femoris/Current/Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2.md"
+    },
+    "governanceStatus": "RF v1.2 is a Gate A reconciled candidate; every rule is approval_status: pending and NOT authorized for executable release. Gate C permits implementing only approved machine-readable rule objects. No legacy module may be wired now, and even a faithful reimplementation must wait for Gate B/C.",
+    "note": "Both documents were read in full. No reviewed legacy file contains any QRF evidence-claim ID or any V3.1 architecture reference, so no legacy clinical assertion is traceable (v1.2 §4.3; V3.1 §34.2)."
+  },
+  "enforcement": {
+    "rule": "No module under lib/clinical/** (the governed RF path) may import, re-export, or transitively depend on any entry listed in `quarantine` below.",
+    "allowedDirectionOfDependency": "Governed RF code may be referenced BY legacy code, never the reverse. Legacy clinical output must not flow into the governed path.",
+    "reviewRequiredBefore": ["import", "re-export", "wiring into any RF live flow"],
+    "automatable": "A lint/CI check can assert that files matching lib/clinical/** contain no import specifier resolving to any `module` path listed here. This check is the recommended next coding task."
+  },
+  "classificationLegend": {
+    "REUSE_NON_CLINICAL": "Safe scaffolding; not quarantined.",
+    "POTENTIALLY_REUSABLE_AFTER_REFACTOR": "Quarantined until clinical content is externalized to the governed model.",
+    "CONFLICTS_WITH_GOVERNED_MODEL": "Quarantined; behavior contradicts a specific v1.2 / V3.1 provision; must be replaced.",
+    "QUARANTINE_NO_GOVERNED_BASIS": "Quarantined; emits clinical content with no claim ID / architecture reference."
+  },
+  "quarantine": [
+    {
+      "module": "data/injuryKnowledge/quadriceps.js",
+      "reason": "Legacy RF/quadriceps knowledge predating v1.2; scored diagnostic subtypes, hard-coded dosage, hidden thresholds, no claim IDs or architecture refs.",
+      "quarantinedExports": ["default"],
+      "quarantinedElements": [
+        { "name": "injurySubtypes", "classification": "CONFLICTS_WITH_GOVERNED_MODEL", "governingRefs": ["RF v1.2 §8.1", "RF v1.2 §8.2", "RF v1.2 §5", "RF v1.2 §3.2"], "findings": ["subtype-identity-mismatch", "identity-as-confidence-score", "contusion/neuro/severe must route to safety or out-of-scope"] },
+        { "name": "diagnosisRules", "classification": "CONFLICTS_WITH_GOVERNED_MODEL", "governingRefs": ["RF-DX-001", "RF v1.2 §8.11", "RF v1.2 §15.1"], "findings": ["numeric-confidence-weights", "diagnostic-probability-weighting-prohibited"] },
+        { "name": "redFlags", "classification": "CONFLICTS_WITH_GOVERNED_MODEL", "governingRefs": ["RF-SAF-001", "RF-SAF-002", "RF-SAF-007", "RF v1.2 §7.1", "V3.1 §21"], "findings": ["hidden-composite-thresholds", "non-closed-safety-vocabulary", "contusion/compartment-routing-belongs-to-RF-SAF"] },
+        { "name": "exerciseLibrary.prescriptions", "classification": "CONFLICTS_WITH_GOVERNED_MODEL", "governingRefs": ["RF-REHAB-004", "RF v1.2 §10.2", "RF v1.2 §3.3", "RF v1.2 App. C", "RF v1.2 §17 case 28"], "findings": ["universal-RF-dosage-prohibited"] },
+        { "name": "PAIN_RULES (referenced)", "classification": "CONFLICTS_WITH_GOVERNED_MODEL", "governingRefs": ["RF v1.2 §12.3"], "findings": ["universal-pain-threshold-prohibited"] },
+        { "name": "assessmentQuestions.redFlagTrigger", "classification": "POTENTIALLY_REUSABLE_AFTER_REFACTOR", "governingRefs": ["RF-SAF-004", "RF v1.2 §16"], "findings": ["must-become-governed-rule-object"] },
+        { "name": "selfTests", "classification": "POTENTIALLY_REUSABLE_AFTER_REFACTOR", "governingRefs": ["RF-DX-005", "V3.1 §9.1", "V3.1 §9.2"], "findings": ["aligned-but-untraceable", "must-adopt-reliability-model"] },
+        { "name": "exerciseLibrary.names_cues_progressions", "classification": "POTENTIALLY_REUSABLE_AFTER_REFACTOR", "governingRefs": ["RF v1.2 §11.1", "V3.1 §35"], "findings": ["candidate-ontology-metadata-without-dosage"] },
+        { "name": "detailedAreas", "classification": "POTENTIALLY_REUSABLE_AFTER_REFACTOR", "governingRefs": ["RF v1.2 §6.1"], "findings": ["map-ids-to-governed-input-contract"] }
+      ]
+    },
+    {
+      "module": "data/injuryKnowledge/shared.js",
+      "reason": "Source of dosage/threshold/disclaimer constants consumed transitively by the engines; ungoverned.",
+      "quarantinedExports": ["CONFIDENCE_BANDS", "PHASE_PERIODIZATION", "SESSION_BLUEPRINTS", "restDaysForStreak", "PAIN_RULES", "getConfidenceBand"],
+      "quarantinedElements": [
+        { "name": "CONFIDENCE_BANDS", "classification": "CONFLICTS_WITH_GOVERNED_MODEL", "governingRefs": ["RF v1.2 §15.1", "V3.1 §8.1", "V3.1 §8.2", "V3.1 §24.1", "V3.1 §24.2"], "findings": ["numeric-confidence", "single-band-collapses-six-objects"] },
+        { "name": "PHASE_PERIODIZATION", "classification": "CONFLICTS_WITH_GOVERNED_MODEL", "governingRefs": ["RF-REHAB-004", "RF v1.2 §10.2"], "findings": ["universal-dosage"] },
+        { "name": "SESSION_BLUEPRINTS", "classification": "CONFLICTS_WITH_GOVERNED_MODEL", "governingRefs": ["RF-REHAB-004", "RF v1.2 §10.2"], "findings": ["universal-dosage"] },
+        { "name": "restDaysForStreak", "classification": "CONFLICTS_WITH_GOVERNED_MODEL", "governingRefs": ["RF v1.2 §10.2", "RF v1.2 §12"], "findings": ["time-based-progression", "hidden-thresholds"] },
+        { "name": "PAIN_RULES", "classification": "CONFLICTS_WITH_GOVERNED_MODEL", "governingRefs": ["RF v1.2 §12.3"], "findings": ["universal-pain-threshold-prohibited"] }
+      ],
+      "safeExportsNotQuarantined": ["DISCLAIMER", "RISK_LEVELS", "maxRisk", "ADAPTATION_ACTIONS", "makeQuestion", "makeSelfTest", "makeExercise", "makePhase", "makeProtocol", "clamp", "round"],
+      "safeExportsNote": "Factory helpers and generic utilities are non-clinical scaffolding; DISCLAIMER/ADAPTATION_ACTIONS/RISK_LEVELS are inert strings/enums. They must not be used to legitimize quarantined clinical content, and ADAPTATION_ACTIONS is narrower than the v1.2 §12.4 ten-action set."
+    },
+    {
+      "module": "lib/injuryEngine/scoringEngine.js",
+      "reason": "Produces numeric diagnostic confidence from ungoverned point weights.",
+      "quarantinedExports": ["scoreSubtypes"],
+      "quarantinedElements": [
+        { "name": "scoreSubtypes", "classification": "CONFLICTS_WITH_GOVERNED_MODEL", "governingRefs": ["RF-DX-001", "RF v1.2 §8.11", "RF v1.2 §15.1", "V3.1 §24.1"], "findings": ["numeric-confidence", "confidence-cap-96", "diagnostic-weighting"] },
+        { "name": "conditionMatches", "classification": "REUSE_NON_CLINICAL", "findings": ["reusable-only-decoupled-from-confidence", "externalize-pain>=4-thresholds"] }
+      ]
+    },
+    {
+      "module": "lib/injuryEngine/diagnosisEngine.js",
+      "reason": "Emits a primary pattern + numeric confidence and a confidence-thresholded next step.",
+      "quarantinedExports": ["diagnoseInjury"],
+      "quarantinedElements": [
+        { "name": "diagnoseInjury", "classification": "CONFLICTS_WITH_GOVERNED_MODEL", "governingRefs": ["RF v1.2 §15.1", "V3.1 §24.1", "RF v1.2 §8.1"], "findings": ["numeric-confidence", "primary-pattern-as-quasi-diagnosis"] },
+        { "name": "buildNextStep.topConfidence<40", "classification": "CONFLICTS_WITH_GOVERNED_MODEL", "governingRefs": ["RF v1.2 §8.11", "RF v1.2 §15.1"], "findings": ["hidden-numeric-threshold"] },
+        { "name": "DISCLAIMER passthrough / emptyResult", "classification": "REUSE_NON_CLINICAL", "governingRefs": ["RF v1.2 §6.3"], "findings": ["structural-fallback"] }
+      ]
+    },
+    {
+      "module": "lib/injuryEngine/safetyEngine.js",
+      "reason": "Uses a non-closed none/caution/urgent vocabulary and asserts an unsupported autonomous clearing.",
+      "quarantinedExports": ["checkSafety", "shouldOverrideToReferral"],
+      "quarantinedElements": [
+        { "name": "severity model (none|caution|urgent)", "classification": "CONFLICTS_WITH_GOVERNED_MODEL", "governingRefs": ["RF v1.2 §7.1", "V3.1 §21", "V3.1 §22"], "findings": ["non-closed-safety-vocabulary", "missing-blocked_targets/clears_when"] },
+        { "name": "buildRecommendation (\"no red flags detected\")", "classification": "CONFLICTS_WITH_GOVERNED_MODEL", "governingRefs": ["V3.1 §7.3", "RF-SAF-001"], "findings": ["unsupported-autonomous-clearing", "unknown-is-not-negative"] },
+        { "name": "blockAggressiveRehab (cautionCount>=2)", "classification": "CONFLICTS_WITH_GOVERNED_MODEL", "governingRefs": ["V3.1 §21"], "findings": ["invented-threshold", "rehab-block-must-be-governed-state"] },
+        { "name": "checkSafety/regionFlagTriggered plumbing", "classification": "POTENTIALLY_REUSABLE_AFTER_REFACTOR", "governingRefs": ["RF-SAF-001..008", "V3.1 §21"], "findings": ["must-feed-governed-rule-objects-and-emit-eight-state-object"] }
+      ]
+    },
+    {
+      "module": "lib/injuryEngine/rehabPlanGenerator.js",
+      "reason": "Diagnosis-authorizes-plan coupling, hidden start-phase thresholds, auto-clearing of earlier phases, universal pain rule.",
+      "quarantinedExports": ["generateRehabPlan"],
+      "quarantinedElements": [
+        { "name": "generateRehabPlan(diagnosis,...)", "classification": "CONFLICTS_WITH_GOVERNED_MODEL", "governingRefs": ["RF v1.2 §1", "RF-REHAB-001", "V3.1 §8", "V3.1 §22"], "findings": ["diagnosis-authorizes-plan"] },
+        { "name": "decideStartPhase", "classification": "CONFLICTS_WITH_GOVERNED_MODEL", "governingRefs": ["RF v1.2 §10.2"], "findings": ["time-based-phase-entry", "hidden-thresholds"] },
+        { "name": "phases[].locked (idx<startIndex)", "classification": "CONFLICTS_WITH_GOVERNED_MODEL", "governingRefs": ["RF v1.2 §10.2", "V3.1 §7.3"], "findings": ["autonomous-phase-clearing"] },
+        { "name": "painRulesReminder", "classification": "CONFLICTS_WITH_GOVERNED_MODEL", "governingRefs": ["RF v1.2 §12.3"], "findings": ["universal-pain-threshold"] },
+        { "name": "buildPersonalizationNotes", "classification": "QUARANTINE_NO_GOVERNED_BASIS", "governingRefs": ["RF v1.2 §12.3"], "findings": ["hidden-thresholds", "missing-claim-ids"] },
+        { "name": "buildReturnToSport/resolveMaintenance", "classification": "POTENTIALLY_REUSABLE_AFTER_REFACTOR", "governingRefs": ["RF v1.2 §14", "RF-RTS-001", "RF-RTS-002", "RF-RTS-003", "RF-RTS-004", "RF-FIELD-001", "RF-FIELD-002", "RF-FIELD-003"], "findings": ["ungoverned-RTS-criteria", "must-become-multi-domain-readiness"] },
+        { "name": "conservativeFallback", "classification": "POTENTIALLY_REUSABLE_AFTER_REFACTOR", "governingRefs": ["RF v1.2 §6.3", "RF-SAF-006"], "findings": ["riskLevel-must-become-governed-state"] },
+        { "name": "resolveExercise (equipment)", "classification": "REUSE_NON_CLINICAL", "governingRefs": ["RF v1.2 §11.2"], "findings": ["pure-capability-matching"] }
+      ]
+    },
+    {
+      "module": "lib/injuryEngine/adaptationEngine.js",
+      "reason": "Green/yellow/red tree on hidden numeric thresholds and fixed dosage multipliers; auto-authorizes progression; three zones vs the governed ten-action set.",
+      "quarantinedExports": ["adaptPlanFromCheckin"],
+      "quarantinedElements": [
+        { "name": "adaptPlanFromCheckin (thresholds)", "classification": "CONFLICTS_WITH_GOVERNED_MODEL", "governingRefs": ["RF v1.2 §12.3", "RF v1.2 §12.4", "RF v1.2 §17 case 25"], "findings": ["hidden-thresholds", "three-zone-vs-ten-action"] },
+        { "name": "volumeAdjustment multipliers", "classification": "CONFLICTS_WITH_GOVERNED_MODEL", "governingRefs": ["RF-REHAB-004", "RF v1.2 App. C"], "findings": ["fixed-progression-increment"] },
+        { "name": "GREEN->PROGRESS", "classification": "CONFLICTS_WITH_GOVERNED_MODEL", "governingRefs": ["RF v1.2 §12.4", "RF v1.2 §17 case 25"], "findings": ["automatic-progression-prohibited"] },
+        { "name": "RED neuro/spreading -> REFER", "classification": "POTENTIALLY_REUSABLE_AFTER_REFACTOR", "governingRefs": ["RF-SAF-004", "RF-SAF-008"], "findings": ["must-emit-governed-eight-state-object"] },
+        { "name": "normalizeCheckin/num/result/swap*/explanations", "classification": "REUSE_NON_CLINICAL", "findings": ["normalization-and-selection-plumbing"] }
+      ]
+    },
+    {
+      "module": "lib/injuryEngine/planAdapter.js",
+      "reason": "Keyword-based protocol selection (diagnosis-authorizes-plan) and fixed RPE-by-phase dosage. NOTE: currently the only reviewed module wired into the existing legacy live flow via RecoveryContext.jsx; quarantine applies to the FUTURE governed RF path only and does NOT authorize changing existing behavior.",
+      "quarantinedExports": ["getAdaptedSession"],
+      "quarantinedElements": [
+        { "name": "selectProtocolId", "classification": "CONFLICTS_WITH_GOVERNED_MODEL", "governingRefs": ["RF-DX-001", "RF-REHAB-001", "V3.1 §8"], "findings": ["mechanism/diagnosis-authorizes-plan"] },
+        { "name": "PHASE_RPE", "classification": "CONFLICTS_WITH_GOVERNED_MODEL", "governingRefs": ["RF-REHAB-004"], "findings": ["universal-dosage"] },
+        { "name": "getAdaptedSession", "classification": "POTENTIALLY_REUSABLE_AFTER_REFACTOR", "governingRefs": ["RF v1.2 §11"], "findings": ["embeds-protocol-selection-and-dosage", "live-wired-do-not-modify-existing-behavior"] },
+        { "name": "buildUserTokens/hasRequiredEquipment/EQUIPMENT_TOKEN/resolveAltLabel", "classification": "REUSE_NON_CLINICAL", "governingRefs": ["RF v1.2 §11.2"], "findings": ["pure-capability-matching"] },
+        { "name": "PHASE_FALLBACK/findBestPhase", "classification": "REUSE_NON_CLINICAL", "findings": ["generic-nearest-phase-fallback"] }
+      ]
+    },
+    {
+      "module": "lib/injuryEngine/sessionScheduler.js",
+      "reason": "Injects periodization dosage into sessions and shrinks rest days on a green streak (time-based progression).",
+      "quarantinedExports": ["buildSession", "buildWeekSchedule"],
+      "quarantinedElements": [
+        { "name": "buildSession.periodizationContext", "classification": "CONFLICTS_WITH_GOVERNED_MODEL", "governingRefs": ["RF-REHAB-004", "RF v1.2 §10.2"], "findings": ["universal-dosage"] },
+        { "name": "buildWeekSchedule/restDaysForStreak", "classification": "CONFLICTS_WITH_GOVERNED_MODEL", "governingRefs": ["RF v1.2 §10.2", "RF v1.2 §12"], "findings": ["time-based-progression", "hidden-thresholds"] },
+        { "name": "groupByBlock/rotatePick/clamp/blockLabel/describeSession/describeWeek", "classification": "REUSE_NON_CLINICAL", "findings": ["selection-and-text-rendering", "describe*-echoes-governed-pain-copy-only"] }
+      ]
+    }
+  ],
+  "reusableNonClinicalScaffolding": {
+    "note": "NOT quarantined, but reusable only if fully decoupled from the quarantined clinical inputs/outputs above.",
+    "items": [
+      { "module": "lib/injuryEngine/scoringEngine.js", "elements": ["conditionMatches (decoupled from confidence)"] },
+      { "module": "lib/injuryEngine/safetyEngine.js", "elements": ["severity max-reduction", "regionFlagTriggered counting"] },
+      { "module": "lib/injuryEngine/rehabPlanGenerator.js", "elements": ["resolveExercise (equipment resolution)"] },
+      { "module": "lib/injuryEngine/adaptationEngine.js", "elements": ["normalizeCheckin", "num", "result", "swapAllToEasier", "swapHardestToEasier", "explanation builders"] },
+      { "module": "lib/injuryEngine/planAdapter.js", "elements": ["buildUserTokens", "hasRequiredEquipment", "PHASE_FALLBACK", "findBestPhase", "resolveAltLabel"] },
+      { "module": "lib/injuryEngine/sessionScheduler.js", "elements": ["groupByBlock", "rotatePick", "clamp", "blockLabel", "describeSession", "describeWeek"] }
+    ]
+  },
+  "untraceableButAligned": {
+    "note": "Directionally consistent with v1.2 but carry no QRF claim IDs / architecture refs; cannot enter the governed path as clinical logic. Only the non-clinical scaffolding inside them is reusable.",
+    "items": [
+      { "element": "quadriceps.js selfTests whatItDoesNotProve/doNotPerformIf/cannot_assess", "resembles": ["RF-DX-005", "V3.1 §9.2"] },
+      { "element": "scoringEngine CONFIDENCE_CAP=96 'never imply certainty' + DISCLAIMER", "resembles": ["RF v1.2 §8.1", "RF v1.2 §15.3"] },
+      { "element": "safetyEngine 'never claims a diagnosis' + referral override", "resembles": ["RF-SAF-001..008"] },
+      { "element": "adaptationEngine new neuro/spreading -> REFER", "resembles": ["RF-SAF-004", "RF-SAF-008"] },
+      { "element": "rehabPlanGenerator conservativeFallback", "resembles": ["RF v1.2 §6.3"] }
+    ]
+  },
+  "missingGovernedObjects": {
+    "note": "Core clinical objects v1.2 §5 requires that the legacy model does not represent at all.",
+    "items": ["safety_state (eight-state)", "six confidence objects", "injury_history_modifier (provenance/confirmation)", "structural_profile", "irritability_profile", "current_capacity_profile", "monitoring_contract", "readiness_profile"]
+  },
+  "reReviewTrigger": "Re-run docs/implementation/RF_LEGACY_ENGINE_CONFORMANCE_MAP.md and regenerate this manifest when the RF machine-readable rule package reaches Gate B/C or when v1.2/V3.1 versions change."
+}

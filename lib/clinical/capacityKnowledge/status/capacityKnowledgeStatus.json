@@ -1,0 +1,15 @@
+{
+  "module": "capacity_knowledge_system",
+  "version": "v2_universal_cap_batch_1",
+  "status": "universal_cap_batch_1_authored",
+  "approval_status": "pending",
+  "clinical_approval_status": "not_approved",
+  "executable": false,
+  "runtime_integration": "none",
+  "universal_capacity_objects_authored": 15,
+  "rf_capacity_overlay_objects_authored": 0,
+  "capacity_objects_authored": 15,
+  "capacity_objects_approved": 0,
+  "permitted_use": "capacity_metadata_only",
+  "notes": "Universal CAP Batch 1 authored as draft metadata only. No RF-CAP overlays authored. No objects approved. No runtime behavior. No diagnosis authority. No prescription. No dosage. No progression. No readiness. No RTT/RTS. No clearance authority."
+}

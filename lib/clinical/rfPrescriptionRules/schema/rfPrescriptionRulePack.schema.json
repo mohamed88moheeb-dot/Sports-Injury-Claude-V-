@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "rfPrescriptionRulePack.schema.json",
+  "title": "RF Prescription / Severity / Recovery Rule Pack (v1 — evidence-extracted, non-executable)",
+  "description": "Governed, RF-specific rule pack that defines the source-of-truth rules for the future functional Rectus Femoris beta engine. Evidence-extracted only. Contains prescription numbers ONLY as evidence-tagged rules (most are gaps per RF v1.2 prohibitions). Not wired to runtime. Must not import legacy code. Must not mutate RF knowledge objects.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "governance",
+    "severity_rules",
+    "confidence_policy_references",
+    "recovery_window_rules",
+    "phase_model",
+    "dosage_rules",
+    "progression_rules",
+    "regression_rules",
+    "daily_check_in_rules",
+    "exercise_family_mapping",
+    "activity_exposure_mapping",
+    "evidence_source_map"
+  ],
+  "properties": {
+    "$comment": { "type": "string" },
+    "governance": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "rule_pack_id",
+        "version",
+        "injury_module",
+        "approval_status",
+        "clinical_approval_status",
+        "executable_status",
+        "runtime_integration",
+        "source_scope",
+        "created_for"
+      ],
+      "properties": {
+        "rule_pack_id": { "type": "string" },
+        "version": { "type": "string" },
+        "injury_module": { "const": "rectus_femoris" },
+        "approval_status": { "const": "pending" },
+        "clinical_approval_status": { "const": "not_approved" },
+        "executable_status": { "const": "non_executable_until_engine_review" },
+        "runtime_integration": { "const": "none" },
+        "source_scope": { "type": "array", "items": { "type": "string" } },
+        "created_for": { "type": "string" }
+      }
+    },
+    "severity_rules": { "type": "array", "items": { "type": "object" } },
+    "confidence_policy_references": { "type": "object" },
+    "recovery_window_rules": { "type": "array", "items": { "type": "object" } },
+    "phase_model": { "type": "array", "items": { "type": "object" } },
+    "dosage_rules": { "type": "array", "items": { "type": "object" } },
+    "progression_rules": { "type": "array", "items": { "type": "object" } },
+    "regression_rules": { "type": "array", "items": { "type": "object" } },
+    "daily_check_in_rules": { "type": "array", "items": { "type": "object" } },
+    "exercise_family_mapping": { "type": "array", "items": { "type": "object" } },
+    "activity_exposure_mapping": { "type": "array", "items": { "type": "object" } },
+    "evidence_source_map": { "type": "object" }
+  },
+  "$defs": {
+    "evidence_status": {
+      "type": "string",
+      "enum": ["direct", "indirect", "extrapolated", "gap"]
+    }
+  }
+}

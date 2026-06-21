@@ -1,0 +1,58 @@
+{
+  "$comment": "Gate B DRAFT rule object for RF-SAF-006 — pending, NON-EXECUTABLE. Authored only from RF Clinical Rule Specification v1.2 §7.7 and the RF-SAF-006 inventory entry. Expresses blocking/uncertainty STRUCTURE only for suspected avulsion, full-thickness injury, or unresolved postoperative restriction. Blocks rehabilitation while the serious structural concern or postoperative restriction is unresolved. No diagnosis, surgical advice, treatment/return timing, rehab authorization, dosage, progression, confidence, or raw-imaging interpretation. Not approved. Not wired into any runtime.",
+  "rule_id": "RF-SAF-006",
+  "rule_family": "safety",
+  "source_spec_rule_id": "RF-SAF-006",
+  "rule_title": "Suspected avulsion, full-thickness injury, or postoperative restriction",
+  "source_section": "§7.7",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "logic_with_uncertainty",
+  "architecture_refs": ["V3.1-6", "V3.1-10", "V3.1-13.1", "V3.1-13.2", "V3.1-20", "V3.1-21"],
+  "evidence_claim_ids": ["QRF-012", "QRF-032", "QRF-036"],
+  "input_contract": {
+    "$comment": "Structural trigger taken verbatim-in-meaning from v1.2 §7.7. Activated only by a strong current report or anchor — reported/external descriptors, never raw-imaging interpretation.",
+    "trigger_signals": [
+      "full_thickness_proximal_injury_reported",
+      "avulsion_reported",
+      "major_retraction_reported",
+      "postoperative_status_reported",
+      "other_condition_requiring_external_restrictions_reported"
+    ],
+    "anchor_source": "strong_current_report_or_anchor_only",
+    "media_handling": "reported_or_external_descriptors_only_no_raw_imaging_interpretation",
+    "unknown_handling": "treat_safety_unknown_as_unsafe_until_resolved"
+  },
+  "decision_contract": {
+    "$comment": "Blocking structure only. Sets REHAB_BLOCKED while restrictions are unresolved; routes per actual restrictions; does not issue a generic strain plan. No rehab authorization, no diagnosis, no surgical/treatment/return timing, no numeric values.",
+    "action": "set_rehab_blocked_while_restrictions_unresolved",
+    "unresolved_items": [
+      "current_management_restrictions",
+      "weight_bearing_limits",
+      "activity_limits",
+      "external_plan"
+    ],
+    "route_per_actual_restrictions": true,
+    "do_not_issue_generic_strain_plan": true,
+    "clearance_path": "external_assessment_and_referral_resolution_object_only",
+    "home_self_clearance_allowed": false
+  },
+  "safety_state_output": "REHAB_BLOCKED",
+  "blocked_targets": ["rehab"],
+  "prohibited_outputs": [
+    "confirm_avulsion",
+    "exclude_avulsion",
+    "confirm_full_thickness_injury",
+    "exclude_full_thickness_injury",
+    "give_surgical_advice",
+    "give_treatment_timing",
+    "give_return_to_sport_timing",
+    "clear_user_for_rehabilitation",
+    "produce_a_complete_rehab_plan",
+    "interpret_raw_imaging"
+  ],
+  "test_fixtures": [
+    "v1.2-§17-case-8"
+  ],
+  "notes": "Mixed normative source; MUST; permitted_use logic_with_uncertainty. Evidence grades preserved per source: QRF-012 (C1), QRF-032 (C1), QRF-036 (I1). Safety-state choice: v1.2 §7.7 explicitly assigns REHAB_BLOCKED while current management restrictions, weight-bearing limits, activity limits, or the external plan are unresolved; this is the resolvable REHAB_BLOCKED state (blocked_targets ['rehab']; V3.1 §21). Per §7.7 prohibited inference: do not choose operative versus nonoperative management and do not predict an individual timeline from pooled case-series means. The rule is activated only by a strong current report/anchor and must not interpret raw imaging (V3.1 §6 anchor model; §25 media-state hardening). Postoperative and nonoperative cases are routed per their actual restrictions; no generic strain plan is issued. Clearance only via a valid external assessment and referral-resolution object (V3.1 §20). Draft — approval_status remains pending."
+}

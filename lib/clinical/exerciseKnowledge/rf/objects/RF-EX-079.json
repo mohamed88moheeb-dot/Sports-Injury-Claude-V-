@@ -1,0 +1,129 @@
+{
+  "exercise_id": "RF-EX-079",
+  "module": "rectus_femoris",
+  "name": "Jogging / light-jogging exposure",
+  "aliases": [
+    "jogging exposure",
+    "light jogging exposure"
+  ],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "hip",
+    "knee",
+    "ankle",
+    "lower_limb"
+  ],
+  "target_tissues": [
+    "lower_limb_running_system",
+    "rectus_femoris_secondary",
+    "hip_flexors_secondary"
+  ],
+  "exercise_family": "jogging_exposure_context",
+  "primary_function": [
+    "jogging_context",
+    "low_speed_running_exposure_metadata"
+  ],
+  "movement_category": [
+    "jogging_exposure",
+    "running_exposure",
+    "conditioning_context"
+  ],
+  "joint_actions": [
+    "running_cycle",
+    "hip_flexion_extension",
+    "knee_flexion_extension"
+  ],
+  "contraction_bias": [
+    "cyclical_dynamic"
+  ],
+  "position_tags": [
+    "jogging_context",
+    "jogging_plan_not_authored",
+    "restricted_source_context_possible"
+  ],
+  "tissue_demand_tags": [
+    "running_exposure_demand",
+    "anterior_thigh_monitoring_required"
+  ],
+  "speed_power_demand": "low_to_moderate",
+  "stretch_demand": "low_to_moderate",
+  "impact_demand": "moderate",
+  "field_demand_tags": [
+    "running_preparation",
+    "conditioning_context"
+  ],
+  "equipment": [
+    "open_space_or_track_optional"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile",
+    "requires_external_load_context"
+  ],
+  "allowed_when": [
+    "restricted_context_only",
+    "requires_future_rule_authoring",
+    "exposure_metadata_only"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure",
+    "standard_rf_strain_selection_without_reviewer_approval",
+    "symptom_worsening_after_running_exposure"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [
+    "Ryan_West_Point_Quadriceps_Contusions_1991",
+    "Lempainen_2021_Chronic_Recurrent_RF_Central_Tendon_Rupture",
+    "Lorenz_Domzalski_2020_Return_to_Sprinting"
+  ],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-FIELD-001",
+    "RF-FIELD-003",
+    "RF-RTS-004"
+  ],
+  "notes": "Jogging exposure metadata only. Sources include contusion, post-surgical, and general sprint-context material; no jogging plan, speed, distance, or clearance is authored."
+}

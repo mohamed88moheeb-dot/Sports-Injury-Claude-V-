@@ -5,7 +5,22 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "check:rf-boundary": "node scripts/check-rf-quarantine-boundary.mjs",
+    "validate:rf-rules": "node scripts/validate-rf-rule-package.mjs",
+    "check:rf-clinical": "node scripts/check-rf-clinical-governance.mjs",
+    "validate:exercise-knowledge": "node scripts/validate-exercise-knowledge.mjs",
+    "validate:shared-knowledge-taxonomies": "node scripts/validate-shared-knowledge-taxonomies.mjs",
+    "validate:activity-exposure-knowledge": "node scripts/validate-activity-exposure-knowledge.mjs",
+    "validate:assessment-knowledge": "node scripts/validate-assessment-knowledge.mjs",
+    "validate:capacity-knowledge": "node scripts/validate-capacity-knowledge.mjs",
+    "validate:prototype-plan-scenarios": "node scripts/validate-prototype-plan-scenarios.mjs",
+    "validate:evidence-linking-knowledge": "node scripts/validate-evidence-linking-knowledge.mjs",
+    "validate:rf-prescription-rules": "node scripts/validate-rf-prescription-rules.mjs",
+    "test:rf-beta-engine": "node scripts/test-rf-beta-engine.mjs",
+    "test:rf-beta-app-adapter": "node scripts/test-rf-beta-app-adapter.mjs",
+    "test:rf-output-to-profile": "node scripts/test-rf-output-to-profile.mjs",
+    "test:rf-assessment-model": "node scripts/test-rf-assessment-model.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.45.4",

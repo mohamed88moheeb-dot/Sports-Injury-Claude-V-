@@ -1,0 +1,120 @@
+{
+  "exercise_id": "RF-EX-019",
+  "module": "rectus_femoris",
+  "name": "Single-leg squat",
+  "aliases": [
+    "SL squat"
+  ],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "lower_limb",
+    "hip",
+    "knee",
+    "anterior_thigh"
+  ],
+  "target_tissues": [
+    "quadriceps",
+    "gluteals",
+    "lower_limb"
+  ],
+  "exercise_family": "quadriceps_lower_limb_strength_control",
+  "primary_function": [
+    "single_leg_strength",
+    "single_leg_control"
+  ],
+  "movement_category": [
+    "single_leg_squat",
+    "single_leg_strength"
+  ],
+  "joint_actions": [
+    "hip_flexion_extension",
+    "knee_flexion_extension"
+  ],
+  "contraction_bias": [
+    "isotonic"
+  ],
+  "position_tags": [
+    "single_leg",
+    "closed_chain",
+    "balance_control"
+  ],
+  "tissue_demand_tags": [
+    "quadriceps_load",
+    "gluteal_load",
+    "pelvic_knee_control"
+  ],
+  "speed_power_demand": "low_to_moderate",
+  "stretch_demand": "low_to_moderate",
+  "impact_demand": "none_to_low",
+  "field_demand_tags": [],
+  "equipment": [
+    "bodyweight_or_external_load_optional"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile"
+  ],
+  "allowed_when": [
+    "metadata_candidate_only",
+    "requires_future_rule_authoring"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [
+    "Aspetar_Rectus_Femoris_Injury_Rehabilitation_Pathway_2026",
+    "Lorenz_Domzalski_2020_Return_to_Sprinting"
+  ],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-REHAB-001",
+    "RF-REHAB-002",
+    "RF-REHAB-006",
+    "RF-RTS-003"
+  ],
+  "notes": "Metadata only. If used as an assessment in another source, that assessment function belongs to a future test library, not this exercise object."
+}

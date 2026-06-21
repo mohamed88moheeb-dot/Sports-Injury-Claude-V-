@@ -1,0 +1,131 @@
+{
+  "exercise_id": "RF-EX-063",
+  "module": "rectus_femoris",
+  "name": "Integrated limb reactivity drill",
+  "aliases": [
+    "integrated limb reactivity",
+    "integrated reactive drill"
+  ],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "trunk",
+    "pelvis",
+    "hip",
+    "knee",
+    "ankle",
+    "lower_limb"
+  ],
+  "target_tissues": [
+    "lower_limb_reactivity_system",
+    "trunk_pelvis_control_system",
+    "hip_control_system"
+  ],
+  "exercise_family": "integrated_limb_reactivity",
+  "primary_function": [
+    "integrated_reactivity_preparation",
+    "field_reactivity_context"
+  ],
+  "movement_category": [
+    "reactivity_drill",
+    "field_exposure_preparation",
+    "plyometric_preparation"
+  ],
+  "joint_actions": [
+    "multijoint_reactivity",
+    "trunk_pelvis_control",
+    "hip_knee_ankle_coordination"
+  ],
+  "contraction_bias": [
+    "reactive_dynamic"
+  ],
+  "position_tags": [
+    "integrated",
+    "reactive",
+    "higher_demand_field_exposure"
+  ],
+  "tissue_demand_tags": [
+    "reactive_lower_limb_demand",
+    "field_exposure_demand",
+    "control_demand"
+  ],
+  "speed_power_demand": "high",
+  "stretch_demand": "moderate",
+  "impact_demand": "moderate_to_high",
+  "field_demand_tags": [
+    "field_exposure_preparation",
+    "reactive_preparation"
+  ],
+  "equipment": [
+    "open_space"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile",
+    "requires_external_load_context"
+  ],
+  "allowed_when": [
+    "metadata_candidate_only",
+    "requires_future_rule_authoring",
+    "exposure_metadata_only"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure",
+    "high_irritability",
+    "poor_limb_reactivity_control",
+    "symptom_worsening_after_reactive_exposure"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity",
+    "running_mechanics_breakdown"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [
+    "Aspetar_Rectus_Femoris_Injury_Rehabilitation_Pathway_2026"
+  ],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-FIELD-003",
+    "RF-RTS-004"
+  ],
+  "notes": "Category-like integrated reactivity metadata. Not a specific protocol, not a progression step, and not clearance."
+}

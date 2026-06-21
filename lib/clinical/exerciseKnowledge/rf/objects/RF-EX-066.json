@@ -1,0 +1,124 @@
+{
+  "exercise_id": "RF-EX-066",
+  "module": "rectus_femoris",
+  "name": "Static isolated kicking exposure",
+  "aliases": [
+    "static isolated kicking",
+    "isolated kicking exposure"
+  ],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "hip",
+    "knee",
+    "anterior_thigh",
+    "lower_limb"
+  ],
+  "target_tissues": [
+    "rectus_femoris_secondary",
+    "hip_flexors_secondary",
+    "quadriceps_secondary",
+    "kicking_chain"
+  ],
+  "exercise_family": "controlled_kicking_exposure",
+  "primary_function": [
+    "controlled_kicking_context",
+    "isolated_kicking_pattern_exposure"
+  ],
+  "movement_category": [
+    "kicking_exposure",
+    "controlled_sport_specific_preparation"
+  ],
+  "joint_actions": [
+    "hip_flexion_extension",
+    "knee_extension_context"
+  ],
+  "contraction_bias": [
+    "dynamic_controlled"
+  ],
+  "position_tags": [
+    "static_context",
+    "isolated_kicking",
+    "controlled_exposure"
+  ],
+  "tissue_demand_tags": [
+    "kicking_exposure_demand",
+    "anterior_thigh_monitoring_required"
+  ],
+  "speed_power_demand": "low_to_moderate",
+  "stretch_demand": "moderate",
+  "impact_demand": "low",
+  "field_demand_tags": [
+    "kicking_preparation"
+  ],
+  "equipment": [
+    "open_space",
+    "ball_optional"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile",
+    "requires_external_load_context"
+  ],
+  "allowed_when": [
+    "metadata_candidate_only",
+    "requires_future_rule_authoring",
+    "sport_specific_exposure_metadata"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [
+    "Aspetar_Rectus_Femoris_Injury_Rehabilitation_Pathway_2026"
+  ],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-FIELD-004",
+    "RF-RECUR-002",
+    "RF-RTS-004"
+  ],
+  "notes": "Static kicking exposure metadata only. No kicking volume, intensity, progression, or clearance is authored."
+}

@@ -1,0 +1,13 @@
+{
+  "module": "activity_exposure_knowledge_system",
+  "version": "v1.0_phase_2a",
+  "status": "phase_2_rf_act_authored",
+  "approval_status": "pending",
+  "clinical_approval_status": "not_approved",
+  "executable": false,
+  "activity_exposure_objects_authored": 12,
+  "activity_exposure_objects_approved": 0,
+  "permitted_use": "activity_exposure_metadata_only",
+  "runtime_integration": "none",
+  "notes": "Phase 2A non-destructive migration staging. 12 draft RF-ACT objects authored (RF-ACT-001..012) from classification-audit activity/conditioning exposure candidates. Original RF-EX objects remain untouched. No RF-ASSESS objects created. No runtime wiring. No dosage. No progression. No readiness. No RTT/RTS. No clearance authority."
+}

@@ -1,0 +1,118 @@
+{
+  "exercise_id": "RF-EX-087",
+  "module": "rectus_femoris",
+  "name": "Generic weight-training exposure",
+  "aliases": [
+    "weight training",
+    "generic weight training context"
+  ],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "trunk",
+    "hip",
+    "knee",
+    "ankle",
+    "lower_limb"
+  ],
+  "target_tissues": [
+    "general_strength_system",
+    "lower_limb_strength_system"
+  ],
+  "exercise_family": "restricted_post_surgical_weight_training_context",
+  "primary_function": [
+    "post_surgical_weight_training_context",
+    "generic_strength_exposure_metadata"
+  ],
+  "movement_category": [
+    "weight_training",
+    "restricted_context_only"
+  ],
+  "joint_actions": [
+    "multijoint_strength_training_unspecified"
+  ],
+  "contraction_bias": [
+    "strength_training_unspecified"
+  ],
+  "position_tags": [
+    "weight_training_context",
+    "restricted_context_only",
+    "post_surgical_rf_context_only"
+  ],
+  "tissue_demand_tags": [
+    "general_strength_context",
+    "post_surgical_context_only"
+  ],
+  "speed_power_demand": "unspecified",
+  "stretch_demand": "unspecified",
+  "impact_demand": "unspecified",
+  "field_demand_tags": [],
+  "equipment": [
+    "gym_equipment_unspecified"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile",
+    "requires_external_load_context"
+  ],
+  "allowed_when": [
+    "restricted_context_only",
+    "requires_future_rule_authoring"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure",
+    "standard_rf_strain_selection_without_reviewer_approval"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [
+    "Lempainen_2021_Chronic_Recurrent_RF_Central_Tendon_Rupture"
+  ],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-SEV-004",
+    "RF-REHAB-006"
+  ],
+  "notes": "Restricted post-surgical RF context only. Generic weight-training category; not a standard RF strain plan, exercise-selection rule, loading prescription, or clearance criterion."
+}

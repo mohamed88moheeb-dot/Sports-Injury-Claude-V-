@@ -17,6 +17,13 @@ import {
   redFlagQuestions,
   muscleComponents
 } from '../../data/rehabKnowledge';
+// RF beta integration (corrected): feed the existing profile shape from the
+// governed RF engine for RF-compatible injuries. These are pure adapters
+// (no fs, no legacy imports); the engine itself runs server-side via /api/rf-beta.
+import { isRfCompatible } from '../../lib/clinical/rfBetaAppAdapter/rfBetaCompatibility.mjs';
+import { mapAssessmentToRfInput } from '../../lib/clinical/rfBetaAppAdapter/mapAssessmentToRfInput.mjs';
+import { mapRfAnswersToRfInput, CORE_RF_KEYS } from '../../lib/clinical/rfBetaAppAdapter/rfAssessmentModel.mjs';
+import { rfOutputToProfile, adjustProfileDayToday } from '../../lib/clinical/rfBetaAppAdapter/rfOutputToProfile.mjs';
 
 /* ─────────────────────────────────────────────────────────────────────────
  * Constants & lookup maps
@@ -220,6 +227,51 @@ export function RecoveryProvider({ children }) {
     setAssessment(assessmentWithGrade);
     setGenerating(true);
 
+    // RF-compatible (anterior thigh / rectus femoris) → governed RF beta engine.
+    // The engine runs server-side; its output is mapped into the SAME profile
+    // shape every page already consumes. All other regions keep the legacy path.
+    if (isRfCompatible(assessmentWithGrade)) {
+      (async () => {
+        try {
+          // CP1: use the REAL RF assessment answers when present (no generic
+          // inference). If the RF section was not filled, mark the RF input as
+          // incomplete so the engine limits/withholds output honestly.
+          let rfInput;
+          if (assessmentWithGrade.rfAnswers) {
+            rfInput = mapRfAnswersToRfInput(assessmentWithGrade.rfAnswers, assessmentWithGrade);
+          } else {
+            rfInput = mapAssessmentToRfInput(assessmentWithGrade);
+            rfInput.assessment_completeness = 'incomplete';
+            rfInput.missing_rf_items = CORE_RF_KEYS.slice();
+          }
+          const res = await fetch('/api/rf-beta', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ rfInput })
+          });
+          const data = await res.json();
+          if (!res.ok || !data.ok) throw new Error(data.error || 'RF beta generation failed');
+          const base = rfOutputToProfile(data.output, assessmentWithGrade);
+          const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
+          setProfile(nextProfile);
+          setCheckins([]);
+          setGenerating(false);
+          saveState(nextProfile, [], assessmentWithGrade);
+          onComplete?.();
+        } catch (e) {
+          // Fail-safe: never strand the user — fall back to the legacy build.
+          const fallback = buildProfile(assessmentWithGrade);
+          setProfile(fallback);
+          setCheckins([]);
+          setGenerating(false);
+          saveState(fallback, [], assessmentWithGrade);
+          onComplete?.();
+        }
+      })();
+      return;
+    }
+
+    // Legacy path (all other regions) — unchanged.
     setTimeout(() => {
       const nextProfile = buildProfile(assessmentWithGrade);
       setProfile(nextProfile);
@@ -248,6 +300,36 @@ export function RecoveryProvider({ children }) {
     if (!profile) return;
     const entry = { id: Date.now(), date: new Date().toLocaleDateString(), ...status };
     const nextCheckins = [entry, ...checkins].slice(0, 16);
+
+    // RF beta: today-only adjustment. Adjust ONLY the first incomplete day;
+    // never touch future days, never regenerate the plan, never jump phase.
+    if (profile.isRfBeta) {
+      const loc = locateToday(profile.plan);
+      let nextProfile = { ...profile, lastCheckin: entry };
+      if (loc) {
+        const [pi, wi, di] = loc;
+        const adj = adjustProfileDayToday(profile.plan[pi].weeks[wi].days[di], status);
+        const nextPlan = structuredClone(profile.plan);
+        nextPlan[pi].weeks[wi].days[di] = adj.day; // ONLY today's day changes
+        nextProfile = {
+          ...profile,
+          plan: nextPlan,
+          today: findToday(nextPlan),
+          progress: calculateProgress(nextPlan),
+          aiStatus: adj.message,
+          lastCheckin: entry,
+          rfLastAdjustment: {
+            action: adj.action, message: adj.message,
+            selected_session_only: true, future_days_changed: false
+          }
+        };
+      }
+      setCheckins(nextCheckins);
+      setProfile(nextProfile);
+      saveState(nextProfile, nextCheckins, assessment);
+      return;
+    }
+
     const nextProfile = { ...profile, aiStatus: getStatusMessage(status, profile), lastCheckin: entry };
     setCheckins(nextCheckins);
     setProfile(nextProfile);
@@ -783,7 +865,7 @@ function adjustExercise(exercise, phase, a, wIndex, dIndex, idx) {
 
 export function calculateProgress(plan = []) {
   const totalPhases = plan.length;
-  const completedPhases = plan.filter((p) => p.weeks.every((w) => w.days.every((d) => d.completed))).length;
+  const completedPhases = plan.filter((p) => p.weeks.length > 0 && p.weeks.every((w) => w.days.every((d) => d.completed))).length;
   const allWeeks = plan.flatMap((p) => p.weeks);
   const totalWeeks = allWeeks.length;
   const completedWeeks = allWeeks.filter((w) => w.days.every((d) => d.completed)).length;
@@ -802,6 +884,18 @@ export function findToday(plan) {
     }
   }
   return { title: 'Plan complete', summary: 'Keep maintenance work and gradually return to full performance.', phaseLabel: 'Maintenance' };
+}
+
+/** Indices [phase, week, day] of the first incomplete day (used by RF today-only check-in). */
+export function locateToday(plan = []) {
+  for (let pi = 0; pi < plan.length; pi++) {
+    for (let wi = 0; wi < (plan[pi].weeks || []).length; wi++) {
+      for (let di = 0; di < plan[pi].weeks[wi].days.length; di++) {
+        if (!plan[pi].weeks[wi].days[di].completed) return [pi, wi, di];
+      }
+    }
+  }
+  return null;
 }
 
 function getStatusMessage(status) {

@@ -1,0 +1,119 @@
+{
+  "exercise_id": "RF-EX-083",
+  "module": "rectus_femoris",
+  "name": "Calisthenics conditioning",
+  "aliases": [
+    "calisthenics",
+    "general calisthenics conditioning"
+  ],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "trunk",
+    "hip",
+    "knee",
+    "ankle",
+    "lower_limb"
+  ],
+  "target_tissues": [
+    "general_conditioning_system",
+    "lower_limb_conditioning_system"
+  ],
+  "exercise_family": "general_conditioning_metadata",
+  "primary_function": [
+    "general_calisthenics_context",
+    "conditioning_metadata"
+  ],
+  "movement_category": [
+    "conditioning",
+    "calisthenics_unspecified"
+  ],
+  "joint_actions": [
+    "multijoint_bodyweight_movement_unspecified"
+  ],
+  "contraction_bias": [
+    "dynamic_unspecified"
+  ],
+  "position_tags": [
+    "general_conditioning_context",
+    "calisthenics_unspecified"
+  ],
+  "tissue_demand_tags": [
+    "conditioning_context",
+    "unspecified_bodyweight_demand"
+  ],
+  "speed_power_demand": "unspecified",
+  "stretch_demand": "unspecified",
+  "impact_demand": "unspecified",
+  "field_demand_tags": [
+    "conditioning_context"
+  ],
+  "equipment": [
+    "bodyweight"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile",
+    "requires_external_load_context"
+  ],
+  "allowed_when": [
+    "metadata_candidate_only",
+    "requires_future_rule_authoring",
+    "conditioning_metadata"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [
+    "Lorenz_Domzalski_2020_Return_to_Sprinting"
+  ],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-REHAB-006",
+    "RF-RTS-004"
+  ],
+  "notes": "Vague general conditioning metadata only. Does not define exercise selection, conditioning prescription, progression, readiness, or clearance."
+}

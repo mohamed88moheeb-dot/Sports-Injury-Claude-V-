@@ -1,0 +1,54 @@
+{
+  "$comment": "Gate B DRAFT rule object for RF-SAF-003 — pending, NON-EXECUTABLE. Authored only from RF Clinical Rule Specification v1.2 §7.4 and the RF-SAF-003 inventory entry. Expresses safety escalation / referral-trigger STRUCTURE only for delayed deterioration after an initially stable period. Re-enters the safety pathway regardless of time since injury; a previous CLEAR / CLEAR_WITH_MONITORING does not suppress the new screen. No diagnosis, rehab, dosage, progression, confidence, or return-to-sport logic. No fixed observation period and no wait-and-see clearance. Not approved. Not wired into any runtime.",
+  "rule_id": "RF-SAF-003",
+  "rule_family": "safety",
+  "source_spec_rule_id": "RF-SAF-003",
+  "rule_title": "Delayed deterioration",
+  "source_section": "§7.4",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "safety_referral_trigger",
+  "architecture_refs": ["V3.1-7", "V3.1-21"],
+  "evidence_claim_ids": ["QRF-018"],
+  "input_contract": {
+    "$comment": "Structural trigger signals taken verbatim-in-meaning from v1.2 §7.4. Categorical only — no fixed timing window or observation period.",
+    "trigger_signals": [
+      "new_or_worsening_severe_pain",
+      "new_or_worsening_swelling",
+      "new_or_worsening_tightness",
+      "new_or_worsening_weakness",
+      "new_or_worsening_sensory_change",
+      "functional_decline"
+    ],
+    "context": "after_initially_stable_period_following_significant_thigh_trauma",
+    "applies_regardless_of_time_since_injury": true,
+    "reopens_prior_safety_states": ["CLEAR", "CLEAR_WITH_MONITORING"],
+    "unknown_handling": "treat_safety_unknown_as_unsafe_until_resolved"
+  },
+  "decision_contract": {
+    "$comment": "Safety escalation structure only. Re-enters the urgent/emergency safety pathway; a previous CLEAR does not suppress the new screen. No rehab authorization, no diagnosis, no numeric values, no asserted observation period.",
+    "action": "reenter_urgent_or_emergency_safety_pathway",
+    "prior_clear_does_not_suppress_new_screen": true,
+    "minimum_safety_state": "URGENT_REFERRAL",
+    "escalation_to_emergency_when": "global_emergency_ontology_met",
+    "referral_required": true,
+    "clearance_path": "external_assessment_and_referral_resolution_object_only",
+    "home_self_clearance_allowed": false
+  },
+  "safety_state_output": "URGENT_REFERRAL",
+  "blocked_targets": ["all"],
+  "prohibited_outputs": [
+    "preserve_prior_clear_despite_delayed_deterioration",
+    "wait_and_see_clearance",
+    "fixed_observation_period",
+    "confirm_acute_compartment_syndrome",
+    "exclude_acute_compartment_syndrome",
+    "clear_user_for_rehabilitation",
+    "produce_a_diagnosis",
+    "produce_a_return_to_sport_decision"
+  ],
+  "test_fixtures": [
+    "v1.2-§17-case-5"
+  ],
+  "notes": "Mixed normative source; MUST. Evidence grade preserved per source: QRF-018 (C1). Decision re-enters the urgent or emergency safety pathway regardless of time since injury; a previous CLEAR state does not suppress the new screen (V3.1 §7.3 — safety status is a live property, not a one-time stamp). Per v1.2 §7.4 the published delayed case is evidence of possibility only, not an incidence estimate or fixed timing rule; no fixed observation period or wait-and-see clearance may be asserted, and the rule must NOT state that compartment syndrome is confirmed or excluded. Clearance only via a valid external assessment and referral-resolution object (V3.1 §20). Draft — approval_status remains pending."
+}

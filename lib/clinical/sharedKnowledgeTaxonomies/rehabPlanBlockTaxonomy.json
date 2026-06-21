@@ -1,0 +1,130 @@
+{
+  "taxonomy_name": "rehab_plan_block",
+  "version": "v1.0_scaffold",
+  "approval_status": "pending",
+  "executable": false,
+  "runtime_integration": "none",
+  "governance": "Taxonomy scaffold only. Metadata vocabulary for future use. Defines no dose, no progression, no readiness, no RTT/RTS clearance, no plan generation. Not wired into runtime.",
+  "description": "Taxonomy of future rehab-plan blocks. Each block pulls from a named knowledge system; block selection is governed only by a future rule engine. Blocks define structure, never dose/progression/readiness/clearance.",
+  "categories": [
+    {
+      "id": "safety_check",
+      "pulls_from": "assessment_knowledge",
+      "can_contain": "safety screens and gating evidence",
+      "must_not_contain": "exercises, dose, or clearance",
+      "selection_governed_by": "future_rule_engine_only"
+    },
+    {
+      "id": "warm_up_general",
+      "pulls_from": "exercise_knowledge",
+      "can_contain": "general warm-up exercises",
+      "must_not_contain": "tissue-specific load decisions or dose",
+      "selection_governed_by": "future_rule_engine_only"
+    },
+    {
+      "id": "warm_up_tissue_specific",
+      "pulls_from": "exercise_knowledge",
+      "can_contain": "tissue-specific warm-up exercises",
+      "must_not_contain": "strength dose or clearance",
+      "selection_governed_by": "future_rule_engine_only"
+    },
+    {
+      "id": "mobility_block",
+      "pulls_from": "exercise_knowledge",
+      "can_contain": "mobility/dynamic-mobility exercises",
+      "must_not_contain": "stretching dose or clearance",
+      "selection_governed_by": "future_rule_engine_only"
+    },
+    {
+      "id": "activation_block",
+      "pulls_from": "exercise_knowledge",
+      "can_contain": "activation/motor-control exercises",
+      "must_not_contain": "strength dose or clearance",
+      "selection_governed_by": "future_rule_engine_only"
+    },
+    {
+      "id": "tissue_loading_block",
+      "pulls_from": "exercise_knowledge",
+      "can_contain": "RF/quad tissue-loading exercises",
+      "must_not_contain": "fixed dose, progression, or clearance",
+      "selection_governed_by": "future_rule_engine_only"
+    },
+    {
+      "id": "strength_block",
+      "pulls_from": "exercise_knowledge",
+      "can_contain": "strength exercises",
+      "must_not_contain": "fixed dose, progression, or clearance",
+      "selection_governed_by": "future_rule_engine_only"
+    },
+    {
+      "id": "support_strength_block",
+      "pulls_from": "exercise_knowledge",
+      "can_contain": "supporting/adjacent strength exercises",
+      "must_not_contain": "fixed dose or clearance",
+      "selection_governed_by": "future_rule_engine_only"
+    },
+    {
+      "id": "motor_control_block",
+      "pulls_from": "exercise_knowledge",
+      "can_contain": "motor-control/trunk-pelvis exercises",
+      "must_not_contain": "dose or clearance",
+      "selection_governed_by": "future_rule_engine_only"
+    },
+    {
+      "id": "plyometric_block",
+      "pulls_from": "exercise_knowledge",
+      "can_contain": "plyometric/landing/reactive exercises",
+      "must_not_contain": "readiness signal or clearance",
+      "selection_governed_by": "future_rule_engine_only"
+    },
+    {
+      "id": "running_mechanics_block",
+      "pulls_from": "exercise_knowledge",
+      "can_contain": "running/sprint mechanics drills",
+      "must_not_contain": "running clearance, speed, or distance",
+      "selection_governed_by": "future_rule_engine_only"
+    },
+    {
+      "id": "sport_mechanics_block",
+      "pulls_from": "exercise_knowledge",
+      "can_contain": "kicking/COD/sport mechanics drills",
+      "must_not_contain": "sport clearance or dose",
+      "selection_governed_by": "future_rule_engine_only"
+    },
+    {
+      "id": "activity_exposure_block",
+      "pulls_from": "activity_exposure_knowledge",
+      "can_contain": "graded activity/sport exposure domains",
+      "must_not_contain": "unrestricted exposure, dose, or clearance",
+      "selection_governed_by": "future_rule_engine_only"
+    },
+    {
+      "id": "conditioning_block",
+      "pulls_from": "exercise_knowledge_or_activity_exposure_knowledge",
+      "can_contain": "low-risk conditioning support",
+      "must_not_contain": "conditioning dose or clearance",
+      "selection_governed_by": "future_rule_engine_only"
+    },
+    {
+      "id": "assessment_gate",
+      "pulls_from": "assessment_knowledge",
+      "can_contain": "assessment/readiness evidence",
+      "must_not_contain": "autonomous clearance unless future governed rules authorize it",
+      "selection_governed_by": "future_rule_engine_only"
+    },
+    {
+      "id": "monitoring_check",
+      "pulls_from": "assessment_knowledge",
+      "can_contain": "monitoring/next-day-response checks",
+      "must_not_contain": "progression authority or clearance",
+      "selection_governed_by": "future_rule_engine_only"
+    },
+    {
+      "id": "recovery_block",
+      "pulls_from": "exercise_knowledge",
+      "can_contain": "recovery/down-regulation items",
+      "must_not_contain": "dose or clearance",
+      "selection_governed_by": "future_rule_engine_only"
+    }
+  ]
+}

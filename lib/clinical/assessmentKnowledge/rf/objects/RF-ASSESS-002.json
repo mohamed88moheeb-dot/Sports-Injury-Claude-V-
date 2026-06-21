@@ -1,0 +1,39 @@
+{
+  "assessment_id": "RF-ASSESS-002",
+  "name": "red_flag_and_urgent_referral_screen",
+  "module": "rectus_femoris",
+  "assessment_status": "draft",
+  "approval_status": "pending",
+  "clinical_approval_status": "not_approved",
+  "executable": false,
+  "runtime_integration": "none",
+  "permitted_use": "assessment_metadata_only",
+  "assessment_purpose_category": "red_flag_screen",
+  "what_it_observes": "presence of red-flag / urgent-referral indicators",
+  "capacities_measured_or_informed": [],
+  "rf_relevance": "screens for serious presentations before any RF capacity reasoning",
+  "user_facing_question_or_prompt": "Do you have any of these warning signs?",
+  "clinician_facing_note": "Caution/referral support only; defers to RF-SAF-*.",
+  "evidence_contribution": "Flags caution context; no triage decision.",
+  "limitations": "Screening only; not diagnostic; not emergency management.",
+  "high_caution_flag": false,
+  "governance_notes": "Caution/referral support only; not diagnosis; not clinician replacement; not emergency-management logic; RF-SAF rules remain safety authority.",
+  "allowed_when": [
+    "future_governed_assessment_rule_context_only",
+    "not_runtime_selectable",
+    "requires_clinical_rule_governance_before_use"
+  ],
+  "blocked_when": [
+    "runtime_selection",
+    "diagnosis_decision",
+    "autonomous_triage",
+    "prescription",
+    "dosage_decision",
+    "progression_decision",
+    "readiness_decision",
+    "rtt_rts_decision",
+    "clearance_decision",
+    "pass_fail_return_decision"
+  ],
+  "notes": "RF assessment metadata, Batch 1. This object is metadata only: it gathers qualitative evidence and creates no diagnosis, autonomous triage, prescription, dosage, progression, readiness, RTT/RTS, or clearance authority. Diagnosis/safety authority remains in RF-DX-*/RF-SAF-* clinical rules."
+}

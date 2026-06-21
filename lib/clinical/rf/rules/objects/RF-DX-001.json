@@ -1,0 +1,57 @@
+{
+  "$comment": "Gate B DRAFT rule object for RF-DX-001 — pending, NON-EXECUTABLE. Authored only from RF Clinical Rule Specification v1.2 §8.3 and the RF-DX-001 inventory entry. Expresses question-activation / intake-branching STRUCTURE only: mechanism activates targeted follow-up questions and relevant differentials but assigns NO diagnostic weight, probability, or confidence. Mechanism percentages are evidence-record-only reference context, never patient-level probability. No diagnosis, rehab, dosage, progression, confidence, or return-to-sport logic; safety precedence is preserved. Not approved. Not wired into any runtime.",
+  "rule_id": "RF-DX-001",
+  "rule_family": "diagnosis",
+  "source_spec_rule_id": "RF-DX-001",
+  "rule_title": "Mechanism activates questions, not diagnostic weighting",
+  "source_section": "§8.3",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "logic_with_uncertainty",
+  "architecture_refs": ["V3.1-4", "V3.1-5", "V3.1-15.1"],
+  "evidence_claim_ids": ["QRF-001", "QRF-039"],
+  "input_contract": {
+    "$comment": "Structural mechanism signals taken verbatim-in-meaning from v1.2 §8.3. Mechanism activates questions/differentials only — it carries no diagnostic weight.",
+    "mechanism_signals": [
+      "kicking",
+      "sprinting",
+      "acceleration",
+      "jumping",
+      "other_mechanism"
+    ],
+    "mechanism_role": "activate_targeted_follow_up_questions_and_relevant_differentials_only",
+    "unknown_handling": "treat_safety_unknown_as_unsafe_until_resolved"
+  },
+  "decision_contract": {
+    "$comment": "Intake-branching structure only. Mechanism does not assign diagnostic weight, probability, or confidence, and does not diagnose. Mechanism percentages are reference context only. No rehab authorization, no numeric values. Safety precedence preserved.",
+    "action": "activate_followup_questions_and_relevant_differentials",
+    "mechanism_assigns_diagnostic_weight": false,
+    "mechanism_percentages_role": "evidence_record_only_reference_context_not_patient_level_probability",
+    "qrf_039_santos_role": "abstract_metadata_only_reference_only_not_decision_driving",
+    "does_not_diagnose_rf": true,
+    "does_not_rank_rf_above_differentials_from_mechanism_alone": true,
+    "safety_precedence_preserved": true,
+    "mechanism_is_not_safety_clearance": true,
+    "defers_diagnostic_confidence_objects": "structure_only_no_confidence_model_authored_here"
+  },
+  "safety_state_output": null,
+  "blocked_targets": [],
+  "prohibited_outputs": [
+    "diagnose_rf_strain_from_mechanism_alone",
+    "assign_diagnostic_weight_from_mechanism_alone",
+    "assign_numeric_confidence_from_mechanism",
+    "assign_patient_level_probability_from_epidemiological_mechanism_data",
+    "rank_rf_above_differentials_from_mechanism_alone",
+    "use_qrf_039_as_decision_driving_evidence",
+    "bypass_safety_because_mechanism_appears_typical",
+    "treat_typical_mechanism_as_safety_clearance",
+    "clear_user_for_rehabilitation",
+    "produce_a_complete_rehab_plan",
+    "produce_a_return_to_sport_decision"
+  ],
+  "test_fixtures": [
+    "v1.2-§17-case-1",
+    "v1.2-§17-case-11"
+  ],
+  "notes": "Mixed normative source; MUST. Permitted use is dual in the body: logic_with_uncertainty for question activation; evidence_record_only for mechanism percentages — the inventory/object record the primary permitted_use (logic_with_uncertainty) and the evidence-record-only role of mechanism percentages is captured structurally in decision_contract.mechanism_percentages_role. Evidence roles preserved per source: QRF-001 (M1; evidence record only), QRF-039 (D3; evidence record only — Santos remains abstract/metadata-only and cannot drive diagnosis or structural-location inference). Per §8.3: mechanism activates targeted follow-up questions and relevant differentials but v1.2 does NOT assign RF diagnostic probability weight from mechanism percentages; mechanism alone cannot diagnose RF injury, tendon involvement, grade, or location. This rule is a diagnosis intake-branching rule, not a safety rule, so safety_state_output is null and blocked_targets is empty; it preserves safety precedence and must not treat a typical mechanism as safety clearance. No diagnostic confidence model is authored here (deferred to the later confidence objects). Draft — approval_status remains pending."
+}

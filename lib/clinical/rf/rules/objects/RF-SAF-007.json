@@ -1,0 +1,48 @@
+{
+  "$comment": "Gate B DRAFT rule object for RF-SAF-007 — pending, NON-EXECUTABLE. Authored only from RF Clinical Rule Specification v1.2 §7.8 and the RF-SAF-007 inventory entry. Expresses branch-routing / uncertainty STRUCTURE only for a direct-contusion mechanism. Routes to an approved quadriceps-contusion branch ONLY if one exists; otherwise OUT_OF_SCOPE with blocked_targets all and external signposting. Never forces a direct-contusion presentation into RF strain logic. No diagnosis, contusion module, rehab authorization, complete plan, return-to-sport, dosage, progression, confidence, swelling/girth thresholds, or compartment-syndrome confirm/exclude. Not approved. Not wired into any runtime.",
+  "rule_id": "RF-SAF-007",
+  "rule_family": "safety",
+  "source_spec_rule_id": "RF-SAF-007",
+  "rule_title": "Direct-contusion branch routing",
+  "source_section": "§7.8",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "logic_with_uncertainty",
+  "architecture_refs": ["V3.1-3.1", "V3.1-7", "V3.1-15"],
+  "evidence_claim_ids": ["QRF-015", "QRF-016", "QRF-017"],
+  "input_contract": {
+    "$comment": "Structural trigger taken verbatim-in-meaning from v1.2 §7.8. Categorical only — no numeric swelling or thigh-girth thresholds.",
+    "trigger_signals": [
+      "direct_blow_dominant_mechanism",
+      "localized_impact_symptoms"
+    ],
+    "unknown_handling": "treat_safety_unknown_as_unsafe_until_resolved"
+  },
+  "decision_contract": {
+    "$comment": "Branch-routing structure only. Routes to an approved contusion branch if one exists; otherwise OUT_OF_SCOPE. Never forces the presentation into RF strain logic. No diagnosis, no rehab authorization, no numeric values.",
+    "route_to_quadriceps_contusion_branch_if_approved_module_exists": true,
+    "apply_contusion_complication_screen_within_branch": true,
+    "rf_strain_handling": "retain_as_secondary_possibility_only_when_evidence_supports_mixed_presentation",
+    "no_branch_behavior": "set_out_of_scope_blocked_all_and_signpost_external_assessment",
+    "do_not_force_into_rf_strain_pathway": true,
+    "do_not_create_contusion_module": true,
+    "home_self_clearance_allowed": false
+  },
+  "safety_state_output": "OUT_OF_SCOPE",
+  "blocked_targets": ["all"],
+  "prohibited_outputs": [
+    "force_direct_contusion_mechanism_into_rf_strain_logic",
+    "diagnose_contusion",
+    "diagnose_rf_strain",
+    "create_a_contusion_module",
+    "clear_user_for_rehabilitation",
+    "produce_a_complete_rehab_plan",
+    "produce_a_return_to_sport_decision",
+    "use_home_thigh_girth_threshold",
+    "use_numeric_swelling_threshold",
+    "confirm_acute_compartment_syndrome",
+    "exclude_acute_compartment_syndrome"
+  ],
+  "test_fixtures": [],
+  "notes": "Mixed normative source; MUST; permitted_use logic_with_uncertainty. Evidence grades preserved per source: QRF-015 (D2), QRF-016 (D2), QRF-017 (C1). Decision (§7.8): route to the quadriceps-contusion branch and apply its complication screen; retain RF strain as a secondary possibility only when evidence supports a mixed presentation. Safety-state choice: §7.8 explicitly assigns OUT_OF_SCOPE with blocked_targets all for the no-branch case ('if no approved contusion module exists ... signpost external assessment rather than forcing the presentation into the RF strain pathway'). Because no approved contusion module exists in this build, the conservative structurally appropriate closed state is OUT_OF_SCOPE (terminal; blocked_targets all; V3.1 §21); the conditional routing to a contusion branch when an approved module exists is captured structurally in decision_contract without asserting such a module exists. This object creates no contusion module and forces nothing into RF strain logic. Draft — approval_status remains pending."
+}

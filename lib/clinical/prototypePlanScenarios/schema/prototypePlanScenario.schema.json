@@ -1,0 +1,235 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "prototypePlanScenario.schema.json",
+  "title": "Prototype Plan Scenario Data Contract",
+  "description": "Closed inert metadata contract for static prototype plan scenarios. This contract creates no runtime behavior, UI behavior, database behavior, dosage, progression, readiness, RTT/RTS, or clearance authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "scenario_id",
+    "scenario_status",
+    "approval_status",
+    "clinical_approval_status",
+    "executable",
+    "runtime_integration",
+    "permitted_use",
+    "module",
+    "title",
+    "fictional_inputs",
+    "capacity_summary",
+    "plan_blocks",
+    "sample_user_facing_cards",
+    "sample_logging_screen",
+    "conservative_adjustment_examples",
+    "withheld_boundary_items",
+    "governance_notes",
+    "source_docs"
+  ],
+  "properties": {
+    "scenario_id": {
+      "type": "string",
+      "pattern": "^RF-STATIC-PLAN-SCENARIO-[0-9]{3}$"
+    },
+    "scenario_status": {
+      "type": "string",
+      "enum": ["draft"]
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": ["pending"]
+    },
+    "clinical_approval_status": {
+      "type": "string",
+      "enum": ["not_approved"]
+    },
+    "executable": {
+      "const": false
+    },
+    "runtime_integration": {
+      "type": "string",
+      "enum": ["none"]
+    },
+    "permitted_use": {
+      "type": "string",
+      "enum": ["prototype_plan_scenario_metadata_only"]
+    },
+    "module": {
+      "type": "string",
+      "enum": ["rf"]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "fictional_inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "injury_identity",
+        "live_safety_state",
+        "safety_confidence",
+        "stage_confidence",
+        "current_capacity",
+        "demand_profile",
+        "equipment",
+        "schedule",
+        "concurrent_injuries",
+        "monitoring_contract",
+        "missing_input_actions"
+      ],
+      "properties": {
+        "injury_identity": { "type": "string", "minLength": 1 },
+        "live_safety_state": { "type": "string", "minLength": 1 },
+        "safety_confidence": { "type": "string", "minLength": 1 },
+        "stage_confidence": { "type": "string", "minLength": 1 },
+        "current_capacity": { "type": "string", "minLength": 1 },
+        "demand_profile": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "equipment": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "schedule": { "type": "string", "minLength": 1 },
+        "concurrent_injuries": { "type": "string", "minLength": 1 },
+        "monitoring_contract": { "type": "string", "minLength": 1 },
+        "missing_input_actions": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "capacity_summary": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["capacity_id", "capacity_name", "fictional_state", "scenario_use"],
+        "properties": {
+          "capacity_id": { "type": "string", "pattern": "^CAP-[0-9]{3}$" },
+          "capacity_name": { "type": "string", "minLength": 1 },
+          "fictional_state": { "type": "string", "minLength": 1 },
+          "scenario_use": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "plan_blocks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["block_id", "block_type", "display_label", "source_system", "static_items", "boundary_note"],
+        "properties": {
+          "block_id": { "type": "string", "minLength": 1 },
+          "block_type": { "type": "string", "minLength": 1 },
+          "display_label": { "type": "string", "minLength": 1 },
+          "source_system": { "type": "string", "minLength": 1 },
+          "static_items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["item_id", "item_type", "display_name", "included_in_static_display"],
+              "properties": {
+                "item_id": { "type": "string", "minLength": 1 },
+                "item_type": { "type": "string", "enum": ["RF-EX", "RF-ACT", "RF-ASSESS", "static_placeholder"] },
+                "display_name": { "type": "string", "minLength": 1 },
+                "included_in_static_display": { "type": "boolean" }
+              }
+            }
+          },
+          "boundary_note": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "sample_user_facing_cards": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source_exercise_id", "title", "category", "purpose", "setup", "instructions", "common_mistakes", "safety_note", "log_prompts"],
+        "properties": {
+          "source_exercise_id": { "type": "string", "pattern": "^RF-EX-[0-9]{3}$" },
+          "title": { "type": "string", "minLength": 1 },
+          "category": { "type": "string", "minLength": 1 },
+          "purpose": { "type": "string", "minLength": 1 },
+          "setup": { "type": "string", "minLength": 1 },
+          "instructions": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "common_mistakes": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "safety_note": { "type": "string", "minLength": 1 },
+          "log_prompts": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "sample_logging_screen": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "fields", "boundary_note"],
+      "properties": {
+        "title": { "type": "string", "minLength": 1 },
+        "fields": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "boundary_note": { "type": "string", "minLength": 1 }
+      }
+    },
+    "conservative_adjustment_examples": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["response_label", "static_example", "authority_created"],
+        "properties": {
+          "response_label": { "type": "string", "minLength": 1 },
+          "static_example": { "type": "string", "minLength": 1 },
+          "authority_created": { "const": false }
+        }
+      }
+    },
+    "withheld_boundary_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["item_id", "item_type", "reason_withheld"],
+        "properties": {
+          "item_id": { "type": "string", "minLength": 1 },
+          "item_type": { "type": "string", "enum": ["RF-EX", "RF-ACT", "RF-ASSESS"] },
+          "reason_withheld": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "governance_notes": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "source_docs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

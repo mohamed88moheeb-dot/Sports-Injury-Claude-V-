@@ -1,0 +1,202 @@
+{
+  "exercise_id": "RF-EX-070",
+  "module": "rectus_femoris",
+  "name": "Game-based kicking scenario exposure",
+  "aliases": [
+    "game-like kicking scenario",
+    "game-based kicking exposure"
+  ],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "hip",
+    "knee",
+    "pelvis",
+    "anterior_thigh",
+    "lower_limb"
+  ],
+  "target_tissues": [
+    "rectus_femoris_secondary",
+    "kicking_chain",
+    "trunk_pelvis_control_system"
+  ],
+  "exercise_family": "game_based_kicking_exposure",
+  "primary_function": [
+    "game_like_kicking_context",
+    "sport_specific_exposure_metadata"
+  ],
+  "movement_category": [
+    "kicking_exposure",
+    "sport_specific_exposure",
+    "game_like_context"
+  ],
+  "joint_actions": [
+    "hip_flexion_extension",
+    "knee_extension_context",
+    "multiplanar_control"
+  ],
+  "contraction_bias": [
+    "dynamic_sport_specific"
+  ],
+  "position_tags": [
+    "game_like_context",
+    "kicking_exposure",
+    "sport_specific_context"
+  ],
+  "tissue_demand_tags": [
+    "kicking_exposure_demand",
+    "field_exposure_demand",
+    "anterior_thigh_monitoring_required"
+  ],
+  "speed_power_demand": "high",
+  "stretch_demand": "moderate_to_high",
+  "impact_demand": "moderate_to_high",
+  "field_demand_tags": [
+    "kicking_preparation",
+    "sport_specific_preparation",
+    "field_exposure_preparation"
+  ],
+  "equipment": [
+    "ball",
+    "open_space"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile",
+    "requires_external_load_context"
+  ],
+  "allowed_when": [
+    "metadata_candidate_only",
+    "requires_future_rule_authoring",
+    "sport_specific_exposure_metadata"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure",
+    "high_irritability",
+    "poor_kicking_control",
+    "symptom_worsening_after_field_exposure"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [
+    "Aspetar_Rectus_Femoris_Injury_Rehabilitation_Pathway_2026"
+  ],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-FIELD-004",
+    "RF-RTS-002",
+    "RF-RTS-004"
+  ],
+  "notes": "High-caution kicking exposure metadata only. Does not authorize match play, team training, unrestricted kicking, progression, readiness, RTT/RTS, or clearance.",
+  "canonical_name": "game_based_kicking_scenario_exposure",
+  "final_decision": "high_caution_do_not_convert_yet",
+  "evidence_grade": "C",
+  "source_authority": "high",
+  "source_support_type": "direct_exercise_support",
+  "RF_specificity": "high",
+  "central_tendon_fibrosis_risk": "high",
+  "manual_review_required": true,
+  "library_classification": "high_caution_sport_specific_exposure",
+  "injury_site_relevance": [
+    "central_intramuscular_tendon",
+    "proximal_tendon",
+    "muscular"
+  ],
+  "guardrail_notes": [
+    "not a prescription",
+    "not dosage",
+    "not progression",
+    "not readiness",
+    "not RTT/RTS",
+    "not clearance",
+    "not a test"
+  ],
+  "source_ids": [
+    "CGDR-S1",
+    "CR-S19",
+    "CR-S2"
+  ],
+  "source_verification_status": "partially_verified",
+  "user_facing_name": "Kicking scenario practice",
+  "user_facing_summary": "Practicing a controlled kicking scenario.",
+  "user_facing_purpose": "This prepares kicking movement in a structured way.",
+  "user_facing_setup": "Use open space and a ball with close supervision.",
+  "user_facing_instructions": [
+    "Use open space and a ball with close supervision.",
+    "Practice the kicking pattern in a controlled scenario.",
+    "Keep the movement smooth and stop if symptoms increase."
+  ],
+  "user_facing_common_mistakes": [
+    "Kicking too hard.",
+    "Turning it into game play."
+  ],
+  "user_facing_safety_note": "Keep it controlled and stop if you feel sharp pain at the front of your thigh.",
+  "plan_card_category": "sport_preparation",
+  "plan_card_subcategory": "",
+  "difficulty_label": "clinician_guided",
+  "advanced_label": "clinician_guided",
+  "easier_option_labels": [
+    "Controlled kicking exposure"
+  ],
+  "harder_option_labels": [],
+  "related_exercise_labels": [
+    "Resisted kicking exposure"
+  ],
+  "media": {
+    "demo_video_url": null,
+    "demo_video_asset_id": null,
+    "image_asset_id": null,
+    "animation_asset_id": null,
+    "thumbnail_asset_id": null,
+    "media_status": "none",
+    "media_notes": null
+  },
+  "user_facing_status": "draft_copy",
+  "log_completion_available": true,
+  "log_pain_response_available": true,
+  "log_difficulty_available": true,
+  "log_confidence_available": false,
+  "log_notes_available": true,
+  "next_day_response_prompt_available": true
+}

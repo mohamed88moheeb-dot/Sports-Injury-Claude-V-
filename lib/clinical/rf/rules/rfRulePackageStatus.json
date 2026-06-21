@@ -1,0 +1,12 @@
+{
+  "$comment": "NON-EXECUTABLE status descriptor for the future Gate B machine-readable RF rule package. Metadata only. Defines no rules. Not imported into the app runtime.",
+  "module": "rectus_femoris",
+  "clinical_rule_specification": "v1.2",
+  "architecture": "V3.1",
+  "package_status": "authoring_workspace_created",
+  "approval_status": "not_approved",
+  "executable": false,
+  "rule_objects_authored": 38,
+  "rule_objects_approved": 0,
+  "allowed_current_use": "development_authoring_and_schema_planning_only"
+}

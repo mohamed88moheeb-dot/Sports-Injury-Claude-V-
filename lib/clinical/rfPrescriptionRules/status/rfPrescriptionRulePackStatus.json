@@ -1,0 +1,14 @@
+{
+  "module": "rf_prescription_rule_pack",
+  "version": "v1.0.0-evidence-extraction",
+  "status": "v1_evidence_extracted",
+  "injury_module": "rectus_femoris",
+  "approval_status": "pending",
+  "clinical_approval_status": "not_approved",
+  "executable_status": "non_executable_until_engine_review",
+  "runtime_integration": "none",
+  "rule_pack_files": 1,
+  "sections_authored": 12,
+  "permitted_use": "evidence_extracted_rule_authoring_only",
+  "notes": "RF Prescription / Severity / Recovery Rule Pack v1 authored as evidence-extracted, non-executable rules for the FUTURE Rectus Femoris beta engine. Twelve sections: governance, severity, confidence-policy references, recovery-window, six-phase model, dosage, progression, regression, daily check-in, exercise-family mapping, activity-exposure mapping, evidence-source map. Phase model, severity classification ontology, field milestones, and adaptation actions are evidence-supported (structure). Dosage numbers, precise recovery windows, and deviation/non-response thresholds are PROHIBITED as universal evidence by RF v1.2 (RF-REHAB-004 / §9.8 / §12.3 / §12.5) and are authored as structure with explicit gap markers (evidence_status: gap, requires_clinician_review: true). Self-report confidence remains capped below 85%; mixed below 90%. No return-to-sport clearance or confirmed-diagnosis authority. No RF-EX / RF-ACT / RF-ASSESS / CAP / evidence-linking / RF-rule / taxonomy object modified (id reference only). No legacy import. Not wired to runtime. No engine, dashboard, or UI created."
+}

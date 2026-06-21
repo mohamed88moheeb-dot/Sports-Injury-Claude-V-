@@ -1,0 +1,55 @@
+{
+  "$comment": "Gate B DRAFT rule object for RF-SAF-005 — pending, NON-EXECUTABLE. Authored only from RF Clinical Rule Specification v1.2 §7.6 and the RF-SAF-005 inventory entry. Architecture-source rule: evidence_claim_ids intentionally empty per v1.2 §4.3. Expresses uncertainty/safety STRUCTURE only for inability to safely assess: record cannot_assess and never coerce it to positive or negative. No diagnosis, rehab, dosage, progression, confidence, or return-to-sport logic. Not approved. Not wired into any runtime.",
+  "rule_id": "RF-SAF-005",
+  "rule_family": "safety",
+  "source_spec_rule_id": "RF-SAF-005",
+  "rule_title": "Inability to safely assess",
+  "source_section": "§7.6",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "logic_with_uncertainty",
+  "architecture_refs": ["V3.1-4", "V3.1-5", "V3.1-7", "V3.1-9", "V3.1-24"],
+  "evidence_claim_ids": [],
+  "input_contract": {
+    "$comment": "Structural trigger signals taken verbatim-in-meaning from v1.2 §7.6. Categorical only.",
+    "trigger_signals": [
+      "cannot_understand_instructions",
+      "cannot_position_safely",
+      "cannot_distinguish_active_from_passive_movement",
+      "pain_prevents_valid_interpretation"
+    ],
+    "normative_source": "architecture",
+    "unknown_handling": "treat_safety_unknown_as_unsafe_until_resolved",
+    "missing_or_unsafe_assessment_handling": "record_cannot_assess_never_negative_never_clearance"
+  },
+  "decision_contract": {
+    "$comment": "Uncertainty-preserving structure only. Records cannot_assess and does not convert it to positive or negative. No rehab authorization, no diagnosis, no numeric values.",
+    "record_result": "cannot_assess",
+    "must_not_convert_result_to": ["positive", "negative"],
+    "permitted_responses": [
+      "use_alternative_evidence",
+      "widen_relevant_uncertainty_object",
+      "block_the_test",
+      "refer_when_unresolved_uncertainty_concerns_must_not_miss_condition"
+    ],
+    "minimum_safety_state": "TEST_BLOCKED",
+    "escalation_to_referral_when": "unresolved_uncertainty_concerns_must_not_miss_condition",
+    "home_self_clearance_allowed": false
+  },
+  "safety_state_output": "TEST_BLOCKED",
+  "blocked_targets": ["test"],
+  "prohibited_outputs": [
+    "coerce_cannot_assess_to_positive",
+    "coerce_cannot_assess_to_negative",
+    "treat_unknown_as_negative",
+    "treat_missing_assessment_as_clearance",
+    "lower_concern_because_test_not_performed",
+    "clear_user_for_rehabilitation",
+    "produce_a_diagnosis",
+    "produce_a_return_to_sport_decision"
+  ],
+  "test_fixtures": [
+    "v1.2-§17-case-10"
+  ],
+  "notes": "Architecture normative source; MUST; permitted_use logic_with_uncertainty. No evidence_claim_ids are cited (legitimately empty per v1.2 §4.3 — architecture rules need not invent evidence claims). Per v1.2 §7.6 the trigger records cannot_assess and must NOT be converted to positive or negative; permitted responses are: use alternative evidence, widen the relevant confidence object, block the test, or refer when the unresolved uncertainty concerns a must-not-miss condition. Safety-state choice: §7.6 does not assign one fixed safety state; it lists conditional responses, one of which is 'block the test'. The most conservative structurally appropriate closed state for 'a self-test cannot safely proceed' is TEST_BLOCKED (V3.1 §21), so safety_state_output is TEST_BLOCKED with blocked_targets ['test']. The conditional escalation to a referral when the uncertainty concerns a must-not-miss condition is captured structurally in decision_contract (escalation_to_referral_when) without asserting it always fires — no clinical meaning invented. Draft — approval_status remains pending."
+}

@@ -1,0 +1,78 @@
+{
+  "$comment": "Gate B DRAFT rule object for RF-DX-007 — pending, NON-EXECUTABLE. Authored only from RF Clinical Rule Specification v1.2 §8.9 and the RF-DX-007 inventory entry. Architecture-source rule: evidence_claim_ids intentionally empty per v1.2 §4.3. Expresses strong-diagnosis-anchor handling STRUCTURE only: a strong external anchor (current-episode matched, anatomically specific, sufficiently authoritative, internally coherent) may reduce unnecessary injury-IDENTITY questions ONLY. It never bypasses safety, current symptoms, external restrictions, capacity, contraindications, stage, concurrent injuries, or readiness; never silences uncertainty; never silently overrides conflicting current information (left for RF-DX-008). Does not interpret raw imaging (RF-DX-006 governs report descriptors) and does not bypass RF-SAF-006. Not approved. Not wired into any runtime.",
+  "rule_id": "RF-DX-007",
+  "rule_family": "diagnosis",
+  "source_spec_rule_id": "RF-DX-007",
+  "rule_title": "Strong diagnosis anchor reduces identity questions only",
+  "source_section": "§8.9",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "logic_with_uncertainty",
+  "architecture_refs": ["V3.1-6", "V3.1-10", "V3.1-22"],
+  "evidence_claim_ids": [],
+  "input_contract": {
+    "$comment": "Structural anchor-quality conditions taken verbatim-in-meaning from v1.2 §8.9. An anchor may reduce identity questions only when ALL conditions hold.",
+    "strong_anchor_conditions": [
+      "current_episode_matched",
+      "anatomically_specific",
+      "sufficiently_authoritative",
+      "internally_coherent"
+    ],
+    "anchor_source": "externally_supplied_diagnosis_anchor_not_raw_media",
+    "raw_media_handling": "raw_or_uploaded_scan_images_are_not_a_diagnosis_anchor_report_descriptors_handled_by_rf_dx_006",
+    "unknown_handling": "treat_safety_unknown_as_unsafe_until_resolved"
+  },
+  "decision_contract": {
+    "$comment": "Anchor-handling structure only. A qualifying strong anchor reduces redundant identity questions only; it bypasses nothing else and resolves nothing beyond identity. No rehab authorization, no numeric values. Safety precedence preserved.",
+    "action": "reduce_redundant_injury_identity_questions_only_when_anchor_is_strong",
+    "reduces_only": "redundant_injury_identity_questions",
+    "never_bypasses": [
+      "safety",
+      "current_symptoms",
+      "external_restrictions",
+      "capacity",
+      "contraindications",
+      "stage",
+      "concurrent_injuries",
+      "readiness"
+    ],
+    "authorizes_rehab": false,
+    "produces_complete_rehab_plan": false,
+    "grants_return_to_sport_clearance": false,
+    "assigns_confidence_or_probability_from_anchor": false,
+    "silences_uncertainty": false,
+    "silently_overrides_conflicting_current_information": false,
+    "conflict_handling": "preserve_conflict_unresolved_for_rf_dx_008",
+    "interprets_raw_imaging_as_anchor": false,
+    "defers_to_rf_dx_006_for_report_descriptors": true,
+    "defers_to_rf_saf_006_on_serious_structural_or_restriction_anchor": true,
+    "does_not_bypass_rf_saf_006": true,
+    "safety_precedence_preserved": true,
+    "anchor_is_not_safety_clearance": true,
+    "defers_diagnostic_confidence_objects": "anchor_handling_structure_only_no_confidence_model_authored_here"
+  },
+  "safety_state_output": null,
+  "blocked_targets": [],
+  "prohibited_outputs": [
+    "treat_diagnosis_anchor_as_safety_clearance",
+    "bypass_safety_because_a_strong_diagnosis_anchor_exists",
+    "bypass_current_symptom_review_because_a_strong_diagnosis_anchor_exists",
+    "bypass_external_restriction_review_because_a_strong_diagnosis_anchor_exists",
+    "bypass_capacity_assessment_because_a_strong_diagnosis_anchor_exists",
+    "bypass_stage_or_readiness_gates_because_a_strong_diagnosis_anchor_exists",
+    "authorize_rehab_from_diagnosis_anchor_alone",
+    "produce_a_complete_rehab_plan_from_diagnosis_anchor_alone",
+    "produce_a_return_to_sport_decision_from_diagnosis_anchor_alone",
+    "assign_numeric_confidence_from_diagnosis_anchor_alone",
+    "assign_patient_level_probability_from_diagnosis_anchor_alone",
+    "treat_the_anchor_as_resolving_all_uncertainty",
+    "silently_override_conflicting_current_information",
+    "interpret_raw_imaging_as_a_diagnosis_anchor",
+    "bypass_rf_dx_006_report_descriptor_handling",
+    "bypass_rf_saf_006_when_serious_structural_or_restriction_descriptors_present"
+  ],
+  "test_fixtures": [
+    "v1.2-§17-case-6"
+  ],
+  "notes": "Architecture normative source; MUST; permitted_use logic_with_uncertainty. Architecture refs preserved per source: V3.1-6 (diagnosis anchor quality model), V3.1-10 (known-diagnosis pathway), V3.1-22 (wire cross-object invariants). No evidence_claim_ids are cited (legitimately empty per v1.2 §4.3 — architecture rules need not invent evidence claims; [] means 'none required', not 'missing'). Per §8.9: diagnostic identity questions may be reduced ONLY when an anchor is current-episode matched, anatomically specific, sufficiently authoritative, and internally coherent; the anchor never bypasses safety, current symptoms, capacity, contraindications, stage, concurrent injuries, or readiness (V3.1 §10.3). This rule reduces redundant IDENTITY questions only; it does not authorize rehab or return-to-sport, assign confidence/probability, silence uncertainty, or silently override conflicting current information — anchor/presentation conflicts are preserved unresolved for RF-DX-008. Raw or uploaded scan images are not a diagnosis anchor (RF-DX-006 handles report descriptors; V3.1 §25), and serious structural/restriction anchors defer to RF-SAF-006. Diagnosis anchor-handling rule, not a safety rule, so safety_state_output is null and blocked_targets is empty; safety precedence preserved. No diagnostic confidence model is authored here (deferred to the later confidence objects). Draft — approval_status remains pending."
+}

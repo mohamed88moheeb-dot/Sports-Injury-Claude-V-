@@ -1,0 +1,71 @@
+{
+  "$comment": "Gate B DRAFT rule object for RF-DX-006 — pending, NON-EXECUTABLE. Authored only from RF Clinical Rule Specification v1.2 §8.8 and the RF-DX-006 inventory entry. Expresses imaging/report-descriptor handling STRUCTURE only: externally reported TEXT descriptors (report/clinician/radiology) may contribute exact anatomy, classification, and tendon involvement according to anchor quality. Raw user-uploaded images cannot be interpreted by the language model and require a separately validated imaging subsystem. QRF-006 (bull's-eye descriptor) is reference-only and is not a stand-alone diagnosis, grade, or prognosis rule. Does not bypass RF-SAF-006. No rehab, dosage, progression, confidence, or return-to-sport logic; safety precedence preserved. Not approved. Not wired into any runtime.",
+  "rule_id": "RF-DX-006",
+  "rule_family": "diagnosis",
+  "source_spec_rule_id": "RF-DX-006",
+  "rule_title": "Imaging and report descriptor handling",
+  "source_section": "§8.8",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "logic_with_uncertainty",
+  "architecture_refs": ["V3.1-6", "V3.1-14.1", "V3.1-25"],
+  "evidence_claim_ids": ["QRF-006"],
+  "input_contract": {
+    "$comment": "Structural inputs taken verbatim-in-meaning from v1.2 §8.8. Only externally reported TEXT descriptors are handled; raw media is never interpreted here.",
+    "permitted_input": "externally_reported_text_descriptors_only_report_or_clinician_or_radiology",
+    "permitted_descriptor_contributions_according_to_anchor_quality": [
+      "exact_anatomy",
+      "classification",
+      "tendon_involvement"
+    ],
+    "raw_media_handling": "raw_mri_ultrasound_image_files_screenshots_dicom_photos_videos_are_not_interpreted_here_require_separately_validated_imaging_subsystem",
+    "qrf_006_scope": "bulls_eye_descriptor_only_when_specifically_relevant",
+    "unclear_or_unsupported_report_handling": "preserve_uncertainty_when_unclear_partial_contradictory_user_entered_without_source_or_unsupported",
+    "unknown_handling": "treat_safety_unknown_as_unsafe_until_resolved"
+  },
+  "decision_contract": {
+    "$comment": "Report-descriptor handling structure only. Report text contributes structured fields according to anchor quality; it does not become unrestricted diagnosis/rehab/RTS clearance, numeric confidence, or probability, and does not bypass RF-SAF-006. No rehab authorization, no numeric values. Safety precedence preserved.",
+    "action": "record_externally_reported_text_descriptors_according_to_anchor_quality",
+    "interprets_raw_media": false,
+    "descriptor_is_standalone_diagnosis_grade_or_prognosis": false,
+    "generalizes_specific_descriptor_beyond_source_scope": false,
+    "bamic_ontology_is_authority_for_media_source_handling": false,
+    "report_wording_grants_unrestricted_diagnosis_clearance": false,
+    "report_wording_authorizes_rehab": false,
+    "report_wording_grants_return_to_sport_clearance": false,
+    "infers_beyond_explicit_report_and_v12_permission": false,
+    "preserves_uncertainty_when_report_unclear_or_unsupported": true,
+    "defers_to_rf_saf_006_on_serious_structural_or_restriction_descriptors": true,
+    "does_not_bypass_rf_saf_006": true,
+    "safety_precedence_preserved": true,
+    "report_is_not_safety_clearance": true,
+    "defers_diagnostic_confidence_objects": "report_descriptor_structure_only_no_confidence_model_authored_here"
+  },
+  "safety_state_output": null,
+  "blocked_targets": [],
+  "prohibited_outputs": [
+    "interpret_raw_mri_images",
+    "interpret_raw_ultrasound_images",
+    "interpret_image_files_screenshots_dicom_photos_or_videos",
+    "diagnose_rf_injury_from_raw_imaging",
+    "diagnose_structural_grade_from_raw_imaging",
+    "diagnose_tendon_involvement_from_raw_imaging",
+    "diagnose_avulsion_from_raw_imaging",
+    "diagnose_full_thickness_injury_from_raw_imaging",
+    "infer_prognosis_from_raw_imaging",
+    "generalize_specific_descriptor_beyond_permitted_source_scope",
+    "treat_unclear_report_language_as_confirmed_diagnosis",
+    "treat_user_entered_unsupported_report_language_as_confirmed_diagnosis",
+    "assign_numeric_confidence_from_imaging_descriptor",
+    "assign_patient_level_probability_from_imaging_descriptor",
+    "bypass_safety_because_report_appears_reassuring",
+    "bypass_rf_saf_006_when_serious_structural_or_restriction_descriptors_present",
+    "clear_user_for_rehabilitation",
+    "produce_a_complete_rehab_plan",
+    "produce_a_return_to_sport_decision"
+  ],
+  "test_fixtures": [
+    "v1.2-§17-case-6"
+  ],
+  "notes": "Mixed normative source; MUST; permitted_use logic_with_uncertainty. Architecture refs and evidence claim preserved per source: architecture V3.1-6 (diagnosis anchor quality), V3.1-14.1 (media states), V3.1-25 (media-state hardening); QRF-006 (E1) used ONLY when the bull's-eye descriptor is specifically relevant. Per §8.8: report TEXT may contribute exact anatomy, classification, and tendon involvement according to anchor quality, but raw user-uploaded images cannot be interpreted by the language model and require a separately validated imaging subsystem (V3.1 §25 — the conversational model never interprets raw images/videos). Prohibited use preserved exactly: a bull's-eye descriptor is NOT a stand-alone diagnosis, grade, or prognosis rule, and BAMIC ontology evidence is not authority for media-source handling. The rule preserves uncertainty for unclear/partial/contradictory/user-entered-without-source/unsupported report language, does not generalize a specific descriptor beyond its permitted source scope, does not authorize rehab or return-to-sport, and does not bypass RF-SAF-006 when avulsion/full-thickness/postoperative/major-retraction/external-restriction descriptors appear. Diagnosis report-handling rule, not a safety rule, so safety_state_output is null and blocked_targets is empty; safety precedence preserved. No diagnostic confidence model is authored here (deferred to the later confidence objects). Draft — approval_status remains pending."
+}

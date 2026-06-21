@@ -1,0 +1,35 @@
+{
+  "$comment": "NON-EXECUTABLE RF assessment source map. RF-ASSESS Batch 1 authored as draft metadata only. Assessments contribute qualitative evidence to universal CAP-### capacities; they create no diagnosis, triage, prescription, progression, readiness, RTT/RTS, or clearance.",
+  "module": "rectus_femoris",
+  "version": "v2_rf_assess_batch_1",
+  "approval_status": "pending",
+  "clinical_approval_status": "not_approved",
+  "executable": false,
+  "permitted_use": "assessment_metadata_mapping_only",
+  "runtime_integration": "none",
+  "authored_object_prefix": "RF-ASSESS",
+  "authored_object_count": 18,
+  "authored_assessment_ids": [
+    "RF-ASSESS-001", "RF-ASSESS-002", "RF-ASSESS-003", "RF-ASSESS-004", "RF-ASSESS-005",
+    "RF-ASSESS-006", "RF-ASSESS-007", "RF-ASSESS-008", "RF-ASSESS-009", "RF-ASSESS-010",
+    "RF-ASSESS-011", "RF-ASSESS-012", "RF-ASSESS-013", "RF-ASSESS-014", "RF-ASSESS-015",
+    "RF-ASSESS-016", "RF-ASSESS-017", "RF-ASSESS-018"
+  ],
+  "capacity_reference_target": "universal_CAP_objects_only",
+  "global_constraints": {
+    "rf_assess_objects_created": true,
+    "universal_cap_objects_referenced": true,
+    "rf_cap_objects_referenced": false,
+    "demand_profile_objects_referenced": false,
+    "rf_ex_objects_modified": false,
+    "rf_act_objects_modified": false,
+    "rf_clinical_rule_objects_modified": false,
+    "runtime_wiring_created": false,
+    "approved_objects_created": false,
+    "executable_objects_created": false,
+    "diagnosis_authority_created": false,
+    "triage_authority_created": false,
+    "clearance_authority_created": false
+  },
+  "notes": "RF-ASSESS Batch 1 authored as draft metadata only. Assessments reference existing universal CAP-### objects only (no RF-CAP, no demand-profile objects). No assessment objects approved. No runtime behavior. No diagnosis authority. No autonomous triage. No prescription. No dosage. No progression. No readiness. No RTT/RTS. No clearance authority. Diagnosis authority remains in RF-DX-*/RF-SAF-* clinical rules."
+}

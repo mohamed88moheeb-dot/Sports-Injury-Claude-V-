@@ -1,0 +1,112 @@
+{
+  "exercise_id": "RF-EX-022",
+  "module": "rectus_femoris",
+  "name": "Generic quadriceps isometric exercise",
+  "aliases": [
+    "quadriceps isometric",
+    "quad set context"
+  ],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "anterior_thigh",
+    "knee"
+  ],
+  "target_tissues": [
+    "quadriceps"
+  ],
+  "exercise_family": "restricted_quadriceps_isometric",
+  "primary_function": [
+    "general_quadriceps_isometric_loading"
+  ],
+  "movement_category": [
+    "knee_extension",
+    "isometric_loading"
+  ],
+  "joint_actions": [
+    "knee_extension_context_unspecified"
+  ],
+  "contraction_bias": [
+    "isometric"
+  ],
+  "position_tags": [
+    "restricted_context_only",
+    "position_unspecified"
+  ],
+  "tissue_demand_tags": [
+    "quadriceps_load"
+  ],
+  "speed_power_demand": "low",
+  "stretch_demand": "low",
+  "impact_demand": "none",
+  "field_demand_tags": [],
+  "equipment": [
+    "unspecified"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile"
+  ],
+  "allowed_when": [
+    "restricted_context_only",
+    "requires_future_rule_authoring"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure",
+    "standard_rf_strain_selection_without_reviewer_approval"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [
+    "Ryan_West_Point_Quadriceps_Contusions_1991",
+    "Lempainen_2021_Chronic_Recurrent_RF_Central_Tendon_Rupture"
+  ],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-SAF-006",
+    "RF-REHAB-001",
+    "RF-REHAB-006"
+  ],
+  "notes": "Restricted metadata only. Source contexts are quadriceps contusion and post-surgical RF central tendon rupture; not primary authority for standard RF strain exercise selection."
+}

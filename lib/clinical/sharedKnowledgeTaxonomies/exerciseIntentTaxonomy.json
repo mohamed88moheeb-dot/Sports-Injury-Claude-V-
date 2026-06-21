@@ -1,0 +1,91 @@
+{
+  "taxonomy_name": "exercise_intent",
+  "version": "v1.0_scaffold",
+  "approval_status": "pending",
+  "executable": false,
+  "runtime_integration": "none",
+  "governance": "Taxonomy scaffold only. Metadata vocabulary for future use. Defines no dose, no progression, no readiness, no RTT/RTS clearance, no plan generation. Not wired into runtime.",
+  "description": "Taxonomy of why an exercise is chosen (intent). Intent is metadata; it does not select, dose, or clear.",
+  "categories": [
+    {
+      "id": "pain_modulation",
+      "meaning": "Training intent: pain modulation.",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance"
+    },
+    {
+      "id": "tissue_capacity",
+      "meaning": "Training intent: tissue capacity.",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance"
+    },
+    {
+      "id": "range_restoration",
+      "meaning": "Training intent: range restoration.",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance"
+    },
+    {
+      "id": "neuromuscular_control",
+      "meaning": "Training intent: neuromuscular control.",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance"
+    },
+    {
+      "id": "movement_quality",
+      "meaning": "Training intent: movement quality.",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance"
+    },
+    {
+      "id": "strength_development",
+      "meaning": "Training intent: strength development.",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance"
+    },
+    {
+      "id": "hypertrophy_support",
+      "meaning": "Training intent: hypertrophy support.",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance"
+    },
+    {
+      "id": "rate_of_force_development",
+      "meaning": "Training intent: rate of force development.",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance"
+    },
+    {
+      "id": "elastic_reactivity",
+      "meaning": "Training intent: elastic reactivity.",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance"
+    },
+    {
+      "id": "landing_tolerance",
+      "meaning": "Training intent: landing tolerance.",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance"
+    },
+    {
+      "id": "sport_patterning",
+      "meaning": "Training intent: sport patterning.",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance"
+    },
+    {
+      "id": "exposure_preparation",
+      "meaning": "Training intent: exposure preparation.",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance"
+    },
+    {
+      "id": "maintenance_training",
+      "meaning": "Training intent: maintenance training.",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance"
+    },
+    {
+      "id": "general_capacity",
+      "meaning": "Training intent: general capacity.",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance"
+    },
+    {
+      "id": "confidence_rebuilding",
+      "meaning": "Training intent: confidence rebuilding.",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance"
+    },
+    {
+      "id": "symptom_monitoring_context",
+      "meaning": "Training intent: symptom monitoring context.",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance"
+    }
+  ]
+}

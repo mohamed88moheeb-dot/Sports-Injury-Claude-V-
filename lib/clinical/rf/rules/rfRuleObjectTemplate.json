@@ -1,0 +1,17 @@
+{
+  "$comment": "BLANK, NON-EXECUTABLE template for a future Gate B machine-readable RF rule object. Placeholder keys only — NO real rule content. Copy this template to author a single pending rule; never mark it approved and never execute it. All values below are empty placeholders, not data.",
+  "rule_id": null,
+  "rule_family": null,
+  "source_spec_rule_id": null,
+  "approval_status": "pending",
+  "permitted_use": null,
+  "architecture_refs": [],
+  "evidence_claim_ids": [],
+  "input_contract": {},
+  "decision_contract": {},
+  "safety_state_output": null,
+  "blocked_targets": [],
+  "prohibited_outputs": [],
+  "test_fixtures": [],
+  "notes": null
+}

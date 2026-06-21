@@ -1,0 +1,114 @@
+{
+  "exercise_id": "RF-EX-007",
+  "module": "rectus_femoris",
+  "name": "Half-kneeling hip flexion",
+  "aliases": [
+    "half-kneeling hip flexor loading"
+  ],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "anterior_thigh",
+    "hip"
+  ],
+  "target_tissues": [
+    "rectus_femoris",
+    "hip_flexors",
+    "trunk_pelvis_control_secondary"
+  ],
+  "exercise_family": "hip_flexor_rectus_femoris_biased_loading",
+  "primary_function": [
+    "hip_flexion_loading",
+    "pelvic_control_context"
+  ],
+  "movement_category": [
+    "hip_flexion",
+    "strength_loading"
+  ],
+  "joint_actions": [
+    "hip_flexion"
+  ],
+  "contraction_bias": [
+    "isometric_or_isotonic_unspecified"
+  ],
+  "position_tags": [
+    "half_kneeling",
+    "hip_flexion",
+    "pelvic_control"
+  ],
+  "tissue_demand_tags": [
+    "hip_flexor_load",
+    "rectus_femoris_load"
+  ],
+  "speed_power_demand": "low_to_moderate",
+  "stretch_demand": "moderate",
+  "impact_demand": "none",
+  "field_demand_tags": [],
+  "equipment": [
+    "bodyweight_or_optional_resistance"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile"
+  ],
+  "allowed_when": [
+    "metadata_candidate_only",
+    "requires_future_rule_authoring"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [
+    "Gonzalez_de_la_Flor_Garcia_Perez_de_Sevilla_2024_RF_strain_case_report"
+  ],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-REHAB-001",
+    "RF-REHAB-002",
+    "RF-REHAB-006"
+  ],
+  "notes": "Links later to trunk/pelvis control; not a plan or dose."
+}

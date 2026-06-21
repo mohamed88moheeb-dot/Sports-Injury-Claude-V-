@@ -1,0 +1,63 @@
+{
+  "$comment": "Gate B DRAFT rule object for RF-DX-005 — pending, NON-EXECUTABLE. Authored only from RF Clinical Rule Specification v1.2 §8.7 and the RF-DX-005 inventory entry. Expresses supporting-evidence / uncertainty STRUCTURE only: self-tests (e.g. ASLR, femoral nerve slump) may describe function or activate a neural differential but are NOT validated RF diagnostic or rule-out tests. A positive self-test does not rule in RF injury; a negative does not rule it out; cannot_assess / unsafe / incomplete results remain unresolved and are never converted to positive, negative, or clearance. Self-tests never proceed while safety is blocked. No diagnosis, rehab, dosage, progression, confidence, or return-to-sport logic; safety precedence preserved. Not approved. Not wired into any runtime.",
+  "rule_id": "RF-DX-005",
+  "rule_family": "diagnosis",
+  "source_spec_rule_id": "RF-DX-005",
+  "rule_title": "Self-tests are supporting evidence only",
+  "source_section": "§8.7",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "logic_with_uncertainty",
+  "architecture_refs": ["V3.1-9"],
+  "evidence_claim_ids": ["QRF-004", "QRF-005"],
+  "input_contract": {
+    "$comment": "Structural self-test inputs taken verbatim-in-meaning from v1.2 §8.7. Self-tests are recorded as supporting evidence only and only when safe to perform.",
+    "self_tests": ["active_straight_leg_raise", "femoral_nerve_slump"],
+    "self_test_role": "supporting_evidence_only_describe_function_or_activate_neural_differential",
+    "preconditions": "only_perform_when_pre_test_safety_screen_is_clear",
+    "result_states": ["supportive", "non_supportive", "cannot_assess", "pain_invalidated", "incomplete"],
+    "reliability_model": "apply_self_administration_reliability_model_per_v3_1_section_9",
+    "unknown_handling": "treat_safety_unknown_as_unsafe_until_resolved"
+  },
+  "decision_contract": {
+    "$comment": "Supporting-evidence / uncertainty structure only. Self-test results never rule in or rule out RF injury, never assign weight/probability/confidence, and never become safety clearance. Unresolved results stay unresolved. No rehab authorization, no numeric values. Safety precedence preserved.",
+    "action": "record_self_test_as_supporting_evidence_and_widen_uncertainty_where_relevant",
+    "is_validated_rf_diagnostic_test": false,
+    "is_validated_rf_rule_out_test": false,
+    "positive_result_rules_in_rf": false,
+    "negative_result_rules_out_rf": false,
+    "cannot_assess_or_unsafe_or_incomplete_resolution": "remains_unresolved_never_positive_negative_or_clearance",
+    "self_test_assigns_diagnostic_weight": false,
+    "does_not_diagnose_rf": true,
+    "does_not_rank_rf_above_differentials_from_self_test_alone": true,
+    "requires_clear_pre_test_safety_screen": true,
+    "does_not_proceed_while_safety_blocked": true,
+    "safety_precedence_preserved": true,
+    "self_test_is_not_safety_clearance": true,
+    "defers_diagnostic_confidence_objects": "supporting_evidence_only_no_confidence_model_authored_here"
+  },
+  "safety_state_output": null,
+  "blocked_targets": [],
+  "prohibited_outputs": [
+    "diagnose_rf_injury_from_self_test_result_alone",
+    "exclude_rf_injury_from_negative_self_test_result_alone",
+    "rule_in_rf_injury_from_positive_self_test_result_alone",
+    "rule_out_rf_injury_from_negative_self_test_result_alone",
+    "treat_cannot_assess_as_positive",
+    "treat_cannot_assess_as_negative",
+    "treat_unsafe_or_incomplete_self_test_as_clearance",
+    "assign_diagnostic_weight_from_self_test_alone",
+    "assign_numeric_confidence_from_self_test_result",
+    "assign_patient_level_probability_from_self_test_result",
+    "rank_rf_above_differentials_from_self_test_alone",
+    "bypass_safety_because_self_test_appears_reassuring",
+    "perform_self_test_while_safety_is_blocked",
+    "clear_user_for_rehabilitation",
+    "produce_a_complete_rehab_plan",
+    "produce_a_return_to_sport_decision"
+  ],
+  "test_fixtures": [
+    "v1.2-§17-case-10"
+  ],
+  "notes": "Mixed normative source; MUST; permitted_use logic_with_uncertainty. Architecture ref and evidence claims preserved per source: architecture V3.1-9 (self-test capability & reliability model); QRF-004 (I1), QRF-005 (I1). Per §8.7: ASLR and femoral nerve slump results may describe function or activate a neural differential but are NOT validated RF diagnostic or rule-out tests; apply the self-administration reliability model (V3.1 §9), and pain-invalidated and cannot_assess results remain unresolved. Per V3.1 §9.2 four prohibited inferences: a failed attempt is not positive; a not-performed test is not negative; a painful test is not automatically positive; unclear execution is not high-confidence evidence. Self-tests only proceed when the pre-test safety screen is clear and never while safety is blocked (V3.1 §7.3 / §9.1). Diagnosis supporting-evidence rule, not a safety rule, so safety_state_output is null and blocked_targets is empty; it preserves safety precedence and must not be treated as safety clearance. No diagnostic confidence model is authored here (deferred to the later confidence objects). Draft — approval_status remains pending."
+}

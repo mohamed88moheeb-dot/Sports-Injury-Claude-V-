@@ -1,0 +1,724 @@
+{
+  "$comment": "NON-EXECUTABLE source inventory of RF Clinical Rule Specification v1.2 governed rule entries. This is a planning index ONLY: it lists the rules that will later be converted into Gate B machine-readable rule objects. It is NOT a set of authored rule objects, executes nothing, and confers no approval. Extracted from docs/governance/Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2.md (rule bodies §§7-14 and Appendix A). No evidence-claim IDs or architecture references were invented; where the spec is not explicit, null / [] / \"needs_manual_review\" is used.",
+  "module": "rectus_femoris",
+  "source_specification": "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2",
+  "inventory_status": "source_inventory_created",
+  "executable": false,
+  "approval_status": "not_approved",
+  "rule_objects_authored": 0,
+  "source_rule_count": 38,
+  "source_rules": [
+    {
+      "source_spec_rule_id": "RF-SAF-001",
+      "rule_family": "safety",
+      "rule_title": "Disproportionate or passive-movement pain after significant trauma",
+      "source_section": "§7.2",
+      "approval_status": "pending",
+      "permitted_use": "safety_referral_trigger",
+      "architecture_refs": [
+        "V3.1-7",
+        "V3.1-20",
+        "V3.1-21",
+        "V3.1-22"
+      ],
+      "evidence_claim_ids": [
+        "QRF-014",
+        "QRF-037",
+        "QRF-038"
+      ],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Mixed source; MUST. No ACS confirm/exclude."
+    },
+    {
+      "source_spec_rule_id": "RF-SAF-002",
+      "rule_family": "safety",
+      "rule_title": "Progressive swelling or tightness after major trauma",
+      "source_section": "§7.3",
+      "approval_status": "pending",
+      "permitted_use": "safety_referral_trigger",
+      "architecture_refs": [
+        "V3.1-7",
+        "V3.1-20",
+        "V3.1-21"
+      ],
+      "evidence_claim_ids": [
+        "QRF-017"
+      ],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Mixed source; MUST. No home thigh-girth threshold."
+    },
+    {
+      "source_spec_rule_id": "RF-SAF-003",
+      "rule_family": "safety",
+      "rule_title": "Delayed deterioration",
+      "source_section": "§7.4",
+      "approval_status": "pending",
+      "permitted_use": "safety_referral_trigger",
+      "architecture_refs": [
+        "V3.1-7",
+        "V3.1-21"
+      ],
+      "evidence_claim_ids": [
+        "QRF-018"
+      ],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Mixed source; MUST. Reopens safety despite prior CLEAR."
+    },
+    {
+      "source_spec_rule_id": "RF-SAF-004",
+      "rule_family": "safety",
+      "rule_title": "Suspected vascular or neurological compromise",
+      "source_section": "§7.5",
+      "approval_status": "pending",
+      "permitted_use": "safety_referral_trigger",
+      "architecture_refs": [
+        "V3.1-7.1",
+        "V3.1-7.2",
+        "V3.1-7.3",
+        "V3.1-21"
+      ],
+      "evidence_claim_ids": [],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Architecture source; platform-wide trauma safety, not an RF-specific clinical claim."
+    },
+    {
+      "source_spec_rule_id": "RF-SAF-005",
+      "rule_family": "safety",
+      "rule_title": "Inability to safely assess",
+      "source_section": "§7.6",
+      "approval_status": "pending",
+      "permitted_use": "logic_with_uncertainty",
+      "architecture_refs": [
+        "V3.1-4",
+        "V3.1-5",
+        "V3.1-7",
+        "V3.1-9",
+        "V3.1-24"
+      ],
+      "evidence_claim_ids": [],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Architecture source; record cannot_assess, never coerce to positive/negative."
+    },
+    {
+      "source_spec_rule_id": "RF-SAF-006",
+      "rule_family": "safety",
+      "rule_title": "Suspected avulsion, full-thickness, or postoperative restriction",
+      "source_section": "§7.7",
+      "approval_status": "pending",
+      "permitted_use": "logic_with_uncertainty",
+      "architecture_refs": [
+        "V3.1-6",
+        "V3.1-10",
+        "V3.1-13.1",
+        "V3.1-13.2",
+        "V3.1-20",
+        "V3.1-21"
+      ],
+      "evidence_claim_ids": [
+        "QRF-012",
+        "QRF-032",
+        "QRF-036"
+      ],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Mixed source; sets REHAB_BLOCKED while restrictions unresolved."
+    },
+    {
+      "source_spec_rule_id": "RF-SAF-007",
+      "rule_family": "safety",
+      "rule_title": "Direct-contusion branch routing",
+      "source_section": "§7.8",
+      "approval_status": "pending",
+      "permitted_use": "logic_with_uncertainty",
+      "architecture_refs": [
+        "V3.1-3.1",
+        "V3.1-7",
+        "V3.1-15"
+      ],
+      "evidence_claim_ids": [
+        "QRF-015",
+        "QRF-016",
+        "QRF-017"
+      ],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Mixed source; OUT_OF_SCOPE if no approved contusion module exists."
+    },
+    {
+      "source_spec_rule_id": "RF-SAF-008",
+      "rule_family": "safety",
+      "rule_title": "New red flags during rehabilitation",
+      "source_section": "§7.9",
+      "approval_status": "pending",
+      "permitted_use": "safety_referral_trigger",
+      "architecture_refs": [
+        "V3.1-7.2",
+        "V3.1-7.3",
+        "V3.1-13.4",
+        "V3.1-21",
+        "V3.1-22"
+      ],
+      "evidence_claim_ids": [],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Architecture source; new safety overrides phase/progression/trends."
+    },
+    {
+      "source_spec_rule_id": "RF-DX-001",
+      "rule_family": "diagnosis",
+      "rule_title": "Mechanism activates questions, not diagnostic weighting",
+      "source_section": "§8.3",
+      "approval_status": "pending",
+      "permitted_use": "logic_with_uncertainty",
+      "architecture_refs": [
+        "V3.1-4",
+        "V3.1-5",
+        "V3.1-15.1"
+      ],
+      "evidence_claim_ids": [
+        "QRF-001",
+        "QRF-039"
+      ],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Mixed source; dual permitted_use in body (logic for activation; evidence_record_only for mechanism %). QRF-039 reference-only."
+    },
+    {
+      "source_spec_rule_id": "RF-DX-002",
+      "rule_family": "diagnosis",
+      "rule_title": "Sudden stabbing pain (non-specific history)",
+      "source_section": "§8.4",
+      "approval_status": "pending",
+      "permitted_use": "evidence_record_only",
+      "architecture_refs": [],
+      "evidence_claim_ids": [
+        "QRF-002"
+      ],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Clinical_content; MAY. No architecture refs in body."
+    },
+    {
+      "source_spec_rule_id": "RF-DX-003",
+      "rule_family": "diagnosis",
+      "rule_title": "Audible pop or snap (concern signal, not diagnostic)",
+      "source_section": "§8.5",
+      "approval_status": "pending",
+      "permitted_use": "evidence_record_only",
+      "architecture_refs": [],
+      "evidence_claim_ids": [
+        "QRF-003"
+      ],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Clinical_content; MAY."
+    },
+    {
+      "source_spec_rule_id": "RF-DX-004",
+      "rule_family": "diagnosis",
+      "rule_title": "Direct versus indirect mechanism branching",
+      "source_section": "§8.6",
+      "approval_status": "pending",
+      "permitted_use": "logic_with_uncertainty",
+      "architecture_refs": [
+        "V3.1-4",
+        "V3.1-5",
+        "V3.1-15.1"
+      ],
+      "evidence_claim_ids": [
+        "QRF-015",
+        "QRF-001",
+        "QRF-039"
+      ],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Mixed source; QRF-001 and QRF-039 retained as non-weighting mechanism context."
+    },
+    {
+      "source_spec_rule_id": "RF-DX-005",
+      "rule_family": "diagnosis",
+      "rule_title": "Self-tests are supporting evidence only",
+      "source_section": "§8.7",
+      "approval_status": "pending",
+      "permitted_use": "logic_with_uncertainty",
+      "architecture_refs": [
+        "V3.1-9"
+      ],
+      "evidence_claim_ids": [
+        "QRF-004",
+        "QRF-005"
+      ],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Mixed source; ASLR/femoral-slump not validated RF rule-out tests."
+    },
+    {
+      "source_spec_rule_id": "RF-DX-006",
+      "rule_family": "diagnosis",
+      "rule_title": "Imaging and report descriptor handling",
+      "source_section": "§8.8",
+      "approval_status": "pending",
+      "permitted_use": "logic_with_uncertainty",
+      "architecture_refs": [
+        "V3.1-6",
+        "V3.1-14.1",
+        "V3.1-25"
+      ],
+      "evidence_claim_ids": [
+        "QRF-006"
+      ],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Mixed source; QRF-006 only when bull's-eye descriptor is specifically relevant; raw images need validated subsystem."
+    },
+    {
+      "source_spec_rule_id": "RF-DX-007",
+      "rule_family": "diagnosis",
+      "rule_title": "Strong diagnosis anchor reduces identity questions only",
+      "source_section": "§8.9",
+      "approval_status": "pending",
+      "permitted_use": "logic_with_uncertainty",
+      "architecture_refs": [
+        "V3.1-6",
+        "V3.1-10",
+        "V3.1-22"
+      ],
+      "evidence_claim_ids": [],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Architecture source; never bypasses safety/capacity/stage/readiness."
+    },
+    {
+      "source_spec_rule_id": "RF-DX-008",
+      "rule_family": "diagnosis",
+      "rule_title": "Strong-anchor conflict triggers external reassessment",
+      "source_section": "§8.10",
+      "approval_status": "pending",
+      "permitted_use": "logic_with_uncertainty",
+      "architecture_refs": [
+        "V3.1-6.3",
+        "V3.1-20",
+        "V3.1-22"
+      ],
+      "evidence_claim_ids": [],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Architecture source; silent replacement prohibited."
+    },
+    {
+      "source_spec_rule_id": "RF-SEV-001",
+      "rule_family": "severity",
+      "rule_title": "Munich classification for guarded group context",
+      "source_section": "§9.2",
+      "approval_status": "pending",
+      "permitted_use": "logic_with_uncertainty",
+      "architecture_refs": [],
+      "evidence_claim_ids": [
+        "QRF-007",
+        "QRF-011"
+      ],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Clinical_content; MAY. Medians are not individual timelines."
+    },
+    {
+      "source_spec_rule_id": "RF-SEV-002",
+      "rule_family": "severity",
+      "rule_title": "Separate BAMIC ontology from MRI-confirmed RF outcome context",
+      "source_section": "§9.3",
+      "approval_status": "pending",
+      "permitted_use": "logic_with_uncertainty",
+      "architecture_refs": [],
+      "evidence_claim_ids": [
+        "QRF-009",
+        "QRF-040",
+        "QRF-041"
+      ],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Clinical_content; MAY. Dual permitted_use in body (evidence_record_only for ontology; logic for bounded outcome). QRF-009 ontology-only."
+    },
+    {
+      "source_spec_rule_id": "RF-SEV-003",
+      "rule_family": "prognosis",
+      "rule_title": "Documented central-aponeurosis location widens uncertainty",
+      "source_section": "§9.4",
+      "approval_status": "pending",
+      "permitted_use": "logic_with_uncertainty",
+      "architecture_refs": [],
+      "evidence_claim_ids": [
+        "QRF-008",
+        "QRF-010"
+      ],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Clinical_content; MAY. No deterministic return-date formula."
+    },
+    {
+      "source_spec_rule_id": "RF-SEV-004",
+      "rule_family": "prognosis",
+      "rule_title": "Proximal or full-thickness injury benchmarks",
+      "source_section": "§9.5",
+      "approval_status": "pending",
+      "permitted_use": "prohibited_autonomous_rule",
+      "architecture_refs": [
+        "V3.1-6",
+        "V3.1-13.1",
+        "V3.1-13.2",
+        "V3.1-20"
+      ],
+      "evidence_claim_ids": [
+        "QRF-012",
+        "QRF-032",
+        "QRF-036"
+      ],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Mixed source; dual permitted_use in body (evidence_record_only for benchmarks; prohibited_autonomous_rule for treatment/timing)."
+    },
+    {
+      "source_spec_rule_id": "RF-SEV-005",
+      "rule_family": "history_structure",
+      "rule_title": "Reported fibrosis/scar is provenance-tagged history, not severity",
+      "source_section": "§9.6",
+      "approval_status": "pending",
+      "permitted_use": "evidence_record_only",
+      "architecture_refs": [
+        "V3.1-4",
+        "V3.1-5",
+        "V3.1-6",
+        "V3.1-8",
+        "V3.1-13.1",
+        "V3.1-24"
+      ],
+      "evidence_claim_ids": [
+        "QRF-044",
+        "QRF-046",
+        "QRF-045"
+      ],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Mixed source; QRF-045 applies only to the separate chronic structural pathway."
+    },
+    {
+      "source_spec_rule_id": "RF-REHAB-001",
+      "rule_family": "rehabilitation",
+      "rule_title": "Phase entry requires a complete prescription input",
+      "source_section": "§10.4",
+      "approval_status": "pending",
+      "permitted_use": "logic_with_uncertainty",
+      "architecture_refs": [
+        "V3.1-13.1",
+        "V3.1-13.2",
+        "V3.1-24"
+      ],
+      "evidence_claim_ids": [],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Architecture source; diagnosis alone never authorizes a full plan."
+    },
+    {
+      "source_spec_rule_id": "RF-REHAB-002",
+      "rule_family": "rehabilitation",
+      "rule_title": "Loading dimensions are ontology metadata, not a universal sequence",
+      "source_section": "§10.5",
+      "approval_status": "pending",
+      "permitted_use": "logic_with_uncertainty",
+      "architecture_refs": [
+        "V3.1-13",
+        "V3.1-35"
+      ],
+      "evidence_claim_ids": [
+        "QRF-020"
+      ],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Mixed source; MAY. Dual permitted_use in body (logic for selection; evidence_record_only for any proposed sequence)."
+    },
+    {
+      "source_spec_rule_id": "RF-REHAB-003",
+      "rule_family": "rehabilitation",
+      "rule_title": "RF-biased position tag",
+      "source_section": "§10.6",
+      "approval_status": "pending",
+      "permitted_use": "evidence_record_only",
+      "architecture_refs": [],
+      "evidence_claim_ids": [
+        "QRF-021"
+      ],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Clinical_content; MAY. ~40deg hip flexion tag; cannot set dosage/eligibility."
+    },
+    {
+      "source_spec_rule_id": "RF-REHAB-004",
+      "rule_family": "rehabilitation",
+      "rule_title": "No universal RF dosage",
+      "source_section": "§10.7",
+      "approval_status": "pending",
+      "permitted_use": "prohibited_autonomous_rule",
+      "architecture_refs": [],
+      "evidence_claim_ids": [
+        "QRF-022",
+        "QRF-035"
+      ],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Clinical_content; PROHIBITION. Any active universal RF dose must fail content validation."
+    },
+    {
+      "source_spec_rule_id": "RF-REHAB-005",
+      "rule_family": "rehabilitation",
+      "rule_title": "Schedule and total-load reconciliation",
+      "source_section": "§10.8",
+      "approval_status": "pending",
+      "permitted_use": "logic_with_uncertainty",
+      "architecture_refs": [
+        "V3.1-11",
+        "V3.1-13.3"
+      ],
+      "evidence_claim_ids": [],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Architecture source; modify/restrict/block if schedule cannot satisfy constraints."
+    },
+    {
+      "source_spec_rule_id": "RF-REHAB-006",
+      "rule_family": "rehabilitation",
+      "rule_title": "Concurrent injury constraints govern or block the plan",
+      "source_section": "§10.9",
+      "approval_status": "pending",
+      "permitted_use": "logic_with_uncertainty",
+      "architecture_refs": [
+        "V3.1-11",
+        "V3.1-15.2"
+      ],
+      "evidence_claim_ids": [],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Architecture source; terminal REHAB_BLOCKED if no compatible plan exists."
+    },
+    {
+      "source_spec_rule_id": "RF-RECUR-001",
+      "rule_family": "recurrence",
+      "rule_title": "Prior injury changes recurrence handling without a universal delay",
+      "source_section": "§10.10",
+      "approval_status": "pending",
+      "permitted_use": "logic_with_uncertainty",
+      "architecture_refs": [
+        "V3.1-4",
+        "V3.1-12",
+        "V3.1-13"
+      ],
+      "evidence_claim_ids": [
+        "QRF-042",
+        "QRF-041",
+        "QRF-043",
+        "QRF-033",
+        "QRF-034"
+      ],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Mixed source; QRF-041 conditional on valid MRI class; QRF-043 reference-only; QRF-033/QRF-034 are I1 population limits."
+    },
+    {
+      "source_spec_rule_id": "RF-RECUR-002",
+      "rule_family": "recurrence",
+      "rule_title": "Recurrence-sensitive exposure domains remain separate and unranked",
+      "source_section": "§10.11",
+      "approval_status": "pending",
+      "permitted_use": "logic_with_uncertainty",
+      "architecture_refs": [
+        "V3.1-12",
+        "V3.1-13",
+        "V3.1-14"
+      ],
+      "evidence_claim_ids": [
+        "QRF-020",
+        "QRF-039",
+        "QRF-043"
+      ],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Mixed source; QRF-039 and QRF-043 reference-only. No 'highest-risk' ranking; no fibrosis-based slowing."
+    },
+    {
+      "source_spec_rule_id": "RF-FIELD-001",
+      "rule_family": "running_sprinting",
+      "rule_title": "Aspetar MSS milestones with denominator and population limits",
+      "source_section": "§13.2",
+      "approval_status": "pending",
+      "permitted_use": "logic_with_uncertainty",
+      "architecture_refs": [],
+      "evidence_claim_ids": [
+        "QRF-024"
+      ],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Clinical_content; MAY. 70/80/95% MSS as expert criteria only; no universal mandatory thresholds."
+    },
+    {
+      "source_spec_rule_id": "RF-FIELD-002",
+      "rule_family": "running_sprinting",
+      "rule_title": "95% maximum sprint speed is not sufficient alone",
+      "source_section": "§13.3",
+      "approval_status": "pending",
+      "permitted_use": "logic_with_uncertainty",
+      "architecture_refs": [
+        "V3.1-12",
+        "V3.1-14.2",
+        "V3.1-24"
+      ],
+      "evidence_claim_ids": [
+        "QRF-025"
+      ],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Mixed source; MUST."
+    },
+    {
+      "source_spec_rule_id": "RF-FIELD-003",
+      "rule_family": "running_sprinting",
+      "rule_title": "Higher-speed exposure requires verified prerequisite capacity",
+      "source_section": "§13.4",
+      "approval_status": "pending",
+      "permitted_use": "logic_with_uncertainty",
+      "architecture_refs": [
+        "V3.1-12",
+        "V3.1-13"
+      ],
+      "evidence_claim_ids": [
+        "QRF-019",
+        "QRF-024",
+        "QRF-025"
+      ],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Mixed source; MUST. No hidden speed threshold."
+    },
+    {
+      "source_spec_rule_id": "RF-FIELD-004",
+      "rule_family": "kicking",
+      "rule_title": "Kicking exposure is a separately monitored sport-demand domain",
+      "source_section": "§13.5",
+      "approval_status": "pending",
+      "permitted_use": "logic_with_uncertainty",
+      "architecture_refs": [
+        "V3.1-12",
+        "V3.1-13",
+        "V3.1-14"
+      ],
+      "evidence_claim_ids": [
+        "QRF-001",
+        "QRF-026",
+        "QRF-039",
+        "QRF-043"
+      ],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Mixed source; MUST. Epidemiological percentages are reference-only; kicking not universally ranked above other demands."
+    },
+    {
+      "source_spec_rule_id": "RF-FIELD-005",
+      "rule_family": "sprint_dosage",
+      "rule_title": "Sprint work-to-rest ratios are not RF-specific dosage rules",
+      "source_section": "§13.6",
+      "approval_status": "pending",
+      "permitted_use": "prohibited_autonomous_rule",
+      "architecture_refs": [],
+      "evidence_claim_ids": [
+        "QRF-028"
+      ],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Clinical_content; PROHIBITION. 1:3/1:5/1:7 must not become RF autonomous dosing."
+    },
+    {
+      "source_spec_rule_id": "RF-RTS-001",
+      "rule_family": "readiness",
+      "rule_title": "No date-only individual clearance",
+      "source_section": "§14.2",
+      "approval_status": "pending",
+      "permitted_use": "prohibited_autonomous_rule",
+      "architecture_refs": [
+        "V3.1-12",
+        "V3.1-14.2",
+        "V3.1-24"
+      ],
+      "evidence_claim_ids": [
+        "QRF-013",
+        "QRF-029",
+        "QRF-031",
+        "QRF-032"
+      ],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Mixed source; PROHIBITION. Dual permitted_use in body (prohibited for date-only; evidence_record_only for cohort benchmarks)."
+    },
+    {
+      "source_spec_rule_id": "RF-RTS-002",
+      "rule_family": "readiness",
+      "rule_title": "Unrestricted training follows multi-domain Simulation evidence",
+      "source_section": "§14.3",
+      "approval_status": "pending",
+      "permitted_use": "logic_with_uncertainty",
+      "architecture_refs": [
+        "V3.1-12",
+        "V3.1-14.2"
+      ],
+      "evidence_claim_ids": [
+        "QRF-030"
+      ],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Mixed source; SHOULD. Expert-pathway structure, not proof of safety."
+    },
+    {
+      "source_spec_rule_id": "RF-RTS-003",
+      "rule_family": "readiness",
+      "rule_title": "Readiness-tier honesty and output locks",
+      "source_section": "§14.4",
+      "approval_status": "pending",
+      "permitted_use": "logic_with_uncertainty",
+      "architecture_refs": [
+        "V3.1-14.2",
+        "V3.1-24.3"
+      ],
+      "evidence_claim_ids": [],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Architecture source; home-only assessment not equal to supervised testing."
+    },
+    {
+      "source_spec_rule_id": "RF-RTS-004",
+      "rule_family": "performance",
+      "rule_title": "Outstanding performance deficits remain active targets",
+      "source_section": "§14.5",
+      "approval_status": "pending",
+      "permitted_use": "logic_with_uncertainty",
+      "architecture_refs": [
+        "V3.1-12",
+        "V3.1-13.3",
+        "V3.1-14.2"
+      ],
+      "evidence_claim_ids": [],
+      "has_machine_readable_object": true,
+      "gate_b_status": "draft_authored_pending_validation",
+      "notes": "Architecture source; Resilience continues while capacity-to-demand gap remains open."
+    }
+  ],
+  "extraction_warnings": [
+    "Architecture-section ranges in the spec (e.g. '§§13.1-13.2', '§§12-14') were expanded into discrete architecture_refs tokens; granularity should be confirmed against V3.1 during Gate B authoring.",
+    "Several rules carry a dual/contextual permitted_use in their body (RF-DX-001, RF-DX-004, RF-SEV-002, RF-SEV-004, RF-REHAB-002, RF-RTS-001). This inventory records the Appendix A primary permitted_use only; the secondary role is captured in notes and needs manual review before authoring.",
+    "Evidence-claim roles differ per claim (decision-driving vs reference-only / evidence_record_only) per Appendix B. This inventory lists claim IDs without their per-claim role; roles must be reattached during Gate B authoring and must preserve each claim's individual grade.",
+    "Clinical_content-only rules (RF-DX-002, RF-DX-003, RF-SEV-001, RF-SEV-002, RF-SEV-003, RF-REHAB-003, RF-REHAB-004, RF-FIELD-001, RF-FIELD-005) legitimately have empty architecture_refs per v1.2 §4.3; [] here means 'none in source', not 'missing'.",
+    "Architecture-source rules legitimately have empty evidence_claim_ids per v1.2 §4.3; [] here means 'none required', not 'missing'.",
+    "rule_family values are normalized lowercase tokens derived from Appendix A domains (e.g. 'Running/sprinting' -> 'running_sprinting', 'History/structure' -> 'history_structure'); confirm the canonical family vocabulary before authoring.",
+    "Rule titles are concise summaries, not the spec's normative prose; the authoritative wording remains in v1.2."
+  ]
+}

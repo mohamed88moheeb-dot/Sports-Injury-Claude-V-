@@ -1,0 +1,133 @@
+{
+  "exercise_id": "RF-EX-071",
+  "module": "rectus_femoris",
+  "name": "Game-based training exposure",
+  "aliases": [
+    "game-based training",
+    "game-like training exposure"
+  ],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "trunk",
+    "pelvis",
+    "hip",
+    "knee",
+    "ankle",
+    "lower_limb"
+  ],
+  "target_tissues": [
+    "lower_limb_sport_system",
+    "trunk_pelvis_control_system",
+    "field_exposure_system"
+  ],
+  "exercise_family": "game_based_training_exposure",
+  "primary_function": [
+    "game_like_training_context",
+    "sport_specific_field_exposure_metadata"
+  ],
+  "movement_category": [
+    "sport_specific_exposure",
+    "game_like_context",
+    "restricted_context_only"
+  ],
+  "joint_actions": [
+    "multijoint_sport_movement",
+    "multiplanar_control"
+  ],
+  "contraction_bias": [
+    "dynamic_sport_specific"
+  ],
+  "position_tags": [
+    "game_like_context",
+    "sport_specific_context",
+    "restricted_context_only",
+    "post_surgical_rf_context_possible"
+  ],
+  "tissue_demand_tags": [
+    "field_exposure_demand",
+    "sport_specific_exposure_demand",
+    "anterior_thigh_monitoring_required"
+  ],
+  "speed_power_demand": "high",
+  "stretch_demand": "moderate",
+  "impact_demand": "moderate_to_high",
+  "field_demand_tags": [
+    "sport_specific_preparation",
+    "field_exposure_preparation"
+  ],
+  "equipment": [
+    "open_space",
+    "sport_equipment_optional"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile",
+    "requires_external_load_context"
+  ],
+  "allowed_when": [
+    "restricted_context_only",
+    "requires_future_rule_authoring",
+    "sport_specific_exposure_metadata"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure",
+    "standard_rf_strain_selection_without_reviewer_approval",
+    "symptom_worsening_after_field_exposure"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [
+    "Aspetar_Rectus_Femoris_Injury_Rehabilitation_Pathway_2026",
+    "Lempainen_2021_Chronic_Recurrent_RF_Central_Tendon_Rupture"
+  ],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-SEV-004",
+    "RF-FIELD-003",
+    "RF-RTS-002",
+    "RF-RTS-004"
+  ],
+  "notes": "Game-based training is clearance-sensitive exposure metadata only. Lempainen source context is post-surgical RF; this is not primary authority for standard RF strain selection and does not authorize team training, match play, RTT, or RTS."
+}

@@ -1,0 +1,896 @@
+{
+  "$comment": "RF Prescription / Severity / Recovery Rule Pack v1. EVIDENCE-EXTRACTED, NON-EXECUTABLE. Source-of-truth rules for the FUTURE functional Rectus Femoris beta engine. Numbers (dosage, recovery dates, thresholds) are PROHIBITED as universal evidence by RF v1.2 (RF-REHAB-004 / §9.8 / §12.3) and are therefore authored as STRUCTURE with explicit gap markers. Structure (six-phase Aspetar model, severity classification ontology, field milestones, adaptation actions) is evidence-supported. Not wired to runtime. Does not import legacy code. Does not mutate any RF knowledge object.",
+  "governance": {
+    "rule_pack_id": "RF-PRESCRIPTION-RULE-PACK-V1",
+    "version": "v1.0.0-evidence-extraction",
+    "injury_module": "rectus_femoris",
+    "approval_status": "pending",
+    "clinical_approval_status": "not_approved",
+    "executable_status": "non_executable_until_engine_review",
+    "runtime_integration": "none",
+    "source_scope": [
+      "docs/governance/Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2.md",
+      "docs/governance/Master_Architecture_V3.1_Final.md",
+      "docs/implementation/DIGITAL_ASSESSMENT_CONFIDENCE_AND_RESULTS_UX_POLICY.md",
+      "docs/implementation/REHAB_PLAN_COMPOSITION_ARCHITECTURE.md",
+      "docs/implementation/RF_SEV_001_GATE_B_DRAFT.md..RF_SEV_005_GATE_B_DRAFT.md",
+      "docs/implementation/RF_REHAB_001_GATE_B_DRAFT.md..RF_REHAB_006_GATE_B_DRAFT.md",
+      "docs/implementation/RF_RTS_001_GATE_B_DRAFT.md..RF_RTS_004_GATE_B_DRAFT.md",
+      "docs/implementation/RF_FIELD_001_GATE_B_DRAFT.md..RF_FIELD_005_GATE_B_DRAFT.md",
+      "docs/implementation/RF_SAF_001_GATE_B_DRAFT.md..RF_SAF_008_GATE_B_DRAFT.md",
+      "lib/clinical/rf/rules/objects/ (38 RF Gate-B rule objects)",
+      "lib/clinical/exerciseKnowledge/rf/objects/ (107 RF-EX, id reference only)",
+      "lib/clinical/activityExposureKnowledge/rf/objects/ (12 RF-ACT, id reference only)"
+    ],
+    "created_for": "Bridge layer between the governed RF knowledge system and the future RF beta plan/session engine. Defines severity, confidence, recovery-window, phase, dosage, progression, regression, daily-check-in, and exercise/activity mapping rules with evidence provenance. NOT an engine; NOT runtime.",
+    "non_inheritance_statement": "Numeric values in legacy data/injuryKnowledge/quadriceps.js and lib/injuryEngine/* are NOT treated as evidence-backed RF rules. Where a legacy number is shown it is labelled legacy_reference_not_evidence_backed and the rule's evidence_status remains gap or extrapolated.",
+    "boundary_statement": "This rule pack is data only. It imports no module. It mutates no RF-EX / RF-ACT / RF-ASSESS / CAP / evidence-linking / RF-rule / taxonomy object. It is quarantine-clean (no legacy dependency)."
+  },
+
+  "severity_rules": [
+    {
+      "rule_id": "RF-PRESC-SEV-PRINCIPLE",
+      "type": "principle",
+      "statement": "Severity comes from assessment answers and evidence-backed severity/structural rules. Confidence is match quality. Confidence does NOT determine severity, and severity does NOT determine confidence.",
+      "self_report_constraint": "Self-report alone must not assign current injury identity, structural severity, prognosis, progression speed, monitoring threshold, or readiness (RF v1.2 §9.6 No-independent-effect).",
+      "source_ids": ["RF-v1.2 §9.6", "RF-v1.2 §9.7", "QRF-044", "QRF-046"],
+      "evidence_status": "direct",
+      "gap": false,
+      "requires_clinician_review": true
+    },
+    {
+      "rule_id": "RF-PRESC-SEV-FUNCTIONAL-PROFILE",
+      "type": "functional_severity_profile",
+      "description": "Qualitative functional-severity characterization from assessment observations (RF v1.2 §9.7). Bands are evidence-quality-tagged observation summaries, NOT an invented numeric score and NOT a structural grade.",
+      "bands": [
+        {
+          "severity_label": "lower_functional_impact",
+          "user_facing_wording": "Milder pattern: movement and daily function are largely preserved.",
+          "assessment_answer_indicators": ["pain present but tolerable in daily tasks"],
+          "mechanism_indicators": ["overuse / progressive onset", "low-velocity strain"],
+          "walking_stairs_indicators": ["walks without limp", "stairs tolerated"],
+          "pain_function_indicators": ["active knee-extension and hip-flexion largely preserved"],
+          "bruising_swelling_indicators": ["no or minimal bruising/swelling"],
+          "strength_weakness_indicators": ["mild weakness only, no give-way"],
+          "red_flag_review_indicators": ["none"],
+          "confidence_impact": "no automatic confidence change (severity and confidence are independent)",
+          "plan_impact": "candidate Foundation/Reload entry, capacity-gated, never time-gated"
+        },
+        {
+          "severity_label": "moderate_functional_impact",
+          "user_facing_wording": "Moderate pattern: noticeable loss of movement, strength, or comfort.",
+          "assessment_answer_indicators": ["pain limits some daily/sport tasks"],
+          "mechanism_indicators": ["sprinting", "kicking", "sudden acceleration/deceleration"],
+          "walking_stairs_indicators": ["mild limp or stair difficulty"],
+          "pain_function_indicators": ["reduced active knee-extension/hip-flexion function"],
+          "bruising_swelling_indicators": ["some bruising/swelling reported"],
+          "strength_weakness_indicators": ["clear weakness resisting knee extension / hip flexion"],
+          "red_flag_review_indicators": ["monitor for escalation"],
+          "confidence_impact": "no automatic confidence change",
+          "plan_impact": "conservative Foundation entry, monitoring contract required"
+        },
+        {
+          "severity_label": "high_concern_or_review_gated",
+          "user_facing_wording": "Higher-concern pattern: please seek in-person review before progressing.",
+          "assessment_answer_indicators": ["unable to bear weight or straighten knee", "audible pop with immediate deterioration"],
+          "mechanism_indicators": ["high-velocity injury with sudden loss of function"],
+          "walking_stairs_indicators": ["cannot walk / marked limp"],
+          "pain_function_indicators": ["unable to actively extend knee against gravity"],
+          "bruising_swelling_indicators": ["significant bruising with marked weakness"],
+          "strength_weakness_indicators": ["marked weakness suggesting higher-grade or tendon involvement"],
+          "red_flag_review_indicators": ["RF-SAF red-flag override applies", "refer / withhold generic rehab (RF-SAF-006, RF-SEV-004)"],
+          "confidence_impact": "confidence is withheld/down-weighted in safety-sensitive states (policy §7a)",
+          "plan_impact": "REHAB_BLOCKED candidate; route to review; no autonomous plan"
+        }
+      ],
+      "source_ids": ["RF-v1.2 §9.7", "RF-v1.2 §12.2 (red flags)", "RF-SAF-006", "RF-SEV-004", "QRF-012", "QRF-032"],
+      "evidence_status": "indirect",
+      "gap": false,
+      "gap_notes": "Band STRUCTURE is evidence-informed (§9.7 observation domains). Exact cut-offs that separate the bands are NOT established by the RF evidence set and remain a gap for clinician definition and validation.",
+      "requires_clinician_review": true
+    },
+    {
+      "rule_id": "RF-PRESC-SEV-STRUCTURAL-MUNICH",
+      "type": "structural_grade_record_only",
+      "grade_or_severity_label": "munich_classification",
+      "description": "A valid Munich classification may STRUCTURE the record and give population-limited group-level context only. Must not be inferred from mechanism/symptoms/self-test; medians must not become individual timelines.",
+      "structural_grade_from": "valid_report_or_verified_assessment_only",
+      "plan_impact": "record context only; widens uncertainty; does not alter stage or dosage autonomously",
+      "source_ids": ["RF-SEV-001", "RF-v1.2 §9.2", "QRF-007", "QRF-011"],
+      "evidence_status": "direct",
+      "gap": false,
+      "gap_notes": "Classification ontology is direct; conversion to an individual RF recovery window/dosage is PROHIBITED and remains a gap.",
+      "requires_clinician_review": true
+    },
+    {
+      "rule_id": "RF-PRESC-SEV-STRUCTURAL-BAMIC",
+      "type": "structural_grade_record_only",
+      "grade_or_severity_label": "bamic_classification",
+      "description": "Store a BAMIC grade/class only when supplied by a valid report. In a small elite cohort, valid MRI-confirmed grade may widen group-level return-to-full-training/repeat-injury uncertainty. No precise individual timeline or automatic severity conversion.",
+      "structural_grade_from": "valid_report_only",
+      "source_ids": ["RF-SEV-002", "RF-v1.2 §9.3", "QRF-009", "QRF-040", "QRF-041"],
+      "evidence_status": "direct",
+      "gap": false,
+      "gap_notes": "Ontology direct (E1); RF outcome context is bounded/population-limited; individual timeline is a gap.",
+      "requires_clinician_review": true
+    },
+    {
+      "rule_id": "RF-PRESC-SEV-CENTRAL-APONEUROSIS",
+      "type": "structural_modifier_record_only",
+      "grade_or_severity_label": "central_aponeurosis_or_central_tendon_involvement",
+      "description": "Documented proximal central-aponeurosis involvement may increase prognostic caution vs distal involvement in a similar high-level population. Action: widen uncertainty, avoid early date promises. Do not automatically alter stage or dosage.",
+      "structural_grade_from": "valid_report_only",
+      "source_ids": ["RF-SEV-003", "RF-v1.2 §9.4", "QRF-008", "QRF-010"],
+      "evidence_status": "direct",
+      "gap": false,
+      "requires_clinician_review": true
+    },
+    {
+      "rule_id": "RF-PRESC-SEV-PROXIMAL-FULL-THICKNESS",
+      "type": "structural_modifier_record_only",
+      "grade_or_severity_label": "proximal_or_full_thickness_injury",
+      "description": "Pooled operative/nonoperative timelines are broad research benchmarks only. When management restrictions are unresolved, apply RF-SAF-006 and block generic rehabilitation. No treatment-superiority inference, individual prediction, or autonomous management choice.",
+      "structural_grade_from": "valid_report_only",
+      "source_ids": ["RF-SEV-004", "RF-v1.2 §9.5", "RF-SAF-006", "QRF-012", "QRF-032", "QRF-036"],
+      "evidence_status": "direct",
+      "gap": false,
+      "requires_clinician_review": true
+    },
+    {
+      "rule_id": "RF-PRESC-SEV-FIBROSIS-HISTORY",
+      "type": "history_modifier_record_only",
+      "grade_or_severity_label": "reported_fibrosis_scar_history",
+      "description": "Reported fibrosis/scar/lump/tightness is history provenance, NOT current severity. Store in injury_history_modifier with provenance and confirmation status. Self-report alone assigns no severity, prognosis, monitoring threshold, or readiness.",
+      "structural_grade_from": "valid_report_only_otherwise_history_provenance",
+      "source_ids": ["RF-SEV-005", "RF-v1.2 §9.6", "QRF-044", "QRF-045", "QRF-046"],
+      "evidence_status": "direct",
+      "gap": false,
+      "requires_clinician_review": true
+    }
+  ],
+
+  "confidence_policy_references": {
+    "policy_doc": "docs/implementation/DIGITAL_ASSESSMENT_CONFIDENCE_AND_RESULTS_UX_POLICY.md",
+    "principle": "Confidence is match/evidence quality, not diagnostic certainty, capacity, readiness, progression, or clearance.",
+    "hard_caps": {
+      "digital_or_self_report_confidence_cap_percent": 84,
+      "digital_or_self_report_rule": "must be capped BELOW 85% (policy §7a)",
+      "mixed_digital_plus_clinician_reviewed_cap_percent": 89,
+      "mixed_rule": "must be capped BELOW 90% (policy §7a)",
+      "prohibited_values": ["no 90-99% for self-report", "no 100%", "never present as a clinical/diagnostic/readiness/clearance score"]
+    },
+    "rf_factors_increasing_match_confidence": [
+      "anterior mid-thigh (rectus femoris) location reported",
+      "mechanism consistent with RF load (kicking, sprinting)",
+      "self-test pattern consistent across multiple RF-ASSESS items",
+      "no conflicting region signals"
+    ],
+    "rf_factors_reducing_match_confidence": [
+      "ambiguous or multi-region location",
+      "conflicting self-test signals",
+      "key inputs missing",
+      "hip-flexor / proximal overlap ambiguity"
+    ],
+    "red_flag_withholding_behavior": "If any RF-SAF red flag or high-concern severity is present, prefer a qualitative label and a visible review warning over any percentage (policy §7a; RF v1.2 §12.2). Confidence is withheld, not inflated.",
+    "missing_data_cap": "Materially incomplete assessment further lowers the cap and may force a qualitative-only result.",
+    "conflicting_signal_cap": "Conflicting signals force a lower cap and a review prompt.",
+    "separation_statement": "This rule pack does not re-implement the confidence policy; the engine must consume the policy doc as source of truth.",
+    "source_ids": ["policy §7a", "policy §8", "RF-v1.2 §12.2"],
+    "evidence_status": "direct",
+    "gap": false,
+    "requires_clinician_review": true
+  },
+
+  "recovery_window_rules": [
+    {
+      "rule_id": "RF-PRESC-RECOVERY-PRINCIPLE",
+      "window_label": "estimated_recovery_window_qualitative",
+      "min_estimate": null,
+      "max_estimate": null,
+      "unit": "weeks",
+      "applies_to": "all RF patterns",
+      "modifiers_that_lengthen": [
+        "documented central-tendon / proximal central-aponeurosis involvement (RF-SEV-003)",
+        "proximal or higher-grade / full-thickness injury (RF-SEV-004)",
+        "recurrent injury history (RF-RECUR-001)",
+        "poor early walking/stairs tolerance and reduced active knee-extension function",
+        "concurrent injuries / unresolved management restrictions",
+        "review-gated or REHAB_BLOCKED states"
+      ],
+      "modifiers_that_shorten": [
+        "preserved early walking/stairs tolerance and active function (qualitative only)",
+        "lower functional impact band",
+        "good monitored load tolerance with appropriate next-day recovery"
+      ],
+      "user_facing_wording": "Estimated recovery window for similar injury patterns. Actual recovery depends on severity, symptoms, sport demands, and clinician review.",
+      "prohibited_wording": [
+        "You will return in X days/weeks",
+        "You are cleared",
+        "Return-to-sport date",
+        "Guaranteed timeline",
+        "Recovered percentage"
+      ],
+      "research_benchmark_reference": "Munich/Ekstrand and BAMIC cohort medians exist as GROUP context only (QRF-007/011/040/041/012/032). RF v1.2 §9.8 forbids presenting a precise individual return date from the current evidence set; medians must not become individual timelines.",
+      "legacy_reference_not_evidence_backed": "data/injuryKnowledge/quadriceps.js carries coarse week ranges; these are legacy, ungraded, and are NOT adopted as evidence-backed RF windows.",
+      "source_ids": ["RF-v1.2 §9.8", "RF-SEV-001..005", "RF-RECUR-001"],
+      "evidence_status": "gap",
+      "gap": true,
+      "gap_notes": "No precise individual RF recovery window is authorized by current evidence. Only a qualitative, modifier-aware band with the mandated caveat wording may be shown, and only after the communication model is validated (RF v1.2 §9.8). Numeric min/max remain null pending governed, evidence-graded definition.",
+      "requires_clinician_review": true
+    }
+  ],
+
+  "phase_model": [
+    {
+      "phase_id": "foundation",
+      "clinical_phase_name": "Foundation",
+      "phase_name": "Calm and protect",
+      "phase_goal": "Restore safe basic motion and early force tolerance.",
+      "entry_conditions": ["safety and restrictions resolved or being managed", "diagnosis/severity context recorded"],
+      "exit_criteria": ["safety and restrictions resolved", "basic function improving", "early load tolerated"],
+      "allowed_exercise_families": ["rf_mobility_movement_restoration", "rf_core_loading (isometric-dominant, short-to-mid length)", "supportive_proximal_control", "conditioning_recovery_support"],
+      "withheld_exercise_families": ["high_caution_sport_specific_exposure", "running_field_exposure", "manual_review_strength_running_prep (until criteria)"],
+      "capacity_targets": ["basic pain-limited active knee-extension / hip-flexion", "safe isometric tolerance", "basic unilateral task"],
+      "assessment_checks": ["walking/stairs tolerance", "active ROM function", "symptom recovery (same-day/next-day)"],
+      "progression_criteria": "Earlier safety and capability requirements satisfied with appropriate symptom response (criteria, not time).",
+      "regression_criteria": "Safety/monitoring override or capacity drop.",
+      "field_and_sport_exposure": "none unless specifically cleared",
+      "source_ids": ["RF-v1.2 §10.1", "RF-v1.2 §10.3", "QRF-019"],
+      "evidence_status": "indirect",
+      "gap": false,
+      "gap_notes": "Six-phase Aspetar template is expert-informed structure (QRF-019 acceptability, not effectiveness). Exact capacity thresholds for exit are a gap."
+    },
+    {
+      "phase_id": "reload",
+      "clinical_phase_name": "Reload",
+      "phase_name": "Restore movement and rebuild base",
+      "phase_goal": "Redevelop strength and movement capacity.",
+      "entry_conditions": ["Foundation exit criteria met"],
+      "exit_criteria": ["improving motion, force, execution, and response"],
+      "allowed_exercise_families": ["rf_core_loading", "supportive_proximal_control", "manual_review_strength_running_prep (controlled, criteria-gated)", "conditioning_recovery_support", "rf_mobility_movement_restoration"],
+      "withheld_exercise_families": ["high_caution_sport_specific_exposure", "high-speed running_field_exposure"],
+      "capacity_targets": ["progressive range and load tolerance", "controlled compound work", "low-level locomotion when criteria permit"],
+      "assessment_checks": ["force/strength where measurable", "movement execution", "symptom response"],
+      "progression_criteria": "Evidence across domains the next phase will load; not absence of pain alone.",
+      "regression_criteria": "Symptom escalation or capacity/execution regression.",
+      "field_and_sport_exposure": "mechanics drills and low-level locomotion when criteria permit",
+      "source_ids": ["RF-v1.2 §10.3", "RF-v1.2 §10.2", "QRF-019"],
+      "evidence_status": "indirect",
+      "gap": false
+    },
+    {
+      "phase_id": "accumulation",
+      "clinical_phase_name": "Accumulation",
+      "phase_name": "Build strength and running capacity",
+      "phase_goal": "Build strength, eccentric capacity, and running volume.",
+      "entry_conditions": ["Reload exit criteria met"],
+      "exit_criteria": ["repeated load tolerance and appropriate recovery", "generic running tolerated"],
+      "allowed_exercise_families": ["manual_review_strength_running_prep", "rf_core_loading", "supportive_proximal_control", "running_field_exposure (generic running, low-intensity drills)", "selected long-length/eccentric candidates (manual review)"],
+      "withheld_exercise_families": ["high-speed/sprint high_caution_sport_specific_exposure", "kicking high_caution_sport_specific_exposure (until criteria)"],
+      "capacity_targets": ["longer-length and eccentric-overload candidates", "whole-limb strength", "generic running volume"],
+      "assessment_checks": ["repeated load tolerance", "recovery adequacy", "running tolerance"],
+      "progression_criteria": "Includes Aspetar reference sprint-speed milestone ~70% of maximum at this phase exit (QRF-024), valid denominator only; not a universal mandatory threshold.",
+      "regression_criteria": "Inadequate recovery or symptom escalation with running volume.",
+      "field_and_sport_exposure": "generic running and low-intensity sport drills",
+      "source_ids": ["RF-v1.2 §10.3", "RF-FIELD-001", "QRF-024", "QRF-020"],
+      "evidence_status": "indirect",
+      "gap": false
+    },
+    {
+      "phase_id": "transition",
+      "clinical_phase_name": "Transition",
+      "phase_name": "Running and sport preparation",
+      "phase_goal": "Prepare for higher-speed and higher-demand sport.",
+      "entry_conditions": ["Accumulation exit criteria met"],
+      "exit_criteria": ["clinical and field capacity sufficiently restored for higher exposures"],
+      "allowed_exercise_families": ["manual_review_strength_running_prep", "running_field_exposure (higher-speed running, accel/decel)", "reactive/concentric strength", "continued eccentric capacity", "selected high_caution_sport_specific_exposure under review"],
+      "withheld_exercise_families": ["full sprinting/kicking game scenarios (until Simulation criteria)"],
+      "capacity_targets": ["individualized strength", "concentric and reactive qualities", "higher-speed running", "acceleration/deceleration"],
+      "assessment_checks": ["higher-speed running tolerance", "reactive capacity", "execution under speed"],
+      "progression_criteria": "Aspetar reference sprint-speed milestone ~80% of maximum at this phase exit (QRF-024), valid denominator only.",
+      "regression_criteria": "Symptom or capacity regression with higher-speed exposure.",
+      "field_and_sport_exposure": "higher-speed running, acceleration/deceleration, higher-demand sport drills",
+      "source_ids": ["RF-v1.2 §10.3", "RF-FIELD-001", "QRF-024"],
+      "evidence_status": "indirect",
+      "gap": false
+    },
+    {
+      "phase_id": "simulation",
+      "clinical_phase_name": "Simulation",
+      "phase_name": "Higher-demand sport exposure",
+      "phase_goal": "Reproduce sport scenarios, intensity, and volume.",
+      "entry_conditions": ["Transition exit criteria met"],
+      "exit_criteria": ["multi-domain Simulation evidence; demand profile substantially addressed"],
+      "allowed_exercise_families": ["high_caution_sport_specific_exposure (sprinting, kicking where relevant, reactive/power)", "continued strength", "running_field_exposure (sport-specific, high-speed)"],
+      "withheld_exercise_families": ["none specific; governed by safety/monitoring and concurrent-injury constraints"],
+      "capacity_targets": ["sport-specific power and reactive work", "worst-case demand blocks", "continuing strength"],
+      "assessment_checks": ["multi-domain (sprint/kick/COD) tolerance", "worst-case demand response"],
+      "progression_criteria": "Aspetar reference ~95% of maximum sprint speed MAY contribute to Simulation evidence but cannot independently authorize unrestricted training/competition (RF-FIELD-002).",
+      "regression_criteria": "Failure under sport-specific demand or symptom escalation.",
+      "field_and_sport_exposure": "sprinting, kicking where relevant, game scenarios, worst-case demand blocks",
+      "source_ids": ["RF-v1.2 §10.3", "RF-FIELD-001", "RF-FIELD-002", "QRF-024", "QRF-025"],
+      "evidence_status": "indirect",
+      "gap": false
+    },
+    {
+      "phase_id": "resilience",
+      "clinical_phase_name": "Resilience",
+      "phase_name": "Return to performance",
+      "phase_goal": "Return to performance and address residual deficits.",
+      "entry_conditions": ["Simulation exit criteria met", "readiness decision is a SEPARATE governed step, not granted here"],
+      "exit_criteria": ["performance gaps, workload reintegration, and monitoring plan addressed"],
+      "allowed_exercise_families": ["maintain/progress strength, power, speed, robustness", "all families as appropriate under monitoring"],
+      "withheld_exercise_families": ["none specific"],
+      "capacity_targets": ["maintain or progress strength, power, speed, robustness"],
+      "assessment_checks": ["residual deficit checks", "workload reintegration monitoring"],
+      "progression_criteria": "Performance-based and monitoring-based.",
+      "regression_criteria": "Residual deficit or workload-related symptom recurrence.",
+      "field_and_sport_exposure": "controlled or unrestricted team integration ONLY after a separate readiness decision (this rule pack does not grant it)",
+      "clearance_authority": false,
+      "source_ids": ["RF-v1.2 §10.3", "RF-v1.2 §14 (readiness is separate)", "QRF-019"],
+      "evidence_status": "indirect",
+      "gap": false,
+      "gap_notes": "Return-to-sport/readiness clearance is explicitly OUT of scope of this rule pack and of the engine it will power."
+    }
+  ],
+
+  "dosage_rules": [
+    {
+      "rule_id": "RF-PRESC-DOSAGE-PROHIBITION",
+      "type": "prohibition",
+      "statement": "The RF module must NOT invent universal sets, repetitions, intensity, rest, weekly frequency, or progression increments. Any active universal RF dose without a separately approved, versioned source must fail content validation.",
+      "source_ids": ["RF-REHAB-004", "RF-v1.2 §10.7", "QRF-022", "QRF-035"],
+      "evidence_status": "direct",
+      "gap": false,
+      "requires_clinician_review": true
+    },
+    {
+      "rule_id": "RF-PRESC-DOSAGE-FOUNDATION",
+      "phase_id": "foundation",
+      "applies_to_exercise_families": ["rf_mobility_movement_restoration", "rf_core_loading", "supportive_proximal_control"],
+      "capacity_state": "early / pain-limited",
+      "response_state": "monitored",
+      "sets_range": null,
+      "reps_range": null,
+      "hold_time": null,
+      "duration": null,
+      "rest": null,
+      "intensity_qualitative": "isometric-dominant, short-to-mid muscle length, low complexity, low effort",
+      "tempo": null,
+      "frequency": null,
+      "session_placement": "isolated motor control plus safe general strength",
+      "stop_rule": "governed by a configurable monitoring profile (acceptable during-session band + acceptable next-day change), NOT one global cut-off (RF v1.2 §12.3). Profile is not active until reviewed.",
+      "alternative_rule": "swap to an easier same-family RF-EX variant on poor tolerance (see exercise_family_mapping).",
+      "progression_trigger": "criteria-based (see progression_rules), not numeric here",
+      "regression_trigger": "see regression_rules",
+      "legacy_reference_not_evidence_backed": "legacy PHASE_RPE.protect = 'RPE 2-4' and legacy protect-phase sets/reps exist but are NOT adopted as evidence.",
+      "source_ids": ["RF-v1.2 §10.3", "RF-v1.2 §12.3", "RF-REHAB-002", "QRF-020"],
+      "evidence_status": "gap",
+      "gap": true,
+      "gap_notes": "Phase intensity CHARACTER is evidence-informed (isometric-dominant, short-mid length). Concrete sets/reps/hold/rest/frequency are NOT authorized by RF evidence and remain null gaps for clinician definition.",
+      "requires_clinician_review": true
+    },
+    {
+      "rule_id": "RF-PRESC-DOSAGE-RELOAD",
+      "phase_id": "reload",
+      "applies_to_exercise_families": ["rf_core_loading", "supportive_proximal_control", "manual_review_strength_running_prep"],
+      "capacity_state": "improving",
+      "response_state": "monitored",
+      "sets_range": null, "reps_range": null, "hold_time": null, "duration": null, "rest": null,
+      "intensity_qualitative": "progressive range and load; tri-phasic exposure may be introduced; isolated plus controlled compound",
+      "tempo": null, "frequency": null,
+      "session_placement": "isolated + controlled compound work",
+      "stop_rule": "configurable monitoring profile (RF v1.2 §12.3)",
+      "alternative_rule": "same-family regression on poor tolerance",
+      "progression_trigger": "criteria-based",
+      "regression_trigger": "see regression_rules",
+      "legacy_reference_not_evidence_backed": "legacy PHASE_RPE.restore = 'RPE 4-6'.",
+      "source_ids": ["RF-v1.2 §10.3", "RF-v1.2 §12.3", "RF-REHAB-002"],
+      "evidence_status": "gap", "gap": true,
+      "gap_notes": "Loading character evidence-informed; numbers are gaps.",
+      "requires_clinician_review": true
+    },
+    {
+      "rule_id": "RF-PRESC-DOSAGE-ACCUMULATION",
+      "phase_id": "accumulation",
+      "applies_to_exercise_families": ["manual_review_strength_running_prep", "rf_core_loading", "running_field_exposure", "selected long-length/eccentric (manual review)"],
+      "capacity_state": "building strength and running volume",
+      "response_state": "monitored",
+      "sets_range": null, "reps_range": null, "hold_time": null, "duration": null, "rest": null,
+      "intensity_qualitative": "longer-length and eccentric-overload candidates with continued whole-limb strength; generic running volume",
+      "tempo": null, "frequency": null,
+      "session_placement": "strength + eccentric + running volume composed into one weekly load plan (RF-REHAB-005)",
+      "stop_rule": "configurable monitoring profile; running and eccentric tracked as separate exposure domains (RF-RECUR-002)",
+      "alternative_rule": "regress eccentric/running exposure independently",
+      "progression_trigger": "criteria + ~70% sprint-speed reference (QRF-024)",
+      "regression_trigger": "see regression_rules",
+      "legacy_reference_not_evidence_backed": "legacy PHASE_RPE.capacity = 'RPE 6-8'.",
+      "source_ids": ["RF-v1.2 §10.3", "RF-v1.2 §10.8", "RF-FIELD-001", "RF-RECUR-002", "QRF-024"],
+      "evidence_status": "gap", "gap": true,
+      "gap_notes": "Eccentric overload character is evidence-informed; specific eccentric dose/sets/reps are gaps. Sprint milestone is a reference, not a mandatory threshold.",
+      "requires_clinician_review": true
+    },
+    {
+      "rule_id": "RF-PRESC-DOSAGE-TRANSITION",
+      "phase_id": "transition",
+      "applies_to_exercise_families": ["manual_review_strength_running_prep", "running_field_exposure", "reactive strength", "selected high_caution_sport_specific_exposure (review)"],
+      "capacity_state": "preparing higher speed/demand",
+      "response_state": "monitored",
+      "sets_range": null, "reps_range": null, "hold_time": null, "duration": null, "rest": null,
+      "intensity_qualitative": "individualized strength, concentric and reactive qualities, continued eccentric capacity; higher-speed running",
+      "tempo": null, "frequency": null,
+      "session_placement": "weekly load reconciliation across strength/speed/sport (RF-REHAB-005)",
+      "stop_rule": "configurable monitoring profile; high-speed exposure requires verified prerequisite capacity (RF-FIELD-003)",
+      "alternative_rule": "regress speed/reactive exposure",
+      "progression_trigger": "criteria + ~80% sprint-speed reference (QRF-024)",
+      "regression_trigger": "see regression_rules",
+      "legacy_reference_not_evidence_backed": "legacy PHASE_RPE.speed = 'RPE 7-8'.",
+      "source_ids": ["RF-v1.2 §10.3", "RF-FIELD-001", "RF-FIELD-003", "QRF-024"],
+      "evidence_status": "gap", "gap": true,
+      "requires_clinician_review": true
+    },
+    {
+      "rule_id": "RF-PRESC-DOSAGE-SIMULATION",
+      "phase_id": "simulation",
+      "applies_to_exercise_families": ["high_caution_sport_specific_exposure", "running_field_exposure", "continued strength"],
+      "capacity_state": "sport-specific reproduction",
+      "response_state": "monitored, clinician-gated for high-caution items",
+      "sets_range": null, "reps_range": null, "hold_time": null, "duration": null, "rest": null,
+      "intensity_qualitative": "sport-specific power and reactive work; worst-case demand blocks; continuing strength",
+      "tempo": null, "frequency": null,
+      "session_placement": "weekly load reconciliation; sprint/kick/COD as separate exposure domains",
+      "stop_rule": "configurable monitoring profile; 95% sprint speed is not sufficient alone (RF-FIELD-002)",
+      "alternative_rule": "regress individual sport domains independently (RF-RECUR-002)",
+      "progression_trigger": "multi-domain Simulation evidence + ~95% sprint-speed reference (QRF-025), contributory only",
+      "regression_trigger": "see regression_rules",
+      "legacy_reference_not_evidence_backed": "legacy PHASE_RPE.return = 'RPE 7-9'.",
+      "high_caution_note": "All high_caution_sport_specific_exposure RF-EX items remain manual_review_required and are NOT auto-prescribed; clinician sign-off required.",
+      "source_ids": ["RF-v1.2 §10.3", "RF-FIELD-002", "RF-RECUR-002", "QRF-025"],
+      "evidence_status": "gap", "gap": true,
+      "requires_clinician_review": true
+    },
+    {
+      "rule_id": "RF-PRESC-DOSAGE-RESILIENCE",
+      "phase_id": "resilience",
+      "applies_to_exercise_families": ["maintain/progress strength, power, speed, robustness"],
+      "capacity_state": "performance restoration",
+      "response_state": "monitored",
+      "sets_range": null, "reps_range": null, "hold_time": null, "duration": null, "rest": null,
+      "intensity_qualitative": "maintain or progress strength, power, speed, robustness",
+      "tempo": null, "frequency": null,
+      "session_placement": "performance + monitoring",
+      "stop_rule": "configurable monitoring profile",
+      "alternative_rule": "performance-based regression",
+      "progression_trigger": "performance/monitoring based; NOT return-to-sport clearance (separate decision)",
+      "regression_trigger": "residual deficit or recurrence",
+      "clearance_authority": false,
+      "source_ids": ["RF-v1.2 §10.3", "RF-v1.2 §14"],
+      "evidence_status": "gap", "gap": true,
+      "requires_clinician_review": true
+    }
+  ],
+
+  "progression_rules": [
+    {
+      "rule_id": "RF-PRESC-PROG-PRINCIPLE",
+      "statement": "Progression means movement WITHIN the rehab plan, not return-to-sport permission. Phase is determined by criteria and current capacity, not time alone. A later-phase entry requires evidence across the domains the next phase will load, not absence of pain alone. Safety/monitoring can override phase at any time.",
+      "creates_clearance": false,
+      "source_ids": ["RF-v1.2 §10.2", "RF-REHAB-001"],
+      "evidence_status": "direct", "gap": false, "requires_clinician_review": true
+    },
+    {
+      "rule_id": "RF-PRESC-PROG-FOUNDATION-TO-RELOAD",
+      "from_phase": "foundation", "to_phase": "reload",
+      "required_assessment_evidence": ["safety and restrictions resolved", "basic active ROM function improving"],
+      "required_capacity_evidence": ["early load tolerated", "basic unilateral task"],
+      "symptom_response_requirements": ["acceptable same-day response"],
+      "next_day_response_requirements": ["acceptable next-day change (per monitoring profile)"],
+      "strength_control_requirements": ["basic isometric tolerance"],
+      "running_kicking_sprinting_restrictions": ["no running/sprinting/kicking exposure"],
+      "review_gated_conditions": ["any active RF-SAF red flag blocks progression"],
+      "source_ids": ["RF-v1.2 §10.3", "RF-v1.2 §10.2"],
+      "evidence_status": "indirect", "gap": false,
+      "gap_notes": "Domains are evidence-informed; exact pass thresholds are a gap."
+    },
+    {
+      "rule_id": "RF-PRESC-PROG-RELOAD-TO-ACCUMULATION",
+      "from_phase": "reload", "to_phase": "accumulation",
+      "required_assessment_evidence": ["improving motion, force, execution, response"],
+      "required_capacity_evidence": ["controlled compound tolerance", "low-level locomotion tolerated"],
+      "symptom_response_requirements": ["acceptable same-day response"],
+      "next_day_response_requirements": ["acceptable next-day change"],
+      "strength_control_requirements": ["measurable force progress where assessable"],
+      "running_kicking_sprinting_restrictions": ["generic running only when criteria permit; no sprinting/kicking"],
+      "review_gated_conditions": ["safety override applies"],
+      "source_ids": ["RF-v1.2 §10.3"],
+      "evidence_status": "indirect", "gap": false
+    },
+    {
+      "rule_id": "RF-PRESC-PROG-ACCUMULATION-TO-TRANSITION",
+      "from_phase": "accumulation", "to_phase": "transition",
+      "required_assessment_evidence": ["repeated load tolerance with appropriate recovery"],
+      "required_capacity_evidence": ["whole-limb strength and eccentric capacity", "generic running volume tolerated"],
+      "symptom_response_requirements": ["acceptable same-day response across running and eccentric domains"],
+      "next_day_response_requirements": ["acceptable next-day change"],
+      "strength_control_requirements": ["eccentric capacity present"],
+      "running_kicking_sprinting_restrictions": ["sprint-speed reference ~70% max (QRF-024), valid denominator only, NOT a mandatory universal threshold"],
+      "review_gated_conditions": ["safety override applies"],
+      "source_ids": ["RF-v1.2 §10.3", "RF-FIELD-001", "QRF-024"],
+      "evidence_status": "indirect", "gap": false
+    },
+    {
+      "rule_id": "RF-PRESC-PROG-TRANSITION-TO-SIMULATION",
+      "from_phase": "transition", "to_phase": "simulation",
+      "required_assessment_evidence": ["clinical and field capacity restored for higher exposures"],
+      "required_capacity_evidence": ["reactive/concentric qualities", "higher-speed running tolerated"],
+      "symptom_response_requirements": ["acceptable response to higher-speed exposure"],
+      "next_day_response_requirements": ["acceptable next-day change"],
+      "strength_control_requirements": ["individualized strength restored"],
+      "running_kicking_sprinting_restrictions": ["sprint-speed reference ~80% max (QRF-024); higher-speed exposure requires verified prerequisite capacity (RF-FIELD-003)"],
+      "review_gated_conditions": ["safety override applies; high-caution items clinician-gated"],
+      "source_ids": ["RF-v1.2 §10.3", "RF-FIELD-001", "RF-FIELD-003", "QRF-024"],
+      "evidence_status": "indirect", "gap": false
+    },
+    {
+      "rule_id": "RF-PRESC-PROG-SIMULATION-TO-RESILIENCE",
+      "from_phase": "simulation", "to_phase": "resilience",
+      "required_assessment_evidence": ["multi-domain Simulation evidence; demand profile substantially addressed"],
+      "required_capacity_evidence": ["sport-specific power/reactive tolerance", "worst-case demand tolerated"],
+      "symptom_response_requirements": ["acceptable response under sport-specific demand"],
+      "next_day_response_requirements": ["acceptable next-day change"],
+      "strength_control_requirements": ["maintained strength under sport load"],
+      "running_kicking_sprinting_restrictions": ["~95% sprint speed MAY contribute but is NOT sufficient alone (RF-FIELD-002)"],
+      "review_gated_conditions": ["readiness/return-to-sport is a SEPARATE governed decision, not granted by progression"],
+      "creates_clearance": false,
+      "source_ids": ["RF-v1.2 §10.3", "RF-FIELD-002", "QRF-025"],
+      "evidence_status": "indirect", "gap": false
+    }
+  ],
+
+  "regression_rules": [
+    {
+      "rule_id": "RF-PRESC-REGR-PRINCIPLE",
+      "statement": "Regression is a governed response, not failure. The engine may choose exactly ONE primary action after a session, traceable to specific inputs and rules.",
+      "permitted_actions": ["progress", "maintain", "reduce dose", "reduce range or speed", "replace with a regression", "change schedule", "hold the current phase", "regress phase", "reopen diagnosis or severity", "block rehabilitation and refer"],
+      "source_ids": ["RF-v1.2 §12.4"],
+      "evidence_status": "direct", "gap": false, "requires_clinician_review": true
+    },
+    {
+      "rule_id": "RF-PRESC-REGR-MILD-DEVIATION",
+      "trigger": "mild deviation in symptom response",
+      "same_day_response": "mild increase within configurable acceptable band",
+      "next_day_response": "mild next-day change within band",
+      "pain_symptom_pattern": "no red flags; localized; settles",
+      "capacity_drop": "none/minimal",
+      "confidence_drop": "none required",
+      "action": "maintain or reduce dose / reduce range or speed",
+      "what_to_simplify": "today's targeted RF loading volume or range",
+      "what_to_withhold": "the most demanding block of today's session",
+      "source_ids": ["RF-v1.2 §12.3", "RF-v1.2 §12.4"],
+      "evidence_status": "indirect", "gap": false,
+      "gap_notes": "Action structure evidence-informed; the numeric band that defines 'mild' is a gap (configurable monitoring profile, not yet active)."
+    },
+    {
+      "rule_id": "RF-PRESC-REGR-MODERATE-DEVIATION",
+      "trigger": "moderate deviation",
+      "same_day_response": "moderate increase",
+      "next_day_response": "moderate next-day worsening",
+      "pain_symptom_pattern": "no red flags but clearly above band",
+      "capacity_drop": "noticeable",
+      "confidence_drop": "may reduce",
+      "action": "replace with a regression / hold the current phase",
+      "what_to_simplify": "swap to an easier same-family RF-EX alternative; reduce session demand",
+      "what_to_withhold": "high-demand and high-caution blocks",
+      "source_ids": ["RF-v1.2 §12.3", "RF-v1.2 §12.4"],
+      "evidence_status": "indirect", "gap": false
+    },
+    {
+      "rule_id": "RF-PRESC-REGR-MAJOR-OR-REDFLAG",
+      "trigger": "major deviation OR any red-flag / serious safety signal",
+      "same_day_response": "major increase / sudden loss of function",
+      "next_day_response": "major next-day worsening",
+      "pain_symptom_pattern": "new progressive swelling, neuro/vascular symptoms, new pop with deterioration, inability to complete movement, any global red-flag match",
+      "capacity_drop": "marked",
+      "confidence_drop": "withhold confidence",
+      "action": "regress phase / block rehabilitation and refer",
+      "what_to_simplify": "n/a — withhold session",
+      "what_to_withhold": "withhold the session and show a review message",
+      "source_ids": ["RF-v1.2 §12.2", "RF-v1.2 §12.4", "RF-SAF-001..008"],
+      "evidence_status": "direct", "gap": false, "requires_clinician_review": true
+    },
+    {
+      "rule_id": "RF-PRESC-REGR-NONRESPONSE",
+      "trigger": "repeated non-response",
+      "action": "before referring, check the §12.5 non-response sequence (adherence, execution quality, actual-vs-prescribed load, symptom behavior/recovery window, diagnosis consistency, severity/stage consistency, new safety concerns, concurrent injuries, external load, population applicability)",
+      "what_to_withhold": "do not escalate; reassess",
+      "non_response_threshold_note": "The exact number of failed sessions or time window for non-response is an UNRESOLVED parameter and must not be invented (RF v1.2 §12.5).",
+      "source_ids": ["RF-v1.2 §12.5"],
+      "evidence_status": "gap", "gap": true,
+      "gap_notes": "Non-response threshold is explicitly unresolved.",
+      "requires_clinician_review": true
+    }
+  ],
+
+  "daily_check_in_rules": [
+    {
+      "rule_id": "RF-PRESC-CHECKIN-PRINCIPLE",
+      "statement": "Daily check-in adjusts TODAY'S selected session only. It never rewrites future days, never changes phase by itself, and never grants progression or clearance.",
+      "selected_session_only": true,
+      "future_days_changed": false,
+      "source_ids": ["RF-v1.2 §12.3", "RF-v1.2 §12.4"],
+      "evidence_status": "indirect", "gap": false, "requires_clinician_review": true
+    },
+    {
+      "rule_id": "RF-PRESC-CHECKIN-GREEN",
+      "check_in_response": "green / within acceptable band, good recovery",
+      "allowed_adjustment": "proceed with today's planned session as composed; minor within-session autoregulation only",
+      "not_allowed_adjustment": "do not jump phases; do not unlock high-caution items; do not grant clearance",
+      "selected_session_only": true,
+      "future_days_changed": false,
+      "source_ids": ["RF-v1.2 §12.4"],
+      "evidence_status": "indirect", "gap": false
+    },
+    {
+      "rule_id": "RF-PRESC-CHECKIN-YELLOW",
+      "check_in_response": "yellow / mild-to-moderate deviation or reduced confidence",
+      "allowed_adjustment": "reduce today's volume / intensity / range or speed; swap to an easier same-family alternative; remove the most demanding block of today's session",
+      "not_allowed_adjustment": "do not change future days; do not regress phase from a single yellow; do not add load",
+      "selected_session_only": true,
+      "future_days_changed": false,
+      "source_ids": ["RF-v1.2 §12.3", "RF-v1.2 §12.4"],
+      "evidence_status": "indirect", "gap": false,
+      "gap_notes": "Band that triggers yellow is a configurable monitoring-profile gap."
+    },
+    {
+      "rule_id": "RF-PRESC-CHECKIN-RED",
+      "check_in_response": "red / major deviation or any safety/red-flag signal",
+      "allowed_adjustment": "withhold today's session and show a review message; surface safety guidance",
+      "not_allowed_adjustment": "do not auto-progress; do not reassure with a clearance/readiness statement; do not silently continue",
+      "selected_session_only": true,
+      "future_days_changed": false,
+      "source_ids": ["RF-v1.2 §12.2", "RF-v1.2 §12.4", "RF-SAF-001..008"],
+      "evidence_status": "direct", "gap": false, "requires_clinician_review": true
+    }
+  ],
+
+  "exercise_family_mapping": [
+    {
+      "phase": "foundation",
+      "exercise_family": "rf_mobility_movement_restoration",
+      "eligible_rf_ex_ids": ["RF-EX-020", "RF-EX-025", "RF-EX-089", "RF-EX-090"],
+      "alternative_rf_ex_ids": ["RF-EX-089", "RF-EX-090"],
+      "withheld_rf_ex_ids": [],
+      "high_caution_ids": [],
+      "manual_review_required_ids": [],
+      "reason": "Mobility/movement-restoration items suit early safe motion (Foundation: restore basic motion).",
+      "source_ids": ["RF-v1.2 §10.3", "RF-EX library_classification"]
+    },
+    {
+      "phase": "foundation",
+      "exercise_family": "rf_core_loading",
+      "eligible_rf_ex_ids": ["RF-EX-012", "RF-EX-016", "RF-EX-088", "RF-EX-091"],
+      "alternative_rf_ex_ids": ["RF-EX-088", "RF-EX-091"],
+      "withheld_rf_ex_ids": [],
+      "high_caution_ids": [],
+      "manual_review_required_ids": ["RF-EX-005"],
+      "reason": "Isometric-dominant / short-to-mid length core RF loading fits Foundation character.",
+      "source_ids": ["RF-v1.2 §10.3", "RF-REHAB-002"]
+    },
+    {
+      "phase": "foundation",
+      "exercise_family": "supportive_proximal_control",
+      "eligible_rf_ex_ids": ["RF-EX-030", "RF-EX-031", "RF-EX-032", "RF-EX-034", "RF-EX-036", "RF-EX-039", "RF-EX-040", "RF-EX-041", "RF-EX-042", "RF-EX-092", "RF-EX-033"],
+      "alternative_rf_ex_ids": ["RF-EX-030", "RF-EX-031"],
+      "withheld_rf_ex_ids": [],
+      "high_caution_ids": [],
+      "manual_review_required_ids": [],
+      "reason": "Proximal hip/glute/trunk control supports the injured RF (athlete-system aware) without high RF tissue demand.",
+      "source_ids": ["RF-v1.2 §10.1 (strength continues through phases)"]
+    },
+    {
+      "phase": "reload",
+      "exercise_family": "manual_review_strength_running_prep",
+      "eligible_rf_ex_ids": ["RF-EX-004", "RF-EX-006", "RF-EX-014", "RF-EX-015", "RF-EX-093", "RF-EX-094", "RF-EX-095", "RF-EX-096", "RF-EX-099"],
+      "alternative_rf_ex_ids": ["RF-EX-004", "RF-EX-006"],
+      "withheld_rf_ex_ids": [],
+      "high_caution_ids": [],
+      "manual_review_required_ids": ["RF-EX-004", "RF-EX-005", "RF-EX-006", "RF-EX-014", "RF-EX-015", "RF-EX-093", "RF-EX-094", "RF-EX-095", "RF-EX-096", "RF-EX-099"],
+      "reason": "Controlled strength / running-prep foundations, criteria-gated, all manual_review_required (not auto-prescribed).",
+      "source_ids": ["RF-v1.2 §10.3", "RF-EX final_decision: second_batch_manual_review"]
+    },
+    {
+      "phase": "accumulation",
+      "exercise_family": "running_field_exposure",
+      "eligible_rf_ex_ids": ["RF-EX-043", "RF-EX-044", "RF-EX-046", "RF-EX-047", "RF-EX-048", "RF-EX-049", "RF-EX-050", "RF-EX-097", "RF-EX-098"],
+      "alternative_rf_ex_ids": ["RF-EX-043", "RF-EX-044"],
+      "withheld_rf_ex_ids": [],
+      "high_caution_ids": [],
+      "manual_review_required_ids": [],
+      "reason": "Running mechanics drills and low-level locomotion enter when Accumulation criteria permit.",
+      "source_ids": ["RF-v1.2 §10.3", "RF-FIELD-001"]
+    },
+    {
+      "phase": "accumulation",
+      "exercise_family": "conditioning_recovery_support",
+      "eligible_rf_ex_ids": ["RF-EX-080", "RF-EX-081"],
+      "alternative_rf_ex_ids": ["RF-EX-080", "RF-EX-081"],
+      "withheld_rf_ex_ids": [],
+      "high_caution_ids": [],
+      "manual_review_required_ids": [],
+      "reason": "Low-load conditioning supports volume without high RF tissue demand; available across phases where safe.",
+      "source_ids": ["RF-v1.2 §10.1"]
+    },
+    {
+      "phase": "simulation",
+      "exercise_family": "high_caution_sport_specific_exposure",
+      "eligible_rf_ex_ids": [],
+      "alternative_rf_ex_ids": [],
+      "withheld_rf_ex_ids": ["RF-EX-009", "RF-EX-013", "RF-EX-029", "RF-EX-051", "RF-EX-057", "RF-EX-058", "RF-EX-059", "RF-EX-060", "RF-EX-064", "RF-EX-068", "RF-EX-070", "RF-EX-076", "RF-EX-100", "RF-EX-101", "RF-EX-102", "RF-EX-103", "RF-EX-104", "RF-EX-105", "RF-EX-106", "RF-EX-107"],
+      "high_caution_ids": ["RF-EX-009", "RF-EX-013", "RF-EX-029", "RF-EX-051", "RF-EX-057", "RF-EX-058", "RF-EX-059", "RF-EX-060", "RF-EX-064", "RF-EX-068", "RF-EX-070", "RF-EX-076", "RF-EX-100", "RF-EX-101", "RF-EX-102", "RF-EX-103", "RF-EX-104", "RF-EX-105", "RF-EX-106", "RF-EX-107"],
+      "manual_review_required_ids": ["RF-EX-009", "RF-EX-013", "RF-EX-029", "RF-EX-051", "RF-EX-057", "RF-EX-058", "RF-EX-059", "RF-EX-060", "RF-EX-064", "RF-EX-068", "RF-EX-070", "RF-EX-076", "RF-EX-100", "RF-EX-101", "RF-EX-102", "RF-EX-103", "RF-EX-104", "RF-EX-105", "RF-EX-106", "RF-EX-107"],
+      "reason": "High-caution sport-specific exposures are listed for the Simulation phase but are WITHHELD by default and clinician-gated. They are never auto-prescribed by the engine; eligibility is empty until clinician sign-off (final_decision: high_caution_do_not_convert_yet).",
+      "source_ids": ["RF-v1.2 §13", "RF-EX final_decision: high_caution_do_not_convert_yet"]
+    },
+    {
+      "phase": "hold_review_only",
+      "exercise_family": "hold_review_only",
+      "eligible_rf_ex_ids": [],
+      "alternative_rf_ex_ids": [],
+      "withheld_rf_ex_ids": ["RF-EX-021"],
+      "high_caution_ids": [],
+      "manual_review_required_ids": ["RF-EX-021"],
+      "reason": "Hold-for-review item; not mapped into an active phase until reviewed.",
+      "source_ids": ["RF-EX final_decision: hold_for_review"]
+    }
+  ],
+
+  "activity_exposure_mapping": [
+    {
+      "activity_exposure_id": "RF-ACT-001",
+      "name": "Short-distance running exposure",
+      "phase_or_review_state": "accumulation",
+      "eligible_or_withheld": "eligible_when_criteria_met",
+      "reason": "Generic running enters in Accumulation when criteria permit.",
+      "clearance_authority": false,
+      "review_required": true,
+      "source_ids": ["RF-v1.2 §10.3", "RF-FIELD-001"]
+    },
+    {
+      "activity_exposure_id": "RF-ACT-002",
+      "name": "Moderate-distance running exposure",
+      "phase_or_review_state": "accumulation",
+      "eligible_or_withheld": "eligible_when_criteria_met",
+      "reason": "Generic running volume in Accumulation.",
+      "clearance_authority": false, "review_required": true,
+      "source_ids": ["RF-v1.2 §10.3", "RF-FIELD-001"]
+    },
+    {
+      "activity_exposure_id": "RF-ACT-003",
+      "name": "Acceleration exposure",
+      "phase_or_review_state": "transition",
+      "eligible_or_withheld": "eligible_when_criteria_met",
+      "reason": "Acceleration/deceleration belongs to higher-speed Transition exposures with verified prerequisite capacity.",
+      "clearance_authority": false, "review_required": true,
+      "source_ids": ["RF-v1.2 §13", "RF-FIELD-003"]
+    },
+    {
+      "activity_exposure_id": "RF-ACT-004",
+      "name": "Static isolated kicking exposure",
+      "phase_or_review_state": "transition_to_simulation",
+      "eligible_or_withheld": "withheld_until_criteria_and_review",
+      "reason": "Kicking is a distinct exposure domain; tolerance of running does not clear kicking (RF-RECUR-002).",
+      "clearance_authority": false, "review_required": true,
+      "source_ids": ["RF-v1.2 §13.1", "RF-RECUR-002"]
+    },
+    {
+      "activity_exposure_id": "RF-ACT-005",
+      "name": "Controlled kicking exposure",
+      "phase_or_review_state": "simulation",
+      "eligible_or_withheld": "withheld_until_criteria_and_review",
+      "reason": "Graded kicking in Simulation, clinician-gated.",
+      "clearance_authority": false, "review_required": true,
+      "source_ids": ["RF-v1.2 §13", "RF-RECUR-002"]
+    },
+    {
+      "activity_exposure_id": "RF-ACT-006",
+      "name": "Resisted kicking exposure",
+      "phase_or_review_state": "simulation",
+      "eligible_or_withheld": "withheld_until_criteria_and_review",
+      "reason": "Higher-demand kicking, clinician-gated.",
+      "clearance_authority": false, "review_required": true,
+      "source_ids": ["RF-v1.2 §13", "RF-RECUR-002"]
+    },
+    {
+      "activity_exposure_id": "RF-ACT-007",
+      "name": "Game-based kicking scenario exposure",
+      "phase_or_review_state": "simulation",
+      "eligible_or_withheld": "withheld_until_criteria_and_review",
+      "reason": "Sport-scenario kicking; worst-case demand, clinician-gated.",
+      "clearance_authority": false, "review_required": true,
+      "source_ids": ["RF-v1.2 §13", "RF-RECUR-002"]
+    },
+    {
+      "activity_exposure_id": "RF-ACT-008",
+      "name": "Sport-specific running exposure",
+      "phase_or_review_state": "transition_to_simulation",
+      "eligible_or_withheld": "eligible_when_criteria_met",
+      "reason": "Higher-speed/sport-specific running in Transition/Simulation.",
+      "clearance_authority": false, "review_required": true,
+      "source_ids": ["RF-v1.2 §13", "RF-FIELD-001"]
+    },
+    {
+      "activity_exposure_id": "RF-ACT-009",
+      "name": "Mixed generic and sport-specific running exposure",
+      "phase_or_review_state": "transition",
+      "eligible_or_withheld": "eligible_when_criteria_met",
+      "reason": "Blended running exposure as field capacity restores.",
+      "clearance_authority": false, "review_required": true,
+      "source_ids": ["RF-v1.2 §13", "RF-FIELD-001"]
+    },
+    {
+      "activity_exposure_id": "RF-ACT-010",
+      "name": "High-speed running exposure",
+      "phase_or_review_state": "simulation",
+      "eligible_or_withheld": "withheld_until_prerequisite_capacity_verified",
+      "reason": "High-speed exposure requires verified prerequisite capacity; 95% sprint speed not sufficient alone.",
+      "clearance_authority": false, "review_required": true,
+      "source_ids": ["RF-FIELD-002", "RF-FIELD-003", "QRF-024", "QRF-025"]
+    },
+    {
+      "activity_exposure_id": "RF-ACT-011",
+      "name": "Elliptical conditioning",
+      "phase_or_review_state": "reload_to_accumulation",
+      "eligible_or_withheld": "eligible_when_safe",
+      "reason": "Low-impact conditioning supports volume without high RF tissue demand.",
+      "clearance_authority": false, "review_required": true,
+      "source_ids": ["RF-v1.2 §10.1"]
+    },
+    {
+      "activity_exposure_id": "RF-ACT-012",
+      "name": "Calisthenics conditioning",
+      "phase_or_review_state": "reload_to_accumulation",
+      "eligible_or_withheld": "eligible_when_safe",
+      "reason": "General conditioning preserved where safe.",
+      "clearance_authority": false, "review_required": true,
+      "source_ids": ["RF-v1.2 §10.1"]
+    }
+  ],
+  "activity_exposure_statement": "Activity exposure expresses capacity. It does not clear the athlete.",
+
+  "evidence_source_map": {
+    "note": "Every rule carries source_ids. QRF claim ids and grades are taken from the RF v1.2 evidence-claim annotations. Grade key: D = direct, C = comparative/cohort benchmark, I = indirect/limitation, E = expert/acceptability, X = excluded/very-weak. Where a canonical standalone QRF registry document is not yet linked in the repo, source mapping follow-up is flagged below. No evidence was invented.",
+    "claims": {
+      "QRF-007": { "grade": "D2", "context": "Munich classification group-level context", "used_in": ["severity", "recovery_window"] },
+      "QRF-008": { "grade": "D2", "context": "central-tendon location prognostic context", "used_in": ["severity"] },
+      "QRF-009": { "grade": "E1", "context": "BAMIC ontology only", "used_in": ["severity"] },
+      "QRF-010": { "grade": "D2", "context": "proximal-vs-distal location context", "used_in": ["severity"] },
+      "QRF-011": { "grade": "D2", "context": "Munich group-level context", "used_in": ["severity", "recovery_window"] },
+      "QRF-012": { "grade": "C1", "context": "pooled proximal/full-thickness benchmarks (broad, reference only)", "used_in": ["severity", "recovery_window"] },
+      "QRF-019": { "grade": "E1", "context": "six-phase Aspetar pathway practitioner acceptability (not effectiveness)", "used_in": ["phase_model"] },
+      "QRF-020": { "grade": "E1", "context": "loading-dimension ontology; no universal ordering/dosage", "used_in": ["phase_model", "dosage_rules"] },
+      "QRF-022": { "grade": "I1", "context": "prohibition basis: no universal RF dosage", "used_in": ["dosage_rules"] },
+      "QRF-024": { "grade": "E1", "context": "Aspetar 70/80/95% sprint-speed phase-exit reference milestones", "used_in": ["phase_model", "progression_rules"] },
+      "QRF-025": { "grade": "E1", "context": "95% sprint speed not sufficient alone", "used_in": ["phase_model", "progression_rules"] },
+      "QRF-032": { "grade": "C1", "context": "proximal/full-thickness benchmark", "used_in": ["severity", "recovery_window"] },
+      "QRF-035": { "grade": "I1", "context": "prohibition basis: no universal RF dosage", "used_in": ["dosage_rules"] },
+      "QRF-036": { "grade": "I1", "context": "population limitation on proximal/full-thickness", "used_in": ["severity"] },
+      "QRF-040": { "grade": "D2", "context": "MRI-confirmed grade widens group-level uncertainty", "used_in": ["severity"] },
+      "QRF-041": { "grade": "D3", "context": "valid MRI class context (small cohort)", "used_in": ["severity"] },
+      "QRF-044": { "grade": "X1", "context": "self-reported fibrosis is not severity (very weak)", "used_in": ["severity"] },
+      "QRF-045": { "grade": "C1", "context": "chronic structural pathway reference only", "used_in": ["severity"] },
+      "QRF-046": { "grade": "I1", "context": "fibrosis self-report limitation", "used_in": ["severity"] }
+    },
+    "structural_sources": {
+      "RF-v1.2": "docs/governance/Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2.md",
+      "ARCH-V3.1": "docs/governance/Master_Architecture_V3.1_Final.md",
+      "CONFIDENCE-POLICY": "docs/implementation/DIGITAL_ASSESSMENT_CONFIDENCE_AND_RESULTS_UX_POLICY.md",
+      "COMPOSITION-ARCH": "docs/implementation/REHAB_PLAN_COMPOSITION_ARCHITECTURE.md",
+      "RF-GATE-B-RULES": "lib/clinical/rf/rules/objects/ (RF-SAF/DX/SEV/REHAB/RECUR/FIELD/RTS, 38 objects)"
+    },
+    "source_mapping_followups": [
+      "A canonical standalone QRF evidence-registry document is not separately linked in docs/; QRF grades here are extracted from the RF v1.2 inline evidence-claim annotations. Follow-up: link or author a single QRF registry file and cross-reference.",
+      "Munich/Ekstrand/BAMIC primary citations are listed in RF v1.2 §References (e.g. Ekstrand 2013, Reurink 2015) but are not yet machine-readable; follow-up: structured citation objects.",
+      "All dosage and recovery NUMBERS remain gaps; follow-up requires separately governed, evidence-graded, clinician-reviewed source before any number becomes active."
+    ]
+  }
+}

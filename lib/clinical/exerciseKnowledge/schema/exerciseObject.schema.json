@@ -1,0 +1,253 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "internal://clinical/exerciseKnowledge/exerciseObject.schema.json",
+  "title": "RF Exercise Knowledge Object (v2.1 — governance + user-facing plan-card metadata, backward-compatible)",
+  "$comment": "NON-EXECUTABLE structural schema for future Rectus Femoris exercise-knowledge objects. It documents SHAPE, STATUS DISCIPLINE, and DOSAGE/CLEARANCE PROHIBITIONS only. Exercise objects are inert metadata: they hold tissue/function/position/demand tags, contraindications, safety blockers, monitoring triggers, regressions, progressions, substitutions, and RF rule links. They MUST NOT carry active dosage, sets/reps/frequency/rest/intensity/duration, return dates, progression increments as prescription, diagnosis authority, rehab-plan authority, or return-to-training / return-to-sport clearance. Authoring a conformant object grants it NO clinical authority. During this phase approval_status MUST NOT be 'approved'. The companion validator scripts/validate-exercise-knowledge.mjs enforces the dosage/clearance prohibitions programmatically (deep key + value scan) because they exceed plain draft-07 expressiveness. Unknown top-level fields are DISALLOWED (additionalProperties:false) — the safer of the two options the spec allows — so new metadata categories require a reviewed schema change.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "exercise_id",
+    "module",
+    "name",
+    "aliases",
+    "exercise_status",
+    "approval_status",
+    "executable",
+    "permitted_use",
+    "body_region",
+    "target_tissues",
+    "exercise_family",
+    "primary_function",
+    "movement_category",
+    "joint_actions",
+    "contraction_bias",
+    "position_tags",
+    "tissue_demand_tags",
+    "speed_power_demand",
+    "stretch_demand",
+    "impact_demand",
+    "field_demand_tags",
+    "equipment",
+    "setup_summary",
+    "coaching_cues",
+    "common_errors",
+    "contraindications",
+    "safety_blockers",
+    "prerequisites",
+    "allowed_when",
+    "blocked_when",
+    "monitoring_triggers",
+    "progression_options",
+    "regression_options",
+    "substitution_options",
+    "dosage_status",
+    "dosage",
+    "source_refs",
+    "evidence_claim_ids",
+    "architecture_refs",
+    "linked_rule_ids",
+    "notes"
+  ],
+  "properties": {
+    "exercise_id": {
+      "type": "string",
+      "pattern": "^RF-EX-[0-9]{3}$",
+      "description": "Stable unique identifier for an RF exercise object, e.g. RF-EX-001. Empty string permitted only in the blank template."
+    },
+    "module": {
+      "type": "string",
+      "enum": ["rectus_femoris"],
+      "description": "Owning clinical module. Only rectus_femoris is supported in v1.0."
+    },
+    "name": { "type": "string", "description": "Human-readable exercise name." },
+    "aliases": { "type": "array", "items": { "type": "string" }, "description": "Alternative names." },
+    "exercise_status": {
+      "type": "string",
+      "enum": ["draft", "in_review", "rejected", "superseded"],
+      "description": "Authoring lifecycle. 'approved' is intentionally absent."
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": ["pending", "rejected", "superseded"],
+      "description": "Clinical approval lifecycle. 'approved' is intentionally NOT permitted in this phase."
+    },
+    "executable": {
+      "type": "boolean",
+      "const": false,
+      "description": "MUST be false. No exercise object is executable."
+    },
+    "permitted_use": {
+      "type": "string",
+      "enum": ["exercise_metadata_only"],
+      "description": "The only role an exercise object may play: inert metadata. Never dosage or clearance authority."
+    },
+    "body_region": { "type": "array", "items": { "type": "string" } },
+    "target_tissues": { "type": "array", "items": { "type": "string" } },
+    "exercise_family": { "type": "string" },
+    "primary_function": { "type": "array", "items": { "type": "string" } },
+    "movement_category": { "type": "array", "items": { "type": "string" } },
+    "joint_actions": { "type": "array", "items": { "type": "string" } },
+    "contraction_bias": { "type": "array", "items": { "type": "string" }, "description": "Contraction-type bias tags, e.g. isometric, isotonic, eccentric, lengthened." },
+    "position_tags": { "type": "array", "items": { "type": "string" }, "description": "Joint-position / muscle-length-bias tags, e.g. hip_flexed, hip_neutral, knee_extended, long_length." },
+    "tissue_demand_tags": { "type": "array", "items": { "type": "string" } },
+    "speed_power_demand": { "type": "string", "description": "Qualitative tag (e.g. low|moderate|high|unspecified). NOT a numeric target." },
+    "stretch_demand": { "type": "string", "description": "Qualitative tag. NOT a numeric target." },
+    "impact_demand": { "type": "string", "description": "Qualitative tag. NOT a numeric target." },
+    "field_demand_tags": { "type": "array", "items": { "type": "string" }, "description": "Running / sprinting / kicking / change-of-direction exposure tags." },
+    "equipment": { "type": "array", "items": { "type": "string" } },
+    "setup_summary": { "type": "string" },
+    "coaching_cues": { "type": "array", "items": { "type": "string" } },
+    "common_errors": { "type": "array", "items": { "type": "string" } },
+    "contraindications": { "type": "array", "items": { "type": "string" } },
+    "safety_blockers": { "type": "array", "items": { "type": "string" }, "description": "Conditions under which this exercise must not be offered; align with RF-SAF rule families. Metadata only — does not itself execute a block." },
+    "prerequisites": { "type": "array", "items": { "type": "string" } },
+    "allowed_when": { "type": "array", "items": { "type": "string" }, "description": "Qualitative suitability/irritability tags (metadata), not a clearance decision." },
+    "blocked_when": { "type": "array", "items": { "type": "string" }, "description": "Qualitative unsuitability tags (metadata), not a clearance decision." },
+    "monitoring_triggers": { "type": "array", "items": { "type": "string" } },
+    "progression_options": { "type": "array", "items": { "type": "string" }, "description": "IDs/labels of harder exercise options. A reference list, NOT an authorization to progress." },
+    "regression_options": { "type": "array", "items": { "type": "string" }, "description": "IDs/labels of easier exercise options. A reference list only." },
+    "substitution_options": { "type": "array", "items": { "type": "string" }, "description": "IDs/labels of equivalent exercise options. A reference list only." },
+    "dosage_status": {
+      "type": "string",
+      "enum": [
+        "not_specified_by_current_source",
+        "requires_future_rule_authoring",
+        "externally_prescribed_only"
+      ],
+      "description": "Declares that no active dosage is carried here. Never a value that asserts a prescription."
+    },
+    "dosage": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Inert dosage PLACEHOLDER. Uses validator-safe neutral keys ONLY. The conventional prescriptive keys (sets, reps, frequency, rest, intensity, duration, progression_increment, return_date) are intentionally NOT used here because the governance discipline scans key NAMES and treats those names as contraband even when null. Every value below must remain null; active_prescription_present must remain false.",
+      "required": ["active_prescription_present", "notes"],
+      "properties": {
+        "active_prescription_present": { "type": "boolean", "const": false },
+        "prescribed_volume": { "type": "null", "description": "Placeholder for sets/reps style volume — must stay null." },
+        "prescribed_load": { "type": "null", "description": "Placeholder for intensity/load — must stay null." },
+        "prescribed_tempo": { "type": "null" },
+        "prescribed_schedule": { "type": "null", "description": "Placeholder for frequency — must stay null." },
+        "prescribed_recovery_interval": { "type": "null", "description": "Placeholder for rest — must stay null." },
+        "prescribed_session_length": { "type": "null", "description": "Placeholder for duration — must stay null." },
+        "prescribed_progression_step": { "type": "null", "description": "Placeholder for progression increment — must stay null." },
+        "prescribed_target_timeline": { "type": "null", "description": "Placeholder for any return/RTS date — must stay null." },
+        "notes": { "type": "string" }
+      }
+    },
+    "source_refs": { "type": "array", "items": { "type": "string" }, "description": "Citations/source labels. Carry no dosage or clearance authority." },
+    "evidence_claim_ids": { "type": "array", "items": { "type": "string", "pattern": "^QRF-[0-9]{3}$" }, "description": "QRF evidence-claim IDs. Reference only; never create dosage or clearance authority." },
+    "architecture_refs": { "type": "array", "items": { "type": "string" }, "description": "V3.1 architecture references. Reference only." },
+    "linked_rule_ids": { "type": "array", "items": { "type": "string", "pattern": "^RF-[A-Z]+-[0-9]{3}$" }, "description": "RF v1.2 rule IDs this exercise relates to. A linkage, NOT an inheritance of any rule's authority." },
+    "notes": { "type": ["string", "null"], "description": "Author notes; non-normative." },
+
+    "canonical_name": { "type": "string", "description": "v2 governance metadata (OPTIONAL — not in required, preserving the existing 87 objects). An object including ANY v2 governance field is a v2-governed object; the validator then enforces guardrail_notes + source-metadata completeness and high-caution/exclude rules. Legacy objects omitting all of them validate unchanged. Inert classification metadata only — no dosage/prescription/progression/readiness/RTT-RTS/clearance authority. This field: stable snake_case canonical exercise name from the decision table." },
+    "final_decision": {
+      "type": "string",
+      "enum": [
+        "first_batch_safe_metadata",
+        "supportive_proximal_control",
+        "conditioning_recovery_support",
+        "second_batch_manual_review",
+        "high_caution_do_not_convert_yet",
+        "hold_for_review",
+        "exclude"
+      ],
+      "description": "Decision-table classification. Classification metadata only — not a clearance or readiness decision."
+    },
+    "evidence_grade": { "type": "string", "enum": ["A", "B", "C", "D"], "description": "Strict evidence grade per the decision table (no Grade A survives the merge, but A is allowed structurally)." },
+    "source_authority": { "type": "string", "enum": ["high", "moderate", "low", "mixed", "low-moderate"] },
+    "source_support_type": { "type": "string", "enum": ["direct_exercise_support", "indirect_principle_support", "contextual_support", "mixed"] },
+    "RF_specificity": {
+      "type": "string",
+      "enum": [
+        "high", "moderate", "low", "low-moderate", "moderate-high",
+        "indirect", "indirect-moderate", "not_rf_specific", "ambiguous",
+        "high_mechanism_low_injury_evidence"
+      ]
+    },
+    "central_tendon_fibrosis_risk": { "type": "string", "enum": ["low", "moderate", "high"], "description": "Central-tendon / fibrosis re-injury risk tier for this RF profile." },
+    "manual_review_required": { "type": ["boolean", "null"], "description": "Whether clinician manual review is required before authoring/approval. null only in the blank template." },
+    "library_classification": {
+      "type": "string",
+      "enum": [
+        "rf_core_loading",
+        "rf_mobility_movement_restoration",
+        "supportive_proximal_control",
+        "conditioning_recovery_support",
+        "manual_review_strength_running_prep",
+        "running_field_exposure",
+        "reactive_plyometric_exposure",
+        "high_caution_sport_specific_exposure",
+        "hold_review_only",
+        "excluded_not_authored"
+      ]
+    },
+    "injury_site_relevance": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["proximal_tendon", "central_intramuscular_tendon", "myotendinous", "muscular", "unspecified"] },
+      "description": "Which RF tissue site(s) this exercise is relevant to, so the central-tendon/fibrosis case can filter the library."
+    },
+    "guardrail_notes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Mandatory negated-governance block for v2-governed objects: 'not a prescription', 'not dosage', 'not progression', 'not readiness', 'not RTT/RTS', 'not clearance', 'not a test'. Enforced by the validator when any v2 governance field is present."
+    },
+    "source_ids": { "type": "array", "items": { "type": "string" }, "description": "Decision-table source ids (e.g. SG-S4, CR-S18, CGDR-S2). Reference only." },
+    "source_verification_status": { "type": "string", "enum": ["verified", "partially_verified", "unverified", "mixed"] },
+
+    "user_facing_name": { "type": "string", "description": "v2.1 user-facing plan-card metadata (OPTIONAL — not in required; existing 87 objects unaffected). DISPLAY metadata only: does NOT create dosage, progression, readiness, RTT/RTS, clearance, or prescription authority, and never exposes internal governance/evidence/risk. This field: friendly display name shown on the rehab-plan card." },
+    "user_facing_summary": { "type": "string", "description": "Display only. One-line plain-language 'what it is'." },
+    "user_facing_purpose": { "type": "string", "description": "Display only. Plain-language 'why this is in your plan'. Never labels an exercise 'supportive'; no clinical/governance language." },
+    "user_facing_setup": { "type": "string", "description": "Display only. Plain-language starting position." },
+    "user_facing_instructions": {
+      "oneOf": [ { "type": "string" }, { "type": "array", "items": { "type": "string" } } ],
+      "description": "Display only. Plain-language steps (string or array of strings). No dosage/sets/reps/dates/percentages."
+    },
+    "user_facing_common_mistakes": { "type": "array", "items": { "type": "string" }, "description": "Display only. Gentle 'watch for' cues." },
+    "user_facing_safety_note": { "type": "string", "description": "Display only. Comfort/stop guidance. NOT a readiness/clearance/return statement." },
+    "plan_card_category": {
+      "type": "string",
+      "enum": ["warm_up", "activation", "mobility", "stretching", "strength", "control", "conditioning", "running_preparation", "sport_preparation", "recovery"],
+      "description": "Display grouping for the plan card; derived from internal classification. Not a clinical decision."
+    },
+    "plan_card_subcategory": { "type": "string", "description": "Display only. Optional finer user-friendly label." },
+    "difficulty_label": {
+      "type": "string",
+      "enum": ["foundational", "controlled", "progressive", "advanced", "clinician_guided"],
+      "description": "Display only. Relative complexity. MUST NOT imply readiness, clearance, or approval."
+    },
+    "advanced_label": {
+      "type": ["string", "null"],
+      "enum": ["advanced", "clinician_guided", "only_appears_when_appropriate", "none", null],
+      "description": "Display only. Optional softer external framing for internally high-caution/clinician-review items. Never exposes internal high-caution."
+    },
+    "easier_option_labels": { "type": "array", "items": { "type": "string" }, "description": "Display only. Plain names of gentler alternatives. NOT progression authority or sequencing." },
+    "harder_option_labels": { "type": "array", "items": { "type": "string" }, "description": "Display only. Plain names of more demanding alternatives. NOT progression authority or sequencing." },
+    "related_exercise_labels": { "type": "array", "items": { "type": "string" }, "description": "Display only. Plain 'see also' names. No sequencing." },
+    "media": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Inert media placeholders for FUTURE support. No fetching, no binary, no Supabase, no UI. Asset/url fields are references only.",
+      "properties": {
+        "demo_video_url": { "type": ["string", "null"] },
+        "demo_video_asset_id": { "type": ["string", "null"] },
+        "image_asset_id": { "type": ["string", "null"] },
+        "animation_asset_id": { "type": ["string", "null"] },
+        "thumbnail_asset_id": { "type": ["string", "null"] },
+        "media_status": { "type": "string", "enum": ["none", "placeholder", "pending", "linked"] },
+        "media_notes": { "type": ["string", "null"] }
+      }
+    },
+    "user_facing_status": {
+      "type": "string",
+      "enum": ["draft_copy", "copy_pending_review", "copy_reviewed"],
+      "description": "Copy lifecycle for the user-facing text. NOT clinical approval."
+    },
+    "log_completion_available": { "type": "boolean", "description": "Future plan/logging capability flag (display intent only). Stores no user data and asserts no progression/readiness." },
+    "log_pain_response_available": { "type": "boolean", "description": "Future logging capability flag only." },
+    "log_difficulty_available": { "type": "boolean", "description": "Future logging capability flag only." },
+    "log_confidence_available": { "type": "boolean", "description": "Future logging capability flag only." },
+    "log_notes_available": { "type": "boolean", "description": "Future logging capability flag only." },
+    "next_day_response_prompt_available": { "type": "boolean", "description": "Future logging capability flag only." }
+  }
+}

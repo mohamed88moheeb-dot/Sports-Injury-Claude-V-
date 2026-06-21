@@ -1,0 +1,121 @@
+{
+  "exercise_id": "RF-EX-035",
+  "module": "rectus_femoris",
+  "name": "Unilateral hip thrust",
+  "aliases": [
+    "single-leg hip thrust"
+  ],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "hip",
+    "pelvis",
+    "trunk",
+    "lower_limb"
+  ],
+  "target_tissues": [
+    "gluteals",
+    "hip_extensors",
+    "trunk_stabilizers"
+  ],
+  "exercise_family": "single_leg_hip_extensor_strength_support",
+  "primary_function": [
+    "single_leg_hip_extensor_strength",
+    "pelvic_control_support"
+  ],
+  "movement_category": [
+    "hip_extension",
+    "single_leg_strength",
+    "hip_thrust"
+  ],
+  "joint_actions": [
+    "hip_extension",
+    "trunk_stabilization",
+    "pelvic_control"
+  ],
+  "contraction_bias": [
+    "isotonic"
+  ],
+  "position_tags": [
+    "supported_trunk",
+    "single_leg",
+    "hip_extension"
+  ],
+  "tissue_demand_tags": [
+    "hip_extensor_load",
+    "single_leg_pelvic_control_demand"
+  ],
+  "speed_power_demand": "low_to_moderate",
+  "stretch_demand": "low",
+  "impact_demand": "none",
+  "field_demand_tags": [],
+  "equipment": [
+    "bench_or_box_optional",
+    "external_load_optional"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile"
+  ],
+  "allowed_when": [
+    "metadata_candidate_only",
+    "requires_future_rule_authoring",
+    "supporting_exercise_metadata"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity",
+    "lumbopelvic_control_loss"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [
+    "Gonzalez_de_la_Flor_Garcia_Perez_de_Sevilla_2024_RF_strain_case_report"
+  ],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-REHAB-001",
+    "RF-REHAB-006"
+  ],
+  "notes": "Supporting single-leg hip-extensor metadata; not RF-specific tissue loading."
+}

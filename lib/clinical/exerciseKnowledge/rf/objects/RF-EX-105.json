@@ -1,0 +1,171 @@
+{
+  "exercise_id": "RF-EX-105",
+  "module": "rectus_femoris",
+  "name": "Spanish squat",
+  "aliases": [],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "anterior_thigh",
+    "knee",
+    "hip"
+  ],
+  "target_tissues": [
+    "quadriceps"
+  ],
+  "exercise_family": "isometric_quad_constant_tension",
+  "primary_function": [
+    "constant_tension_quad_loading"
+  ],
+  "movement_category": [
+    "squat",
+    "isometric_constant_tension"
+  ],
+  "joint_actions": [
+    "hip_knee_flexion_extension"
+  ],
+  "contraction_bias": [
+    "isometric"
+  ],
+  "position_tags": [
+    "band_supported",
+    "constant_tension"
+  ],
+  "tissue_demand_tags": [
+    "quadriceps_load"
+  ],
+  "speed_power_demand": "low_to_moderate",
+  "stretch_demand": "low_to_moderate",
+  "impact_demand": "low",
+  "field_demand_tags": [],
+  "equipment": [
+    "resistance_band"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile"
+  ],
+  "allowed_when": [
+    "metadata_candidate_only",
+    "requires_future_rule_authoring"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-REHAB-002"
+  ],
+  "notes": "Batch 3 high-caution draft object; evidence is patellar-tendon, extrapolated; review required. Metadata only; not a prescription, dosage, progression, readiness, RTT/RTS, or clearance.",
+  "canonical_name": "spanish_squat",
+  "final_decision": "high_caution_do_not_convert_yet",
+  "evidence_grade": "C",
+  "source_authority": "moderate",
+  "source_support_type": "contextual_support",
+  "RF_specificity": "low-moderate",
+  "central_tendon_fibrosis_risk": "moderate",
+  "manual_review_required": true,
+  "library_classification": "high_caution_sport_specific_exposure",
+  "injury_site_relevance": [
+    "muscular"
+  ],
+  "guardrail_notes": [
+    "not a prescription",
+    "not dosage",
+    "not progression",
+    "not readiness",
+    "not RTT/RTS",
+    "not clearance",
+    "not a test"
+  ],
+  "source_ids": [
+    "CR-S17"
+  ],
+  "source_verification_status": "partially_verified",
+  "user_facing_name": "Spanish squat",
+  "user_facing_summary": "A squat with a band holding tension behind the knees.",
+  "user_facing_purpose": "This builds steady thigh strength with constant tension.",
+  "user_facing_setup": "Place a band behind your knees anchored in front.",
+  "user_facing_instructions": [
+    "Place a band behind your knees, anchored in front.",
+    "Sit back into a squat against the band.",
+    "Rise back up with control."
+  ],
+  "user_facing_common_mistakes": [
+    "Letting the knees fall inward.",
+    "Leaning too far forward."
+  ],
+  "user_facing_safety_note": "This is an advanced movement — keep it comfortable and stop if you feel sharp pain.",
+  "plan_card_category": "strength",
+  "plan_card_subcategory": "",
+  "difficulty_label": "advanced",
+  "advanced_label": "clinician_guided",
+  "easier_option_labels": [
+    "Glute bridge",
+    "Step-up"
+  ],
+  "harder_option_labels": [],
+  "related_exercise_labels": [
+    "Sissy squat"
+  ],
+  "media": {
+    "demo_video_url": null,
+    "demo_video_asset_id": null,
+    "image_asset_id": null,
+    "animation_asset_id": null,
+    "thumbnail_asset_id": null,
+    "media_status": "none",
+    "media_notes": null
+  },
+  "user_facing_status": "draft_copy",
+  "log_completion_available": true,
+  "log_pain_response_available": true,
+  "log_difficulty_available": true,
+  "log_confidence_available": false,
+  "log_notes_available": true,
+  "next_day_response_prompt_available": true
+}

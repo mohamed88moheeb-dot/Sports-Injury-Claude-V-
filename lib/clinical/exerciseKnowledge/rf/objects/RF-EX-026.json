@@ -1,0 +1,130 @@
+{
+  "exercise_id": "RF-EX-026",
+  "module": "rectus_femoris",
+  "name": "Half-kneeling pelvic tilt with maximal knee flexion",
+  "aliases": [
+    "half-kneeling pelvic tilt with knee flexion",
+    "half-kneeling anterior-thigh mobility drill"
+  ],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "trunk",
+    "pelvis",
+    "hip",
+    "knee",
+    "anterior_thigh"
+  ],
+  "target_tissues": [
+    "rectus_femoris_secondary",
+    "quadriceps_secondary",
+    "hip_flexors_secondary",
+    "lumbopelvic_control_system"
+  ],
+  "exercise_family": "lumbopelvic_control_mobility",
+  "primary_function": [
+    "pelvic_control",
+    "anterior_thigh_mobility_context",
+    "hip_flexor_mobility_context"
+  ],
+  "movement_category": [
+    "motor_control",
+    "mobility_support",
+    "anterior_thigh_mobility"
+  ],
+  "joint_actions": [
+    "pelvic_tilt_control",
+    "knee_flexion_context",
+    "hip_position_control"
+  ],
+  "contraction_bias": [
+    "mobility",
+    "motor_control"
+  ],
+  "position_tags": [
+    "half_kneeling",
+    "maximal_knee_flexion_context",
+    "anterior_thigh_stretch_context"
+  ],
+  "tissue_demand_tags": [
+    "anterior_thigh_mobility_demand",
+    "rectus_femoris_stretch_context",
+    "lumbopelvic_control_demand"
+  ],
+  "speed_power_demand": "low",
+  "stretch_demand": "moderate_to_high",
+  "impact_demand": "none",
+  "field_demand_tags": [],
+  "equipment": [
+    "bodyweight"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile"
+  ],
+  "allowed_when": [
+    "metadata_candidate_only",
+    "requires_future_rule_authoring",
+    "supporting_exercise_metadata"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure",
+    "high_irritability",
+    "stretch_worsens_symptoms"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity",
+    "lumbopelvic_control_loss"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [
+    "Gonzalez_de_la_Flor_Garcia_Perez_de_Sevilla_2024_RF_strain_case_report"
+  ],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-SAF-005",
+    "RF-SAF-006",
+    "RF-REHAB-001",
+    "RF-REHAB-002"
+  ],
+  "notes": "Higher anterior-thigh mobility demand than basic pelvic tilt. Metadata only; no stretching prescription or dose."
+}

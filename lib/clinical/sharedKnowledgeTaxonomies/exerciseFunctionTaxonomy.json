@@ -1,0 +1,356 @@
+{
+  "taxonomy_name": "exercise_function",
+  "version": "v1.0_scaffold",
+  "approval_status": "pending",
+  "executable": false,
+  "runtime_integration": "none",
+  "governance": "Taxonomy scaffold only. Metadata vocabulary for future use. Defines no dose, no progression, no readiness, no RTT/RTS clearance, no plan generation. Not wired into runtime.",
+  "description": "Formal taxonomy of exercise function categories. Function is metadata describing what an exercise develops; it never selects, doses, or clears.",
+  "categories": [
+    {
+      "id": "warm_up_general",
+      "meaning": "General preparation to raise readiness for activity",
+      "when_used": "start of a session",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance",
+      "common_examples": [
+        "light cycling",
+        "general mobility flow"
+      ],
+      "can_appear_in_blocks": [
+        "warm_up"
+      ]
+    },
+    {
+      "id": "warm_up_tissue_specific",
+      "meaning": "Targeted preparation of the involved tissue",
+      "when_used": "start of a session when a region needs priming",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance",
+      "common_examples": [
+        "RF-biased low-load activation"
+      ],
+      "can_appear_in_blocks": [
+        "warm_up"
+      ]
+    },
+    {
+      "id": "mobility",
+      "meaning": "Improve or maintain range of motion",
+      "when_used": "when ROM is a limiter",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance",
+      "common_examples": [
+        "prone quad mobility"
+      ],
+      "can_appear_in_blocks": [
+        "warm_up",
+        "accessory_block"
+      ]
+    },
+    {
+      "id": "dynamic_mobility",
+      "meaning": "Movement-based mobility preparation",
+      "when_used": "movement prep before higher demand",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance",
+      "common_examples": [
+        "leg swings",
+        "dynamic hamstring mobility"
+      ],
+      "can_appear_in_blocks": [
+        "warm_up",
+        "sport_prep_block"
+      ]
+    },
+    {
+      "id": "activation",
+      "meaning": "Recruit a target muscle/group at low load",
+      "when_used": "early session priming",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance",
+      "common_examples": [
+        "glute/quad activation"
+      ],
+      "can_appear_in_blocks": [
+        "warm_up",
+        "accessory_block"
+      ]
+    },
+    {
+      "id": "motor_control",
+      "meaning": "Improve movement coordination and control",
+      "when_used": "control deficits present",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance",
+      "common_examples": [
+        "dead bug",
+        "pelvic tilt drills"
+      ],
+      "can_appear_in_blocks": [
+        "warm_up",
+        "main_work",
+        "accessory_block"
+      ]
+    },
+    {
+      "id": "isometric_strength",
+      "meaning": "Static contraction strength",
+      "when_used": "early loading, pain modulation context",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance",
+      "common_examples": [
+        "reclined knee extension ISO"
+      ],
+      "can_appear_in_blocks": [
+        "main_work",
+        "accessory_block"
+      ]
+    },
+    {
+      "id": "isotonic_strength",
+      "meaning": "Dynamic constant-load strength",
+      "when_used": "general strength development",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance",
+      "common_examples": [
+        "leg extension"
+      ],
+      "can_appear_in_blocks": [
+        "main_work"
+      ]
+    },
+    {
+      "id": "eccentric_strength",
+      "meaning": "Lengthening-contraction strength",
+      "when_used": "eccentric capacity building",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance",
+      "common_examples": [
+        "reverse Nordic"
+      ],
+      "can_appear_in_blocks": [
+        "main_work"
+      ]
+    },
+    {
+      "id": "concentric_strength",
+      "meaning": "Shortening-contraction strength",
+      "when_used": "concentric capacity building",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance",
+      "common_examples": [
+        "concentric knee extension"
+      ],
+      "can_appear_in_blocks": [
+        "main_work"
+      ]
+    },
+    {
+      "id": "long_length_strength",
+      "meaning": "Strength biased to longer muscle length",
+      "when_used": "lengthened-position capacity",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance",
+      "common_examples": [
+        "hip-extended knee extension"
+      ],
+      "can_appear_in_blocks": [
+        "main_work"
+      ]
+    },
+    {
+      "id": "heavy_strength",
+      "meaning": "High relative-load strength",
+      "when_used": "strength phase, capacity permitting",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance",
+      "common_examples": [
+        "loaded squat/hip thrust"
+      ],
+      "can_appear_in_blocks": [
+        "main_work"
+      ]
+    },
+    {
+      "id": "tempo_strength",
+      "meaning": "Strength with controlled movement tempo",
+      "when_used": "control and capacity emphasis",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance",
+      "common_examples": [
+        "tempo squat"
+      ],
+      "can_appear_in_blocks": [
+        "main_work"
+      ]
+    },
+    {
+      "id": "endurance_strength",
+      "meaning": "Higher-repetition strength endurance",
+      "when_used": "endurance capacity emphasis",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance",
+      "common_examples": [
+        "support endurance work"
+      ],
+      "can_appear_in_blocks": [
+        "main_work",
+        "accessory_block"
+      ]
+    },
+    {
+      "id": "power",
+      "meaning": "Force at speed",
+      "when_used": "power development phase",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance",
+      "common_examples": [
+        "loaded jumps context"
+      ],
+      "can_appear_in_blocks": [
+        "main_work",
+        "sport_prep_block"
+      ]
+    },
+    {
+      "id": "plyometric",
+      "meaning": "Stretch-shortening cycle exposure",
+      "when_used": "reactive capacity building",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance",
+      "common_examples": [
+        "squat jump",
+        "hopping"
+      ],
+      "can_appear_in_blocks": [
+        "main_work",
+        "sport_prep_block"
+      ]
+    },
+    {
+      "id": "landing_control",
+      "meaning": "Eccentric landing-mechanics control",
+      "when_used": "landing tolerance building",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance",
+      "common_examples": [
+        "step landing"
+      ],
+      "can_appear_in_blocks": [
+        "main_work",
+        "sport_prep_block"
+      ]
+    },
+    {
+      "id": "reactive_strength",
+      "meaning": "Fast SSC reactive strength",
+      "when_used": "reactivity phase",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance",
+      "common_examples": [
+        "drop jump exposure"
+      ],
+      "can_appear_in_blocks": [
+        "sport_prep_block"
+      ]
+    },
+    {
+      "id": "running_mechanics",
+      "meaning": "Running technique drills",
+      "when_used": "running reintroduction prep",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance",
+      "common_examples": [
+        "ankling",
+        "high knees"
+      ],
+      "can_appear_in_blocks": [
+        "sport_prep_block"
+      ]
+    },
+    {
+      "id": "sprint_mechanics",
+      "meaning": "Sprint technique drills",
+      "when_used": "sprint reintroduction prep",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance",
+      "common_examples": [
+        "acceleration mechanics drill"
+      ],
+      "can_appear_in_blocks": [
+        "sport_prep_block"
+      ]
+    },
+    {
+      "id": "kicking_mechanics",
+      "meaning": "Kicking technique drills",
+      "when_used": "kicking reintroduction prep",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance",
+      "common_examples": [
+        "open-chain kicking pattern"
+      ],
+      "can_appear_in_blocks": [
+        "sport_prep_block"
+      ]
+    },
+    {
+      "id": "change_of_direction_mechanics",
+      "meaning": "COD technique drills",
+      "when_used": "COD reintroduction prep",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance",
+      "common_examples": [
+        "COD mechanics drill"
+      ],
+      "can_appear_in_blocks": [
+        "sport_prep_block"
+      ]
+    },
+    {
+      "id": "support_strength",
+      "meaning": "Adjacent/supporting muscle strength",
+      "when_used": "address supporting deficits",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance",
+      "common_examples": [
+        "glute bridge",
+        "hip thrust"
+      ],
+      "can_appear_in_blocks": [
+        "accessory_block",
+        "main_work"
+      ]
+    },
+    {
+      "id": "trunk_pelvis_control",
+      "meaning": "Trunk and pelvis control",
+      "when_used": "lumbopelvic control needs",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance",
+      "common_examples": [
+        "side plank",
+        "Pallof press"
+      ],
+      "can_appear_in_blocks": [
+        "accessory_block",
+        "main_work"
+      ]
+    },
+    {
+      "id": "balance_proprioception",
+      "meaning": "Balance and proprioceptive control",
+      "when_used": "control/proprioception deficits",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance",
+      "common_examples": [
+        "single-leg control drills"
+      ],
+      "can_appear_in_blocks": [
+        "warm_up",
+        "accessory_block"
+      ]
+    },
+    {
+      "id": "conditioning_support",
+      "meaning": "Low-risk conditioning to maintain fitness",
+      "when_used": "maintain conditioning during rehab",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance",
+      "common_examples": [
+        "stationary bike",
+        "elliptical"
+      ],
+      "can_appear_in_blocks": [
+        "conditioning_block"
+      ]
+    },
+    {
+      "id": "sport_preparation_drill",
+      "meaning": "Sport-pattern preparation drill",
+      "when_used": "late-stage sport reintroduction prep",
+      "must_not_imply": "must not imply dose, load, progression, readiness, or RTT/RTS clearance",
+      "common_examples": [
+        "game-like patterning"
+      ],
+      "can_appear_in_blocks": [
+        "sport_prep_block"
+      ]
+    }
+  ]
+}

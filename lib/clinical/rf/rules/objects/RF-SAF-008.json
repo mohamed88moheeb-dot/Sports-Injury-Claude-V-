@@ -1,0 +1,60 @@
+{
+  "$comment": "Gate B DRAFT rule object for RF-SAF-008 — pending, NON-EXECUTABLE. Authored only from RF Clinical Rule Specification v1.2 §7.9 and the RF-SAF-008 inventory entry. Architecture-source rule: evidence_claim_ids intentionally empty per v1.2 §4.3. Expresses safety-override STRUCTURE only for new red flags appearing during rehabilitation: stop the plan, re-run safety, and let the new safety state override phase, progression, prior positive trends, plan confidence, and readiness. No diagnosis, rehab authorization, complete plan, return-to-sport, dosage, progression, or confidence logic. Not approved. Not wired into any runtime.",
+  "rule_id": "RF-SAF-008",
+  "rule_family": "safety",
+  "source_spec_rule_id": "RF-SAF-008",
+  "rule_title": "New red flags during rehabilitation",
+  "source_section": "§7.9",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "safety_referral_trigger",
+  "architecture_refs": ["V3.1-7.2", "V3.1-7.3", "V3.1-13.4", "V3.1-21", "V3.1-22"],
+  "evidence_claim_ids": [],
+  "input_contract": {
+    "$comment": "Structural trigger taken verbatim-in-meaning from v1.2 §7.9. Any new urgent or emergency symptom across the listed detection windows. Categorical only.",
+    "trigger_signals": [
+      "new_urgent_symptom",
+      "new_emergency_symptom"
+    ],
+    "detection_windows": [
+      "during_session",
+      "later_same_day",
+      "next_day_check_in"
+    ],
+    "normative_source": "architecture",
+    "unknown_handling": "treat_safety_unknown_as_unsafe_until_resolved"
+  },
+  "decision_contract": {
+    "$comment": "Safety-override structure only. Stops the plan, re-runs safety, and lets the new safety state override prior phase/progression/trends. No rehab authorization, no diagnosis, no numeric values.",
+    "action": "stop_plan_and_rerun_safety",
+    "new_safety_state_overrides": [
+      "phase",
+      "progression",
+      "prior_positive_trends",
+      "plan_confidence",
+      "readiness"
+    ],
+    "minimum_safety_state": "URGENT_REFERRAL",
+    "escalation_to_emergency_when": "global_emergency_ontology_met",
+    "do_not_continue_progression_while_unresolved": true,
+    "do_not_treat_as_routine_soreness_or_regression": true,
+    "referral_required": true,
+    "home_self_clearance_allowed": false
+  },
+  "safety_state_output": "URGENT_REFERRAL",
+  "blocked_targets": ["all"],
+  "prohibited_outputs": [
+    "continue_rehab_progression_despite_new_red_flags",
+    "treat_new_red_flags_as_routine_soreness",
+    "treat_new_red_flags_as_routine_regression_only",
+    "preserve_current_rehab_phase_despite_new_red_flags",
+    "clear_user_for_rehabilitation",
+    "produce_a_diagnosis",
+    "produce_a_complete_rehab_plan",
+    "produce_a_return_to_sport_decision",
+    "add_numeric_confidence",
+    "add_unsupported_dosage_or_timing"
+  ],
+  "test_fixtures": [],
+  "notes": "Architecture normative source; MUST; permitted_use safety_referral_trigger. No evidence_claim_ids are cited (legitimately empty per v1.2 §4.3 — architecture rules need not invent evidence claims). Per v1.2 §7.9 the trigger is any new urgent or emergency symptom appearing during a session, later the same day, or at next-day check-in; the decision is to stop the plan, re-run safety, and allow the new safety state to override phase, progression, and prior positive trends (and, per the prescription-gate dependencies V3.1 §13.4 / §22, plan confidence and readiness). Safety-state choice: §7.9 does not assign one fixed safety state; it directs a safety re-run and lets the resulting state override. The most conservative structurally appropriate closed state for a new urgent/emergency symptom is URGENT_REFERRAL (terminal; blocked_targets all; V3.1 §21), with escalation to EMERGENCY_SIGNPOSTING when the global emergency ontology is met — captured in decision_contract without inventing clinical meaning. Draft — approval_status remains pending."
+}

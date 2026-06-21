@@ -1,0 +1,68 @@
+{
+  "capacity_id": "CAP-012",
+  "capacity_object_type": "universal_capacity",
+  "module": "universal",
+  "universal_capacity_ref": "",
+  "name": "eccentric_strength_capacity",
+  "capacity_status": "draft",
+  "approval_status": "pending",
+  "clinical_approval_status": "not_approved",
+  "executable": false,
+  "runtime_integration": "none",
+  "permitted_use": "capacity_metadata_only",
+  "capacity_domain": "strength",
+  "capacity_subdomain": "eccentric_strength",
+  "capacity_tags": [
+    "eccentric_strength_quality",
+    "lengthened_load_capacity"
+  ],
+  "body_region": [
+    "lower_limb",
+    "anterior_thigh"
+  ],
+  "related_tissues": [
+    "muscle_general"
+  ],
+  "measured_by_assessment_categories": [
+    "strength_capacity",
+    "strength_symmetry",
+    "pain_response"
+  ],
+  "improved_by_exercise_function_categories": [
+    "eccentric_strength",
+    "long_length_strength"
+  ],
+  "expressed_through_activity_domains": [
+    "high_speed_running",
+    "sprinting",
+    "kicking_exposure"
+  ],
+  "required_by_demand_profiles": [
+    "max_velocity_sprinting",
+    "kicking",
+    "deceleration"
+  ],
+  "related_rehab_plan_blocks": [
+    "strength_block",
+    "tissue_loading_block"
+  ],
+  "evidence_state": "not_tested",
+  "goal_sufficiency_status": "not_applicable",
+  "confidence_status": "low_confidence",
+  "allowed_when": [
+    "future_governed_capacity_rule_context_only",
+    "not_runtime_selectable",
+    "requires_clinical_rule_governance_before_use"
+  ],
+  "blocked_when": [
+    "runtime_selection",
+    "prescription",
+    "dosage_decision",
+    "progression_decision",
+    "readiness_decision",
+    "rtt_rts_decision",
+    "clearance_decision",
+    "standard_selection_without_governed_capacity_rules"
+  ],
+  "notes": "Eccentric strength capacity quality; no eccentric dose. Universal human-capacity metadata only. This object does not authorize prescription, dosage, progression, readiness, RTT/RTS, or clearance, holds no score/threshold/timeline, and carries no user-specific state. RF-specific meaning belongs to a future RF-CAP overlay referencing this capacity via universal_capacity_ref."
+}

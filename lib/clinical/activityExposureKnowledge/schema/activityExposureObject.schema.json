@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "internal://clinical/activityExposureKnowledge/activityExposureObject.schema.json",
+  "title": "RF Activity Exposure Knowledge Object (v1.0 Phase 2A)",
+  "$comment": "NON-EXECUTABLE structural schema for draft Rectus Femoris activity exposure metadata. Unknown top-level fields are disallowed (additionalProperties:false). Objects must remain draft/pending, clinically not approved, non-executable, metadata-only, and runtime-disconnected. This schema carries NO active prescription fields, NO active dosage fields, NO clearance fields, NO readiness authorization fields, NO progression authorization fields, and NO runtime integration beyond inert metadata. RF-ACT objects are activity/sport/conditioning exposure DOMAINS, not exercises, plans, prescriptions, progressions, readiness gates, or RTT/RTS/clearance authority. They are not runtime-selectable until future governed activity-exposure rules exist.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "activity_exposure_id",
+    "source_exercise_object_id",
+    "module",
+    "name",
+    "aliases",
+    "exposure_status",
+    "approval_status",
+    "clinical_approval_status",
+    "executable",
+    "runtime_integration",
+    "permitted_use",
+    "activity_domain",
+    "activity_exposure_tags",
+    "sport_demand_tags",
+    "equipment_tags",
+    "body_region",
+    "target_tissues",
+    "source_refs",
+    "architecture_refs",
+    "classification_audit_refs",
+    "linked_rule_ids",
+    "allowed_when",
+    "blocked_when",
+    "safety_blockers",
+    "monitoring_triggers",
+    "restricted_context",
+    "notes"
+  ],
+  "properties": {
+    "activity_exposure_id": {
+      "type": "string",
+      "pattern": "^RF-ACT-[0-9]{3}$",
+      "description": "Stable unique identifier for an RF activity exposure object. Empty string is permitted only in the blank template."
+    },
+    "source_exercise_object_id": {
+      "type": "string",
+      "pattern": "^(RF-EX-[0-9]{3})?$",
+      "description": "The RF-EX exercise object this activity-exposure object was staged from (non-destructive). Empty string only in the blank template. The original RF-EX object is never modified."
+    },
+    "module": {
+      "type": "string",
+      "enum": ["rf"]
+    },
+    "name": { "type": "string" },
+    "aliases": { "type": "array", "items": { "type": "string" } },
+    "exposure_status": {
+      "type": "string",
+      "enum": ["draft"],
+      "description": "Authoring lifecycle. Draft only."
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": ["pending"],
+      "description": "Approval lifecycle. Pending only."
+    },
+    "clinical_approval_status": {
+      "type": "string",
+      "enum": ["not_approved"]
+    },
+    "executable": {
+      "type": "boolean",
+      "const": false
+    },
+    "runtime_integration": {
+      "type": "string",
+      "enum": ["none"]
+    },
+    "permitted_use": {
+      "type": "string",
+      "enum": ["activity_exposure_metadata_only"]
+    },
+    "activity_domain": { "type": "string" },
+    "activity_exposure_tags": { "type": "array", "items": { "type": "string" } },
+    "sport_demand_tags": { "type": "array", "items": { "type": "string" } },
+    "equipment_tags": { "type": "array", "items": { "type": "string" } },
+    "body_region": { "type": "array", "items": { "type": "string" } },
+    "target_tissues": { "type": "array", "items": { "type": "string" } },
+    "source_refs": { "type": "array", "items": { "type": "string" } },
+    "architecture_refs": { "type": "array", "items": { "type": "string" } },
+    "classification_audit_refs": { "type": "array", "items": { "type": "string" } },
+    "linked_rule_ids": { "type": "array", "items": { "type": "string", "pattern": "^RF-[A-Z]+-[0-9]{3}$" } },
+    "allowed_when": { "type": "array", "items": { "type": "string" }, "description": "Inert metadata context only. Never a runtime-selection trigger." },
+    "blocked_when": { "type": "array", "items": { "type": "string" } },
+    "safety_blockers": { "type": "array", "items": { "type": "string" } },
+    "monitoring_triggers": { "type": "array", "items": { "type": "string" }, "description": "Non-prescriptive qualitative signals only. No numeric thresholds." },
+    "restricted_context": { "type": "string", "description": "Restricted-source marker, e.g. \"none\" for non-restricted exposures." },
+    "notes": { "type": ["string", "null"] }
+  }
+}

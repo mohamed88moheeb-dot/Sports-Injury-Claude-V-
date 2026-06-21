@@ -1,0 +1,28 @@
+{
+  "$comment": "NON-EXECUTABLE RF capacity source map. Universal CAP Batch 1 now exists; RF-CAP overlays still do not. It creates no RF-CAP overlay objects and performs no mapping yet. RF overlays will reference universal CAP objects via universal_capacity_ref.",
+  "module": "rf",
+  "version": "v2_universal_cap_batch_1_available",
+  "approval_status": "pending",
+  "clinical_approval_status": "not_approved",
+  "executable": false,
+  "runtime_integration": "none",
+  "permitted_use": "future_capacity_overlay_metadata_mapping_only",
+  "future_overlay_prefix": "RF-CAP",
+  "future_universal_ref_pattern": "CAP-###",
+  "future_overlay_count": 0,
+  "intent": "Future RF-CAP overlays will refine universal CAP capacities for the Rectus Femoris module and connect RF assessments (measured_by), RF exercises (improved_by), RF-ACT activity exposures (expressed_through), and RF demand profiles (required_by). Each overlay references its universal core via universal_capacity_ref.",
+  "global_constraints": {
+    "no_rf_capacity_overlay_objects_authored": true,
+    "rf_capacity_overlay_objects_created": false,
+    "universal_capacity_core_available": true,
+    "universal_capacity_batch_1_available": true,
+    "rf_assessment_objects_created": false,
+    "rf_exercise_objects_modified": false,
+    "rf_act_objects_modified": false,
+    "runtime_wiring_created": false,
+    "approved_objects_created": false,
+    "executable_objects_created": false,
+    "clearance_authority_created": false
+  },
+  "notes": "No RF-CAP overlay objects authored. Future RF overlays must reference universal CAP objects through universal_capacity_ref. No RF exercise objects modified. No RF-ACT objects modified. No RF-ASSESS objects created. No runtime wiring. No clearance authority."
+}

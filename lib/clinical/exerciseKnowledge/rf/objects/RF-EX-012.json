@@ -1,0 +1,189 @@
+{
+  "exercise_id": "RF-EX-012",
+  "module": "rectus_femoris",
+  "name": "Straight leg raise active mobility/loading",
+  "aliases": [
+    "active straight leg raise",
+    "SLR active loading"
+  ],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "anterior_thigh",
+    "hip",
+    "knee"
+  ],
+  "target_tissues": [
+    "rectus_femoris",
+    "hip_flexors"
+  ],
+  "exercise_family": "hip_flexor_rectus_femoris_biased_loading",
+  "primary_function": [
+    "active_hip_flexion_mobility",
+    "long_lever_hip_flexion_loading"
+  ],
+  "movement_category": [
+    "hip_flexion",
+    "mobility",
+    "long_lever_loading"
+  ],
+  "joint_actions": [
+    "hip_flexion",
+    "knee_extension_hold_context"
+  ],
+  "contraction_bias": [
+    "active_mobility_or_low_load_strength"
+  ],
+  "position_tags": [
+    "supine",
+    "knee_extended",
+    "long_lever"
+  ],
+  "tissue_demand_tags": [
+    "hip_flexor_load",
+    "rectus_femoris_load"
+  ],
+  "speed_power_demand": "low",
+  "stretch_demand": "moderate",
+  "impact_demand": "none",
+  "field_demand_tags": [],
+  "equipment": [
+    "bodyweight"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile"
+  ],
+  "allowed_when": [
+    "metadata_candidate_only",
+    "requires_future_rule_authoring"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [
+    "Aspetar_Rectus_Femoris_Injury_Rehabilitation_Pathway_2026",
+    "Gonzalez_de_la_Flor_Garcia_Perez_de_Sevilla_2024_RF_strain_case_report"
+  ],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-REHAB-001",
+    "RF-REHAB-002",
+    "RF-SAF-005"
+  ],
+  "notes": "This is only active mobility/loading metadata. Do not create an object for SLR break testing here; break tests belong to a future assessment/test library.",
+  "canonical_name": "straight_leg_raise",
+  "final_decision": "first_batch_safe_metadata",
+  "evidence_grade": "B",
+  "source_authority": "moderate",
+  "source_support_type": "direct_exercise_support",
+  "RF_specificity": "high",
+  "central_tendon_fibrosis_risk": "low",
+  "manual_review_required": false,
+  "library_classification": "rf_core_loading",
+  "injury_site_relevance": [
+    "myotendinous",
+    "muscular"
+  ],
+  "guardrail_notes": [
+    "not a prescription",
+    "not dosage",
+    "not progression",
+    "not readiness",
+    "not RTT/RTS",
+    "not clearance",
+    "not a test"
+  ],
+  "source_ids": [
+    "SG-S2",
+    "SG-S4",
+    "CR-S1",
+    "CR-S11"
+  ],
+  "source_verification_status": "verified",
+  "user_facing_name": "Straight-leg raise",
+  "user_facing_summary": "Lifting a straight leg to load the front of the thigh.",
+  "user_facing_purpose": "This helps rebuild control and strength at the front of your thigh.",
+  "user_facing_setup": "Lie on your back with one knee bent and the other leg straight.",
+  "user_facing_instructions": [
+    "Lie on your back with one knee bent and the other leg straight.",
+    "Tighten the front of your straight-leg thigh.",
+    "Lift the straight leg slowly, then lower it with control."
+  ],
+  "user_facing_common_mistakes": [
+    "Letting the leg bend.",
+    "Lifting too high or too fast."
+  ],
+  "user_facing_safety_note": "Move slowly and stop if you feel sharp pain at the front of your thigh.",
+  "plan_card_category": "activation",
+  "plan_card_subcategory": "",
+  "difficulty_label": "controlled",
+  "advanced_label": "none",
+  "easier_option_labels": [
+    "Quad set"
+  ],
+  "harder_option_labels": [],
+  "related_exercise_labels": [
+    "Quad set",
+    "Short-arc knee extension"
+  ],
+  "media": {
+    "demo_video_url": null,
+    "demo_video_asset_id": null,
+    "image_asset_id": null,
+    "animation_asset_id": null,
+    "thumbnail_asset_id": null,
+    "media_status": "none",
+    "media_notes": null
+  },
+  "user_facing_status": "draft_copy",
+  "log_completion_available": true,
+  "log_pain_response_available": true,
+  "log_difficulty_available": true,
+  "log_confidence_available": false,
+  "log_notes_available": true,
+  "next_day_response_prompt_available": true
+}

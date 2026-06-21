@@ -1,0 +1,380 @@
+{
+  "scenario_id": "RF-STATIC-PLAN-SCENARIO-001",
+  "scenario_status": "draft",
+  "approval_status": "pending",
+  "clinical_approval_status": "not_approved",
+  "executable": false,
+  "runtime_integration": "none",
+  "permitted_use": "prototype_plan_scenario_metadata_only",
+  "module": "rf",
+  "title": "Fictional complete-input RF static prototype plan scenario",
+  "fictional_inputs": {
+    "injury_identity": "Fictional RF strain context recorded for static demonstration only.",
+    "live_safety_state": "No active red-flag lock is recorded in this fictional scenario.",
+    "safety_confidence": "Fictional reviewed safety context is present for the static scenario.",
+    "stage_confidence": "Fictional early controlled-loading context is present without creating a phase protocol.",
+    "current_capacity": "Qualitative capacity summary is present for static display only.",
+    "demand_profile": [
+      "linear acceleration demand",
+      "running demand",
+      "kicking demand",
+      "landing demand",
+      "conditioning demand"
+    ],
+    "equipment": [
+      "floor",
+      "wall",
+      "chair",
+      "step",
+      "optional band"
+    ],
+    "schedule": "Fictional clinician-managed training windows are documented without creating a scheduling engine.",
+    "concurrent_injuries": "Fictional screen records no active competing restriction; unknown would restrict or block.",
+    "monitoring_contract": "Same-session response and next-day response prompts are documented as static metadata only.",
+    "missing_input_actions": [
+      "ask again",
+      "simplify wording",
+      "widen uncertainty",
+      "restrict testing",
+      "restrict rehabilitation",
+      "withhold full plan",
+      "refer externally"
+    ]
+  },
+  "capacity_summary": [
+    {
+      "capacity_id": "CAP-001",
+      "capacity_name": "walking_tolerance",
+      "fictional_state": "Known enough for ordinary daily walking context in the static demo.",
+      "scenario_use": "Background context only."
+    },
+    {
+      "capacity_id": "CAP-002",
+      "capacity_name": "stairs_tolerance",
+      "fictional_state": "Known enough for cautious daily stair context in the static demo.",
+      "scenario_use": "Informs cautious step-related display language only."
+    },
+    {
+      "capacity_id": "CAP-003",
+      "capacity_name": "jogging_tolerance",
+      "fictional_state": "Not treated as established.",
+      "scenario_use": "Running exposure remains withheld."
+    },
+    {
+      "capacity_id": "CAP-004",
+      "capacity_name": "running_tolerance",
+      "fictional_state": "Not treated as established.",
+      "scenario_use": "Running exposure remains withheld."
+    },
+    {
+      "capacity_id": "CAP-005",
+      "capacity_name": "sprinting_tolerance",
+      "fictional_state": "Not established.",
+      "scenario_use": "Sprinting is not included."
+    },
+    {
+      "capacity_id": "CAP-006",
+      "capacity_name": "acceleration_tolerance",
+      "fictional_state": "Not established.",
+      "scenario_use": "Acceleration is not included."
+    },
+    {
+      "capacity_id": "CAP-007",
+      "capacity_name": "kicking_tolerance",
+      "fictional_state": "Not established.",
+      "scenario_use": "Kicking exposure is not included."
+    },
+    {
+      "capacity_id": "CAP-010",
+      "capacity_name": "anterior_thigh_tissue_load_tolerance",
+      "fictional_state": "Fictionally adequate for low-demand metadata examples.",
+      "scenario_use": "Does not authorize dose."
+    },
+    {
+      "capacity_id": "CAP-011",
+      "capacity_name": "isometric_strength_capacity",
+      "fictional_state": "Fictionally adequate for low-demand activation examples.",
+      "scenario_use": "Does not authorize progression."
+    },
+    {
+      "capacity_id": "CAP-012",
+      "capacity_name": "eccentric_strength_capacity",
+      "fictional_state": "Not established for this scenario.",
+      "scenario_use": "Eccentric high-caution work remains out."
+    }
+  ],
+  "plan_blocks": [
+    {
+      "block_id": "static_safety_check",
+      "block_type": "safety_check",
+      "display_label": "Safety check",
+      "source_system": "rf_clinical_rules_and_assessment_knowledge",
+      "static_items": [
+        {
+          "item_id": "static_safety_prompt",
+          "item_type": "static_placeholder",
+          "display_name": "No new warning signs reported in this fictional scenario",
+          "included_in_static_display": true
+        }
+      ],
+      "boundary_note": "Does not clear participation."
+    },
+    {
+      "block_id": "static_mobility_activation",
+      "block_type": "mobility_or_activation",
+      "display_label": "Mobility and activation",
+      "source_system": "exercise_knowledge",
+      "static_items": [
+        {
+          "item_id": "RF-EX-089",
+          "item_type": "RF-EX",
+          "display_name": "Heel slides",
+          "included_in_static_display": true
+        },
+        {
+          "item_id": "RF-EX-090",
+          "item_type": "RF-EX",
+          "display_name": "Comfortable thigh mobility",
+          "included_in_static_display": true
+        },
+        {
+          "item_id": "RF-EX-088",
+          "item_type": "RF-EX",
+          "display_name": "Quad set",
+          "included_in_static_display": true
+        }
+      ],
+      "boundary_note": "Metadata display only; no dosage or progression."
+    },
+    {
+      "block_id": "static_tissue_loading",
+      "block_type": "tissue_specific_loading",
+      "display_label": "Controlled tissue loading",
+      "source_system": "exercise_knowledge",
+      "static_items": [
+        {
+          "item_id": "RF-EX-091",
+          "item_type": "RF-EX",
+          "display_name": "Short-arc knee extension",
+          "included_in_static_display": true
+        }
+      ],
+      "boundary_note": "Controlled loading metadata only; no load prescription."
+    },
+    {
+      "block_id": "static_support_control",
+      "block_type": "strength_or_support_strength",
+      "display_label": "Support control",
+      "source_system": "exercise_knowledge",
+      "static_items": [
+        {
+          "item_id": "RF-EX-092",
+          "item_type": "RF-EX",
+          "display_name": "Single-leg balance reach",
+          "included_in_static_display": true
+        }
+      ],
+      "boundary_note": "Support-control metadata only; no readiness implication."
+    },
+    {
+      "block_id": "static_activity_exposure",
+      "block_type": "activity_exposure_if_permitted",
+      "display_label": "Activity exposure",
+      "source_system": "activity_exposure_knowledge",
+      "static_items": [
+        {
+          "item_id": "RF-ACT-001",
+          "item_type": "RF-ACT",
+          "display_name": "Short-distance running exposure",
+          "included_in_static_display": false
+        },
+        {
+          "item_id": "RF-ACT-004",
+          "item_type": "RF-ACT",
+          "display_name": "Static isolated kicking exposure",
+          "included_in_static_display": false
+        }
+      ],
+      "boundary_note": "Exposure metadata is withheld from active display and creates no return authority."
+    },
+    {
+      "block_id": "static_monitoring",
+      "block_type": "monitoring_check",
+      "display_label": "Monitoring",
+      "source_system": "assessment_knowledge",
+      "static_items": [
+        {
+          "item_id": "RF-ASSESS-017",
+          "item_type": "RF-ASSESS",
+          "display_name": "Next-day response check",
+          "included_in_static_display": true
+        }
+      ],
+      "boundary_note": "Evidence only; no automatic adjustment."
+    }
+  ],
+  "sample_user_facing_cards": [
+    {
+      "source_exercise_id": "RF-EX-089",
+      "title": "Heel slides",
+      "category": "Mobility",
+      "purpose": "Gently explore comfortable knee movement while keeping the front of the thigh calm.",
+      "setup": "Lie or sit in a comfortable position with the heel able to slide.",
+      "instructions": [
+        "Slide the heel only through a comfortable range.",
+        "Keep the movement smooth.",
+        "Stop before the front of the thigh feels guarded or sharp."
+      ],
+      "common_mistakes": [
+        "Forcing the range.",
+        "Moving quickly to chase more motion.",
+        "Ignoring a rising symptom response."
+      ],
+      "safety_note": "This card is not a test and does not decide readiness.",
+      "log_prompts": [
+        "completed",
+        "symptom response",
+        "difficulty feel",
+        "confidence feel",
+        "notes"
+      ]
+    },
+    {
+      "source_exercise_id": "RF-EX-088",
+      "title": "Quad set",
+      "category": "Activation",
+      "purpose": "Practice a gentle thigh muscle squeeze without changing position much.",
+      "setup": "Rest with the leg supported and the knee comfortable.",
+      "instructions": [
+        "Gently tighten the front of the thigh.",
+        "Keep the rest of the leg relaxed.",
+        "Ease off if the area feels protective or sharp."
+      ],
+      "common_mistakes": [
+        "Bracing the whole body.",
+        "Pressing harder because the exercise feels simple.",
+        "Treating the squeeze as a strength test."
+      ],
+      "safety_note": "This card is not dosage, progression, or clearance.",
+      "log_prompts": [
+        "completed",
+        "symptom response",
+        "difficulty feel",
+        "confidence feel",
+        "notes"
+      ]
+    },
+    {
+      "source_exercise_id": "RF-EX-091",
+      "title": "Short-arc knee extension",
+      "category": "Strength",
+      "purpose": "Practice controlled knee extension in a small comfortable range.",
+      "setup": "Support the knee in the setup documented by the future clinician-facing plan.",
+      "instructions": [
+        "Straighten the knee only through the planned comfortable range.",
+        "Keep the movement controlled.",
+        "Return without dropping or rushing."
+      ],
+      "common_mistakes": [
+        "Locking the knee aggressively.",
+        "Adding effort to prove strength.",
+        "Continuing after symptoms rise."
+      ],
+      "safety_note": "This card is not a strength test and not a progression gate.",
+      "log_prompts": [
+        "completed",
+        "symptom response",
+        "difficulty feel",
+        "confidence feel",
+        "notes"
+      ]
+    }
+  ],
+  "sample_logging_screen": {
+    "title": "Session response",
+    "fields": [
+      "completed displayed cards",
+      "front-of-thigh response",
+      "difficulty feel",
+      "confidence feel",
+      "free-text notes",
+      "next-day response prompt"
+    ],
+    "boundary_note": "Static logging screen only; no score, threshold, pass/fail status, automatic progression, or clearance."
+  },
+  "conservative_adjustment_examples": [
+    {
+      "response_label": "same_or_calmer",
+      "static_example": "Keep the same conservative display and do not progress automatically.",
+      "authority_created": false
+    },
+    {
+      "response_label": "more_noticeable",
+      "static_example": "Simplify the display, remove optional support-control content, and prompt review of setup.",
+      "authority_created": false
+    },
+    {
+      "response_label": "concerning",
+      "static_example": "Withhold the displayed session, surface safety review prompt, and route to governed missing-data or referral behavior.",
+      "authority_created": false
+    },
+    {
+      "response_label": "lower_confidence",
+      "static_example": "Keep only the lowest-demand display cards and ask for reviewed guidance.",
+      "authority_created": false
+    }
+  ],
+  "withheld_boundary_items": [
+    {
+      "item_id": "RF-EX-051",
+      "item_type": "RF-EX",
+      "reason_withheld": "Acceleration mechanics drill is high-caution and close to activity exposure."
+    },
+    {
+      "item_id": "RF-EX-060",
+      "item_type": "RF-EX",
+      "reason_withheld": "Plyometric jump remains high-caution and reviewer-gated."
+    },
+    {
+      "item_id": "RF-EX-068",
+      "item_type": "RF-EX",
+      "reason_withheld": "Resisted kicking exposure is boundary-sensitive and not active display content."
+    },
+    {
+      "item_id": "RF-EX-076",
+      "item_type": "RF-EX",
+      "reason_withheld": "Sprinting exposure is boundary-sensitive and not active display content."
+    },
+    {
+      "item_id": "RF-ACT-001",
+      "item_type": "RF-ACT",
+      "reason_withheld": "Activity exposure metadata is not an exercise card and is not runtime selectable."
+    },
+    {
+      "item_id": "RF-ACT-004",
+      "item_type": "RF-ACT",
+      "reason_withheld": "Kicking exposure metadata is not clearance authority."
+    }
+  ],
+  "governance_notes": [
+    "Metadata only.",
+    "Not a clinical plan.",
+    "Not a prescription.",
+    "Not dosage.",
+    "Not progression.",
+    "Not readiness.",
+    "Not RTT/RTS.",
+    "Not clearance.",
+    "Not runtime selectable.",
+    "No object approval created.",
+    "No database behavior created.",
+    "No UI behavior created."
+  ],
+  "source_docs": [
+    "docs/implementation/RF_STATIC_PROTOTYPE_PLAN_SCENARIO.md",
+    "docs/implementation/RF_STATIC_PROTOTYPE_REHAB_JOURNEY_SIMULATION.md",
+    "docs/implementation/REHAB_PLAN_COMPOSITION_ARCHITECTURE.md",
+    "docs/implementation/RF_EXERCISE_KNOWLEDGE_SCHEMA_V2_1_USER_FACING_PLAN_CARD_METADATA.md",
+    "docs/implementation/RF_EXERCISE_LIBRARY_OVERLAP_AND_BOUNDARY_REVIEW.md"
+  ]
+}

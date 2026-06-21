@@ -1,0 +1,233 @@
+{
+  "taxonomy_name": "equipment",
+  "version": "v1.0_scaffold",
+  "approval_status": "pending",
+  "executable": false,
+  "runtime_integration": "none",
+  "governance": "Taxonomy scaffold only. Metadata vocabulary for future use. Defines no dose, no progression, no readiness, no RTT/RTS clearance, no plan generation. Not wired into runtime.",
+  "description": "Equipment taxonomy with setting classification (home/gym/clinic/field/lab). Items default to optional; required-vs-optional is resolved later per exercise/plan.",
+  "categories": [
+    {
+      "id": "bodyweight",
+      "setting": "home",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "floor_space",
+      "setting": "home",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "wall",
+      "setting": "home",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "chair",
+      "setting": "home",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "bench",
+      "setting": "gym",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "box",
+      "setting": "gym",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "step",
+      "setting": "home",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "resistance_band",
+      "setting": "home",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "mini_band",
+      "setting": "home",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "cable_machine",
+      "setting": "gym",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "leg_extension_machine",
+      "setting": "gym",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "hamstring_curl_machine",
+      "setting": "gym",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "hip_thrust_setup",
+      "setting": "gym",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "dumbbell",
+      "setting": "gym",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "kettlebell",
+      "setting": "gym",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "barbell",
+      "setting": "gym",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "trap_bar",
+      "setting": "gym",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "sled",
+      "setting": "gym",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "medicine_ball",
+      "setting": "gym",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "suspension_trainer",
+      "setting": "gym",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "swiss_ball",
+      "setting": "home",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "slider",
+      "setting": "home",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "foam_roller",
+      "setting": "home",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "stationary_bike",
+      "setting": "gym",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "treadmill",
+      "setting": "gym",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "elliptical",
+      "setting": "gym",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "pool",
+      "setting": "clinic",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "open_field",
+      "setting": "field",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "court",
+      "setting": "field",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "track",
+      "setting": "field",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "cones",
+      "setting": "field",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "ball",
+      "setting": "field",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "force_plate",
+      "setting": "lab",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "handheld_dynamometer",
+      "setting": "clinic",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "GPS",
+      "setting": "field",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "phone_camera",
+      "setting": "home",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    },
+    {
+      "id": "wearable_sensor",
+      "setting": "field",
+      "availability": "optional",
+      "note": "required-vs-optional is determined later per exercise/plan, never by this taxonomy"
+    }
+  ]
+}

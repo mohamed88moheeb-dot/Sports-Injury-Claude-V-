@@ -1,0 +1,60 @@
+{
+  "$comment": "Gate B DRAFT rule object for RF-DX-003 — pending, NON-EXECUTABLE. Authored only from RF Clinical Rule Specification v1.2 §8.5 and the RF-DX-003 inventory entry. Clinical-content-only rule: cites an evidence claim and has NO architecture references (architecture_refs intentionally empty per v1.2 §4.3). Expresses evidence-record / concern-signal STRUCTURE only: an audible pop/snap may be recorded as a history/concern feature and may activate follow-up questions, but proves nothing. Absence does not exclude structural injury; presence does not prove a tear. No diagnosis, diagnostic weight, probability, confidence, rehab, dosage, progression, or return-to-sport logic; safety precedence preserved. Not approved. Not wired into any runtime.",
+  "rule_id": "RF-DX-003",
+  "rule_family": "diagnosis",
+  "source_spec_rule_id": "RF-DX-003",
+  "rule_title": "Audible pop or snap (concern signal, not diagnostic)",
+  "source_section": "§8.5",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "evidence_record_only",
+  "architecture_refs": [],
+  "evidence_claim_ids": ["QRF-003"],
+  "input_contract": {
+    "$comment": "Structural concern/history signal taken verbatim-in-meaning from v1.2 §8.5. Recorded as a history/concern feature; may activate the listed follow-up questions only.",
+    "concern_signal": "audible_pop_or_snap",
+    "signal_role": "record_as_history_or_concern_feature_and_may_activate_followup_questions_only",
+    "may_activate_followup_questions_about": [
+      "immediate_function",
+      "deformity",
+      "bruising",
+      "proximal_pain",
+      "external_assessment"
+    ],
+    "unknown_handling": "treat_safety_unknown_as_unsafe_until_resolved"
+  },
+  "decision_contract": {
+    "$comment": "Evidence-record / concern-signal structure only. The signal is stored and may open follow-up questions; it assigns no diagnostic weight, probability, or confidence, and diagnoses nothing. Absence does not exclude structural injury; presence does not prove a tear. No rehab authorization, no numeric values. Safety precedence preserved.",
+    "action": "record_concern_signal_and_optionally_activate_followup_questions",
+    "signal_assigns_diagnostic_weight": false,
+    "absence_excludes_structural_injury": false,
+    "presence_proves_tear": false,
+    "does_not_diagnose_rf": true,
+    "does_not_determine_structural_grade": true,
+    "does_not_rank_rf_above_differentials_from_signal_alone": true,
+    "safety_precedence_preserved": true,
+    "signal_is_not_safety_clearance": true,
+    "defers_diagnostic_confidence_objects": "concern_feature_only_no_confidence_model_authored_here"
+  },
+  "safety_state_output": null,
+  "blocked_targets": [],
+  "prohibited_outputs": [
+    "diagnose_rf_injury_from_audible_pop_or_snap_alone",
+    "diagnose_tear_from_audible_pop_or_snap_alone",
+    "diagnose_avulsion_from_audible_pop_or_snap_alone",
+    "diagnose_full_thickness_injury_from_audible_pop_or_snap_alone",
+    "diagnose_central_tendon_involvement_from_audible_pop_or_snap_alone",
+    "assign_structural_grade_from_audible_pop_or_snap_alone",
+    "assign_diagnostic_weight_from_audible_pop_or_snap_alone",
+    "assign_numeric_confidence_from_audible_pop_or_snap",
+    "assign_patient_level_probability_from_audible_pop_or_snap",
+    "rank_rf_above_differentials_from_audible_pop_or_snap_alone",
+    "bypass_safety_because_symptom_appears_typical_or_concerning",
+    "treat_audible_pop_or_snap_as_safety_clearance",
+    "clear_user_for_rehabilitation",
+    "produce_a_complete_rehab_plan",
+    "produce_a_return_to_sport_decision"
+  ],
+  "test_fixtures": [],
+  "notes": "Clinical_content normative source; MAY; permitted_use evidence_record_only. Architecture references are intentionally empty: per v1.2 §4.3 clinical-content rules cite valid evidence_claim_ids and do not carry architecture refs (none are present in the §8.5 source); [] means 'none in source', not 'missing'. Evidence grade preserved per source: QRF-003 (E1). Per §8.5: a pop or snap may activate questions about immediate function, deformity, bruising, proximal pain, and external assessment; per the prohibited use, absence does NOT exclude structural injury and presence does NOT prove a tear. This is a diagnosis concern/history-feature rule, not a safety rule, so safety_state_output is null and blocked_targets is empty; it preserves safety precedence and must not be treated as safety clearance. No diagnostic confidence model is authored here (deferred to the later confidence objects). Draft — approval_status remains pending."
+}

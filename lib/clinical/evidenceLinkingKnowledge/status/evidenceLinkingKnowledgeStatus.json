@@ -1,0 +1,13 @@
+{
+  "module": "evidence_linking_knowledge_system",
+  "version": "v1_rf_assess_to_cap_map",
+  "status": "rf_assess_to_cap_map_authored",
+  "approval_status": "pending",
+  "clinical_approval_status": "not_approved",
+  "executable": false,
+  "runtime_integration": "none",
+  "evidence_link_maps_authored": 1,
+  "approved_maps": 0,
+  "permitted_use": "evidence_linking_metadata_only",
+  "notes": "RF assessment-to-capacity evidence-linking map authored as draft metadata only. No runtime logic. No user-specific state. No score. No threshold. No pass/fail decision. No diagnosis authority. No autonomous triage. No prescription. No dosage. No progression. No readiness. No RTT/RTS. No clearance authority."
+}

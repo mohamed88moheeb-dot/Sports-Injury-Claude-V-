@@ -6,6 +6,7 @@ import { PageShell } from '../../components/layout/PageShell';
 import { AssessmentContent } from '../../components/sections/AssessmentContent';
 import { GeneratingPlan } from '../../components/layout/GeneratingPlan';
 import { useRecovery } from '../providers/RecoveryContext';
+import { isRfCompatible } from '../../lib/clinical/rfBetaAppAdapter/rfBetaCompatibility.mjs';
 
 const STORAGE_KEY = 'injuryguide_assessment_draft';
 
@@ -49,7 +50,10 @@ export default function AssessmentPage() {
   function handleGenerate() {
     // Clear draft on successful submission
     try { localStorage.removeItem(STORAGE_KEY); } catch {}
-    generateProfile(() => router.push('/dashboard'));
+    // RF flow lands on the results page so the match confidence is shown; other
+    // regions keep the existing dashboard landing.
+    const dest = isRfCompatible(assessment) ? '/diagnosis' : '/dashboard';
+    generateProfile(() => router.push(dest));
   }
 
   return (

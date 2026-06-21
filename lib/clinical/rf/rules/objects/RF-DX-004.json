@@ -1,0 +1,78 @@
+{
+  "$comment": "Gate B DRAFT rule object for RF-DX-004 — pending, NON-EXECUTABLE. Authored only from RF Clinical Rule Specification v1.2 §8.6 and the RF-DX-004 inventory entry. Expresses direct-versus-indirect intake-branching / differential-routing STRUCTURE only: a direct blow prioritizes contusion + complication routing; an indirect loading mechanism may retain muscle-tendon injury in the differential; mixed mechanism keeps both branches open until evidence resolves them. Mechanism never assigns diagnostic weight, probability, or confidence and never diagnoses. Does not override RF-SAF-007 direct-contusion routing and does not create a contusion module. No rehab, dosage, progression, confidence, or return-to-sport logic; safety precedence preserved. Not approved. Not wired into any runtime.",
+  "rule_id": "RF-DX-004",
+  "rule_family": "diagnosis",
+  "source_spec_rule_id": "RF-DX-004",
+  "rule_title": "Direct versus indirect mechanism branching",
+  "source_section": "§8.6",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "logic_with_uncertainty",
+  "architecture_refs": ["V3.1-4", "V3.1-5", "V3.1-15.1"],
+  "evidence_claim_ids": ["QRF-015", "QRF-001", "QRF-039"],
+  "input_contract": {
+    "$comment": "Structural mechanism branches taken verbatim-in-meaning from v1.2 §8.6. Categorical only — mechanism branches the intake, it does not carry diagnostic weight.",
+    "mechanism_branches": {
+      "direct": {
+        "signals": ["direct_blow"],
+        "activates": "direct_blow_and_contusion_context_questions_and_complication_routing",
+        "defers_to": "RF-SAF-007"
+      },
+      "indirect": {
+        "signals": ["high_speed_running", "kicking", "acceleration", "other_loading_mechanism"],
+        "activates": "rf_relevant_muscle_tendon_strain_questions_and_relevant_differentials"
+      },
+      "mixed": {
+        "behavior": "retain_both_branches_until_evidence_resolves_them"
+      }
+    },
+    "mechanism_role": "branch_intake_and_route_differentials_only",
+    "no_branch_behavior": "if_required_alternate_module_unavailable_restrict_output_rather_than_force_one_diagnosis",
+    "unknown_handling": "treat_safety_unknown_as_unsafe_until_resolved"
+  },
+  "decision_contract": {
+    "$comment": "Intake-branching / differential-routing structure only. Mechanism assigns no diagnostic weight, probability, or confidence, and diagnoses nothing. Direct routing defers to RF-SAF-007 and must not be forced into RF strain logic. No rehab authorization, no numeric values. Safety precedence preserved.",
+    "action": "branch_direct_versus_indirect_and_route_relevant_differentials",
+    "mechanism_assigns_diagnostic_weight": false,
+    "direct_mechanism_priority": "contusion_and_complication_routing",
+    "direct_mechanism_defers_to_rf_saf_007": true,
+    "does_not_force_direct_blow_into_rf_strain_logic": true,
+    "indirect_mechanism_retains_muscle_tendon_injury_in_differential": true,
+    "mixed_mechanism_keeps_relevant_differentials_open": true,
+    "qrf_001_and_qrf_039_role": "non_weighting_mechanism_context_only",
+    "qrf_039_santos_role": "abstract_metadata_only_reference_only_not_decision_driving",
+    "does_not_diagnose_contusion": true,
+    "does_not_diagnose_rf_strain": true,
+    "does_not_create_contusion_module": true,
+    "does_not_rank_rf_above_differentials_from_mechanism_alone": true,
+    "does_not_override_rf_saf_007": true,
+    "safety_precedence_preserved": true,
+    "mechanism_is_not_safety_clearance": true,
+    "defers_diagnostic_confidence_objects": "branching_structure_only_no_confidence_model_authored_here"
+  },
+  "safety_state_output": null,
+  "blocked_targets": [],
+  "prohibited_outputs": [
+    "force_direct_blow_mechanism_into_rf_strain_logic",
+    "diagnose_contusion_from_direct_mechanism_alone",
+    "diagnose_rf_strain_from_indirect_mechanism_alone",
+    "diagnose_rf_strain_from_mechanism_alone",
+    "assign_diagnostic_weight_from_direct_mechanism_alone",
+    "assign_diagnostic_weight_from_indirect_mechanism_alone",
+    "assign_numeric_confidence_from_mechanism",
+    "assign_patient_level_probability_from_epidemiological_mechanism_data",
+    "rank_rf_above_differentials_from_mechanism_alone",
+    "use_qrf_039_as_decision_driving_evidence",
+    "create_a_contusion_module",
+    "bypass_rf_saf_007_direct_contusion_routing",
+    "bypass_safety_because_mechanism_appears_typical",
+    "treat_mechanism_as_safety_clearance",
+    "clear_user_for_rehabilitation",
+    "produce_a_complete_rehab_plan",
+    "produce_a_return_to_sport_decision"
+  ],
+  "test_fixtures": [
+    "v1.2-§17-case-1"
+  ],
+  "notes": "Mixed normative source; MUST; permitted_use logic_with_uncertainty. Architecture refs and evidence claims preserved per source: architecture V3.1-4, V3.1-5, V3.1-15.1; QRF-015 (D2) supports direct-mechanism / contusion-context branching as allowed by v1.2, with QRF-001 (M1) and QRF-039 (D3) retained as non-weighting mechanism context only — QRF-039 (Santos) remains abstract/metadata-only, reference-only, and cannot drive diagnosis or structural-location inference. Per §8.6: a direct blow prioritizes contusion and complication routing (deferring to RF-SAF-007); an indirect high-speed/kicking/acceleration/other loading mechanism may retain muscle-tendon injury in the differential; mixed mechanism retains both branches until evidence resolves them; if the required alternate module is unavailable, restrict output rather than forcing one diagnosis. Mechanism alone diagnoses nothing and assigns no weight/probability/confidence; this rule does not override RF-SAF-007 and does not create a contusion module. Diagnosis branching rule, not a safety rule, so safety_state_output is null and blocked_targets is empty; it preserves safety precedence and must not be treated as safety clearance. No diagnostic confidence model is authored here (deferred to the later confidence objects). Draft — approval_status remains pending."
+}

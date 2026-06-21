@@ -1,0 +1,27 @@
+{
+  "$comment": "NON-EXECUTABLE universal capacity source map. Universal CAP Batch 1 authored as draft metadata only. It performs no runtime mapping and creates no clearance.",
+  "module": "universal",
+  "version": "v2_universal_cap_batch_1",
+  "approval_status": "pending",
+  "clinical_approval_status": "not_approved",
+  "executable": false,
+  "runtime_integration": "none",
+  "permitted_use": "universal_capacity_metadata_mapping_only",
+  "authored_object_prefix": "CAP",
+  "authored_object_count": 15,
+  "authored_capacity_ids": [
+    "CAP-001", "CAP-002", "CAP-003", "CAP-004", "CAP-005",
+    "CAP-006", "CAP-007", "CAP-008", "CAP-009", "CAP-010",
+    "CAP-011", "CAP-012", "CAP-013", "CAP-014", "CAP-015"
+  ],
+  "rf_capacity_overlay_objects_authored": 0,
+  "global_constraints": {
+    "universal_capacity_objects_created": true,
+    "rf_capacity_overlay_objects_created": false,
+    "runtime_wiring_created": false,
+    "approved_objects_created": false,
+    "executable_objects_created": false,
+    "clearance_authority_created": false
+  },
+  "notes": "Universal CAP Batch 1 authored as draft metadata only. No RF-CAP overlay objects authored. No runtime wiring. No diagnosis authority. No prescription. No dosage. No progression. No readiness. No RTT/RTS. No clearance authority. Future RF overlays must reference these universal capacities through universal_capacity_ref."
+}

@@ -1,0 +1,189 @@
+{
+  "exercise_id": "RF-EX-036",
+  "module": "rectus_femoris",
+  "name": "Monster walk",
+  "aliases": [
+    "banded monster walk",
+    "monster walks"
+  ],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "hip",
+    "pelvis",
+    "lower_limb"
+  ],
+  "target_tissues": [
+    "gluteals",
+    "hip_abductors",
+    "hip_external_rotators"
+  ],
+  "exercise_family": "hip_control_support",
+  "primary_function": [
+    "frontal_plane_hip_control",
+    "transverse_plane_hip_control",
+    "pelvic_control_support"
+  ],
+  "movement_category": [
+    "band_walk",
+    "dynamic_control",
+    "hip_control"
+  ],
+  "joint_actions": [
+    "hip_abduction_control",
+    "hip_external_rotation_control"
+  ],
+  "contraction_bias": [
+    "dynamic_isotonic"
+  ],
+  "position_tags": [
+    "standing",
+    "band_resistance",
+    "dynamic",
+    "frontal_plane",
+    "transverse_plane"
+  ],
+  "tissue_demand_tags": [
+    "hip_control_demand",
+    "pelvic_control_demand"
+  ],
+  "speed_power_demand": "low_to_moderate",
+  "stretch_demand": "low",
+  "impact_demand": "low",
+  "field_demand_tags": [],
+  "equipment": [
+    "resistance_band"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile"
+  ],
+  "allowed_when": [
+    "metadata_candidate_only",
+    "requires_future_rule_authoring",
+    "supporting_exercise_metadata"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity",
+    "lumbopelvic_control_loss"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [
+    "Gonzalez_de_la_Flor_Garcia_Perez_de_Sevilla_2024_RF_strain_case_report"
+  ],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-REHAB-001",
+    "RF-REHAB-006"
+  ],
+  "notes": "Supporting hip-control metadata and future shared-library candidate.",
+  "canonical_name": "monster_walk",
+  "final_decision": "supportive_proximal_control",
+  "evidence_grade": "C",
+  "source_authority": "moderate",
+  "source_support_type": "direct_exercise_support",
+  "RF_specificity": "indirect",
+  "central_tendon_fibrosis_risk": "low",
+  "manual_review_required": false,
+  "library_classification": "supportive_proximal_control",
+  "injury_site_relevance": [
+    "unspecified"
+  ],
+  "guardrail_notes": [
+    "not a prescription",
+    "not dosage",
+    "not progression",
+    "not readiness",
+    "not RTT/RTS",
+    "not clearance",
+    "not a test"
+  ],
+  "source_ids": [
+    "SG-S3",
+    "CGDR-S3"
+  ],
+  "source_verification_status": "partially_verified",
+  "user_facing_name": "Monster walk",
+  "user_facing_summary": "Stepping in different directions against a light band.",
+  "user_facing_purpose": "This helps strengthen and control your hips.",
+  "user_facing_setup": "Stand with a light band around your legs and knees slightly bent.",
+  "user_facing_instructions": [
+    "Place a light band around your legs.",
+    "Bend your knees slightly.",
+    "Step forward and out in a controlled pattern."
+  ],
+  "user_facing_common_mistakes": [
+    "Letting the knees fall inward.",
+    "Standing too tall."
+  ],
+  "user_facing_safety_note": "Keep steps controlled and stop if you feel sharp pain.",
+  "plan_card_category": "control",
+  "plan_card_subcategory": "",
+  "difficulty_label": "foundational",
+  "advanced_label": "none",
+  "easier_option_labels": [
+    "Side-stepping with a band"
+  ],
+  "harder_option_labels": [],
+  "related_exercise_labels": [
+    "Side-stepping with a band"
+  ],
+  "media": {
+    "demo_video_url": null,
+    "demo_video_asset_id": null,
+    "image_asset_id": null,
+    "animation_asset_id": null,
+    "thumbnail_asset_id": null,
+    "media_status": "none",
+    "media_notes": null
+  },
+  "user_facing_status": "draft_copy",
+  "log_completion_available": true,
+  "log_pain_response_available": true,
+  "log_difficulty_available": true,
+  "log_confidence_available": false,
+  "log_notes_available": true,
+  "next_day_response_prompt_available": true
+}

@@ -1,0 +1,113 @@
+{
+  "exercise_id": "RF-EX-024",
+  "module": "rectus_femoris",
+  "name": "Active knee flexion ROM",
+  "aliases": [
+    "active knee flexion",
+    "active knee flexion mobility"
+  ],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "knee",
+    "anterior_thigh"
+  ],
+  "target_tissues": [
+    "quadriceps_stretch_context",
+    "knee_rom"
+  ],
+  "exercise_family": "restricted_knee_rom_mobility",
+  "primary_function": [
+    "knee_range_of_motion",
+    "anterior_thigh_mobility_context"
+  ],
+  "movement_category": [
+    "knee_flexion",
+    "range_of_motion",
+    "mobility"
+  ],
+  "joint_actions": [
+    "knee_flexion"
+  ],
+  "contraction_bias": [
+    "mobility"
+  ],
+  "position_tags": [
+    "restricted_context_only",
+    "contusion_context"
+  ],
+  "tissue_demand_tags": [
+    "anterior_thigh_mobility"
+  ],
+  "speed_power_demand": "low",
+  "stretch_demand": "low_to_moderate",
+  "impact_demand": "none",
+  "field_demand_tags": [],
+  "equipment": [
+    "bodyweight"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile"
+  ],
+  "allowed_when": [
+    "restricted_context_only",
+    "requires_future_rule_authoring"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure",
+    "standard_rf_strain_selection_without_reviewer_approval"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [
+    "Ryan_West_Point_Quadriceps_Contusions_1991"
+  ],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-SAF-006",
+    "RF-REHAB-001"
+  ],
+  "notes": "Restricted metadata only. Source is quadriceps contusion protocol, not primary RF strain authority."
+}

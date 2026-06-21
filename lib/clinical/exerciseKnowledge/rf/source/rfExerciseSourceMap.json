@@ -1,0 +1,172 @@
+{
+  "$comment": "NON-EXECUTABLE RF exercise source map. Maps FUTURE RF exercise-metadata groups to source-governed concepts and RF v1.2 rule links. It authors NO exercises, NO dosage, NO plans. IMPORTANT: groups are NOT phases, NOT plans, NOT dosage; they do NOT authorize progression and do NOT authorize return-to-training or return-to-sport. They are only metadata categories that future RF exercise objects may be tagged into. Every group has dosage_status 'not_specified_by_current_source' and requires_future_rule_authoring true.",
+  "module": "rectus_femoris",
+  "version": "v1.0_scaffold",
+  "clinical_approval_status": "not_approved",
+  "executable": false,
+  "permitted_use": "metadata_category_mapping_only",
+  "global_constraints": {
+    "groups_are_phases": false,
+    "groups_are_plans": false,
+    "groups_are_dosage": false,
+    "groups_authorize_progression": false,
+    "groups_authorize_return_to_training": false,
+    "groups_authorize_return_to_sport": false,
+    "groups_are_metadata_categories_only": true
+  },
+  "groups": [
+    {
+      "group_id": "early_pain_limited_loading",
+      "description": "Metadata category for low-irritability, pain-limited early loading options. Category label only.",
+      "linked_rule_ids": ["RF-SAF-005", "RF-SAF-006", "RF-DX-008", "RF-SEV-001", "RF-REHAB-001"],
+      "allowed_use": "tag_future_exercise_objects_as_early_pain_limited_loading_metadata",
+      "prohibited_use": "create_phase_plan_dosage_progression_or_clearance",
+      "dosage_status": "not_specified_by_current_source",
+      "requires_future_rule_authoring": true
+    },
+    {
+      "group_id": "quadriceps_activation",
+      "description": "Metadata category for quadriceps activation options biased toward the rectus femoris. Category label only.",
+      "linked_rule_ids": ["RF-DX-001", "RF-REHAB-001", "RF-REHAB-002"],
+      "allowed_use": "tag_future_exercise_objects_as_quadriceps_activation_metadata",
+      "prohibited_use": "create_phase_plan_dosage_progression_or_clearance",
+      "dosage_status": "not_specified_by_current_source",
+      "requires_future_rule_authoring": true
+    },
+    {
+      "group_id": "knee_extension_biased_loading",
+      "description": "Metadata category for knee-extension-biased loading options. Category label only.",
+      "linked_rule_ids": ["RF-REHAB-002", "RF-REHAB-003", "RF-REHAB-004"],
+      "allowed_use": "tag_future_exercise_objects_as_knee_extension_biased_loading_metadata",
+      "prohibited_use": "create_phase_plan_dosage_progression_or_clearance",
+      "dosage_status": "not_specified_by_current_source",
+      "requires_future_rule_authoring": true
+    },
+    {
+      "group_id": "hip_flexor_rectus_femoris_biased_loading",
+      "description": "Metadata category for hip-flexion-biased loading options targeting the rectus femoris as a hip flexor. Category label only.",
+      "linked_rule_ids": ["RF-REHAB-002", "RF-REHAB-003", "RF-FIELD-004"],
+      "allowed_use": "tag_future_exercise_objects_as_hip_flexor_rectus_femoris_biased_loading_metadata",
+      "prohibited_use": "create_phase_plan_dosage_progression_or_clearance",
+      "dosage_status": "not_specified_by_current_source",
+      "requires_future_rule_authoring": true
+    },
+    {
+      "group_id": "hip_flexed_knee_extension_options",
+      "description": "Metadata category for combined hip-flexed / knee-extension options that load the rectus femoris across both joints. Category label only.",
+      "linked_rule_ids": ["RF-REHAB-002", "RF-REHAB-003"],
+      "allowed_use": "tag_future_exercise_objects_as_hip_flexed_knee_extension_metadata",
+      "prohibited_use": "create_phase_plan_dosage_progression_or_clearance",
+      "dosage_status": "not_specified_by_current_source",
+      "requires_future_rule_authoring": true
+    },
+    {
+      "group_id": "isometric_options",
+      "description": "Metadata category for isometric contraction-bias options. Category label only.",
+      "linked_rule_ids": ["RF-REHAB-002", "RF-REHAB-003"],
+      "allowed_use": "tag_future_exercise_objects_as_isometric_metadata",
+      "prohibited_use": "create_phase_plan_dosage_progression_or_clearance",
+      "dosage_status": "not_specified_by_current_source",
+      "requires_future_rule_authoring": true
+    },
+    {
+      "group_id": "isotonic_strength_options",
+      "description": "Metadata category for isotonic strength contraction-bias options. Category label only.",
+      "linked_rule_ids": ["RF-REHAB-002", "RF-REHAB-003", "RF-REHAB-004"],
+      "allowed_use": "tag_future_exercise_objects_as_isotonic_strength_metadata",
+      "prohibited_use": "create_phase_plan_dosage_progression_or_clearance",
+      "dosage_status": "not_specified_by_current_source",
+      "requires_future_rule_authoring": true
+    },
+    {
+      "group_id": "eccentric_or_lengthened_exposure",
+      "description": "Metadata category for eccentric and lengthened-position exposure options. Category label only.",
+      "linked_rule_ids": ["RF-REHAB-002", "RF-REHAB-004", "RF-RECUR-002", "RF-FIELD-003"],
+      "allowed_use": "tag_future_exercise_objects_as_eccentric_or_lengthened_exposure_metadata",
+      "prohibited_use": "create_phase_plan_dosage_progression_or_clearance",
+      "dosage_status": "not_specified_by_current_source",
+      "requires_future_rule_authoring": true
+    },
+    {
+      "group_id": "trunk_pelvis_hip_control",
+      "description": "Metadata category for trunk, pelvis, and hip control options supporting rectus femoris function. Category label only.",
+      "linked_rule_ids": ["RF-REHAB-002", "RF-REHAB-006"],
+      "allowed_use": "tag_future_exercise_objects_as_trunk_pelvis_hip_control_metadata",
+      "prohibited_use": "create_phase_plan_dosage_progression_or_clearance",
+      "dosage_status": "not_specified_by_current_source",
+      "requires_future_rule_authoring": true
+    },
+    {
+      "group_id": "running_preparation",
+      "description": "Metadata category for running-preparation options. Category label only — not a clearance to run.",
+      "linked_rule_ids": ["RF-FIELD-001", "RF-FIELD-002", "RF-FIELD-003", "RF-RTS-002", "RF-RTS-004"],
+      "allowed_use": "tag_future_exercise_objects_as_running_preparation_metadata",
+      "prohibited_use": "create_phase_plan_dosage_progression_running_clearance_or_rts",
+      "dosage_status": "not_specified_by_current_source",
+      "requires_future_rule_authoring": true
+    },
+    {
+      "group_id": "sprint_preparation",
+      "description": "Metadata category for sprint-preparation options. Category label only — not a clearance to sprint and not sprint dosing.",
+      "linked_rule_ids": ["RF-FIELD-002", "RF-FIELD-003", "RF-FIELD-005", "RF-RTS-002", "RF-RTS-004"],
+      "allowed_use": "tag_future_exercise_objects_as_sprint_preparation_metadata",
+      "prohibited_use": "create_phase_plan_dosage_sprint_ratios_progression_sprint_clearance_or_rts",
+      "dosage_status": "not_specified_by_current_source",
+      "requires_future_rule_authoring": true
+    },
+    {
+      "group_id": "kicking_preparation",
+      "description": "Metadata category for kicking-preparation options. Category label only — not a clearance to kick.",
+      "linked_rule_ids": ["RF-FIELD-004", "RF-RTS-002", "RF-RTS-004"],
+      "allowed_use": "tag_future_exercise_objects_as_kicking_preparation_metadata",
+      "prohibited_use": "create_phase_plan_dosage_progression_kicking_clearance_or_rts",
+      "dosage_status": "not_specified_by_current_source",
+      "requires_future_rule_authoring": true
+    },
+    {
+      "group_id": "field_exposure_preparation",
+      "description": "Metadata category for general field-exposure-preparation options (cutting, deceleration, change of direction, repeated-sprint demand). Category label only.",
+      "linked_rule_ids": ["RF-FIELD-001", "RF-FIELD-003", "RF-FIELD-004", "RF-RECUR-002", "RF-RTS-002", "RF-RTS-004"],
+      "allowed_use": "tag_future_exercise_objects_as_field_exposure_preparation_metadata",
+      "prohibited_use": "create_phase_plan_dosage_progression_field_clearance_or_rts",
+      "dosage_status": "not_specified_by_current_source",
+      "requires_future_rule_authoring": true
+    },
+    {
+      "group_id": "regressions",
+      "description": "Metadata category linking easier alternatives between exercise objects. Reference relationship only.",
+      "linked_rule_ids": ["RF-REHAB-002", "RF-REHAB-004"],
+      "allowed_use": "tag_future_exercise_objects_with_regression_relationships_metadata",
+      "prohibited_use": "create_phase_plan_dosage_progression_or_clearance",
+      "dosage_status": "not_specified_by_current_source",
+      "requires_future_rule_authoring": true
+    },
+    {
+      "group_id": "progressions",
+      "description": "Metadata category linking harder alternatives between exercise objects. Reference relationship only — NOT an authorization to progress.",
+      "linked_rule_ids": ["RF-REHAB-002", "RF-REHAB-004", "RF-RTS-004"],
+      "allowed_use": "tag_future_exercise_objects_with_progression_relationships_metadata",
+      "prohibited_use": "create_phase_plan_dosage_progression_authorization_or_clearance",
+      "dosage_status": "not_specified_by_current_source",
+      "requires_future_rule_authoring": true
+    },
+    {
+      "group_id": "substitutions",
+      "description": "Metadata category linking equivalent alternatives between exercise objects (e.g. for equipment or concurrent-injury constraints). Reference relationship only.",
+      "linked_rule_ids": ["RF-REHAB-003", "RF-REHAB-006"],
+      "allowed_use": "tag_future_exercise_objects_with_substitution_relationships_metadata",
+      "prohibited_use": "create_phase_plan_dosage_progression_or_clearance",
+      "dosage_status": "not_specified_by_current_source",
+      "requires_future_rule_authoring": true
+    },
+    {
+      "group_id": "monitoring_and_checkin_flags",
+      "description": "Metadata category for monitoring and check-in flags an exercise object may raise (e.g. next-day response). Category label only — does not itself execute monitoring or adaptation.",
+      "linked_rule_ids": ["RF-SAF-008", "RF-REHAB-005", "RF-RECUR-002", "RF-RTS-003"],
+      "allowed_use": "tag_future_exercise_objects_with_monitoring_and_checkin_flag_metadata",
+      "prohibited_use": "create_phase_plan_dosage_progression_monitoring_engine_or_clearance",
+      "dosage_status": "not_specified_by_current_source",
+      "requires_future_rule_authoring": true
+    }
+  ]
+}

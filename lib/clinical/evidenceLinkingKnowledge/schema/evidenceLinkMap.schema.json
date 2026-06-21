@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "internal://clinical/evidenceLinkingKnowledge/evidenceLinkMap.schema.json",
+  "title": "RF Evidence-Link Map (v1 — RF-ASSESS to CAP)",
+  "$comment": "NON-EXECUTABLE structural schema for one inert assessment-to-capacity evidence-linking map document. Unknown top-level fields are disallowed (additionalProperties:false). This is metadata only: it describes which RF-ASSESS object qualitatively informs which universal CAP object, the conceptual signal type, and review flags. It calculates nothing, stores no user-specific state, and creates no runtime adaptation. It carries NO score, threshold, pass/fail decision, prescription, dosage, progression, readiness, RTT/RTS, diagnosis, triage, or clearance authority. Must remain draft/pending, clinically not approved, non-executable, runtime-disconnected, and metadata-only.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "map_id",
+    "module",
+    "version",
+    "status",
+    "approval_status",
+    "clinical_approval_status",
+    "executable",
+    "runtime_integration",
+    "permitted_use",
+    "source_assessment_batch",
+    "target_capacity_batch",
+    "signal_types_allowed",
+    "links",
+    "governance_notes"
+  ],
+  "properties": {
+    "map_id": { "type": "string", "pattern": "^RF-ASSESS-TO-CAP-MAP-[0-9]{3}$" },
+    "module": { "type": "string", "enum": ["rectus_femoris"] },
+    "version": { "type": "string" },
+    "status": { "type": "string", "enum": ["draft"] },
+    "approval_status": { "type": "string", "enum": ["pending"] },
+    "clinical_approval_status": { "type": "string", "enum": ["not_approved"] },
+    "executable": { "type": "boolean", "const": false },
+    "runtime_integration": { "type": "string", "enum": ["none"] },
+    "permitted_use": { "type": "string", "enum": ["evidence_linking_metadata_only"] },
+    "source_assessment_batch": { "type": "string" },
+    "target_capacity_batch": { "type": "string" },
+    "signal_types_allowed": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "supports_capacity",
+          "limits_capacity_confidence",
+          "requires_caution",
+          "requires_clinician_confirmation",
+          "does_not_inform_capacity",
+          "safety_context_only",
+          "diagnostic_context_only",
+          "monitoring_context"
+        ]
+      }
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "link_id",
+          "assessment_id",
+          "assessment_name",
+          "capacity_id",
+          "capacity_name",
+          "signal_type",
+          "evidence_effect",
+          "confidence_effect",
+          "goal_sufficiency_effect",
+          "high_caution_flag",
+          "requires_clinician_review",
+          "safety_context_only",
+          "diagnostic_context_only",
+          "notes"
+        ],
+        "properties": {
+          "link_id": { "type": "string" },
+          "assessment_id": { "type": "string", "pattern": "^RF-ASSESS-[0-9]{3}$" },
+          "assessment_name": { "type": "string" },
+          "capacity_id": { "type": "string", "pattern": "^CAP-[0-9]{3}$" },
+          "capacity_name": { "type": "string" },
+          "signal_type": {
+            "type": "string",
+            "enum": [
+              "supports_capacity",
+              "limits_capacity_confidence",
+              "requires_caution",
+              "requires_clinician_confirmation",
+              "does_not_inform_capacity",
+              "safety_context_only",
+              "diagnostic_context_only",
+              "monitoring_context"
+            ]
+          },
+          "evidence_effect": { "type": "string" },
+          "confidence_effect": { "type": "string" },
+          "goal_sufficiency_effect": { "type": "string" },
+          "high_caution_flag": { "type": "boolean" },
+          "requires_clinician_review": { "type": "boolean" },
+          "safety_context_only": { "type": "boolean" },
+          "diagnostic_context_only": { "type": "boolean" },
+          "notes": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "governance_notes": { "type": "string" }
+  }
+}

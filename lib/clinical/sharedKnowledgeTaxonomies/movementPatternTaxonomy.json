@@ -1,0 +1,131 @@
+{
+  "taxonomy_name": "movement_pattern",
+  "version": "v1.0_scaffold",
+  "approval_status": "pending",
+  "executable": false,
+  "runtime_integration": "none",
+  "governance": "Taxonomy scaffold only. Metadata vocabulary for future use. Defines no dose, no progression, no readiness, no RTT/RTS clearance, no plan generation. Not wired into runtime.",
+  "description": "Taxonomy of movement patterns. Pattern is structural metadata only.",
+  "categories": [
+    {
+      "id": "squat",
+      "meaning": "Movement pattern: squat."
+    },
+    {
+      "id": "hinge",
+      "meaning": "Movement pattern: hinge."
+    },
+    {
+      "id": "lunge",
+      "meaning": "Movement pattern: lunge."
+    },
+    {
+      "id": "step_up",
+      "meaning": "Movement pattern: step up."
+    },
+    {
+      "id": "bridge",
+      "meaning": "Movement pattern: bridge."
+    },
+    {
+      "id": "hip_thrust",
+      "meaning": "Movement pattern: hip thrust."
+    },
+    {
+      "id": "knee_extension",
+      "meaning": "Movement pattern: knee extension."
+    },
+    {
+      "id": "hip_flexion",
+      "meaning": "Movement pattern: hip flexion."
+    },
+    {
+      "id": "hip_extension",
+      "meaning": "Movement pattern: hip extension."
+    },
+    {
+      "id": "trunk_anti_extension",
+      "meaning": "Movement pattern: trunk anti extension."
+    },
+    {
+      "id": "trunk_anti_rotation",
+      "meaning": "Movement pattern: trunk anti rotation."
+    },
+    {
+      "id": "trunk_lateral_stability",
+      "meaning": "Movement pattern: trunk lateral stability."
+    },
+    {
+      "id": "adduction",
+      "meaning": "Movement pattern: adduction."
+    },
+    {
+      "id": "abduction",
+      "meaning": "Movement pattern: abduction."
+    },
+    {
+      "id": "calf_raise",
+      "meaning": "Movement pattern: calf raise."
+    },
+    {
+      "id": "hopping",
+      "meaning": "Movement pattern: hopping."
+    },
+    {
+      "id": "jumping",
+      "meaning": "Movement pattern: jumping."
+    },
+    {
+      "id": "landing",
+      "meaning": "Movement pattern: landing."
+    },
+    {
+      "id": "bounding",
+      "meaning": "Movement pattern: bounding."
+    },
+    {
+      "id": "running_drill",
+      "meaning": "Movement pattern: running drill."
+    },
+    {
+      "id": "sprint_drill",
+      "meaning": "Movement pattern: sprint drill."
+    },
+    {
+      "id": "kicking_drill",
+      "meaning": "Movement pattern: kicking drill."
+    },
+    {
+      "id": "cutting_drill",
+      "meaning": "Movement pattern: cutting drill."
+    },
+    {
+      "id": "deceleration_drill",
+      "meaning": "Movement pattern: deceleration drill."
+    },
+    {
+      "id": "carry",
+      "meaning": "Movement pattern: carry."
+    },
+    {
+      "id": "throw",
+      "meaning": "Movement pattern: throw."
+    },
+    {
+      "id": "pull",
+      "meaning": "Movement pattern: pull."
+    },
+    {
+      "id": "push",
+      "meaning": "Movement pattern: push."
+    },
+    {
+      "id": "swimming_pattern",
+      "meaning": "Movement pattern: swimming pattern."
+    },
+    {
+      "id": "cycling_pattern",
+      "meaning": "Movement pattern: cycling pattern."
+    }
+  ]
+}

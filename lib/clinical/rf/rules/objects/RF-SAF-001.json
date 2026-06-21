@@ -1,0 +1,46 @@
+{
+  "$comment": "Gate B DRAFT rule object for RF-SAF-001 — pending, NON-EXECUTABLE. Authored only from RF Clinical Rule Specification v1.2 §7.2 and the RF-SAF-001 inventory entry. Expresses safety escalation / referral-trigger STRUCTURE only. No diagnosis, rehab, dosage, progression, confidence, or return-to-sport logic. Not approved. Not wired into any runtime.",
+  "rule_id": "RF-SAF-001",
+  "rule_family": "safety",
+  "source_spec_rule_id": "RF-SAF-001",
+  "rule_title": "Disproportionate or passive-movement pain after significant trauma",
+  "source_section": "§7.2",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "safety_referral_trigger",
+  "architecture_refs": ["V3.1-7", "V3.1-20", "V3.1-21", "V3.1-22"],
+  "evidence_claim_ids": ["QRF-014", "QRF-037", "QRF-038"],
+  "input_contract": {
+    "$comment": "Structural trigger signals taken verbatim-in-meaning from v1.2 §7.2. Categorical only — no numeric thresholds.",
+    "trigger_signals": [
+      "pain_disproportionate_to_apparent_injury",
+      "rapidly_escalating_pain",
+      "pain_worsened_by_passive_movement"
+    ],
+    "context": "significant_thigh_trauma_or_acute_limb_concern",
+    "unknown_handling": "treat_safety_unknown_as_unsafe_until_resolved"
+  },
+  "decision_contract": {
+    "$comment": "Safety escalation structure only. No rehab authorization, no diagnosis, no numeric values.",
+    "action": "stop_self_testing_and_rehabilitation",
+    "minimum_safety_state": "URGENT_REFERRAL",
+    "escalation_to_emergency_when": "global_emergency_ontology_met",
+    "referral_required": true,
+    "clearance_path": "external_assessment_and_referral_resolution_object_only",
+    "home_self_clearance_allowed": false
+  },
+  "safety_state_output": "URGENT_REFERRAL",
+  "blocked_targets": ["all"],
+  "prohibited_outputs": [
+    "confirm_acute_compartment_syndrome",
+    "exclude_acute_compartment_syndrome",
+    "clear_user_for_rehabilitation",
+    "produce_a_diagnosis",
+    "produce_a_return_to_sport_decision"
+  ],
+  "test_fixtures": [
+    "v1.2-§17-case-3",
+    "v1.2-§17-case-4"
+  ],
+  "notes": "Mixed normative source; MUST. Evidence grades preserved per source: QRF-014 (C1), QRF-037 (E1), QRF-038 (E1). Decision sets at least URGENT_REFERRAL with blocked_targets all; EMERGENCY_SIGNPOSTING only when the global emergency ontology is met. Clearance is only via a valid external assessment and referral-resolution object (V3.1 §20); hospital hourly monitoring or pressure-measurement must never become a home self-clearance workflow. Per v1.2 §7.2 the rule must NOT state that compartment syndrome is confirmed or excluded. Draft — approval_status remains pending."
+}

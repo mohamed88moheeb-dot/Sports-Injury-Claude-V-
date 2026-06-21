@@ -1,0 +1,101 @@
+{
+  "taxonomy_name": "assessment_purpose",
+  "version": "v1.0_scaffold",
+  "approval_status": "pending",
+  "executable": false,
+  "runtime_integration": "none",
+  "governance": "Taxonomy scaffold only. Metadata vocabulary for future use. Defines no dose, no progression, no readiness, no RTT/RTS clearance, no plan generation. Not wired into runtime.",
+  "description": "Taxonomy of assessment purposes. Assessment objects record evidence only; they do not prescribe rehab and do not clear athletes unless future governed readiness rules explicitly authorize it.",
+  "categories": [
+    {
+      "id": "red_flag_screen",
+      "purpose": "Assessment purpose: red flag screen.",
+      "note": "records evidence only; does not prescribe rehab and does not clear athletes unless future governed readiness rules explicitly authorize that decision"
+    },
+    {
+      "id": "diagnosis_support",
+      "purpose": "Assessment purpose: diagnosis support.",
+      "note": "records evidence only; does not prescribe rehab and does not clear athletes unless future governed readiness rules explicitly authorize that decision"
+    },
+    {
+      "id": "pain_response",
+      "purpose": "Assessment purpose: pain response.",
+      "note": "records evidence only; does not prescribe rehab and does not clear athletes unless future governed readiness rules explicitly authorize that decision"
+    },
+    {
+      "id": "range_of_motion",
+      "purpose": "Assessment purpose: range of motion.",
+      "note": "records evidence only; does not prescribe rehab and does not clear athletes unless future governed readiness rules explicitly authorize that decision"
+    },
+    {
+      "id": "strength_capacity",
+      "purpose": "Assessment purpose: strength capacity.",
+      "note": "records evidence only; does not prescribe rehab and does not clear athletes unless future governed readiness rules explicitly authorize that decision"
+    },
+    {
+      "id": "strength_symmetry",
+      "purpose": "Assessment purpose: strength symmetry.",
+      "note": "records evidence only; does not prescribe rehab and does not clear athletes unless future governed readiness rules explicitly authorize that decision"
+    },
+    {
+      "id": "endurance_capacity",
+      "purpose": "Assessment purpose: endurance capacity.",
+      "note": "records evidence only; does not prescribe rehab and does not clear athletes unless future governed readiness rules explicitly authorize that decision"
+    },
+    {
+      "id": "neuromuscular_control",
+      "purpose": "Assessment purpose: neuromuscular control.",
+      "note": "records evidence only; does not prescribe rehab and does not clear athletes unless future governed readiness rules explicitly authorize that decision"
+    },
+    {
+      "id": "landing_quality",
+      "purpose": "Assessment purpose: landing quality.",
+      "note": "records evidence only; does not prescribe rehab and does not clear athletes unless future governed readiness rules explicitly authorize that decision"
+    },
+    {
+      "id": "jump_capacity",
+      "purpose": "Assessment purpose: jump capacity.",
+      "note": "records evidence only; does not prescribe rehab and does not clear athletes unless future governed readiness rules explicitly authorize that decision"
+    },
+    {
+      "id": "sprint_tolerance",
+      "purpose": "Assessment purpose: sprint tolerance.",
+      "note": "records evidence only; does not prescribe rehab and does not clear athletes unless future governed readiness rules explicitly authorize that decision"
+    },
+    {
+      "id": "kicking_tolerance",
+      "purpose": "Assessment purpose: kicking tolerance.",
+      "note": "records evidence only; does not prescribe rehab and does not clear athletes unless future governed readiness rules explicitly authorize that decision"
+    },
+    {
+      "id": "change_of_direction_tolerance",
+      "purpose": "Assessment purpose: change of direction tolerance.",
+      "note": "records evidence only; does not prescribe rehab and does not clear athletes unless future governed readiness rules explicitly authorize that decision"
+    },
+    {
+      "id": "sport_specific_tolerance",
+      "purpose": "Assessment purpose: sport specific tolerance.",
+      "note": "records evidence only; does not prescribe rehab and does not clear athletes unless future governed readiness rules explicitly authorize that decision"
+    },
+    {
+      "id": "next_day_response",
+      "purpose": "Assessment purpose: next day response.",
+      "note": "records evidence only; does not prescribe rehab and does not clear athletes unless future governed readiness rules explicitly authorize that decision"
+    },
+    {
+      "id": "readiness_gate",
+      "purpose": "Assessment purpose: readiness gate.",
+      "note": "records evidence only; does not prescribe rehab and does not clear athletes unless future governed readiness rules explicitly authorize that decision"
+    },
+    {
+      "id": "return_to_training_gate",
+      "purpose": "Assessment purpose: return to training gate.",
+      "note": "records evidence only; does not prescribe rehab and does not clear athletes unless future governed readiness rules explicitly authorize that decision"
+    },
+    {
+      "id": "return_to_sport_gate",
+      "purpose": "Assessment purpose: return to sport gate.",
+      "note": "records evidence only; does not prescribe rehab and does not clear athletes unless future governed readiness rules explicitly authorize that decision"
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "taxonomy_name": "contraction",
+  "version": "v1.0_scaffold",
+  "approval_status": "pending",
+  "executable": false,
+  "runtime_integration": "none",
+  "governance": "Taxonomy scaffold only. Metadata vocabulary for future use. Defines no dose, no progression, no readiness, no RTT/RTS clearance, no plan generation. Not wired into runtime.",
+  "description": "Contraction-type taxonomy. Contraction type is metadata only and does not itself prescribe dose, load, progression, or clearance.",
+  "categories": [
+    {
+      "id": "isometric",
+      "meaning": "Contraction/loading descriptor: isometric.",
+      "note": "Metadata only; does not prescribe dose, load, progression, or clearance."
+    },
+    {
+      "id": "concentric",
+      "meaning": "Contraction/loading descriptor: concentric.",
+      "note": "Metadata only; does not prescribe dose, load, progression, or clearance."
+    },
+    {
+      "id": "eccentric",
+      "meaning": "Contraction/loading descriptor: eccentric.",
+      "note": "Metadata only; does not prescribe dose, load, progression, or clearance."
+    },
+    {
+      "id": "isotonic",
+      "meaning": "Contraction/loading descriptor: isotonic.",
+      "note": "Metadata only; does not prescribe dose, load, progression, or clearance."
+    },
+    {
+      "id": "isokinetic_context_only",
+      "meaning": "Contraction/loading descriptor: isokinetic context only.",
+      "note": "Metadata only; does not prescribe dose, load, progression, or clearance."
+    },
+    {
+      "id": "plyometric",
+      "meaning": "Contraction/loading descriptor: plyometric.",
+      "note": "Metadata only; does not prescribe dose, load, progression, or clearance."
+    },
+    {
+      "id": "reactive",
+      "meaning": "Contraction/loading descriptor: reactive.",
+      "note": "Metadata only; does not prescribe dose, load, progression, or clearance."
+    },
+    {
+      "id": "ballistic",
+      "meaning": "Contraction/loading descriptor: ballistic.",
+      "note": "Metadata only; does not prescribe dose, load, progression, or clearance."
+    },
+    {
+      "id": "stretch_shortening_cycle",
+      "meaning": "Contraction/loading descriptor: stretch shortening cycle.",
+      "note": "Metadata only; does not prescribe dose, load, progression, or clearance."
+    },
+    {
+      "id": "dynamic_control",
+      "meaning": "Contraction/loading descriptor: dynamic control.",
+      "note": "Metadata only; does not prescribe dose, load, progression, or clearance."
+    },
+    {
+      "id": "motor_control",
+      "meaning": "Contraction/loading descriptor: motor control.",
+      "note": "Metadata only; does not prescribe dose, load, progression, or clearance."
+    },
+    {
+      "id": "passive",
+      "meaning": "Contraction/loading descriptor: passive.",
+      "note": "Metadata only; does not prescribe dose, load, progression, or clearance."
+    },
+    {
+      "id": "assisted",
+      "meaning": "Contraction/loading descriptor: assisted.",
+      "note": "Metadata only; does not prescribe dose, load, progression, or clearance."
+    },
+    {
+      "id": "resisted",
+      "meaning": "Contraction/loading descriptor: resisted.",
+      "note": "Metadata only; does not prescribe dose, load, progression, or clearance."
+    },
+    {
+      "id": "unloaded",
+      "meaning": "Contraction/loading descriptor: unloaded.",
+      "note": "Metadata only; does not prescribe dose, load, progression, or clearance."
+    },
+    {
+      "id": "external_load",
+      "meaning": "Contraction/loading descriptor: external load.",
+      "note": "Metadata only; does not prescribe dose, load, progression, or clearance."
+    },
+    {
+      "id": "tempo_controlled",
+      "meaning": "Contraction/loading descriptor: tempo controlled.",
+      "note": "Metadata only; does not prescribe dose, load, progression, or clearance."
+    }
+  ]
+}

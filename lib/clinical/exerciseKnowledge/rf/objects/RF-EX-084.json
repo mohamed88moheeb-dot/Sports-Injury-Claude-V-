@@ -1,0 +1,115 @@
+{
+  "exercise_id": "RF-EX-084",
+  "module": "rectus_femoris",
+  "name": "Cybex machine exposure",
+  "aliases": [
+    "Cybex",
+    "Cybex machine context"
+  ],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "knee",
+    "anterior_thigh",
+    "lower_limb"
+  ],
+  "target_tissues": [
+    "quadriceps_secondary",
+    "machine_loading_context"
+  ],
+  "exercise_family": "restricted_machine_exposure_context",
+  "primary_function": [
+    "cybex_machine_context",
+    "contusion_protocol_machine_exposure_metadata"
+  ],
+  "movement_category": [
+    "machine_exposure",
+    "restricted_context_only"
+  ],
+  "joint_actions": [
+    "knee_extension_flexion_machine_context_unspecified"
+  ],
+  "contraction_bias": [
+    "machine_loading_unspecified"
+  ],
+  "position_tags": [
+    "cybex_context",
+    "restricted_context_only",
+    "contusion_context_only"
+  ],
+  "tissue_demand_tags": [
+    "quadriceps_machine_context",
+    "contusion_context_only"
+  ],
+  "speed_power_demand": "unspecified",
+  "stretch_demand": "unspecified",
+  "impact_demand": "none",
+  "field_demand_tags": [],
+  "equipment": [
+    "cybex_machine"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile",
+    "requires_external_load_context"
+  ],
+  "allowed_when": [
+    "restricted_context_only",
+    "requires_future_rule_authoring"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure",
+    "standard_rf_strain_selection_without_reviewer_approval"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [
+    "Ryan_West_Point_Quadriceps_Contusions_1991"
+  ],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-REHAB-006"
+  ],
+  "notes": "Restricted quadriceps-contusion context only. Not standard RF strain authority and not an isokinetic testing, loading, or clearance rule."
+}

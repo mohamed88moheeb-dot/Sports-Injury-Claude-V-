@@ -1,0 +1,41 @@
+{
+  "assessment_id": "RF-ASSESS-016",
+  "name": "kicking_tolerance_screen",
+  "module": "rectus_femoris",
+  "assessment_status": "draft",
+  "approval_status": "pending",
+  "clinical_approval_status": "not_approved",
+  "executable": false,
+  "runtime_integration": "none",
+  "permitted_use": "assessment_metadata_only",
+  "assessment_purpose_category": "kicking_tolerance",
+  "what_it_observes": "ability to tolerate kicking exposure and symptom response",
+  "capacities_measured_or_informed": [
+    "CAP-007"
+  ],
+  "rf_relevance": "highest-specificity RF exposure; recurrence-sensitive",
+  "user_facing_question_or_prompt": "Have you tried kicking? What happened during/after?",
+  "clinician_facing_note": "Qualitative exposure-tolerance evidence; no volume/intensity.",
+  "evidence_contribution": "Can raise CAP-007 evidence qualitatively.",
+  "limitations": "Self-report; high-risk context.",
+  "high_caution_flag": true,
+  "governance_notes": "metadata only; not a readiness test; not sprint clearance; not kicking clearance; not RTS clearance; not competition clearance; not a progression gate; requires future clinical review before runtime use.",
+  "allowed_when": [
+    "future_governed_assessment_rule_context_only",
+    "not_runtime_selectable",
+    "requires_clinical_rule_governance_before_use"
+  ],
+  "blocked_when": [
+    "runtime_selection",
+    "diagnosis_decision",
+    "autonomous_triage",
+    "prescription",
+    "dosage_decision",
+    "progression_decision",
+    "readiness_decision",
+    "rtt_rts_decision",
+    "clearance_decision",
+    "pass_fail_return_decision"
+  ],
+  "notes": "RF assessment metadata, Batch 1. This object is metadata only: it gathers qualitative evidence and creates no diagnosis, autonomous triage, prescription, dosage, progression, readiness, RTT/RTS, or clearance authority. Diagnosis/safety authority remains in RF-DX-*/RF-SAF-* clinical rules."
+}

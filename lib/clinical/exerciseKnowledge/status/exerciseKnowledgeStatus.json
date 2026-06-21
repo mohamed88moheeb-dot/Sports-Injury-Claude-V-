@@ -1,0 +1,13 @@
+{
+  "module": "exercise_knowledge_system",
+  "version": "v2.1_user_facing_plan_card_metadata",
+  "status": "batch_3_high_caution_running_prep_complete",
+  "schema_note": "Exercise Knowledge schema v2.1 user-facing plan-card metadata fields supported (atop v2 governance metadata); existing objects remain draft/pending/not approved/non-executable/runtime none.",
+  "clinical_approval_status": "not_approved",
+  "executable": false,
+  "exercise_objects_authored": 107,
+  "exercise_objects_approved": 0,
+  "permitted_use": "metadata_authoring_only",
+  "runtime_integration": "none",
+  "notes": "107 draft RF exercise-knowledge objects (RF-EX-001..107) — metadata only. Original authoring batches (RF-EX-001..087) cover RF/quadriceps loading, mobility, supportive proximal control, conditioning, running/sprinting/landing/plyometric/reactive/field-preparation, kicking, sport-specific, cross-training, and restricted-context exposures. Normalization Batch 1 added RF-EX-088..092; Normalization Batch 2 added RF-EX-093..099; Batch 3 high-caution draft authoring added RF-EX-100..107 and upgraded selected existing high-caution objects. Running-prep normalization upgraded RF-EX-043, RF-EX-044, RF-EX-048, RF-EX-049, and RF-EX-050. No duplicate umbrella running-drill object was created. High-caution objects remain draft, reviewer-gated, non-executable, and not clinically approved. Excluded items remain documentation-only. All remain pending, non-executable, not clinically approved, runtime none. No dosage, prescription, progression, readiness, RTT/RTS, clearance, or plan logic. Not wired into runtime."
+}

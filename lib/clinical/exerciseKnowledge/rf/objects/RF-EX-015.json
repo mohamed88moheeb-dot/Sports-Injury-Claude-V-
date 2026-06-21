@@ -1,0 +1,189 @@
+{
+  "exercise_id": "RF-EX-015",
+  "module": "rectus_femoris",
+  "name": "Posterior lunge",
+  "aliases": [
+    "reverse lunge"
+  ],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "lower_limb",
+    "hip",
+    "knee",
+    "anterior_thigh"
+  ],
+  "target_tissues": [
+    "quadriceps",
+    "gluteals",
+    "lower_limb"
+  ],
+  "exercise_family": "quadriceps_lower_limb_strength",
+  "primary_function": [
+    "unilateral_lower_limb_strength",
+    "controlled_quadriceps_loading"
+  ],
+  "movement_category": [
+    "lunge",
+    "single_leg_strength"
+  ],
+  "joint_actions": [
+    "hip_flexion_extension",
+    "knee_flexion_extension"
+  ],
+  "contraction_bias": [
+    "isotonic"
+  ],
+  "position_tags": [
+    "split_stance",
+    "single_leg_bias",
+    "controlled"
+  ],
+  "tissue_demand_tags": [
+    "quadriceps_load",
+    "gluteal_load"
+  ],
+  "speed_power_demand": "low_to_moderate",
+  "stretch_demand": "low_to_moderate",
+  "impact_demand": "low",
+  "field_demand_tags": [],
+  "equipment": [
+    "bodyweight_or_external_load_optional"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile"
+  ],
+  "allowed_when": [
+    "metadata_candidate_only",
+    "requires_future_rule_authoring"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [
+    "Gonzalez_de_la_Flor_Garcia_Perez_de_Sevilla_2024_RF_strain_case_report"
+  ],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-REHAB-001",
+    "RF-REHAB-002",
+    "RF-REHAB-005",
+    "RF-REHAB-006"
+  ],
+  "notes": "General support exercise from RF case report; no active dose.",
+  "canonical_name": "reverse_lunge",
+  "final_decision": "second_batch_manual_review",
+  "evidence_grade": "B",
+  "source_authority": "high",
+  "source_support_type": "direct_exercise_support",
+  "RF_specificity": "moderate",
+  "central_tendon_fibrosis_risk": "moderate",
+  "manual_review_required": true,
+  "library_classification": "manual_review_strength_running_prep",
+  "injury_site_relevance": [
+    "muscular"
+  ],
+  "guardrail_notes": [
+    "not a prescription",
+    "not dosage",
+    "not progression",
+    "not readiness",
+    "not RTT/RTS",
+    "not clearance",
+    "not a test"
+  ],
+  "source_ids": [
+    "CGDR-S4",
+    "CR-S19",
+    "SG-S3"
+  ],
+  "source_verification_status": "partially_verified",
+  "user_facing_name": "Reverse lunge",
+  "user_facing_summary": "Stepping backward into a lunge.",
+  "user_facing_purpose": "This helps build leg strength with steady control.",
+  "user_facing_setup": "Stand tall with space behind you.",
+  "user_facing_instructions": [
+    "Stand tall with space behind you.",
+    "Step one foot back into a comfortable lunge.",
+    "Push back up to standing."
+  ],
+  "user_facing_common_mistakes": [
+    "Letting the front knee fall inward.",
+    "Losing balance by moving fast."
+  ],
+  "user_facing_safety_note": "Keep it controlled and stop if you feel sharp pain.",
+  "plan_card_category": "strength",
+  "plan_card_subcategory": "",
+  "difficulty_label": "controlled",
+  "advanced_label": "none",
+  "easier_option_labels": [
+    "Step-up"
+  ],
+  "harder_option_labels": [
+    "Walking lunge"
+  ],
+  "related_exercise_labels": [
+    "Walking lunge",
+    "Step-up"
+  ],
+  "media": {
+    "demo_video_url": null,
+    "demo_video_asset_id": null,
+    "image_asset_id": null,
+    "animation_asset_id": null,
+    "thumbnail_asset_id": null,
+    "media_status": "none",
+    "media_notes": null
+  },
+  "user_facing_status": "draft_copy",
+  "log_completion_available": true,
+  "log_pain_response_available": true,
+  "log_difficulty_available": true,
+  "log_confidence_available": false,
+  "log_notes_available": true,
+  "next_day_response_prompt_available": true
+}

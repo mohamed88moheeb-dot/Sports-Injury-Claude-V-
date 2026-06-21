@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "internal://clinical/capacityKnowledge/capacityObject.schema.json",
+  "title": "Capacity Knowledge Object (Schema v2 — universal core + module overlay)",
+  "$comment": "NON-EXECUTABLE structural schema for future capacity-knowledge metadata. Unknown top-level fields are disallowed (additionalProperties:false). Supports two object types: universal_capacity (CAP-###, module:universal) and module_capacity_overlay (e.g. RF-CAP-###, module:rf) which references its universal core via universal_capacity_ref. A capacity object is INERT metadata describing a human capacity and how it connects to assessments (measured_by), exercises (improved_by), activities (expressed_through), demand profiles (required_by), and rehab plan blocks. Capacity knowledge is represented as evidence_state (epistemic) + goal_sufficiency_status (sufficiency vs goal) + confidence_status — never a numeric score, threshold, pass/fail decision, timeline, dosage, prescription, progression / readiness / RTT / RTS / clearance authority. Objects must remain draft/pending, clinically not approved, non-executable, runtime-disconnected, and metadata-only.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "capacity_id",
+    "capacity_object_type",
+    "module",
+    "universal_capacity_ref",
+    "name",
+    "capacity_status",
+    "approval_status",
+    "clinical_approval_status",
+    "executable",
+    "runtime_integration",
+    "permitted_use",
+    "capacity_domain",
+    "capacity_subdomain",
+    "capacity_tags",
+    "body_region",
+    "related_tissues",
+    "measured_by_assessment_categories",
+    "improved_by_exercise_function_categories",
+    "expressed_through_activity_domains",
+    "required_by_demand_profiles",
+    "related_rehab_plan_blocks",
+    "evidence_state",
+    "goal_sufficiency_status",
+    "confidence_status",
+    "allowed_when",
+    "blocked_when",
+    "notes"
+  ],
+  "properties": {
+    "capacity_id": {
+      "type": "string",
+      "pattern": "^(CAP-[0-9]{3}|RF-CAP-[0-9]{3})?$",
+      "description": "Universal capacity id (CAP-###) or module overlay id (RF-CAP-###). Empty string permitted only in the blank template."
+    },
+    "capacity_object_type": {
+      "type": "string",
+      "enum": ["universal_capacity", "module_capacity_overlay"]
+    },
+    "module": { "type": "string", "enum": ["universal", "rf"] },
+    "universal_capacity_ref": {
+      "type": "string",
+      "pattern": "^(CAP-[0-9]{3})?$",
+      "description": "For module_capacity_overlay objects, the universal CAP-### this overlay refines. Empty string for universal_capacity objects and the blank template."
+    },
+    "name": { "type": "string" },
+    "capacity_status": { "type": "string", "enum": ["draft"] },
+    "approval_status": { "type": "string", "enum": ["pending"] },
+    "clinical_approval_status": { "type": "string", "enum": ["not_approved"] },
+    "executable": { "type": "boolean", "const": false },
+    "runtime_integration": { "type": "string", "enum": ["none"] },
+    "permitted_use": { "type": "string", "enum": ["capacity_metadata_only"] },
+    "capacity_domain": { "type": "string" },
+    "capacity_subdomain": { "type": "string" },
+    "capacity_tags": { "type": "array", "items": { "type": "string" } },
+    "body_region": { "type": "array", "items": { "type": "string" } },
+    "related_tissues": { "type": "array", "items": { "type": "string" } },
+    "measured_by_assessment_categories": { "type": "array", "items": { "type": "string" }, "description": "Assessment-purpose categories that MEASURE this capacity. References only; never a clearance decision." },
+    "improved_by_exercise_function_categories": { "type": "array", "items": { "type": "string" }, "description": "Exercise-function categories that IMPROVE this capacity. References only; never a prescription." },
+    "expressed_through_activity_domains": { "type": "array", "items": { "type": "string" }, "description": "Activity-exposure domains that EXPRESS this capacity. References only." },
+    "required_by_demand_profiles": { "type": "array", "items": { "type": "string" }, "description": "Sport-demand categories that REQUIRE this capacity. References only." },
+    "related_rehab_plan_blocks": { "type": "array", "items": { "type": "string" } },
+    "evidence_state": {
+      "type": "string",
+      "enum": ["known", "estimated", "unknown", "not_tested"],
+      "description": "Epistemic state: how well the capacity is known. NOT a numeric score."
+    },
+    "goal_sufficiency_status": {
+      "type": "string",
+      "enum": ["limited", "adequate_for_current_goal", "insufficient_for_goal", "requires_clinician_confirmation", "not_applicable"],
+      "description": "Sufficiency relative to the person's current goal. Evidence about adequacy, NOT a pass/fail decision and NOT clearance."
+    },
+    "confidence_status": {
+      "type": "string",
+      "enum": ["low_confidence", "moderate_confidence", "high_confidence", "requires_clinician_confirmation"],
+      "description": "Qualitative confidence. NOT a numeric score."
+    },
+    "allowed_when": { "type": "array", "items": { "type": "string" }, "description": "Inert metadata context only. Never a runtime-selection trigger." },
+    "blocked_when": { "type": "array", "items": { "type": "string" } },
+    "notes": { "type": ["string", "null"] }
+  }
+}

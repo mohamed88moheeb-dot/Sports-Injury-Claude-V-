@@ -1,0 +1,187 @@
+{
+  "exercise_id": "RF-EX-021",
+  "module": "rectus_femoris",
+  "name": "Mountain climbers with slider",
+  "aliases": [
+    "slider mountain climber",
+    "sliding mountain climber"
+  ],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "hip",
+    "anterior_thigh"
+  ],
+  "target_tissues": [
+    "hip_flexors",
+    "rectus_femoris",
+    "trunk"
+  ],
+  "exercise_family": "dynamic_hip_flexor_rectus_femoris_loading",
+  "primary_function": [
+    "dynamic_hip_flexion_loading",
+    "trunk_control_under_hip_flexion"
+  ],
+  "movement_category": [
+    "hip_flexion",
+    "dynamic_strength",
+    "trunk_control"
+  ],
+  "joint_actions": [
+    "hip_flexion",
+    "trunk_stabilization"
+  ],
+  "contraction_bias": [
+    "dynamic_isotonic"
+  ],
+  "position_tags": [
+    "plank_position",
+    "slider",
+    "hip_flexion",
+    "trunk_control"
+  ],
+  "tissue_demand_tags": [
+    "hip_flexor_load",
+    "rectus_femoris_load",
+    "trunk_control_demand"
+  ],
+  "speed_power_demand": "moderate",
+  "stretch_demand": "low_to_moderate",
+  "impact_demand": "none",
+  "field_demand_tags": [],
+  "equipment": [
+    "slider"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile"
+  ],
+  "allowed_when": [
+    "metadata_candidate_only",
+    "requires_future_rule_authoring"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [
+    "Gonzalez_de_la_Flor_Garcia_Perez_de_Sevilla_2024_RF_strain_case_report"
+  ],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-REHAB-001",
+    "RF-REHAB-002",
+    "RF-REHAB-006"
+  ],
+  "notes": "Dynamic case-report exercise metadata. No dose or progression authority.",
+  "canonical_name": "mountain_climbers_slider",
+  "final_decision": "hold_for_review",
+  "evidence_grade": "D",
+  "source_authority": "moderate",
+  "source_support_type": "direct_exercise_support",
+  "RF_specificity": "ambiguous",
+  "central_tendon_fibrosis_risk": "moderate",
+  "manual_review_required": true,
+  "library_classification": "hold_review_only",
+  "injury_site_relevance": [
+    "unspecified"
+  ],
+  "guardrail_notes": [
+    "not a prescription",
+    "not dosage",
+    "not progression",
+    "not readiness",
+    "not RTT/RTS",
+    "not clearance",
+    "not a test"
+  ],
+  "source_ids": [
+    "SG-S3",
+    "CGDR-S3"
+  ],
+  "source_verification_status": "partially_verified",
+  "user_facing_name": "Sliding mountain climbers",
+  "user_facing_summary": "Drawing the knees in while in a plank, using sliders.",
+  "user_facing_purpose": "This builds control through your hips and trunk.",
+  "user_facing_setup": "Start in a plank with your feet on sliders.",
+  "user_facing_instructions": [
+    "Start in a plank with your feet on sliders.",
+    "Draw one knee toward your chest, then switch.",
+    "Keep your hips steady and controlled."
+  ],
+  "user_facing_common_mistakes": [
+    "Letting the hips pike up.",
+    "Rushing the movement."
+  ],
+  "user_facing_safety_note": "Keep it controlled and stop if you feel sharp pain.",
+  "plan_card_category": "control",
+  "plan_card_subcategory": "",
+  "difficulty_label": "controlled",
+  "advanced_label": "none",
+  "easier_option_labels": [
+    "Front plank"
+  ],
+  "harder_option_labels": [],
+  "related_exercise_labels": [
+    "Front plank",
+    "Dead bug"
+  ],
+  "media": {
+    "demo_video_url": null,
+    "demo_video_asset_id": null,
+    "image_asset_id": null,
+    "animation_asset_id": null,
+    "thumbnail_asset_id": null,
+    "media_status": "none",
+    "media_notes": null
+  },
+  "user_facing_status": "draft_copy",
+  "log_completion_available": true,
+  "log_pain_response_available": true,
+  "log_difficulty_available": true,
+  "log_confidence_available": false,
+  "log_notes_available": true,
+  "next_day_response_prompt_available": true
+}

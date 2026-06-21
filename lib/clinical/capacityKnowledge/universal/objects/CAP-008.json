@@ -1,0 +1,69 @@
+{
+  "capacity_id": "CAP-008",
+  "capacity_object_type": "universal_capacity",
+  "module": "universal",
+  "universal_capacity_ref": "",
+  "name": "hip_flexion_mobility",
+  "capacity_status": "draft",
+  "approval_status": "pending",
+  "clinical_approval_status": "not_approved",
+  "executable": false,
+  "runtime_integration": "none",
+  "permitted_use": "capacity_metadata_only",
+  "capacity_domain": "mobility",
+  "capacity_subdomain": "hip_flexion_mobility",
+  "capacity_tags": [
+    "hip_flexion_range",
+    "movement_quality"
+  ],
+  "body_region": [
+    "hip",
+    "anterior_thigh"
+  ],
+  "related_tissues": [
+    "hip_general",
+    "anterior_thigh_general"
+  ],
+  "measured_by_assessment_categories": [
+    "range_of_motion",
+    "pain_response"
+  ],
+  "improved_by_exercise_function_categories": [
+    "mobility",
+    "dynamic_mobility",
+    "activation"
+  ],
+  "expressed_through_activity_domains": [
+    "walking",
+    "running",
+    "kicking_exposure"
+  ],
+  "required_by_demand_profiles": [
+    "kicking",
+    "end_range_mobility",
+    "field_movement"
+  ],
+  "related_rehab_plan_blocks": [
+    "mobility_block",
+    "activation_block"
+  ],
+  "evidence_state": "not_tested",
+  "goal_sufficiency_status": "not_applicable",
+  "confidence_status": "low_confidence",
+  "allowed_when": [
+    "future_governed_capacity_rule_context_only",
+    "not_runtime_selectable",
+    "requires_clinical_rule_governance_before_use"
+  ],
+  "blocked_when": [
+    "runtime_selection",
+    "prescription",
+    "dosage_decision",
+    "progression_decision",
+    "readiness_decision",
+    "rtt_rts_decision",
+    "clearance_decision",
+    "standard_selection_without_governed_capacity_rules"
+  ],
+  "notes": "Hip-flexion mobility quality; not a stretch prescription and no range-of-motion degrees. Universal human-capacity metadata only. This object does not authorize prescription, dosage, progression, readiness, RTT/RTS, or clearance, holds no score/threshold/timeline, and carries no user-specific state. RF-specific meaning belongs to a future RF-CAP overlay referencing this capacity via universal_capacity_ref."
+}

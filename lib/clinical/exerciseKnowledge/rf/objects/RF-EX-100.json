@@ -1,0 +1,179 @@
+{
+  "exercise_id": "RF-EX-100",
+  "module": "rectus_femoris",
+  "name": "Long-lever hip-flexor isometric in extension",
+  "aliases": [],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "hip",
+    "anterior_thigh",
+    "knee",
+    "lower_limb"
+  ],
+  "target_tissues": [
+    "rectus_femoris",
+    "hip_flexors"
+  ],
+  "exercise_family": "isometric_hip_flexor_long_length",
+  "primary_function": [
+    "long_length_hip_flexor_isometric"
+  ],
+  "movement_category": [
+    "isometric_hip_flexor",
+    "long_length_loading"
+  ],
+  "joint_actions": [
+    "hip_flexion_isometric_context",
+    "hip_extended_context"
+  ],
+  "contraction_bias": [
+    "isometric"
+  ],
+  "position_tags": [
+    "hip_extended",
+    "long_lever",
+    "lengthened_rectus_femoris_context"
+  ],
+  "tissue_demand_tags": [
+    "long_length_anterior_thigh_load",
+    "anterior_thigh_monitoring_required"
+  ],
+  "speed_power_demand": "low",
+  "stretch_demand": "high",
+  "impact_demand": "none",
+  "field_demand_tags": [],
+  "equipment": [
+    "bench"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile"
+  ],
+  "allowed_when": [
+    "metadata_candidate_only",
+    "requires_future_rule_authoring"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-REHAB-002",
+    "RF-REHAB-004",
+    "RF-RECUR-002"
+  ],
+  "notes": "Batch 3 high-caution draft object; clinician review required before any use. Metadata only; not a prescription, dosage, progression, readiness, RTT/RTS, or clearance.",
+  "canonical_name": "longlever_hip_flexor_iso_extension",
+  "final_decision": "high_caution_do_not_convert_yet",
+  "evidence_grade": "C",
+  "source_authority": "high",
+  "source_support_type": "direct_exercise_support",
+  "RF_specificity": "high",
+  "central_tendon_fibrosis_risk": "high",
+  "manual_review_required": true,
+  "library_classification": "high_caution_sport_specific_exposure",
+  "injury_site_relevance": [
+    "proximal_tendon",
+    "central_intramuscular_tendon",
+    "muscular"
+  ],
+  "guardrail_notes": [
+    "not a prescription",
+    "not dosage",
+    "not progression",
+    "not readiness",
+    "not RTT/RTS",
+    "not clearance",
+    "not a test"
+  ],
+  "source_ids": [
+    "CGDR-S2"
+  ],
+  "source_verification_status": "partially_verified",
+  "user_facing_name": "Long-lever hip-flexor hold",
+  "user_facing_summary": "Holding the straight leg in a lengthened hip position.",
+  "user_facing_purpose": "This works the front of your hip in a long position.",
+  "user_facing_setup": "Lie back at a bench edge with one straight leg lowered.",
+  "user_facing_instructions": [
+    "Lie back at a bench edge with one straight leg lowered.",
+    "Gently hold the straight leg steady.",
+    "Relax slowly and repeat when comfortable."
+  ],
+  "user_facing_common_mistakes": [
+    "Arching the back.",
+    "Holding too hard."
+  ],
+  "user_facing_safety_note": "This is an advanced movement — keep it gentle and stop if you feel sharp pain.",
+  "plan_card_category": "strength",
+  "plan_card_subcategory": "",
+  "difficulty_label": "clinician_guided",
+  "advanced_label": "clinician_guided",
+  "easier_option_labels": [
+    "Seated hip-flexion hold"
+  ],
+  "harder_option_labels": [],
+  "related_exercise_labels": [
+    "Lengthened hip-flexor hold"
+  ],
+  "media": {
+    "demo_video_url": null,
+    "demo_video_asset_id": null,
+    "image_asset_id": null,
+    "animation_asset_id": null,
+    "thumbnail_asset_id": null,
+    "media_status": "none",
+    "media_notes": null
+  },
+  "user_facing_status": "draft_copy",
+  "log_completion_available": true,
+  "log_pain_response_available": true,
+  "log_difficulty_available": true,
+  "log_confidence_available": false,
+  "log_notes_available": true,
+  "next_day_response_prompt_available": true
+}

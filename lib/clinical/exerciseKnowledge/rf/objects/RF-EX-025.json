@@ -1,0 +1,187 @@
+{
+  "exercise_id": "RF-EX-025",
+  "module": "rectus_femoris",
+  "name": "Half-kneeling pelvic tilt",
+  "aliases": [
+    "half-kneeling pelvic tilts",
+    "half-kneeling pelvic control drill"
+  ],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "trunk",
+    "pelvis",
+    "hip",
+    "anterior_thigh"
+  ],
+  "target_tissues": [
+    "lumbopelvic_control_system",
+    "hip_flexors_secondary",
+    "rectus_femoris_secondary"
+  ],
+  "exercise_family": "lumbopelvic_control",
+  "primary_function": [
+    "pelvic_control",
+    "lumbopelvic_positioning",
+    "anterior_thigh_mobility_context"
+  ],
+  "movement_category": [
+    "motor_control",
+    "mobility_support"
+  ],
+  "joint_actions": [
+    "pelvic_tilt_control",
+    "hip_position_control"
+  ],
+  "contraction_bias": [
+    "motor_control",
+    "low_load_isometric_control"
+  ],
+  "position_tags": [
+    "half_kneeling",
+    "pelvic_control",
+    "hip_flexor_mobility_context"
+  ],
+  "tissue_demand_tags": [
+    "lumbopelvic_control_demand",
+    "low_anterior_thigh_mobility_demand"
+  ],
+  "speed_power_demand": "low",
+  "stretch_demand": "low_to_moderate",
+  "impact_demand": "none",
+  "field_demand_tags": [],
+  "equipment": [
+    "bodyweight"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile"
+  ],
+  "allowed_when": [
+    "metadata_candidate_only",
+    "requires_future_rule_authoring",
+    "supporting_exercise_metadata"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity",
+    "lumbopelvic_control_loss"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [
+    "Gonzalez_de_la_Flor_Garcia_Perez_de_Sevilla_2024_RF_strain_case_report"
+  ],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-REHAB-001",
+    "RF-REHAB-002",
+    "RF-REHAB-006"
+  ],
+  "notes": "Supporting lumbopelvic-control metadata from an RF strain case report. Not primary RF tissue-loading authority; no dose or progression copied.",
+  "canonical_name": "half_kneeling_pelvic_tilt",
+  "final_decision": "first_batch_safe_metadata",
+  "evidence_grade": "B",
+  "source_authority": "moderate",
+  "source_support_type": "direct_exercise_support",
+  "RF_specificity": "low-moderate",
+  "central_tendon_fibrosis_risk": "low",
+  "manual_review_required": false,
+  "library_classification": "rf_mobility_movement_restoration",
+  "injury_site_relevance": [
+    "unspecified"
+  ],
+  "guardrail_notes": [
+    "not a prescription",
+    "not dosage",
+    "not progression",
+    "not readiness",
+    "not RTT/RTS",
+    "not clearance",
+    "not a test"
+  ],
+  "source_ids": [
+    "SG-S3",
+    "CGDR-S3"
+  ],
+  "source_verification_status": "partially_verified",
+  "user_facing_name": "Half-kneeling pelvic tilt",
+  "user_facing_summary": "A small pelvis movement in a half-kneeling position.",
+  "user_facing_purpose": "This helps you control your pelvis and hip position.",
+  "user_facing_setup": "Kneel on one knee with the other foot flat in front.",
+  "user_facing_instructions": [
+    "Kneel on one knee with the other foot flat in front.",
+    "Gently tuck your pelvis under without forcing your back.",
+    "Return to the start slowly."
+  ],
+  "user_facing_common_mistakes": [
+    "Arching the lower back.",
+    "Moving from the back instead of the pelvis."
+  ],
+  "user_facing_safety_note": "Keep movements small and comfortable.",
+  "plan_card_category": "control",
+  "plan_card_subcategory": "",
+  "difficulty_label": "foundational",
+  "advanced_label": "none",
+  "easier_option_labels": [],
+  "harder_option_labels": [],
+  "related_exercise_labels": [
+    "Dead bug"
+  ],
+  "media": {
+    "demo_video_url": null,
+    "demo_video_asset_id": null,
+    "image_asset_id": null,
+    "animation_asset_id": null,
+    "thumbnail_asset_id": null,
+    "media_status": "none",
+    "media_notes": null
+  },
+  "user_facing_status": "draft_copy",
+  "log_completion_available": true,
+  "log_pain_response_available": true,
+  "log_difficulty_available": true,
+  "log_confidence_available": false,
+  "log_notes_available": true,
+  "next_day_response_prompt_available": true
+}

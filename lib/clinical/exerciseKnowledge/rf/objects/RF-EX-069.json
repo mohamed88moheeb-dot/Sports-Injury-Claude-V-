@@ -1,0 +1,125 @@
+{
+  "exercise_id": "RF-EX-069",
+  "module": "rectus_femoris",
+  "name": "Ball-training with kicking",
+  "aliases": [
+    "ball training with kicking",
+    "post-surgical ball kicking context"
+  ],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "hip",
+    "knee",
+    "anterior_thigh",
+    "lower_limb"
+  ],
+  "target_tissues": [
+    "rectus_femoris_secondary",
+    "kicking_chain",
+    "lower_limb_sport_system"
+  ],
+  "exercise_family": "restricted_post_surgical_kicking_context",
+  "primary_function": [
+    "post_surgical_ball_training_with_kicking_context"
+  ],
+  "movement_category": [
+    "kicking_exposure",
+    "ball_training",
+    "restricted_context_only"
+  ],
+  "joint_actions": [
+    "hip_flexion_extension",
+    "knee_extension_context",
+    "sport_specific_limb_swing"
+  ],
+  "contraction_bias": [
+    "dynamic_sport_specific"
+  ],
+  "position_tags": [
+    "restricted_context_only",
+    "post_surgical_rf_context_only",
+    "ball_training_with_kicking"
+  ],
+  "tissue_demand_tags": [
+    "kicking_exposure_demand",
+    "post_surgical_context_only"
+  ],
+  "speed_power_demand": "moderate_to_high",
+  "stretch_demand": "moderate",
+  "impact_demand": "moderate",
+  "field_demand_tags": [
+    "kicking_preparation",
+    "sport_specific_preparation"
+  ],
+  "equipment": [
+    "ball",
+    "open_space"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile",
+    "requires_external_load_context"
+  ],
+  "allowed_when": [
+    "restricted_context_only",
+    "requires_future_rule_authoring"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure",
+    "standard_rf_strain_selection_without_reviewer_approval"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [
+    "Lempainen_2021_Chronic_Recurrent_RF_Central_Tendon_Rupture"
+  ],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-SEV-004",
+    "RF-REHAB-006",
+    "RF-FIELD-004"
+  ],
+  "notes": "Restricted post-surgical RF central-tendon context only. Not primary authority for standard RF strain exercise selection and not kicking or RTS clearance."
+}

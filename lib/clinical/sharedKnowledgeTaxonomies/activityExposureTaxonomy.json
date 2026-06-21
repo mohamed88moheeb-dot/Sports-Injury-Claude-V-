@@ -1,0 +1,335 @@
+{
+  "taxonomy_name": "activity_exposure",
+  "version": "v1.0_scaffold",
+  "approval_status": "pending",
+  "executable": false,
+  "runtime_integration": "none",
+  "governance": "Taxonomy scaffold only. Metadata vocabulary for future use. Defines no dose, no progression, no readiness, no RTT/RTS clearance, no plan generation. Not wired into runtime.",
+  "description": "Taxonomy of activity/sport exposure domains to be reintroduced, restricted, monitored, or progressed LATER by governed rules. Not exercises and not clearances.",
+  "categories": [
+    {
+      "id": "walking",
+      "what_it_is": "Activity/exposure domain: walking.",
+      "what_it_is_not": "not an exercise, not a plan, not a dose, not a clearance",
+      "clearance_sensitive": false,
+      "must_monitor": [
+        "pain_during",
+        "pain_after",
+        "next_day_response",
+        "loss_of_capacity"
+      ]
+    },
+    {
+      "id": "stairs",
+      "what_it_is": "Activity/exposure domain: stairs.",
+      "what_it_is_not": "not an exercise, not a plan, not a dose, not a clearance",
+      "clearance_sensitive": false,
+      "must_monitor": [
+        "pain_during",
+        "pain_after",
+        "next_day_response",
+        "loss_of_capacity"
+      ]
+    },
+    {
+      "id": "jogging",
+      "what_it_is": "Activity/exposure domain: jogging.",
+      "what_it_is_not": "not an exercise, not a plan, not a dose, not a clearance",
+      "clearance_sensitive": false,
+      "must_monitor": [
+        "pain_during",
+        "pain_after",
+        "next_day_response",
+        "loss_of_capacity"
+      ]
+    },
+    {
+      "id": "running",
+      "what_it_is": "Activity/exposure domain: running.",
+      "what_it_is_not": "not an exercise, not a plan, not a dose, not a clearance",
+      "clearance_sensitive": false,
+      "must_monitor": [
+        "pain_during",
+        "pain_after",
+        "next_day_response",
+        "loss_of_capacity"
+      ]
+    },
+    {
+      "id": "tempo_running",
+      "what_it_is": "Activity/exposure domain: tempo running.",
+      "what_it_is_not": "not an exercise, not a plan, not a dose, not a clearance",
+      "clearance_sensitive": false,
+      "must_monitor": [
+        "pain_during",
+        "pain_after",
+        "next_day_response",
+        "loss_of_capacity"
+      ]
+    },
+    {
+      "id": "high_speed_running",
+      "what_it_is": "Activity/exposure domain: high speed running.",
+      "what_it_is_not": "not an exercise, not a plan, not a dose, not a clearance",
+      "clearance_sensitive": true,
+      "must_monitor": [
+        "pain_during",
+        "pain_after",
+        "next_day_response",
+        "loss_of_capacity"
+      ]
+    },
+    {
+      "id": "sprinting",
+      "what_it_is": "Activity/exposure domain: sprinting.",
+      "what_it_is_not": "not an exercise, not a plan, not a dose, not a clearance",
+      "clearance_sensitive": true,
+      "must_monitor": [
+        "pain_during",
+        "pain_after",
+        "next_day_response",
+        "loss_of_capacity"
+      ]
+    },
+    {
+      "id": "acceleration",
+      "what_it_is": "Activity/exposure domain: acceleration.",
+      "what_it_is_not": "not an exercise, not a plan, not a dose, not a clearance",
+      "clearance_sensitive": true,
+      "must_monitor": [
+        "pain_during",
+        "pain_after",
+        "next_day_response",
+        "loss_of_capacity"
+      ]
+    },
+    {
+      "id": "deceleration",
+      "what_it_is": "Activity/exposure domain: deceleration.",
+      "what_it_is_not": "not an exercise, not a plan, not a dose, not a clearance",
+      "clearance_sensitive": true,
+      "must_monitor": [
+        "pain_during",
+        "pain_after",
+        "next_day_response",
+        "loss_of_capacity"
+      ]
+    },
+    {
+      "id": "change_of_direction",
+      "what_it_is": "Activity/exposure domain: change of direction.",
+      "what_it_is_not": "not an exercise, not a plan, not a dose, not a clearance",
+      "clearance_sensitive": true,
+      "must_monitor": [
+        "pain_during",
+        "pain_after",
+        "next_day_response",
+        "loss_of_capacity"
+      ]
+    },
+    {
+      "id": "lateral_shuffle",
+      "what_it_is": "Activity/exposure domain: lateral shuffle.",
+      "what_it_is_not": "not an exercise, not a plan, not a dose, not a clearance",
+      "clearance_sensitive": false,
+      "must_monitor": [
+        "pain_during",
+        "pain_after",
+        "next_day_response",
+        "loss_of_capacity"
+      ]
+    },
+    {
+      "id": "cutting",
+      "what_it_is": "Activity/exposure domain: cutting.",
+      "what_it_is_not": "not an exercise, not a plan, not a dose, not a clearance",
+      "clearance_sensitive": true,
+      "must_monitor": [
+        "pain_during",
+        "pain_after",
+        "next_day_response",
+        "loss_of_capacity"
+      ]
+    },
+    {
+      "id": "jumping_exposure",
+      "what_it_is": "Activity/exposure domain: jumping exposure.",
+      "what_it_is_not": "not an exercise, not a plan, not a dose, not a clearance",
+      "clearance_sensitive": true,
+      "must_monitor": [
+        "pain_during",
+        "pain_after",
+        "next_day_response",
+        "loss_of_capacity"
+      ]
+    },
+    {
+      "id": "landing_exposure",
+      "what_it_is": "Activity/exposure domain: landing exposure.",
+      "what_it_is_not": "not an exercise, not a plan, not a dose, not a clearance",
+      "clearance_sensitive": true,
+      "must_monitor": [
+        "pain_during",
+        "pain_after",
+        "next_day_response",
+        "loss_of_capacity"
+      ]
+    },
+    {
+      "id": "kicking_exposure",
+      "what_it_is": "Activity/exposure domain: kicking exposure.",
+      "what_it_is_not": "not an exercise, not a plan, not a dose, not a clearance",
+      "clearance_sensitive": true,
+      "must_monitor": [
+        "pain_during",
+        "pain_after",
+        "next_day_response",
+        "loss_of_capacity"
+      ]
+    },
+    {
+      "id": "throwing_exposure",
+      "what_it_is": "Activity/exposure domain: throwing exposure.",
+      "what_it_is_not": "not an exercise, not a plan, not a dose, not a clearance",
+      "clearance_sensitive": true,
+      "must_monitor": [
+        "pain_during",
+        "pain_after",
+        "next_day_response",
+        "loss_of_capacity"
+      ]
+    },
+    {
+      "id": "swimming",
+      "what_it_is": "Activity/exposure domain: swimming.",
+      "what_it_is_not": "not an exercise, not a plan, not a dose, not a clearance",
+      "clearance_sensitive": false,
+      "must_monitor": [
+        "pain_during",
+        "pain_after",
+        "next_day_response",
+        "loss_of_capacity"
+      ]
+    },
+    {
+      "id": "cycling",
+      "what_it_is": "Activity/exposure domain: cycling.",
+      "what_it_is_not": "not an exercise, not a plan, not a dose, not a clearance",
+      "clearance_sensitive": false,
+      "must_monitor": [
+        "pain_during",
+        "pain_after",
+        "next_day_response",
+        "loss_of_capacity"
+      ]
+    },
+    {
+      "id": "elliptical",
+      "what_it_is": "Activity/exposure domain: elliptical.",
+      "what_it_is_not": "not an exercise, not a plan, not a dose, not a clearance",
+      "clearance_sensitive": false,
+      "must_monitor": [
+        "pain_during",
+        "pain_after",
+        "next_day_response",
+        "loss_of_capacity"
+      ]
+    },
+    {
+      "id": "pool_training",
+      "what_it_is": "Activity/exposure domain: pool training.",
+      "what_it_is_not": "not an exercise, not a plan, not a dose, not a clearance",
+      "clearance_sensitive": false,
+      "must_monitor": [
+        "pain_during",
+        "pain_after",
+        "next_day_response",
+        "loss_of_capacity"
+      ]
+    },
+    {
+      "id": "field_training",
+      "what_it_is": "Activity/exposure domain: field training.",
+      "what_it_is_not": "not an exercise, not a plan, not a dose, not a clearance",
+      "clearance_sensitive": true,
+      "must_monitor": [
+        "pain_during",
+        "pain_after",
+        "next_day_response",
+        "loss_of_capacity"
+      ]
+    },
+    {
+      "id": "court_training",
+      "what_it_is": "Activity/exposure domain: court training.",
+      "what_it_is_not": "not an exercise, not a plan, not a dose, not a clearance",
+      "clearance_sensitive": true,
+      "must_monitor": [
+        "pain_during",
+        "pain_after",
+        "next_day_response",
+        "loss_of_capacity"
+      ]
+    },
+    {
+      "id": "gym_conditioning",
+      "what_it_is": "Activity/exposure domain: gym conditioning.",
+      "what_it_is_not": "not an exercise, not a plan, not a dose, not a clearance",
+      "clearance_sensitive": false,
+      "must_monitor": [
+        "pain_during",
+        "pain_after",
+        "next_day_response",
+        "loss_of_capacity"
+      ]
+    },
+    {
+      "id": "team_training",
+      "what_it_is": "Activity/exposure domain: team training.",
+      "what_it_is_not": "not an exercise, not a plan, not a dose, not a clearance",
+      "clearance_sensitive": true,
+      "must_monitor": [
+        "pain_during",
+        "pain_after",
+        "next_day_response",
+        "loss_of_capacity"
+      ]
+    },
+    {
+      "id": "controlled_practice",
+      "what_it_is": "Activity/exposure domain: controlled practice.",
+      "what_it_is_not": "not an exercise, not a plan, not a dose, not a clearance",
+      "clearance_sensitive": true,
+      "must_monitor": [
+        "pain_during",
+        "pain_after",
+        "next_day_response",
+        "loss_of_capacity"
+      ]
+    },
+    {
+      "id": "game_based_exposure",
+      "what_it_is": "Activity/exposure domain: game based exposure.",
+      "what_it_is_not": "not an exercise, not a plan, not a dose, not a clearance",
+      "clearance_sensitive": true,
+      "must_monitor": [
+        "pain_during",
+        "pain_after",
+        "next_day_response",
+        "loss_of_capacity"
+      ]
+    },
+    {
+      "id": "match_play",
+      "what_it_is": "Activity/exposure domain: match play.",
+      "what_it_is_not": "not an exercise, not a plan, not a dose, not a clearance",
+      "clearance_sensitive": true,
+      "must_monitor": [
+        "pain_during",
+        "pain_after",
+        "next_day_response",
+        "loss_of_capacity"
+      ]
+    }
+  ]
+}

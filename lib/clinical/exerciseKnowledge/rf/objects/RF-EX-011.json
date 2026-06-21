@@ -1,0 +1,117 @@
+{
+  "exercise_id": "RF-EX-011",
+  "module": "rectus_femoris",
+  "name": "Knee-extended hip flexion",
+  "aliases": [
+    "straight-leg hip flexion",
+    "long-lever hip flexion"
+  ],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "anterior_thigh",
+    "hip",
+    "knee"
+  ],
+  "target_tissues": [
+    "rectus_femoris",
+    "hip_flexors"
+  ],
+  "exercise_family": "hip_flexor_rectus_femoris_biased_loading",
+  "primary_function": [
+    "long_lever_hip_flexion_loading"
+  ],
+  "movement_category": [
+    "hip_flexion",
+    "long_lever_loading"
+  ],
+  "joint_actions": [
+    "hip_flexion",
+    "knee_extension_hold_context"
+  ],
+  "contraction_bias": [
+    "unspecified"
+  ],
+  "position_tags": [
+    "knee_extended",
+    "long_lever",
+    "hip_flexion"
+  ],
+  "tissue_demand_tags": [
+    "rectus_femoris_load",
+    "hip_flexor_load",
+    "long_lever_anterior_thigh_load"
+  ],
+  "speed_power_demand": "low_to_moderate",
+  "stretch_demand": "moderate",
+  "impact_demand": "none",
+  "field_demand_tags": [],
+  "equipment": [
+    "unspecified"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile"
+  ],
+  "allowed_when": [
+    "metadata_candidate_only",
+    "requires_future_rule_authoring"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [
+    "Aspetar_Rectus_Femoris_Injury_Rehabilitation_Pathway_2026"
+  ],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-REHAB-001",
+    "RF-REHAB-002",
+    "RF-REHAB-004",
+    "RF-RECUR-002"
+  ],
+  "notes": "Higher RF relevance than knee-flexed hip flexion. Metadata only."
+}

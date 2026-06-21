@@ -1,0 +1,2901 @@
+{
+  "metadata": {
+    "title": "RF Knowledge Object Classification Audit",
+    "version": "v1.0",
+    "approval_status": "pending",
+    "executable": false,
+    "runtime_integration": "none",
+    "moves_nothing": true,
+    "renames_nothing": true,
+    "approves_nothing": true,
+    "creates_no_dose_progression_readiness_rtt_rts": true,
+    "objects_audited": 87,
+    "source_objects": "RF-EX-001..087",
+    "governing_docs": [
+      "docs/implementation/KNOWLEDGE_SYSTEMS_ONTOLOGY_AND_REHAB_COMPOSITION_MODEL.md",
+      "lib/clinical/sharedKnowledgeTaxonomies/"
+    ]
+  },
+  "counts": {
+    "by_proposed_future_system": {
+      "exercise_knowledge": 57,
+      "restricted_context_only": 16,
+      "activity_exposure_knowledge": 12,
+      "dual_reference_exercise_and_assessment": 2
+    },
+    "by_object_type_classification": {
+      "true_exercise": 42,
+      "restricted_context_only": 14,
+      "exercise_drill": 15,
+      "activity_exposure": 10,
+      "assessment_overlap": 2,
+      "conditioning_exposure": 4
+    },
+    "by_proposed_future_id_prefix": {
+      "RF-EX": 57,
+      "RESTRICTED": 16,
+      "RF-ACT": 12,
+      "DUAL": 2
+    },
+    "by_keep_or_migrate_later": {
+      "keep": 57,
+      "restrict_and_review": 16,
+      "migrate_later": 12,
+      "cross_reference_later": 2
+    },
+    "by_migration_priority": {
+      "none": 57,
+      "low": 16,
+      "high": 12,
+      "medium": 2
+    }
+  },
+  "objects": [
+    {
+      "current_id": "RF-EX-001",
+      "current_name": "Reclined knee extension ISO",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "isometric_strength"
+      ],
+      "contraction_tags": [
+        "isometric"
+      ],
+      "exercise_intent_tags": [
+        "strength_development",
+        "tissue_capacity"
+      ],
+      "movement_pattern_tags": [
+        "knee_extension"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "bench"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-002",
+      "current_name": "Hip-flexed knee extension",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "isotonic_strength"
+      ],
+      "contraction_tags": [
+        "isometric",
+        "isotonic"
+      ],
+      "exercise_intent_tags": [
+        "strength_development",
+        "tissue_capacity"
+      ],
+      "movement_pattern_tags": [
+        "knee_extension"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-003",
+      "current_name": "Hip-extended knee extension",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "eccentric_strength",
+        "long_length_strength",
+        "isotonic_strength"
+      ],
+      "contraction_tags": [
+        "isometric",
+        "isotonic"
+      ],
+      "exercise_intent_tags": [
+        "strength_development",
+        "tissue_capacity"
+      ],
+      "movement_pattern_tags": [
+        "knee_extension"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-004",
+      "current_name": "Leg extension",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "isotonic_strength"
+      ],
+      "contraction_tags": [
+        "isotonic"
+      ],
+      "exercise_intent_tags": [
+        "strength_development",
+        "tissue_capacity"
+      ],
+      "movement_pattern_tags": [
+        "knee_extension"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "leg_extension_machine"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-005",
+      "current_name": "Isometric supine hip flexion at 90 degrees",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "isometric_strength"
+      ],
+      "contraction_tags": [
+        "isometric"
+      ],
+      "exercise_intent_tags": [
+        "strength_development",
+        "tissue_capacity"
+      ],
+      "movement_pattern_tags": [
+        "hip_flexion"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-006",
+      "current_name": "Standing hip flexion at 90 degrees",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "isotonic_strength"
+      ],
+      "contraction_tags": [
+        "isometric",
+        "isotonic"
+      ],
+      "exercise_intent_tags": [
+        "strength_development",
+        "tissue_capacity"
+      ],
+      "movement_pattern_tags": [
+        "hip_flexion"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "bodyweight"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-007",
+      "current_name": "Half-kneeling hip flexion",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "motor_control",
+        "isotonic_strength"
+      ],
+      "contraction_tags": [
+        "isometric",
+        "isotonic"
+      ],
+      "exercise_intent_tags": [
+        "strength_development",
+        "tissue_capacity",
+        "neuromuscular_control"
+      ],
+      "movement_pattern_tags": [
+        "hip_flexion"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "bodyweight"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-008",
+      "current_name": "Inclined trunk hip flexion",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "isotonic_strength",
+        "trunk_pelvis_control"
+      ],
+      "contraction_tags": [
+        "isotonic"
+      ],
+      "exercise_intent_tags": [
+        "strength_development",
+        "tissue_capacity"
+      ],
+      "movement_pattern_tags": [
+        "hip_flexion"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "bench"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-009",
+      "current_name": "Resisted hip flexion in Thomas-test position",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "eccentric_strength",
+        "long_length_strength"
+      ],
+      "contraction_tags": [
+        "isometric",
+        "isotonic"
+      ],
+      "exercise_intent_tags": [],
+      "movement_pattern_tags": [
+        "hip_flexion",
+        "hip_extension"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-010",
+      "current_name": "Knee-flexed hip flexion",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [],
+      "contraction_tags": [],
+      "exercise_intent_tags": [],
+      "movement_pattern_tags": [
+        "hip_flexion"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-011",
+      "current_name": "Knee-extended hip flexion",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [],
+      "contraction_tags": [],
+      "exercise_intent_tags": [],
+      "movement_pattern_tags": [
+        "hip_flexion"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-012",
+      "current_name": "Straight leg raise active mobility/loading",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "mobility"
+      ],
+      "contraction_tags": [
+        "dynamic_control"
+      ],
+      "exercise_intent_tags": [
+        "range_restoration",
+        "movement_quality"
+      ],
+      "movement_pattern_tags": [
+        "hip_flexion"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [
+        "range_of_motion"
+      ],
+      "equipment_tags": [
+        "bodyweight"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-013",
+      "current_name": "Reverse Nordic",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "eccentric_strength",
+        "long_length_strength"
+      ],
+      "contraction_tags": [
+        "eccentric"
+      ],
+      "exercise_intent_tags": [
+        "strength_development",
+        "tissue_capacity"
+      ],
+      "movement_pattern_tags": [
+        "knee_extension"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "bodyweight"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-014",
+      "current_name": "Walking lunge",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "isotonic_strength"
+      ],
+      "contraction_tags": [
+        "isotonic"
+      ],
+      "exercise_intent_tags": [
+        "strength_development",
+        "tissue_capacity"
+      ],
+      "movement_pattern_tags": [
+        "lunge"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "bodyweight"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-015",
+      "current_name": "Posterior lunge",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "isotonic_strength",
+        "support_strength"
+      ],
+      "contraction_tags": [
+        "isotonic"
+      ],
+      "exercise_intent_tags": [
+        "strength_development",
+        "tissue_capacity"
+      ],
+      "movement_pattern_tags": [
+        "lunge"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "bodyweight"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-016",
+      "current_name": "Step-up",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "isotonic_strength",
+        "support_strength"
+      ],
+      "contraction_tags": [
+        "isotonic"
+      ],
+      "exercise_intent_tags": [
+        "strength_development",
+        "tissue_capacity"
+      ],
+      "movement_pattern_tags": [
+        "step_up",
+        "push"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "box",
+        "step"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-017",
+      "current_name": "Double-leg squat",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "isotonic_strength",
+        "support_strength"
+      ],
+      "contraction_tags": [
+        "isotonic"
+      ],
+      "exercise_intent_tags": [
+        "strength_development",
+        "tissue_capacity"
+      ],
+      "movement_pattern_tags": [
+        "squat"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "bodyweight"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-018",
+      "current_name": "Mini single-leg squat",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "isotonic_strength",
+        "support_strength"
+      ],
+      "contraction_tags": [
+        "isotonic"
+      ],
+      "exercise_intent_tags": [
+        "strength_development",
+        "tissue_capacity"
+      ],
+      "movement_pattern_tags": [
+        "squat"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "bodyweight"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-019",
+      "current_name": "Single-leg squat",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "motor_control",
+        "isotonic_strength",
+        "support_strength"
+      ],
+      "contraction_tags": [
+        "isotonic"
+      ],
+      "exercise_intent_tags": [
+        "strength_development",
+        "tissue_capacity",
+        "neuromuscular_control"
+      ],
+      "movement_pattern_tags": [
+        "squat"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [
+        "neuromuscular_control"
+      ],
+      "equipment_tags": [
+        "bodyweight"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-020",
+      "current_name": "Prone quadriceps dynamic mobility",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "mobility",
+        "dynamic_mobility"
+      ],
+      "contraction_tags": [
+        "dynamic_control"
+      ],
+      "exercise_intent_tags": [
+        "range_restoration",
+        "movement_quality"
+      ],
+      "movement_pattern_tags": [],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "bodyweight"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-021",
+      "current_name": "Mountain climbers with slider",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "motor_control",
+        "isotonic_strength",
+        "trunk_pelvis_control"
+      ],
+      "contraction_tags": [
+        "isotonic"
+      ],
+      "exercise_intent_tags": [
+        "strength_development",
+        "tissue_capacity",
+        "neuromuscular_control"
+      ],
+      "movement_pattern_tags": [
+        "hip_flexion"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "slider"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-022",
+      "current_name": "Generic quadriceps isometric exercise",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "restricted_context_only",
+      "proposed_future_system": "restricted_context_only",
+      "proposed_future_id_prefix": "RESTRICTED",
+      "keep_or_migrate_later": "restrict_and_review",
+      "exercise_function_tags": [
+        "isometric_strength"
+      ],
+      "contraction_tags": [
+        "isometric"
+      ],
+      "exercise_intent_tags": [
+        "symptom_monitoring_context"
+      ],
+      "movement_pattern_tags": [
+        "knee_extension"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [],
+      "sport_demand_tags": [],
+      "reason": "Source is restricted context (Ryan_West_Point_Quadriceps_Contusions_1991, Lempainen_2021_Chronic_Recurrent_RF_Central_Tendon_Rupture); not primary authority for standard RF strain selection.",
+      "risk_notes": "Must remain blocked from standard RF strain selection (reviewer-gated). Risk of inappropriate use if migrated without governance.",
+      "migration_priority": "low"
+    },
+    {
+      "current_id": "RF-EX-023",
+      "current_name": "Active knee extension ROM/loading",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "restricted_context_only",
+      "proposed_future_system": "restricted_context_only",
+      "proposed_future_id_prefix": "RESTRICTED",
+      "keep_or_migrate_later": "restrict_and_review",
+      "exercise_function_tags": [
+        "mobility"
+      ],
+      "contraction_tags": [
+        "dynamic_control"
+      ],
+      "exercise_intent_tags": [
+        "symptom_monitoring_context"
+      ],
+      "movement_pattern_tags": [
+        "knee_extension"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "bodyweight"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Source is restricted context (Ryan_West_Point_Quadriceps_Contusions_1991); not primary authority for standard RF strain selection.",
+      "risk_notes": "Must remain blocked from standard RF strain selection (reviewer-gated). Risk of inappropriate use if migrated without governance.",
+      "migration_priority": "low"
+    },
+    {
+      "current_id": "RF-EX-024",
+      "current_name": "Active knee flexion ROM",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "restricted_context_only",
+      "proposed_future_system": "restricted_context_only",
+      "proposed_future_id_prefix": "RESTRICTED",
+      "keep_or_migrate_later": "restrict_and_review",
+      "exercise_function_tags": [
+        "mobility"
+      ],
+      "contraction_tags": [
+        "dynamic_control"
+      ],
+      "exercise_intent_tags": [
+        "symptom_monitoring_context"
+      ],
+      "movement_pattern_tags": [],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "bodyweight"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Source is restricted context (Ryan_West_Point_Quadriceps_Contusions_1991); not primary authority for standard RF strain selection.",
+      "risk_notes": "Must remain blocked from standard RF strain selection (reviewer-gated). Risk of inappropriate use if migrated without governance.",
+      "migration_priority": "low"
+    },
+    {
+      "current_id": "RF-EX-025",
+      "current_name": "Half-kneeling pelvic tilt",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "mobility",
+        "motor_control"
+      ],
+      "contraction_tags": [
+        "motor_control",
+        "isometric"
+      ],
+      "exercise_intent_tags": [
+        "range_restoration",
+        "movement_quality",
+        "neuromuscular_control"
+      ],
+      "movement_pattern_tags": [],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "bodyweight"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-026",
+      "current_name": "Half-kneeling pelvic tilt with maximal knee flexion",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "mobility",
+        "motor_control"
+      ],
+      "contraction_tags": [
+        "dynamic_control",
+        "motor_control"
+      ],
+      "exercise_intent_tags": [
+        "range_restoration",
+        "movement_quality",
+        "neuromuscular_control"
+      ],
+      "movement_pattern_tags": [],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "bodyweight"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-027",
+      "current_name": "Supine hamstring dynamic mobility",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "mobility",
+        "dynamic_mobility"
+      ],
+      "contraction_tags": [
+        "dynamic_control"
+      ],
+      "exercise_intent_tags": [
+        "range_restoration",
+        "movement_quality"
+      ],
+      "movement_pattern_tags": [],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "bodyweight"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-028",
+      "current_name": "Hamstring dynamic mobility with fitball",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "mobility",
+        "dynamic_mobility"
+      ],
+      "contraction_tags": [
+        "dynamic_control"
+      ],
+      "exercise_intent_tags": [
+        "range_restoration",
+        "movement_quality"
+      ],
+      "movement_pattern_tags": [],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "ball",
+        "swiss_ball"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-029",
+      "current_name": "Ballistic swings",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "mobility",
+        "dynamic_mobility",
+        "power"
+      ],
+      "contraction_tags": [
+        "dynamic_control"
+      ],
+      "exercise_intent_tags": [
+        "range_restoration",
+        "movement_quality"
+      ],
+      "movement_pattern_tags": [],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "bodyweight"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-030",
+      "current_name": "Side-lying hip abduction with band",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "motor_control",
+        "isotonic_strength",
+        "support_strength"
+      ],
+      "contraction_tags": [
+        "isotonic"
+      ],
+      "exercise_intent_tags": [
+        "strength_development",
+        "tissue_capacity",
+        "neuromuscular_control"
+      ],
+      "movement_pattern_tags": [
+        "abduction"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "resistance_band"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-031",
+      "current_name": "Clamshells with band",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "motor_control",
+        "isotonic_strength",
+        "support_strength"
+      ],
+      "contraction_tags": [
+        "isotonic"
+      ],
+      "exercise_intent_tags": [
+        "strength_development",
+        "tissue_capacity",
+        "neuromuscular_control"
+      ],
+      "movement_pattern_tags": [],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "resistance_band"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-032",
+      "current_name": "Bilateral glute bridge",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "motor_control",
+        "isotonic_strength",
+        "support_strength"
+      ],
+      "contraction_tags": [
+        "isometric",
+        "isotonic"
+      ],
+      "exercise_intent_tags": [
+        "strength_development",
+        "tissue_capacity",
+        "neuromuscular_control"
+      ],
+      "movement_pattern_tags": [
+        "bridge",
+        "hip_extension"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "bodyweight"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-033",
+      "current_name": "Bilateral hip thrust",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "motor_control",
+        "isotonic_strength",
+        "support_strength",
+        "trunk_pelvis_control"
+      ],
+      "contraction_tags": [
+        "isotonic"
+      ],
+      "exercise_intent_tags": [
+        "strength_development",
+        "tissue_capacity",
+        "neuromuscular_control"
+      ],
+      "movement_pattern_tags": [
+        "hip_thrust",
+        "hip_extension"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "bench",
+        "box"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-034",
+      "current_name": "Lateral walk with band",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "motor_control",
+        "support_strength"
+      ],
+      "contraction_tags": [
+        "isotonic"
+      ],
+      "exercise_intent_tags": [
+        "neuromuscular_control"
+      ],
+      "movement_pattern_tags": [
+        "abduction"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "resistance_band"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-035",
+      "current_name": "Unilateral hip thrust",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "motor_control",
+        "isotonic_strength",
+        "support_strength",
+        "trunk_pelvis_control"
+      ],
+      "contraction_tags": [
+        "isotonic"
+      ],
+      "exercise_intent_tags": [
+        "strength_development",
+        "tissue_capacity",
+        "neuromuscular_control"
+      ],
+      "movement_pattern_tags": [
+        "hip_thrust",
+        "hip_extension"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "bench",
+        "box"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-036",
+      "current_name": "Monster walk",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "motor_control",
+        "support_strength"
+      ],
+      "contraction_tags": [
+        "isotonic"
+      ],
+      "exercise_intent_tags": [
+        "neuromuscular_control"
+      ],
+      "movement_pattern_tags": [],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "resistance_band"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-037",
+      "current_name": "Plyometric glute bridge",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "motor_control",
+        "plyometric",
+        "power",
+        "support_strength"
+      ],
+      "contraction_tags": [
+        "plyometric"
+      ],
+      "exercise_intent_tags": [
+        "strength_development",
+        "tissue_capacity",
+        "neuromuscular_control",
+        "elastic_reactivity",
+        "landing_tolerance",
+        "rate_of_force_development"
+      ],
+      "movement_pattern_tags": [
+        "bridge",
+        "hip_extension"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "bodyweight"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-038",
+      "current_name": "Plyometric hip thrust",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "motor_control",
+        "plyometric",
+        "power",
+        "support_strength",
+        "trunk_pelvis_control"
+      ],
+      "contraction_tags": [
+        "plyometric"
+      ],
+      "exercise_intent_tags": [
+        "strength_development",
+        "tissue_capacity",
+        "neuromuscular_control",
+        "elastic_reactivity",
+        "landing_tolerance",
+        "rate_of_force_development"
+      ],
+      "movement_pattern_tags": [
+        "hip_thrust",
+        "hip_extension"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "bench",
+        "box"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-039",
+      "current_name": "Side plank",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "motor_control",
+        "isometric_strength",
+        "trunk_pelvis_control"
+      ],
+      "contraction_tags": [
+        "isometric"
+      ],
+      "exercise_intent_tags": [
+        "strength_development",
+        "tissue_capacity",
+        "neuromuscular_control"
+      ],
+      "movement_pattern_tags": [
+        "trunk_lateral_stability"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "bodyweight"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-040",
+      "current_name": "Front plank",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "motor_control",
+        "isometric_strength",
+        "trunk_pelvis_control"
+      ],
+      "contraction_tags": [
+        "isometric"
+      ],
+      "exercise_intent_tags": [
+        "strength_development",
+        "tissue_capacity",
+        "neuromuscular_control"
+      ],
+      "movement_pattern_tags": [
+        "trunk_anti_extension"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "bodyweight"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-041",
+      "current_name": "Dead bug",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "motor_control",
+        "trunk_pelvis_control"
+      ],
+      "contraction_tags": [
+        "motor_control",
+        "isometric"
+      ],
+      "exercise_intent_tags": [
+        "neuromuscular_control"
+      ],
+      "movement_pattern_tags": [
+        "trunk_anti_extension"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "bodyweight"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-042",
+      "current_name": "Pallof press",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "motor_control",
+        "trunk_pelvis_control"
+      ],
+      "contraction_tags": [
+        "isometric"
+      ],
+      "exercise_intent_tags": [
+        "neuromuscular_control"
+      ],
+      "movement_pattern_tags": [
+        "trunk_anti_rotation"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "resistance_band"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-043",
+      "current_name": "Ankling drill",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "exercise_drill",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "reactive_strength",
+        "running_mechanics"
+      ],
+      "contraction_tags": [
+        "reactive"
+      ],
+      "exercise_intent_tags": [
+        "movement_quality",
+        "sport_patterning",
+        "elastic_reactivity"
+      ],
+      "movement_pattern_tags": [
+        "running_drill"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "open_field"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete mechanics/patterning drill (performed as training), not an activity domain to be reintroduced.",
+      "risk_notes": "Low risk; ensure mechanics drill is not reframed as an activity exposure or readiness signal.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-044",
+      "current_name": "Skipping drill",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "exercise_drill",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "reactive_strength",
+        "running_mechanics"
+      ],
+      "contraction_tags": [
+        "reactive"
+      ],
+      "exercise_intent_tags": [
+        "movement_quality",
+        "sport_patterning",
+        "elastic_reactivity"
+      ],
+      "movement_pattern_tags": [
+        "running_drill"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "open_field"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete mechanics/patterning drill (performed as training), not an activity domain to be reintroduced.",
+      "risk_notes": "Low risk; ensure mechanics drill is not reframed as an activity exposure or readiness signal.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-045",
+      "current_name": "Bounding drill",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "exercise_drill",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "plyometric",
+        "power",
+        "reactive_strength",
+        "running_mechanics",
+        "sprint_mechanics"
+      ],
+      "contraction_tags": [
+        "plyometric",
+        "reactive"
+      ],
+      "exercise_intent_tags": [
+        "movement_quality",
+        "sport_patterning",
+        "elastic_reactivity"
+      ],
+      "movement_pattern_tags": [
+        "bounding",
+        "running_drill",
+        "sprint_drill"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "open_field"
+      ],
+      "sport_demand_tags": [
+        "max_velocity_sprinting",
+        "linear_acceleration",
+        "repeated_sprinting",
+        "field_movement"
+      ],
+      "reason": "Discrete mechanics/patterning drill (performed as training), not an activity domain to be reintroduced.",
+      "risk_notes": "Low risk; ensure mechanics drill is not reframed as an activity exposure or readiness signal.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-046",
+      "current_name": "High-knees running drill",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "exercise_drill",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "running_mechanics",
+        "sprint_mechanics"
+      ],
+      "contraction_tags": [],
+      "exercise_intent_tags": [
+        "movement_quality",
+        "sport_patterning"
+      ],
+      "movement_pattern_tags": [
+        "hip_flexion",
+        "running_drill",
+        "sprint_drill"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "open_field"
+      ],
+      "sport_demand_tags": [
+        "max_velocity_sprinting",
+        "linear_acceleration",
+        "repeated_sprinting"
+      ],
+      "reason": "Discrete mechanics/patterning drill (performed as training), not an activity domain to be reintroduced.",
+      "risk_notes": "Low risk; ensure mechanics drill is not reframed as an activity exposure or readiness signal.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-047",
+      "current_name": "Butt-kickers drill",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "exercise_drill",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "mobility",
+        "dynamic_mobility",
+        "running_mechanics",
+        "conditioning_support"
+      ],
+      "contraction_tags": [],
+      "exercise_intent_tags": [
+        "movement_quality",
+        "sport_patterning"
+      ],
+      "movement_pattern_tags": [
+        "running_drill",
+        "cycling_pattern"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "open_field"
+      ],
+      "sport_demand_tags": [
+        "cycling"
+      ],
+      "reason": "Discrete mechanics/patterning drill (performed as training), not an activity domain to be reintroduced.",
+      "risk_notes": "Low risk; ensure mechanics drill is not reframed as an activity exposure or readiness signal.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-048",
+      "current_name": "Toe-off pelvic-control running drill",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "exercise_drill",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "motor_control",
+        "running_mechanics"
+      ],
+      "contraction_tags": [
+        "motor_control",
+        "dynamic_control"
+      ],
+      "exercise_intent_tags": [
+        "movement_quality",
+        "sport_patterning"
+      ],
+      "movement_pattern_tags": [
+        "running_drill"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "open_field"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete mechanics/patterning drill (performed as training), not an activity domain to be reintroduced.",
+      "risk_notes": "Low risk; ensure mechanics drill is not reframed as an activity exposure or readiness signal.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-049",
+      "current_name": "Mid-stance running mechanics drill",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "exercise_drill",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "running_mechanics"
+      ],
+      "contraction_tags": [
+        "dynamic_control"
+      ],
+      "exercise_intent_tags": [
+        "movement_quality",
+        "sport_patterning"
+      ],
+      "movement_pattern_tags": [
+        "running_drill"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "open_field"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete mechanics/patterning drill (performed as training), not an activity domain to be reintroduced.",
+      "risk_notes": "Low risk; ensure mechanics drill is not reframed as an activity exposure or readiness signal.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-050",
+      "current_name": "Rotational-control running drill",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "exercise_drill",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "motor_control",
+        "running_mechanics",
+        "trunk_pelvis_control"
+      ],
+      "contraction_tags": [
+        "dynamic_control"
+      ],
+      "exercise_intent_tags": [
+        "movement_quality",
+        "sport_patterning"
+      ],
+      "movement_pattern_tags": [
+        "running_drill"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "open_field"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Discrete mechanics/patterning drill (performed as training), not an activity domain to be reintroduced.",
+      "risk_notes": "Low risk; ensure mechanics drill is not reframed as an activity exposure or readiness signal.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-051",
+      "current_name": "Acceleration mechanics drill",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "exercise_drill",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "sprint_mechanics"
+      ],
+      "contraction_tags": [],
+      "exercise_intent_tags": [
+        "movement_quality",
+        "sport_patterning"
+      ],
+      "movement_pattern_tags": [
+        "sprint_drill"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "open_field"
+      ],
+      "sport_demand_tags": [
+        "max_velocity_sprinting",
+        "linear_acceleration",
+        "repeated_sprinting",
+        "field_movement"
+      ],
+      "reason": "Discrete mechanics/patterning drill (performed as training), not an activity domain to be reintroduced.",
+      "risk_notes": "Low risk; ensure mechanics drill is not reframed as an activity exposure or readiness signal.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-052",
+      "current_name": "Deceleration mechanics drill",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "exercise_drill",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "change_of_direction_mechanics"
+      ],
+      "contraction_tags": [
+        "eccentric",
+        "dynamic_control"
+      ],
+      "exercise_intent_tags": [
+        "movement_quality",
+        "sport_patterning"
+      ],
+      "movement_pattern_tags": [
+        "deceleration_drill",
+        "cutting_drill"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "open_field",
+        "cones"
+      ],
+      "sport_demand_tags": [
+        "deceleration",
+        "change_of_direction",
+        "field_movement"
+      ],
+      "reason": "Discrete mechanics/patterning drill (performed as training), not an activity domain to be reintroduced.",
+      "risk_notes": "Low risk; ensure mechanics drill is not reframed as an activity exposure or readiness signal.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-053",
+      "current_name": "Change-of-direction mechanics drill",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "exercise_drill",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "change_of_direction_mechanics"
+      ],
+      "contraction_tags": [
+        "dynamic_control",
+        "concentric",
+        "eccentric"
+      ],
+      "exercise_intent_tags": [
+        "movement_quality",
+        "sport_patterning"
+      ],
+      "movement_pattern_tags": [
+        "cutting_drill"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "open_field",
+        "cones"
+      ],
+      "sport_demand_tags": [
+        "change_of_direction",
+        "field_movement"
+      ],
+      "reason": "Discrete mechanics/patterning drill (performed as training), not an activity domain to be reintroduced.",
+      "risk_notes": "Low risk; ensure mechanics drill is not reframed as an activity exposure or readiness signal.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-054",
+      "current_name": "Short-distance running exposure",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "activity_exposure",
+      "proposed_future_system": "activity_exposure_knowledge",
+      "proposed_future_id_prefix": "RF-ACT",
+      "keep_or_migrate_later": "migrate_later",
+      "exercise_function_tags": [],
+      "contraction_tags": [],
+      "exercise_intent_tags": [
+        "exposure_preparation"
+      ],
+      "movement_pattern_tags": [],
+      "activity_exposure_tags": [
+        "running"
+      ],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "track",
+        "open_field"
+      ],
+      "sport_demand_tags": [
+        "endurance_running",
+        "field_movement"
+      ],
+      "reason": "Represents an activity/sport exposure domain (to be reintroduced/restricted/monitored/progressed by future rules), not a discrete exercise.",
+      "risk_notes": "Clearance-leak risk if treated as a prescribable exercise: an exposure domain (e.g. running/sprint/kicking) must be governed by reintroduction rules, not selected like a drill.",
+      "migration_priority": "high"
+    },
+    {
+      "current_id": "RF-EX-055",
+      "current_name": "Moderate-distance running exposure",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "activity_exposure",
+      "proposed_future_system": "activity_exposure_knowledge",
+      "proposed_future_id_prefix": "RF-ACT",
+      "keep_or_migrate_later": "migrate_later",
+      "exercise_function_tags": [],
+      "contraction_tags": [],
+      "exercise_intent_tags": [
+        "exposure_preparation"
+      ],
+      "movement_pattern_tags": [],
+      "activity_exposure_tags": [
+        "running"
+      ],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "track",
+        "open_field"
+      ],
+      "sport_demand_tags": [
+        "endurance_running",
+        "field_movement"
+      ],
+      "reason": "Represents an activity/sport exposure domain (to be reintroduced/restricted/monitored/progressed by future rules), not a discrete exercise.",
+      "risk_notes": "Clearance-leak risk if treated as a prescribable exercise: an exposure domain (e.g. running/sprint/kicking) must be governed by reintroduction rules, not selected like a drill.",
+      "migration_priority": "high"
+    },
+    {
+      "current_id": "RF-EX-056",
+      "current_name": "Acceleration exposure",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "activity_exposure",
+      "proposed_future_system": "activity_exposure_knowledge",
+      "proposed_future_id_prefix": "RF-ACT",
+      "keep_or_migrate_later": "migrate_later",
+      "exercise_function_tags": [],
+      "contraction_tags": [],
+      "exercise_intent_tags": [
+        "exposure_preparation"
+      ],
+      "movement_pattern_tags": [
+        "sprint_drill"
+      ],
+      "activity_exposure_tags": [
+        "acceleration"
+      ],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "track",
+        "open_field"
+      ],
+      "sport_demand_tags": [
+        "max_velocity_sprinting",
+        "linear_acceleration",
+        "field_movement"
+      ],
+      "reason": "Represents an activity/sport exposure domain (to be reintroduced/restricted/monitored/progressed by future rules), not a discrete exercise.",
+      "risk_notes": "Clearance-leak risk if treated as a prescribable exercise: an exposure domain (e.g. running/sprint/kicking) must be governed by reintroduction rules, not selected like a drill.",
+      "migration_priority": "high"
+    },
+    {
+      "current_id": "RF-EX-057",
+      "current_name": "Step bilateral landing",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "exercise_drill",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "plyometric",
+        "landing_control"
+      ],
+      "contraction_tags": [
+        "eccentric"
+      ],
+      "exercise_intent_tags": [
+        "movement_quality",
+        "sport_patterning",
+        "landing_tolerance"
+      ],
+      "movement_pattern_tags": [
+        "landing"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "box",
+        "step"
+      ],
+      "sport_demand_tags": [
+        "landing",
+        "field_movement"
+      ],
+      "reason": "Discrete mechanics/patterning drill (performed as training), not an activity domain to be reintroduced.",
+      "risk_notes": "Low risk; ensure mechanics drill is not reframed as an activity exposure or readiness signal.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-058",
+      "current_name": "Step unilateral landing",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "exercise_drill",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "motor_control",
+        "plyometric",
+        "landing_control"
+      ],
+      "contraction_tags": [
+        "eccentric"
+      ],
+      "exercise_intent_tags": [
+        "movement_quality",
+        "sport_patterning",
+        "landing_tolerance"
+      ],
+      "movement_pattern_tags": [
+        "landing"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "box",
+        "step"
+      ],
+      "sport_demand_tags": [
+        "landing",
+        "field_movement"
+      ],
+      "reason": "Discrete mechanics/patterning drill (performed as training), not an activity domain to be reintroduced.",
+      "risk_notes": "Low risk; ensure mechanics drill is not reframed as an activity exposure or readiness signal.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-059",
+      "current_name": "Bilateral squat jump",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "plyometric",
+        "power",
+        "landing_control"
+      ],
+      "contraction_tags": [
+        "plyometric"
+      ],
+      "exercise_intent_tags": [
+        "strength_development",
+        "tissue_capacity",
+        "elastic_reactivity",
+        "landing_tolerance",
+        "rate_of_force_development"
+      ],
+      "movement_pattern_tags": [
+        "squat",
+        "landing",
+        "jumping"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "bodyweight"
+      ],
+      "sport_demand_tags": [
+        "jumping",
+        "landing",
+        "field_movement"
+      ],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-060",
+      "current_name": "Plyometric jump",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "plyometric",
+        "power",
+        "landing_control",
+        "reactive_strength"
+      ],
+      "contraction_tags": [
+        "plyometric"
+      ],
+      "exercise_intent_tags": [
+        "elastic_reactivity",
+        "landing_tolerance",
+        "rate_of_force_development"
+      ],
+      "movement_pattern_tags": [
+        "landing",
+        "jumping"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "bodyweight",
+        "open_field"
+      ],
+      "sport_demand_tags": [
+        "jumping",
+        "landing",
+        "field_movement"
+      ],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-061",
+      "current_name": "Countermovement jump",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "assessment_overlap",
+      "proposed_future_system": "dual_reference_exercise_and_assessment",
+      "proposed_future_id_prefix": "DUAL",
+      "keep_or_migrate_later": "cross_reference_later",
+      "exercise_function_tags": [
+        "plyometric",
+        "power",
+        "landing_control"
+      ],
+      "contraction_tags": [
+        "stretch_shortening_cycle",
+        "plyometric"
+      ],
+      "exercise_intent_tags": [
+        "exposure_preparation",
+        "symptom_monitoring_context"
+      ],
+      "movement_pattern_tags": [
+        "landing",
+        "jumping"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [
+        "jump_capacity",
+        "landing_quality",
+        "neuromuscular_control",
+        "readiness_gate"
+      ],
+      "equipment_tags": [
+        "bodyweight",
+        "force_plate"
+      ],
+      "sport_demand_tags": [
+        "jumping",
+        "landing",
+        "field_movement"
+      ],
+      "reason": "Usable both as a plyometric exercise and as a jump/force-plate test; needs dual reference so test use is governed separately.",
+      "risk_notes": "If used as a test, results could leak into autonomous readiness/clearance; assessment use must live in Assessment Knowledge under governed readiness rules.",
+      "migration_priority": "medium"
+    },
+    {
+      "current_id": "RF-EX-062",
+      "current_name": "Drop jump",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "assessment_overlap",
+      "proposed_future_system": "dual_reference_exercise_and_assessment",
+      "proposed_future_id_prefix": "DUAL",
+      "keep_or_migrate_later": "cross_reference_later",
+      "exercise_function_tags": [
+        "plyometric",
+        "landing_control",
+        "reactive_strength"
+      ],
+      "contraction_tags": [
+        "plyometric",
+        "reactive",
+        "stretch_shortening_cycle"
+      ],
+      "exercise_intent_tags": [
+        "exposure_preparation",
+        "symptom_monitoring_context"
+      ],
+      "movement_pattern_tags": [
+        "landing",
+        "jumping"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [
+        "jump_capacity",
+        "landing_quality",
+        "neuromuscular_control",
+        "readiness_gate"
+      ],
+      "equipment_tags": [
+        "box",
+        "force_plate"
+      ],
+      "sport_demand_tags": [
+        "jumping",
+        "landing",
+        "field_movement"
+      ],
+      "reason": "Usable both as a plyometric exercise and as a jump/force-plate test; needs dual reference so test use is governed separately.",
+      "risk_notes": "If used as a test, results could leak into autonomous readiness/clearance; assessment use must live in Assessment Knowledge under governed readiness rules.",
+      "migration_priority": "medium"
+    },
+    {
+      "current_id": "RF-EX-063",
+      "current_name": "Integrated limb reactivity drill",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "exercise_drill",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "plyometric",
+        "reactive_strength"
+      ],
+      "contraction_tags": [
+        "reactive"
+      ],
+      "exercise_intent_tags": [
+        "movement_quality",
+        "sport_patterning",
+        "elastic_reactivity"
+      ],
+      "movement_pattern_tags": [],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "open_field"
+      ],
+      "sport_demand_tags": [
+        "field_movement"
+      ],
+      "reason": "Discrete mechanics/patterning drill (performed as training), not an activity domain to be reintroduced.",
+      "risk_notes": "Low risk; ensure mechanics drill is not reframed as an activity exposure or readiness signal.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-064",
+      "current_name": "Low-intensity hopping",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "true_exercise",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "plyometric",
+        "reactive_strength"
+      ],
+      "contraction_tags": [
+        "plyometric",
+        "reactive"
+      ],
+      "exercise_intent_tags": [
+        "elastic_reactivity",
+        "landing_tolerance",
+        "rate_of_force_development"
+      ],
+      "movement_pattern_tags": [
+        "hopping"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "open_field"
+      ],
+      "sport_demand_tags": [
+        "field_movement"
+      ],
+      "reason": "Discrete exercise the athlete performs; fits a warm-up/mobility/activation/loading/strength/support/control/plyometric block.",
+      "risk_notes": "Low risk; remains a true exercise. Some (e.g. single-leg squat, SLR) have assessment overlap to cross-reference later.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-065",
+      "current_name": "Open-chain kicking pattern exercise",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "exercise_drill",
+      "proposed_future_system": "exercise_knowledge",
+      "proposed_future_id_prefix": "RF-EX",
+      "keep_or_migrate_later": "keep",
+      "exercise_function_tags": [
+        "kicking_mechanics",
+        "sport_preparation_drill"
+      ],
+      "contraction_tags": [],
+      "exercise_intent_tags": [
+        "movement_quality",
+        "sport_patterning"
+      ],
+      "movement_pattern_tags": [
+        "kicking_drill"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "open_field",
+        "ball"
+      ],
+      "sport_demand_tags": [
+        "kicking"
+      ],
+      "reason": "Discrete mechanics/patterning drill (performed as training), not an activity domain to be reintroduced.",
+      "risk_notes": "Borderline: open-chain kicking pattern framed as a discrete drill; if reframed as exposure it would become RF-ACT kicking_exposure.",
+      "migration_priority": "none"
+    },
+    {
+      "current_id": "RF-EX-066",
+      "current_name": "Static isolated kicking exposure",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "activity_exposure",
+      "proposed_future_system": "activity_exposure_knowledge",
+      "proposed_future_id_prefix": "RF-ACT",
+      "keep_or_migrate_later": "migrate_later",
+      "exercise_function_tags": [],
+      "contraction_tags": [
+        "dynamic_control"
+      ],
+      "exercise_intent_tags": [
+        "exposure_preparation"
+      ],
+      "movement_pattern_tags": [
+        "kicking_drill"
+      ],
+      "activity_exposure_tags": [
+        "kicking_exposure"
+      ],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "open_field",
+        "ball"
+      ],
+      "sport_demand_tags": [
+        "kicking"
+      ],
+      "reason": "Represents an activity/sport exposure domain (to be reintroduced/restricted/monitored/progressed by future rules), not a discrete exercise.",
+      "risk_notes": "Clearance-leak risk if treated as a prescribable exercise: an exposure domain (e.g. running/sprint/kicking) must be governed by reintroduction rules, not selected like a drill.",
+      "migration_priority": "high"
+    },
+    {
+      "current_id": "RF-EX-067",
+      "current_name": "Controlled kicking exposure",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "activity_exposure",
+      "proposed_future_system": "activity_exposure_knowledge",
+      "proposed_future_id_prefix": "RF-ACT",
+      "keep_or_migrate_later": "migrate_later",
+      "exercise_function_tags": [],
+      "contraction_tags": [],
+      "exercise_intent_tags": [
+        "exposure_preparation"
+      ],
+      "movement_pattern_tags": [
+        "kicking_drill"
+      ],
+      "activity_exposure_tags": [
+        "kicking_exposure"
+      ],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "open_field",
+        "ball"
+      ],
+      "sport_demand_tags": [
+        "kicking"
+      ],
+      "reason": "Represents an activity/sport exposure domain (to be reintroduced/restricted/monitored/progressed by future rules), not a discrete exercise.",
+      "risk_notes": "Clearance-leak risk if treated as a prescribable exercise: an exposure domain (e.g. running/sprint/kicking) must be governed by reintroduction rules, not selected like a drill.",
+      "migration_priority": "high"
+    },
+    {
+      "current_id": "RF-EX-068",
+      "current_name": "Resisted kicking exposure",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "activity_exposure",
+      "proposed_future_system": "activity_exposure_knowledge",
+      "proposed_future_id_prefix": "RF-ACT",
+      "keep_or_migrate_later": "migrate_later",
+      "exercise_function_tags": [],
+      "contraction_tags": [
+        "resisted"
+      ],
+      "exercise_intent_tags": [
+        "exposure_preparation"
+      ],
+      "movement_pattern_tags": [
+        "kicking_drill"
+      ],
+      "activity_exposure_tags": [
+        "kicking_exposure"
+      ],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "resistance_band",
+        "cable_machine",
+        "leg_extension_machine",
+        "ball"
+      ],
+      "sport_demand_tags": [
+        "kicking",
+        "field_movement"
+      ],
+      "reason": "Represents an activity/sport exposure domain (to be reintroduced/restricted/monitored/progressed by future rules), not a discrete exercise.",
+      "risk_notes": "Clearance-leak risk if treated as a prescribable exercise: an exposure domain (e.g. running/sprint/kicking) must be governed by reintroduction rules, not selected like a drill.",
+      "migration_priority": "high"
+    },
+    {
+      "current_id": "RF-EX-069",
+      "current_name": "Ball-training with kicking",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "restricted_context_only",
+      "proposed_future_system": "restricted_context_only",
+      "proposed_future_id_prefix": "RESTRICTED",
+      "keep_or_migrate_later": "restrict_and_review",
+      "exercise_function_tags": [
+        "kicking_mechanics",
+        "sport_preparation_drill"
+      ],
+      "contraction_tags": [],
+      "exercise_intent_tags": [
+        "symptom_monitoring_context"
+      ],
+      "movement_pattern_tags": [
+        "kicking_drill"
+      ],
+      "activity_exposure_tags": [
+        "kicking_exposure"
+      ],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "ball",
+        "open_field"
+      ],
+      "sport_demand_tags": [
+        "kicking"
+      ],
+      "reason": "Source is restricted context (Lempainen_2021_Chronic_Recurrent_RF_Central_Tendon_Rupture); not primary authority for standard RF strain selection.",
+      "risk_notes": "Must remain blocked from standard RF strain selection (reviewer-gated). Risk of inappropriate use if migrated without governance.",
+      "migration_priority": "low"
+    },
+    {
+      "current_id": "RF-EX-070",
+      "current_name": "Game-based kicking scenario exposure",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "activity_exposure",
+      "proposed_future_system": "activity_exposure_knowledge",
+      "proposed_future_id_prefix": "RF-ACT",
+      "keep_or_migrate_later": "migrate_later",
+      "exercise_function_tags": [],
+      "contraction_tags": [],
+      "exercise_intent_tags": [
+        "exposure_preparation"
+      ],
+      "movement_pattern_tags": [
+        "kicking_drill"
+      ],
+      "activity_exposure_tags": [
+        "kicking_exposure",
+        "game_based_exposure"
+      ],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "ball",
+        "open_field"
+      ],
+      "sport_demand_tags": [
+        "kicking",
+        "field_movement"
+      ],
+      "reason": "Represents an activity/sport exposure domain (to be reintroduced/restricted/monitored/progressed by future rules), not a discrete exercise.",
+      "risk_notes": "Clearance-leak risk if treated as a prescribable exercise: an exposure domain (e.g. running/sprint/kicking) must be governed by reintroduction rules, not selected like a drill.",
+      "migration_priority": "high"
+    },
+    {
+      "current_id": "RF-EX-071",
+      "current_name": "Game-based training exposure",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "restricted_context_only",
+      "proposed_future_system": "restricted_context_only",
+      "proposed_future_id_prefix": "RESTRICTED",
+      "keep_or_migrate_later": "restrict_and_review",
+      "exercise_function_tags": [
+        "sport_preparation_drill"
+      ],
+      "contraction_tags": [],
+      "exercise_intent_tags": [
+        "symptom_monitoring_context"
+      ],
+      "movement_pattern_tags": [],
+      "activity_exposure_tags": [
+        "team_training",
+        "controlled_practice"
+      ],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "open_field"
+      ],
+      "sport_demand_tags": [
+        "field_movement"
+      ],
+      "reason": "Source is restricted context (Aspetar_Rectus_Femoris_Injury_Rehabilitation_Pathway_2026, Lempainen_2021_Chronic_Recurrent_RF_Central_Tendon_Rupture); not primary authority for standard RF strain selection.",
+      "risk_notes": "Must remain blocked from standard RF strain selection (reviewer-gated). Risk of inappropriate use if migrated without governance.",
+      "migration_priority": "low"
+    },
+    {
+      "current_id": "RF-EX-072",
+      "current_name": "Ball exercises",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "restricted_context_only",
+      "proposed_future_system": "restricted_context_only",
+      "proposed_future_id_prefix": "RESTRICTED",
+      "keep_or_migrate_later": "restrict_and_review",
+      "exercise_function_tags": [
+        "sport_preparation_drill"
+      ],
+      "contraction_tags": [],
+      "exercise_intent_tags": [
+        "symptom_monitoring_context"
+      ],
+      "movement_pattern_tags": [],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "ball"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Source is restricted context (Lempainen_2021_Chronic_Recurrent_RF_Central_Tendon_Rupture); not primary authority for standard RF strain selection.",
+      "risk_notes": "Must remain blocked from standard RF strain selection (reviewer-gated). Risk of inappropriate use if migrated without governance.",
+      "migration_priority": "low"
+    },
+    {
+      "current_id": "RF-EX-073",
+      "current_name": "Sport-specific running exposure",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "activity_exposure",
+      "proposed_future_system": "activity_exposure_knowledge",
+      "proposed_future_id_prefix": "RF-ACT",
+      "keep_or_migrate_later": "migrate_later",
+      "exercise_function_tags": [],
+      "contraction_tags": [],
+      "exercise_intent_tags": [
+        "exposure_preparation"
+      ],
+      "movement_pattern_tags": [],
+      "activity_exposure_tags": [
+        "running",
+        "field_training"
+      ],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "open_field"
+      ],
+      "sport_demand_tags": [
+        "field_movement"
+      ],
+      "reason": "Represents an activity/sport exposure domain (to be reintroduced/restricted/monitored/progressed by future rules), not a discrete exercise.",
+      "risk_notes": "Clearance-leak risk if treated as a prescribable exercise: an exposure domain (e.g. running/sprint/kicking) must be governed by reintroduction rules, not selected like a drill.",
+      "migration_priority": "high"
+    },
+    {
+      "current_id": "RF-EX-074",
+      "current_name": "Mixed generic and sport-specific running exposure",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "activity_exposure",
+      "proposed_future_system": "activity_exposure_knowledge",
+      "proposed_future_id_prefix": "RF-ACT",
+      "keep_or_migrate_later": "migrate_later",
+      "exercise_function_tags": [],
+      "contraction_tags": [],
+      "exercise_intent_tags": [
+        "exposure_preparation"
+      ],
+      "movement_pattern_tags": [],
+      "activity_exposure_tags": [
+        "running",
+        "field_training"
+      ],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "open_field"
+      ],
+      "sport_demand_tags": [
+        "field_movement"
+      ],
+      "reason": "Represents an activity/sport exposure domain (to be reintroduced/restricted/monitored/progressed by future rules), not a discrete exercise.",
+      "risk_notes": "Clearance-leak risk if treated as a prescribable exercise: an exposure domain (e.g. running/sprint/kicking) must be governed by reintroduction rules, not selected like a drill.",
+      "migration_priority": "high"
+    },
+    {
+      "current_id": "RF-EX-075",
+      "current_name": "High-speed running exposure",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "activity_exposure",
+      "proposed_future_system": "activity_exposure_knowledge",
+      "proposed_future_id_prefix": "RF-ACT",
+      "keep_or_migrate_later": "migrate_later",
+      "exercise_function_tags": [],
+      "contraction_tags": [],
+      "exercise_intent_tags": [
+        "exposure_preparation"
+      ],
+      "movement_pattern_tags": [
+        "sprint_drill"
+      ],
+      "activity_exposure_tags": [
+        "high_speed_running"
+      ],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "track",
+        "open_field"
+      ],
+      "sport_demand_tags": [
+        "max_velocity_sprinting",
+        "linear_acceleration",
+        "field_movement"
+      ],
+      "reason": "Represents an activity/sport exposure domain (to be reintroduced/restricted/monitored/progressed by future rules), not a discrete exercise.",
+      "risk_notes": "Clearance-leak risk if treated as a prescribable exercise: an exposure domain (e.g. running/sprint/kicking) must be governed by reintroduction rules, not selected like a drill.",
+      "migration_priority": "high"
+    },
+    {
+      "current_id": "RF-EX-076",
+      "current_name": "Sprinting exposure",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "restricted_context_only",
+      "proposed_future_system": "restricted_context_only",
+      "proposed_future_id_prefix": "RESTRICTED",
+      "keep_or_migrate_later": "restrict_and_review",
+      "exercise_function_tags": [
+        "sprint_mechanics"
+      ],
+      "contraction_tags": [],
+      "exercise_intent_tags": [
+        "symptom_monitoring_context"
+      ],
+      "movement_pattern_tags": [
+        "sprint_drill"
+      ],
+      "activity_exposure_tags": [
+        "sprinting"
+      ],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "track",
+        "open_field"
+      ],
+      "sport_demand_tags": [
+        "max_velocity_sprinting",
+        "linear_acceleration",
+        "field_movement"
+      ],
+      "reason": "Source is restricted context (Aspetar_Rectus_Femoris_Injury_Rehabilitation_Pathway_2026, Lempainen_2021_Chronic_Recurrent_RF_Central_Tendon_Rupture); not primary authority for standard RF strain selection.",
+      "risk_notes": "Must remain blocked from standard RF strain selection (reviewer-gated). Risk of inappropriate use if migrated without governance.",
+      "migration_priority": "low"
+    },
+    {
+      "current_id": "RF-EX-077",
+      "current_name": "Dynamic agility exposure",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "restricted_context_only",
+      "proposed_future_system": "restricted_context_only",
+      "proposed_future_id_prefix": "RESTRICTED",
+      "keep_or_migrate_later": "restrict_and_review",
+      "exercise_function_tags": [
+        "change_of_direction_mechanics"
+      ],
+      "contraction_tags": [],
+      "exercise_intent_tags": [
+        "symptom_monitoring_context"
+      ],
+      "movement_pattern_tags": [
+        "cutting_drill"
+      ],
+      "activity_exposure_tags": [
+        "change_of_direction"
+      ],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "open_field",
+        "cones"
+      ],
+      "sport_demand_tags": [
+        "change_of_direction",
+        "field_movement"
+      ],
+      "reason": "Source is restricted context (Aspetar_Rectus_Femoris_Injury_Rehabilitation_Pathway_2026, Lempainen_2021_Chronic_Recurrent_RF_Central_Tendon_Rupture); not primary authority for standard RF strain selection.",
+      "risk_notes": "Must remain blocked from standard RF strain selection (reviewer-gated). Risk of inappropriate use if migrated without governance.",
+      "migration_priority": "low"
+    },
+    {
+      "current_id": "RF-EX-078",
+      "current_name": "Walking exposure",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "restricted_context_only",
+      "proposed_future_system": "restricted_context_only",
+      "proposed_future_id_prefix": "RESTRICTED",
+      "keep_or_migrate_later": "restrict_and_review",
+      "exercise_function_tags": [],
+      "contraction_tags": [],
+      "exercise_intent_tags": [
+        "symptom_monitoring_context"
+      ],
+      "movement_pattern_tags": [],
+      "activity_exposure_tags": [
+        "walking"
+      ],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "open_field"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Source is restricted context (Ryan_West_Point_Quadriceps_Contusions_1991, Lempainen_2021_Chronic_Recurrent_RF_Central_Tendon_Rupture); not primary authority for standard RF strain selection.",
+      "risk_notes": "Must remain blocked from standard RF strain selection (reviewer-gated). Risk of inappropriate use if migrated without governance.",
+      "migration_priority": "low"
+    },
+    {
+      "current_id": "RF-EX-079",
+      "current_name": "Jogging / light-jogging exposure",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "restricted_context_only",
+      "proposed_future_system": "restricted_context_only",
+      "proposed_future_id_prefix": "RESTRICTED",
+      "keep_or_migrate_later": "restrict_and_review",
+      "exercise_function_tags": [
+        "conditioning_support"
+      ],
+      "contraction_tags": [],
+      "exercise_intent_tags": [
+        "symptom_monitoring_context"
+      ],
+      "movement_pattern_tags": [],
+      "activity_exposure_tags": [
+        "jogging"
+      ],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "track",
+        "open_field"
+      ],
+      "sport_demand_tags": [
+        "endurance_running"
+      ],
+      "reason": "Source is restricted context (Ryan_West_Point_Quadriceps_Contusions_1991, Lempainen_2021_Chronic_Recurrent_RF_Central_Tendon_Rupture, Lorenz_Domzalski_2020_Return_to_Sprinting); not primary authority for standard RF strain selection.",
+      "risk_notes": "Must remain blocked from standard RF strain selection (reviewer-gated). Risk of inappropriate use if migrated without governance.",
+      "migration_priority": "low"
+    },
+    {
+      "current_id": "RF-EX-080",
+      "current_name": "Static cycling / stationary bike conditioning",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "conditioning_exposure",
+      "proposed_future_system": "restricted_context_only",
+      "proposed_future_id_prefix": "RESTRICTED",
+      "keep_or_migrate_later": "restrict_and_review",
+      "exercise_function_tags": [
+        "conditioning_support"
+      ],
+      "contraction_tags": [],
+      "exercise_intent_tags": [
+        "maintenance_training",
+        "general_capacity"
+      ],
+      "movement_pattern_tags": [
+        "cycling_pattern"
+      ],
+      "activity_exposure_tags": [
+        "cycling",
+        "gym_conditioning"
+      ],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "stationary_bike"
+      ],
+      "sport_demand_tags": [
+        "cycling"
+      ],
+      "reason": "Conditioning/cross-training exposure domain, not a discrete RF-loading exercise.",
+      "risk_notes": "Restricted-source conditioning; keep blocked from standard selection until reviewer-approved, then migrate to RF-ACT conditioning.",
+      "migration_priority": "low"
+    },
+    {
+      "current_id": "RF-EX-081",
+      "current_name": "Pool training / swimming conditioning",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "conditioning_exposure",
+      "proposed_future_system": "restricted_context_only",
+      "proposed_future_id_prefix": "RESTRICTED",
+      "keep_or_migrate_later": "restrict_and_review",
+      "exercise_function_tags": [
+        "conditioning_support"
+      ],
+      "contraction_tags": [],
+      "exercise_intent_tags": [
+        "maintenance_training",
+        "general_capacity"
+      ],
+      "movement_pattern_tags": [
+        "swimming_pattern"
+      ],
+      "activity_exposure_tags": [
+        "swimming",
+        "pool_training",
+        "gym_conditioning"
+      ],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "pool"
+      ],
+      "sport_demand_tags": [
+        "swimming"
+      ],
+      "reason": "Conditioning/cross-training exposure domain, not a discrete RF-loading exercise.",
+      "risk_notes": "Restricted-source conditioning; keep blocked from standard selection until reviewer-approved, then migrate to RF-ACT conditioning.",
+      "migration_priority": "low"
+    },
+    {
+      "current_id": "RF-EX-082",
+      "current_name": "Elliptical conditioning",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "conditioning_exposure",
+      "proposed_future_system": "activity_exposure_knowledge",
+      "proposed_future_id_prefix": "RF-ACT",
+      "keep_or_migrate_later": "migrate_later",
+      "exercise_function_tags": [
+        "conditioning_support"
+      ],
+      "contraction_tags": [],
+      "exercise_intent_tags": [
+        "maintenance_training",
+        "general_capacity"
+      ],
+      "movement_pattern_tags": [],
+      "activity_exposure_tags": [
+        "elliptical",
+        "gym_conditioning"
+      ],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "elliptical",
+        "leg_extension_machine"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Conditioning/cross-training exposure domain, not a discrete RF-loading exercise.",
+      "risk_notes": "Should be RF-ACT conditioning so it is not mistaken for RF tissue-loading authority.",
+      "migration_priority": "high"
+    },
+    {
+      "current_id": "RF-EX-083",
+      "current_name": "Calisthenics conditioning",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "conditioning_exposure",
+      "proposed_future_system": "activity_exposure_knowledge",
+      "proposed_future_id_prefix": "RF-ACT",
+      "keep_or_migrate_later": "migrate_later",
+      "exercise_function_tags": [
+        "conditioning_support"
+      ],
+      "contraction_tags": [],
+      "exercise_intent_tags": [
+        "maintenance_training",
+        "general_capacity"
+      ],
+      "movement_pattern_tags": [],
+      "activity_exposure_tags": [
+        "gym_conditioning"
+      ],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "bodyweight"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Conditioning/cross-training exposure domain, not a discrete RF-loading exercise.",
+      "risk_notes": "Should be RF-ACT conditioning so it is not mistaken for RF tissue-loading authority.",
+      "migration_priority": "high"
+    },
+    {
+      "current_id": "RF-EX-084",
+      "current_name": "Cybex machine exposure",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "restricted_context_only",
+      "proposed_future_system": "restricted_context_only",
+      "proposed_future_id_prefix": "RESTRICTED",
+      "keep_or_migrate_later": "restrict_and_review",
+      "exercise_function_tags": [],
+      "contraction_tags": [],
+      "exercise_intent_tags": [
+        "symptom_monitoring_context"
+      ],
+      "movement_pattern_tags": [],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "leg_extension_machine"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Source is restricted context (Ryan_West_Point_Quadriceps_Contusions_1991); not primary authority for standard RF strain selection.",
+      "risk_notes": "Must remain blocked from standard RF strain selection (reviewer-gated). Risk of inappropriate use if migrated without governance.",
+      "migration_priority": "low"
+    },
+    {
+      "current_id": "RF-EX-085",
+      "current_name": "Well-leg gravity-assisted passive knee-flexion motion",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "restricted_context_only",
+      "proposed_future_system": "restricted_context_only",
+      "proposed_future_id_prefix": "RESTRICTED",
+      "keep_or_migrate_later": "restrict_and_review",
+      "exercise_function_tags": [
+        "mobility"
+      ],
+      "contraction_tags": [
+        "passive"
+      ],
+      "exercise_intent_tags": [
+        "symptom_monitoring_context"
+      ],
+      "movement_pattern_tags": [],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "bodyweight"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Source is restricted context (Ryan_West_Point_Quadriceps_Contusions_1991); not primary authority for standard RF strain selection.",
+      "risk_notes": "Must remain blocked from standard RF strain selection (reviewer-gated). Risk of inappropriate use if migrated without governance.",
+      "migration_priority": "low"
+    },
+    {
+      "current_id": "RF-EX-086",
+      "current_name": "Full/deep squat restricted-context exposure",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "restricted_context_only",
+      "proposed_future_system": "restricted_context_only",
+      "proposed_future_id_prefix": "RESTRICTED",
+      "keep_or_migrate_later": "restrict_and_review",
+      "exercise_function_tags": [
+        "isotonic_strength"
+      ],
+      "contraction_tags": [],
+      "exercise_intent_tags": [
+        "symptom_monitoring_context"
+      ],
+      "movement_pattern_tags": [
+        "squat"
+      ],
+      "activity_exposure_tags": [],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [
+        "bodyweight"
+      ],
+      "sport_demand_tags": [],
+      "reason": "Source is restricted context (Ryan_West_Point_Quadriceps_Contusions_1991, Lempainen_2021_Chronic_Recurrent_RF_Central_Tendon_Rupture); not primary authority for standard RF strain selection.",
+      "risk_notes": "Must remain blocked from standard RF strain selection (reviewer-gated). Risk of inappropriate use if migrated without governance.",
+      "migration_priority": "low"
+    },
+    {
+      "current_id": "RF-EX-087",
+      "current_name": "Generic weight-training exposure",
+      "current_system": "exercise_knowledge",
+      "object_type_classification": "restricted_context_only",
+      "proposed_future_system": "restricted_context_only",
+      "proposed_future_id_prefix": "RESTRICTED",
+      "keep_or_migrate_later": "restrict_and_review",
+      "exercise_function_tags": [
+        "isotonic_strength"
+      ],
+      "contraction_tags": [],
+      "exercise_intent_tags": [
+        "symptom_monitoring_context"
+      ],
+      "movement_pattern_tags": [],
+      "activity_exposure_tags": [
+        "gym_conditioning"
+      ],
+      "assessment_purpose_tags": [],
+      "equipment_tags": [],
+      "sport_demand_tags": [],
+      "reason": "Source is restricted context (Lempainen_2021_Chronic_Recurrent_RF_Central_Tendon_Rupture); not primary authority for standard RF strain selection.",
+      "risk_notes": "Must remain blocked from standard RF strain selection (reviewer-gated). Risk of inappropriate use if migrated without governance.",
+      "migration_priority": "low"
+    }
+  ]
+}

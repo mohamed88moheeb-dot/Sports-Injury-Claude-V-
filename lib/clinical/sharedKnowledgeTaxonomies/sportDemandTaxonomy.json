@@ -1,0 +1,290 @@
+{
+  "taxonomy_name": "sport_demand",
+  "version": "v1.0_scaffold",
+  "approval_status": "pending",
+  "executable": false,
+  "runtime_integration": "none",
+  "governance": "Taxonomy scaffold only. Metadata vocabulary for future use. Defines no dose, no progression, no readiness, no RTT/RTS clearance, no plan generation. Not wired into runtime.",
+  "description": "Demand-based sport model. Sport name does NOT directly select exercises; sport maps to demands, and demands combine with injury rules, stage, safety, capacity, equipment, and goals.",
+  "categories": [
+    {
+      "id": "linear_acceleration",
+      "meaning": "Sport demand: linear acceleration."
+    },
+    {
+      "id": "max_velocity_sprinting",
+      "meaning": "Sport demand: max velocity sprinting."
+    },
+    {
+      "id": "repeated_sprinting",
+      "meaning": "Sport demand: repeated sprinting."
+    },
+    {
+      "id": "deceleration",
+      "meaning": "Sport demand: deceleration."
+    },
+    {
+      "id": "change_of_direction",
+      "meaning": "Sport demand: change of direction."
+    },
+    {
+      "id": "lateral_cutting",
+      "meaning": "Sport demand: lateral cutting."
+    },
+    {
+      "id": "jumping",
+      "meaning": "Sport demand: jumping."
+    },
+    {
+      "id": "landing",
+      "meaning": "Sport demand: landing."
+    },
+    {
+      "id": "kicking",
+      "meaning": "Sport demand: kicking."
+    },
+    {
+      "id": "throwing",
+      "meaning": "Sport demand: throwing."
+    },
+    {
+      "id": "striking",
+      "meaning": "Sport demand: striking."
+    },
+    {
+      "id": "swimming",
+      "meaning": "Sport demand: swimming."
+    },
+    {
+      "id": "cycling",
+      "meaning": "Sport demand: cycling."
+    },
+    {
+      "id": "endurance_running",
+      "meaning": "Sport demand: endurance running."
+    },
+    {
+      "id": "rotational_power",
+      "meaning": "Sport demand: rotational power."
+    },
+    {
+      "id": "contact_collision",
+      "meaning": "Sport demand: contact collision."
+    },
+    {
+      "id": "grappling",
+      "meaning": "Sport demand: grappling."
+    },
+    {
+      "id": "agility_reactivity",
+      "meaning": "Sport demand: agility reactivity."
+    },
+    {
+      "id": "sustained_aerobic_load",
+      "meaning": "Sport demand: sustained aerobic load."
+    },
+    {
+      "id": "repeated_high_intensity_intervals",
+      "meaning": "Sport demand: repeated high intensity intervals."
+    },
+    {
+      "id": "end_range_mobility",
+      "meaning": "Sport demand: end range mobility."
+    },
+    {
+      "id": "overhead_demand",
+      "meaning": "Sport demand: overhead demand."
+    },
+    {
+      "id": "court_movement",
+      "meaning": "Sport demand: court movement."
+    },
+    {
+      "id": "field_movement",
+      "meaning": "Sport demand: field movement."
+    }
+  ],
+  "sport_to_demand_examples": [
+    {
+      "sport": "football_soccer",
+      "demand_profile": [
+        "linear_acceleration",
+        "max_velocity_sprinting",
+        "repeated_sprinting",
+        "change_of_direction",
+        "kicking",
+        "deceleration",
+        "field_movement"
+      ]
+    },
+    {
+      "sport": "basketball",
+      "demand_profile": [
+        "jumping",
+        "landing",
+        "change_of_direction",
+        "lateral_cutting",
+        "repeated_high_intensity_intervals",
+        "court_movement"
+      ]
+    },
+    {
+      "sport": "tennis",
+      "demand_profile": [
+        "lateral_cutting",
+        "change_of_direction",
+        "overhead_demand",
+        "agility_reactivity",
+        "court_movement"
+      ]
+    },
+    {
+      "sport": "padel",
+      "demand_profile": [
+        "lateral_cutting",
+        "change_of_direction",
+        "agility_reactivity",
+        "court_movement",
+        "overhead_demand"
+      ]
+    },
+    {
+      "sport": "volleyball",
+      "demand_profile": [
+        "jumping",
+        "landing",
+        "overhead_demand",
+        "court_movement"
+      ]
+    },
+    {
+      "sport": "track_sprinting",
+      "demand_profile": [
+        "linear_acceleration",
+        "max_velocity_sprinting",
+        "repeated_sprinting"
+      ]
+    },
+    {
+      "sport": "distance_running",
+      "demand_profile": [
+        "endurance_running",
+        "sustained_aerobic_load"
+      ]
+    },
+    {
+      "sport": "rugby",
+      "demand_profile": [
+        "contact_collision",
+        "linear_acceleration",
+        "repeated_sprinting",
+        "change_of_direction",
+        "field_movement"
+      ]
+    },
+    {
+      "sport": "american_football",
+      "demand_profile": [
+        "linear_acceleration",
+        "contact_collision",
+        "change_of_direction",
+        "repeated_high_intensity_intervals",
+        "field_movement"
+      ]
+    },
+    {
+      "sport": "martial_arts",
+      "demand_profile": [
+        "striking",
+        "grappling",
+        "kicking",
+        "rotational_power",
+        "agility_reactivity"
+      ]
+    },
+    {
+      "sport": "dance",
+      "demand_profile": [
+        "jumping",
+        "landing",
+        "end_range_mobility",
+        "rotational_power"
+      ]
+    },
+    {
+      "sport": "gymnastics",
+      "demand_profile": [
+        "jumping",
+        "landing",
+        "end_range_mobility",
+        "rotational_power",
+        "overhead_demand"
+      ]
+    },
+    {
+      "sport": "swimming",
+      "demand_profile": [
+        "swimming",
+        "sustained_aerobic_load",
+        "overhead_demand"
+      ]
+    },
+    {
+      "sport": "cycling",
+      "demand_profile": [
+        "cycling",
+        "sustained_aerobic_load"
+      ]
+    },
+    {
+      "sport": "rowing",
+      "demand_profile": [
+        "sustained_aerobic_load",
+        "repeated_high_intensity_intervals"
+      ]
+    },
+    {
+      "sport": "hockey",
+      "demand_profile": [
+        "change_of_direction",
+        "repeated_sprinting",
+        "lateral_cutting",
+        "field_movement"
+      ]
+    },
+    {
+      "sport": "handball",
+      "demand_profile": [
+        "jumping",
+        "throwing",
+        "change_of_direction",
+        "court_movement"
+      ]
+    },
+    {
+      "sport": "squash",
+      "demand_profile": [
+        "lateral_cutting",
+        "change_of_direction",
+        "agility_reactivity",
+        "court_movement"
+      ]
+    },
+    {
+      "sport": "baseball_softball",
+      "demand_profile": [
+        "throwing",
+        "linear_acceleration",
+        "rotational_power"
+      ]
+    },
+    {
+      "sport": "golf",
+      "demand_profile": [
+        "rotational_power",
+        "overhead_demand"
+      ]
+    }
+  ],
+  "principle": "sport_name_maps_to_demand_profile_not_to_exercises"
+}

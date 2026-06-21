@@ -1,0 +1,82 @@
+{
+  "activity_exposure_id": "RF-ACT-002",
+  "source_exercise_object_id": "RF-EX-055",
+  "module": "rf",
+  "name": "Moderate-distance running exposure",
+  "aliases": [
+    "moderate running exposure",
+    "moderate field running exposure"
+  ],
+  "exposure_status": "draft",
+  "approval_status": "pending",
+  "clinical_approval_status": "not_approved",
+  "executable": false,
+  "runtime_integration": "none",
+  "permitted_use": "activity_exposure_metadata_only",
+  "activity_domain": "running",
+  "activity_exposure_tags": [
+    "running"
+  ],
+  "sport_demand_tags": [
+    "field_movement"
+  ],
+  "equipment_tags": [
+    "open_field",
+    "track"
+  ],
+  "body_region": [
+    "hip",
+    "knee",
+    "lower_limb"
+  ],
+  "target_tissues": [
+    "rectus_femoris_secondary",
+    "hip_flexors_secondary",
+    "lower_limb_running_system"
+  ],
+  "source_refs": [
+    "Gonzalez_de_la_Flor_Garcia_Perez_de_Sevilla_2024_RF_strain_case_report"
+  ],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "classification_audit_refs": [
+    "docs/implementation/RF_KNOWLEDGE_OBJECT_CLASSIFICATION_AUDIT.json",
+    "RF-EX-055"
+  ],
+  "linked_rule_ids": [
+    "RF-FIELD-001",
+    "RF-FIELD-003",
+    "RF-RTS-004"
+  ],
+  "allowed_when": [
+    "future_governed_activity_exposure_rule_context_only",
+    "not_runtime_selectable",
+    "requires_clinical_rule_governance_before_use"
+  ],
+  "blocked_when": [
+    "runtime_selection",
+    "plan_generation",
+    "dosage_prescription",
+    "progression_decision",
+    "readiness_decision",
+    "rtt_rts_clearance",
+    "standard_selection_without_governed_activity_exposure_rules"
+  ],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "monitoring_triggers": [
+    "symptom_response",
+    "next_day_response",
+    "pain_escalation",
+    "functional_tolerance_response",
+    "running_response"
+  ],
+  "restricted_context": "none",
+  "notes": "Activity exposure metadata only, staged non-destructively from RF-EX-055. Not a rehab plan, not a prescription, not a progression rule, not a readiness gate, not RTT/RTS authority, not clearance authority. Not runtime-selectable until future governed activity-exposure rules exist. The original RF-EX-055 object is unchanged. No dosage, distance, speed, sprint ratio, frequency, duration, or intensity is copied from source material."
+}

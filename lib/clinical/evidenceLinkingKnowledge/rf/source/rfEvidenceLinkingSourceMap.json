@@ -1,0 +1,37 @@
+{
+  "$comment": "NON-EXECUTABLE RF evidence-linking source map. Lists the authored assessment-to-capacity map. Metadata only; creates no runtime logic, no diagnosis/triage/clearance authority.",
+  "module": "rectus_femoris",
+  "version": "v1_rf_assess_to_cap_map",
+  "approval_status": "pending",
+  "clinical_approval_status": "not_approved",
+  "executable": false,
+  "runtime_integration": "none",
+  "permitted_use": "evidence_linking_metadata_mapping_only",
+  "authored_map_count": 1,
+  "authored_map_ids": ["RF-ASSESS-TO-CAP-MAP-001"],
+  "source_assessment_ids": [
+    "RF-ASSESS-001", "RF-ASSESS-002", "RF-ASSESS-003", "RF-ASSESS-004", "RF-ASSESS-005",
+    "RF-ASSESS-006", "RF-ASSESS-007", "RF-ASSESS-008", "RF-ASSESS-009", "RF-ASSESS-010",
+    "RF-ASSESS-011", "RF-ASSESS-012", "RF-ASSESS-013", "RF-ASSESS-014", "RF-ASSESS-015",
+    "RF-ASSESS-016", "RF-ASSESS-017", "RF-ASSESS-018"
+  ],
+  "target_capacity_ids": [
+    "CAP-001", "CAP-002", "CAP-003", "CAP-004", "CAP-005", "CAP-006", "CAP-007", "CAP-008",
+    "CAP-009", "CAP-010", "CAP-011", "CAP-012", "CAP-013", "CAP-014", "CAP-015"
+  ],
+  "context_only_assessments": {
+    "RF-ASSESS-001": "diagnostic_context_only_not_a_cap_link",
+    "RF-ASSESS-002": "safety_context_only_not_a_cap_link"
+  },
+  "global_constraints": {
+    "rf_cap_objects_referenced": false,
+    "demand_profile_objects_referenced": false,
+    "runtime_wiring_created": false,
+    "approved_maps_created": false,
+    "executable_maps_created": false,
+    "diagnosis_authority_created": false,
+    "triage_authority_created": false,
+    "clearance_authority_created": false
+  },
+  "notes": "RF assessment-to-capacity evidence-linking map authored as draft metadata only. RF-ASSESS-001 is diagnostic context only and RF-ASSESS-002 is safety context only; neither is a CAP evidence link. RF-SAF rules remain safety authority. RF-DX rules remain diagnosis authority. No runtime wiring. No score. No threshold. No pass/fail. No prescription. No dosage. No progression. No readiness. No RTT/RTS. No clearance authority."
+}

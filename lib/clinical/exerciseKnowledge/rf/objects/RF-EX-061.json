@@ -1,0 +1,130 @@
+{
+  "exercise_id": "RF-EX-061",
+  "module": "rectus_femoris",
+  "name": "Countermovement jump",
+  "aliases": [
+    "CMJ",
+    "countermovement jump exposure"
+  ],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "hip",
+    "knee",
+    "ankle",
+    "lower_limb"
+  ],
+  "target_tissues": [
+    "lower_limb_power_system",
+    "quadriceps_secondary",
+    "hip_extensors"
+  ],
+  "exercise_family": "plyometric_exposure_with_assessment_overlap",
+  "primary_function": [
+    "bilateral_power_exposure",
+    "jump_strategy_context"
+  ],
+  "movement_category": [
+    "jump",
+    "plyometric_exposure",
+    "assessment_overlap_caution"
+  ],
+  "joint_actions": [
+    "hip_knee_extension_power",
+    "landing_control"
+  ],
+  "contraction_bias": [
+    "stretch_shortening_cycle",
+    "plyometric_or_explosive"
+  ],
+  "position_tags": [
+    "bilateral",
+    "countermovement",
+    "assessment_overlap_caution"
+  ],
+  "tissue_demand_tags": [
+    "lower_limb_power_demand",
+    "landing_control_demand"
+  ],
+  "speed_power_demand": "high",
+  "stretch_demand": "moderate",
+  "impact_demand": "high",
+  "field_demand_tags": [
+    "plyometric_preparation",
+    "field_exposure_preparation"
+  ],
+  "equipment": [
+    "bodyweight",
+    "force_plate_optional"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile",
+    "requires_external_load_context"
+  ],
+  "allowed_when": [
+    "metadata_candidate_only",
+    "requires_future_rule_authoring",
+    "exposure_metadata_only"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure",
+    "high_irritability",
+    "poor_landing_control",
+    "symptom_worsening_after_power_exposure"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity",
+    "running_mechanics_breakdown"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [
+    "Aspetar_Rectus_Femoris_Injury_Rehabilitation_Pathway_2026"
+  ],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-FIELD-003",
+    "RF-RTS-003",
+    "RF-RTS-004"
+  ],
+  "notes": "Exposure metadata with assessment-overlap caution. If used as a test, that belongs to a future assessment/readiness library; this object does not create readiness or clearance."
+}

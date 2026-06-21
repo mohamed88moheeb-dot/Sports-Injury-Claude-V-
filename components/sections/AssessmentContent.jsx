@@ -13,6 +13,9 @@ import {
   symptomTypes,
   redFlagQuestions,
 } from '../../data/rehabKnowledge';
+import { isRfCompatible } from '../../lib/clinical/rfBetaAppAdapter/rfBetaCompatibility.mjs';
+import { computeRfFormFill } from '../../lib/clinical/rfBetaAppAdapter/rfAssessmentModel.mjs';
+import { RfGroupFields } from './RfAssessmentSection';
 
 const REGION_LABELS = {
   hamstring:'Hamstrings', quadriceps:'Quadriceps', adductor_groin:'Adductors',
@@ -23,18 +26,37 @@ const REGION_LABELS = {
   biceps:'Biceps', triceps:'Triceps', elbow:'Elbow', forearm:'Forearm', neck:'Neck', serratus:'Serratus',
 };
 
-const STEPS = [
+const GENERIC_STEPS = [
   { label: 'Injury profile' },
   { label: 'Sport & demands' },
   { label: 'Pain & context' },
   { label: 'Red flags' },
 ];
 
+// RF carousel steps (each = one group from the governed RF-ASSESS model).
+const RF_STEPS = [
+  { label: 'Pain & how it started', group: 'Pain & how it started' },
+  { label: 'Response & history', group: 'Response & history' },
+  { label: 'Movement & strength checks', group: 'Movement & strength checks' },
+  { label: 'Running & sport tolerance', group: 'Running & sport tolerance' },
+  { label: 'Safety check', group: 'Safety check' },
+];
+
 export function AssessmentContent({ assessment, setAssessment, toggleArray, generateProfile, profile }) {
   const router  = useRouter();
+  const isRf = isRfCompatible(assessment);
+  const STEPS = isRf ? RF_STEPS : GENERIC_STEPS;
+  const fill = isRf ? computeRfFormFill(assessment.rfAnswers || {}, assessment) : null;
+
   const [step, setStep] = useState(0);
   const stepRef = useRef(0); // shadow ref so touch handlers always see current step
   const trackRef = useRef(null);
+
+  // Keep step in range if the step set changes (e.g. region change RF↔generic)
+  useEffect(() => {
+    if (step > STEPS.length - 1) { setStep(0); stepRef.current = 0; }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isRf]);
 
   // Raw touch state — refs only, zero re-renders during drag
   const touchStartX  = useRef(null);
@@ -166,6 +188,87 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
     return               'ac-slide ac-slide--next';
   }
 
+  // ── Shared field renderers (used by both generic and RF flows) ──────
+  function regionSelector() {
+    return (
+      <>
+        <span className="body-region-label">Injury location</span>
+        <div className="body-region-selector" onClick={() => router.push('/anatomy')}>
+          <div className="body-region-selector-left">
+            {assessment.primaryRegion ? (
+              <div className="body-region-selected">
+                <span className="body-region-dot" />
+                <div>
+                  <strong>{REGION_LABELS[assessment.primaryRegion] || assessment.primaryRegion}</strong>
+                  {assessment.exactArea && (
+                    <span className="body-region-sub">{assessment.exactArea.replace(/_/g, ' ')}</span>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <p className="body-region-placeholder">Tap to select injury location on body map</p>
+            )}
+          </div>
+          <div className="body-region-selector-icon">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  function sportField() {
+    return (
+      <Field label="Sport">
+        <select value={assessment.sport || ''} onChange={(e) => setAssessment({ ...assessment, sport: e.target.value })}>
+          <option value="">Select a sport</option>
+          <optgroup label="Team sports">
+            {['Football (soccer)','American football','Rugby','Basketball','Volleyball','Handball','Hockey (field)','Ice hockey','Baseball','Softball','Cricket','Lacrosse','Water polo','Netball'].map(s => <option key={s}>{s}</option>)}
+          </optgroup>
+          <optgroup label="Racket sports">
+            {['Tennis','Badminton','Squash','Padel','Table tennis','Pickleball'].map(s => <option key={s}>{s}</option>)}
+          </optgroup>
+          <optgroup label="Athletics & running">
+            {['Sprinting','Middle / long distance running','Hurdles','Cross country','Trail running','Race walking'].map(s => <option key={s}>{s}</option>)}
+          </optgroup>
+          <optgroup label="Combat sports">
+            {['Boxing','MMA','Wrestling','Judo','BJJ','Karate / Taekwondo','Muay Thai'].map(s => <option key={s}>{s}</option>)}
+          </optgroup>
+          <optgroup label="Gym & strength">
+            {['Weightlifting / Olympic lifting','Powerlifting','CrossFit','Bodybuilding','Gymnastics','Calisthenics'].map(s => <option key={s}>{s}</option>)}
+          </optgroup>
+          <optgroup label="Water sports">
+            {['Swimming','Surfing','Rowing','Kayaking / Canoeing','Triathlon'].map(s => <option key={s}>{s}</option>)}
+          </optgroup>
+          <optgroup label="Cycling & wheeled">
+            {['Road cycling','Mountain biking','BMX','Skateboarding','Rollerskating / inline'].map(s => <option key={s}>{s}</option>)}
+          </optgroup>
+          <optgroup label="Court & other">
+            {['Golf','Climbing / bouldering','Dance / cheerleading','Yoga / Pilates','General fitness','Other'].map(s => <option key={s}>{s}</option>)}
+          </optgroup>
+        </select>
+      </Field>
+    );
+  }
+
+  function demandsField() {
+    return (
+      <Field label="Sport demands">
+        <MultiSelectDropdown options={movements} selected={assessment.movements} onToggle={(val) => toggleArray('movements', val)} placeholder="Select all that apply" />
+      </Field>
+    );
+  }
+
+  function equipmentField() {
+    return (
+      <Field label="Equipment available">
+        <MultiSelectDropdown options={equipmentOptions} selected={assessment.equipment} onToggle={(val) => toggleArray('equipment', val)} placeholder="Select all that apply" />
+      </Field>
+    );
+  }
+
   return (
     <div className="ac-shell">
 
@@ -176,7 +279,7 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
           <p>Your plan will adapt to injury location, how it happened, sport demands, pain levels, and any warning signs — so be specific.</p>
         </div>
         <div className="ac-step-row">
-          <span className="ac-step-label">{STEPS[step].label}</span>
+          <span className="ac-step-label">{(STEPS[step] || STEPS[0]).label}</span>
           <div className="ac-dots">
             {STEPS.map((s, i) => (
               <button
@@ -188,6 +291,19 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
             ))}
           </div>
         </div>
+        {isRf && fill && (
+          <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+            <span style={{
+              fontSize: 11, fontWeight: 700, padding: '3px 10px', borderRadius: 999,
+              background: 'rgba(15,27,46,0.06)',
+              color: '#0F1B2E',
+              border: '1px solid rgba(15,27,46,0.18)'
+            }}>RF assessment · {fill.percent}%</span>
+            <span style={{ fontSize: 12, color: fill.allFilled ? '#1B8F5A' : 'var(--muted)' }}>
+              {fill.allFilled ? 'All fields have been filled' : 'Please fill all fields for a better assessment'}
+            </span>
+          </div>
+        )}
       </div>
 
       {/* ── Stale plan banner (step 0 only) ─────────────── */}
@@ -207,181 +323,133 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
       {/* ── Carousel track ───────────────────────────────── */}
       <div className="ac-track" ref={trackRef} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
 
-        {/* STEP 1 — Injury profile */}
-        <div className={slidePos(0)}>
-          <div className="ac-card">
-
-            {/* Injury location */}
-            <span className="body-region-label">Injury location</span>
-            <div className="body-region-selector" onClick={() => router.push('/anatomy')}>
-              <div className="body-region-selector-left">
-                {assessment.primaryRegion ? (
-                  <div className="body-region-selected">
-                    <span className="body-region-dot" />
-                    <div>
-                      <strong>{REGION_LABELS[assessment.primaryRegion] || assessment.primaryRegion}</strong>
-                      {assessment.exactArea && (
-                        <span className="body-region-sub">{assessment.exactArea.replace(/_/g, ' ')}</span>
-                      )}
-                    </div>
-                  </div>
-                ) : (
-                  <p className="body-region-placeholder">Tap to select injury location on body map</p>
-                )}
-              </div>
-              <div className="body-region-selector-icon">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M9 18l6-6-6-6" />
-                </svg>
+        {isRf ? (
+          <>
+            {/* RF STEP 1 — Pain & how it started */}
+            <div className={slidePos(0)}>
+              <div className="ac-card">
+                {regionSelector()}
+                <p style={{ fontSize: 12, color: 'var(--muted)', margin: '-4px 0 14px' }}>
+                  Your selected area sets your pain location — tap above to change it on the body map.
+                </p>
+                <RfGroupFields group="Pain & how it started" assessment={assessment} setAssessment={setAssessment} />
               </div>
             </div>
+
+            {/* RF STEP 2 — Response & history (+ sport / equipment) */}
+            <div className={slidePos(1)}>
+              <div className="ac-card">
+                <RfGroupFields group="Response & history" assessment={assessment} setAssessment={setAssessment} />
+                {sportField()}
+                {equipmentField()}
+              </div>
+            </div>
+
+            {/* RF STEP 3 — Movement & strength checks */}
+            <div className={slidePos(2)}>
+              <div className="ac-card">
+                <RfGroupFields group="Movement & strength checks" assessment={assessment} setAssessment={setAssessment} />
+              </div>
+            </div>
+
+            {/* RF STEP 4 — Running & sport tolerance */}
+            <div className={slidePos(3)}>
+              <div className="ac-card">
+                <RfGroupFields group="Running & sport tolerance" assessment={assessment} setAssessment={setAssessment} />
+              </div>
+            </div>
+
+            {/* RF STEP 5 — Safety check */}
+            <div className={slidePos(4)}>
+              <div className="ac-card">
+                <p className="ac-redflag-intro">If you tick one, see a doctor before starting rehab.</p>
+                <RfGroupFields group="Safety check" assessment={assessment} setAssessment={setAssessment} />
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            {/* STEP 1 — Injury profile */}
+            <div className={slidePos(0)}>
+              <div className="ac-card">
+                {regionSelector()}
 
                 <Field label="How it happened">
-              <select
-                value={assessment.mechanism}
-                onChange={(e) => setAssessment({ ...assessment, mechanism: e.target.value })}
-              >
-                {mechanisms.map(m => <option key={m} value={m}>{m}</option>)}
-              </select>
-            </Field>
+                  <select value={assessment.mechanism} onChange={(e) => setAssessment({ ...assessment, mechanism: e.target.value })}>
+                    {mechanisms.map(m => <option key={m} value={m}>{m}</option>)}
+                  </select>
+                </Field>
 
-            <Field label="Days since injury">
-              <input
-                type="number" min="0"
-                value={assessment.daysSince}
-                onChange={(e) => setAssessment({ ...assessment, daysSince: Number(e.target.value) })}
-              />
-            </Field>
+                <Field label="Days since injury">
+                  <input type="number" min="0" value={assessment.daysSince} onChange={(e) => setAssessment({ ...assessment, daysSince: Number(e.target.value) })} />
+                </Field>
 
-            <Field label="Symptom">
-              <select
-                value={assessment.symptoms[0] || ''}
-                onChange={(e) => setAssessment({ ...assessment, symptoms: e.target.value ? [e.target.value] : [] })}
-              >
-                <option value="">Select symptom</option>
-                {symptomTypes.map(s => <option key={s} value={s}>{s}</option>)}
-              </select>
-            </Field>
+                <Field label="Symptom">
+                  <select value={assessment.symptoms[0] || ''} onChange={(e) => setAssessment({ ...assessment, symptoms: e.target.value ? [e.target.value] : [] })}>
+                    <option value="">Select symptom</option>
+                    {symptomTypes.map(s => <option key={s} value={s}>{s}</option>)}
+                  </select>
+                </Field>
 
-            <Field label="Secondary area">
-              <select
-                value={assessment.secondaryRegions || ''}
-                onChange={(e) => setAssessment({ ...assessment, secondaryRegions: e.target.value })}
-              >
-                <option value="">None</option>
-                {injuryRegions.filter(r => r.id !== assessment.primaryRegion).map(r => (
-                  <option key={r.id} value={r.name}>{r.name}</option>
-                ))}
-              </select>
-            </Field>
-          </div>
-        </div>
-
-        {/* STEP 2 — Sport, demands & equipment */}
-        <div className={slidePos(1)}>
-          <div className="ac-card">
-            <Field label="Sport">
-              <select
-                value={assessment.sport || ''}
-                onChange={(e) => setAssessment({ ...assessment, sport: e.target.value })}
-              >
-                <option value="">Select a sport</option>
-                <optgroup label="Team sports">
-                  {['Football (soccer)','American football','Rugby','Basketball','Volleyball','Handball','Hockey (field)','Ice hockey','Baseball','Softball','Cricket','Lacrosse','Water polo','Netball'].map(s => <option key={s}>{s}</option>)}
-                </optgroup>
-                <optgroup label="Racket sports">
-                  {['Tennis','Badminton','Squash','Padel','Table tennis','Pickleball'].map(s => <option key={s}>{s}</option>)}
-                </optgroup>
-                <optgroup label="Athletics & running">
-                  {['Sprinting','Middle / long distance running','Hurdles','Cross country','Trail running','Race walking'].map(s => <option key={s}>{s}</option>)}
-                </optgroup>
-                <optgroup label="Combat sports">
-                  {['Boxing','MMA','Wrestling','Judo','BJJ','Karate / Taekwondo','Muay Thai'].map(s => <option key={s}>{s}</option>)}
-                </optgroup>
-                <optgroup label="Gym & strength">
-                  {['Weightlifting / Olympic lifting','Powerlifting','CrossFit','Bodybuilding','Gymnastics','Calisthenics'].map(s => <option key={s}>{s}</option>)}
-                </optgroup>
-                <optgroup label="Water sports">
-                  {['Swimming','Surfing','Rowing','Kayaking / Canoeing','Triathlon'].map(s => <option key={s}>{s}</option>)}
-                </optgroup>
-                <optgroup label="Cycling & wheeled">
-                  {['Road cycling','Mountain biking','BMX','Skateboarding','Rollerskating / inline'].map(s => <option key={s}>{s}</option>)}
-                </optgroup>
-                <optgroup label="Court & other">
-                  {['Golf','Climbing / bouldering','Dance / cheerleading','Yoga / Pilates','General fitness','Other'].map(s => <option key={s}>{s}</option>)}
-                </optgroup>
-              </select>
-            </Field>
-
-            <Field label="Sport demands">
-              <MultiSelectDropdown
-                options={movements}
-                selected={assessment.movements}
-                onToggle={(val) => toggleArray('movements', val)}
-                placeholder="Select all that apply"
-              />
-            </Field>
-
-            <Field label="Equipment available">
-              <MultiSelectDropdown
-                options={equipmentOptions}
-                selected={assessment.equipment}
-                onToggle={(val) => toggleArray('equipment', val)}
-                placeholder="Select all that apply"
-              />
-            </Field>
-          </div>
-        </div>
-
-        {/* STEP 3 — Pain & context */}
-        <div className={slidePos(2)}>
-          <div className="ac-card">
-            <div className="ac-sliders">
-              <Slider
-                label="Pain at rest"
-                value={assessment.painRest}
-                onChange={(v) => setAssessment({ ...assessment, painRest: v })}
-              />
-              <Slider
-                label="Pain walking / stairs"
-                value={assessment.painWalking}
-                onChange={(v) => setAssessment({ ...assessment, painWalking: v })}
-              />
-              <Slider
-                label="Pain during sport movement"
-                value={assessment.painSport}
-                onChange={(v) => setAssessment({ ...assessment, painSport: v })}
-              />
+                <Field label="Secondary area">
+                  <select value={assessment.secondaryRegions || ''} onChange={(e) => setAssessment({ ...assessment, secondaryRegions: e.target.value })}>
+                    <option value="">None</option>
+                    {injuryRegions.filter(r => r.id !== assessment.primaryRegion).map(r => (
+                      <option key={r.id} value={r.name}>{r.name}</option>
+                    ))}
+                  </select>
+                </Field>
+              </div>
             </div>
-            <textarea
-              className="ac-textarea"
-              placeholder="Describe what happened in your own words…"
-              value={assessment.story}
-              onChange={(e) => setAssessment({ ...assessment, story: e.target.value })}
-            />
-          </div>
-        </div>
 
-        {/* STEP 4 — Red flags */}
-        <div className={slidePos(3)}>
-          <div className="ac-card">
-            <p className="ac-redflag-intro">
-              Select anything that applies. If you tick one, see a doctor before starting rehab.
-            </p>
-            <div className="ac-redflag-grid">
-              {redFlagQuestions.map((q) => (
-                <button
-                  key={q}
-                  type="button"
-                  className={`ac-redflag-btn${assessment.redFlags.includes(q) ? ' active' : ''}`}
-                  onClick={() => toggleArray('redFlags', q)}
-                >
-                  {q}
-                </button>
-              ))}
+            {/* STEP 2 — Sport, demands & equipment */}
+            <div className={slidePos(1)}>
+              <div className="ac-card">
+                {sportField()}
+                {demandsField()}
+                {equipmentField()}
+              </div>
             </div>
-          </div>
-        </div>
+
+            {/* STEP 3 — Pain & context */}
+            <div className={slidePos(2)}>
+              <div className="ac-card">
+                <div className="ac-sliders">
+                  <Slider label="Pain at rest" value={assessment.painRest} onChange={(v) => setAssessment({ ...assessment, painRest: v })} />
+                  <Slider label="Pain walking / stairs" value={assessment.painWalking} onChange={(v) => setAssessment({ ...assessment, painWalking: v })} />
+                  <Slider label="Pain during sport movement" value={assessment.painSport} onChange={(v) => setAssessment({ ...assessment, painSport: v })} />
+                </div>
+                <textarea
+                  className="ac-textarea"
+                  placeholder="Describe what happened in your own words…"
+                  value={assessment.story}
+                  onChange={(e) => setAssessment({ ...assessment, story: e.target.value })}
+                />
+              </div>
+            </div>
+
+            {/* STEP 4 — Red flags */}
+            <div className={slidePos(3)}>
+              <div className="ac-card">
+                <p className="ac-redflag-intro">
+                  Select anything that applies. If you tick one, see a doctor before starting rehab.
+                </p>
+                <div className="ac-redflag-grid">
+                  {redFlagQuestions.map((q) => (
+                    <button
+                      key={q}
+                      type="button"
+                      className={`ac-redflag-btn${assessment.redFlags.includes(q) ? ' active' : ''}`}
+                      onClick={() => toggleArray('redFlags', q)}
+                    >
+                      {q}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </>
+        )}
 
       </div>{/* /ac-track */}
 

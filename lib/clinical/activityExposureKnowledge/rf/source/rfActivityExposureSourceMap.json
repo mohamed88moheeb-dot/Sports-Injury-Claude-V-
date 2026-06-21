@@ -1,0 +1,42 @@
+{
+  "$comment": "NON-EXECUTABLE RF activity exposure source map. Phase 2A non-destructive migration staging. Records the RF-EX -> RF-ACT staging map. Original RF-EX objects were NOT modified, moved, renamed, deleted, or retired. No runtime selection is created. RF-ACT objects are metadata only.",
+  "module": "rectus_femoris",
+  "version": "v1.0_phase_2a",
+  "approval_status": "pending",
+  "clinical_approval_status": "not_approved",
+  "executable": false,
+  "permitted_use": "activity_exposure_metadata_mapping_only",
+  "runtime_integration": "none",
+  "classification_audit_ref": "docs/implementation/RF_KNOWLEDGE_OBJECT_CLASSIFICATION_AUDIT.json",
+  "future_object_prefix": "RF-ACT",
+  "rf_act_objects_authored": 12,
+  "migration_map": [
+    { "from": "RF-EX-054", "to": "RF-ACT-001", "name": "Short-distance running exposure" },
+    { "from": "RF-EX-055", "to": "RF-ACT-002", "name": "Moderate-distance running exposure" },
+    { "from": "RF-EX-056", "to": "RF-ACT-003", "name": "Acceleration exposure" },
+    { "from": "RF-EX-066", "to": "RF-ACT-004", "name": "Static isolated kicking exposure" },
+    { "from": "RF-EX-067", "to": "RF-ACT-005", "name": "Controlled kicking exposure" },
+    { "from": "RF-EX-068", "to": "RF-ACT-006", "name": "Resisted kicking exposure" },
+    { "from": "RF-EX-070", "to": "RF-ACT-007", "name": "Game-based kicking scenario exposure" },
+    { "from": "RF-EX-073", "to": "RF-ACT-008", "name": "Sport-specific running exposure" },
+    { "from": "RF-EX-074", "to": "RF-ACT-009", "name": "Mixed generic and sport-specific running exposure" },
+    { "from": "RF-EX-075", "to": "RF-ACT-010", "name": "High-speed running exposure" },
+    { "from": "RF-EX-082", "to": "RF-ACT-011", "name": "Elliptical conditioning" },
+    { "from": "RF-EX-083", "to": "RF-ACT-012", "name": "Calisthenics conditioning" }
+  ],
+  "global_constraints": {
+    "non_destructive_staging": true,
+    "rf_ex_objects_moved": false,
+    "rf_ex_ids_renamed": false,
+    "rf_ex_ids_retired": false,
+    "rf_ex_objects_modified": false,
+    "rf_act_objects_created": true,
+    "rf_act_objects_metadata_only": true,
+    "runtime_wiring_created": false,
+    "runtime_selection_created": false,
+    "approved_objects_created": false,
+    "executable_objects_created": false,
+    "future_cleanup_requires_separate_governed_task": true
+  },
+  "notes": "Phase 2A non-destructive staging: original RF-EX objects were not modified, moved, renamed, deleted, or retired; old RF-EX IDs are not retired yet; no runtime selection is created; RF-ACT objects are metadata only. Future cleanup/redirects require a separate governed task. No approved objects. No executable objects. No runtime wiring. No dosage. No progression. No readiness. No RTT/RTS. No clearance authority."
+}

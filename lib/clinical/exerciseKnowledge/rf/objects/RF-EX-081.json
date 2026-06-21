@@ -1,0 +1,187 @@
+{
+  "exercise_id": "RF-EX-081",
+  "module": "rectus_femoris",
+  "name": "Pool training / swimming conditioning",
+  "aliases": [
+    "pool training",
+    "swimming conditioning",
+    "aquatic conditioning"
+  ],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "hip",
+    "knee",
+    "lower_limb"
+  ],
+  "target_tissues": [
+    "cardiorespiratory_conditioning_system",
+    "lower_limb_aquatic_movement_system"
+  ],
+  "exercise_family": "aquatic_conditioning_metadata",
+  "primary_function": [
+    "aquatic_conditioning_context",
+    "low_impact_conditioning_metadata"
+  ],
+  "movement_category": [
+    "conditioning",
+    "aquatic_training",
+    "restricted_context_only"
+  ],
+  "joint_actions": [
+    "aquatic_limb_movement_unspecified"
+  ],
+  "contraction_bias": [
+    "dynamic_conditioning_unspecified"
+  ],
+  "position_tags": [
+    "pool_training_context",
+    "swimming_context",
+    "restricted_context_only",
+    "contusion_or_post_surgical_context"
+  ],
+  "tissue_demand_tags": [
+    "conditioning_context",
+    "aquatic_context"
+  ],
+  "speed_power_demand": "unspecified",
+  "stretch_demand": "unspecified",
+  "impact_demand": "low",
+  "field_demand_tags": [
+    "conditioning_context"
+  ],
+  "equipment": [
+    "pool_optional"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile",
+    "requires_external_load_context"
+  ],
+  "allowed_when": [
+    "restricted_context_only",
+    "requires_future_rule_authoring",
+    "conditioning_metadata"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure",
+    "standard_rf_strain_selection_without_reviewer_approval"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [
+    "Ryan_West_Point_Quadriceps_Contusions_1991",
+    "Lempainen_2021_Chronic_Recurrent_RF_Central_Tendon_Rupture"
+  ],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-SEV-004",
+    "RF-REHAB-006"
+  ],
+  "notes": "Aquatic conditioning metadata from restricted contusion/post-surgical contexts. Not primary standard RF strain authority and no conditioning dose or clearance is authored.",
+  "canonical_name": "swimming_aquatic_conditioning",
+  "final_decision": "conditioning_recovery_support",
+  "evidence_grade": "C",
+  "source_authority": "moderate",
+  "source_support_type": "direct_exercise_support",
+  "RF_specificity": "low",
+  "central_tendon_fibrosis_risk": "low",
+  "manual_review_required": false,
+  "library_classification": "conditioning_recovery_support",
+  "injury_site_relevance": [
+    "unspecified"
+  ],
+  "guardrail_notes": [
+    "not a prescription",
+    "not dosage",
+    "not progression",
+    "not readiness",
+    "not RTT/RTS",
+    "not clearance",
+    "not a test"
+  ],
+  "source_ids": [
+    "CR-S1"
+  ],
+  "source_verification_status": "verified",
+  "user_facing_name": "Easy pool work",
+  "user_facing_summary": "Gentle swimming or water-based movement.",
+  "user_facing_purpose": "This helps maintain fitness with low strain on your thigh.",
+  "user_facing_setup": "Choose gentle pool movements that feel comfortable.",
+  "user_facing_instructions": [
+    "Enter the pool and start with gentle movement.",
+    "Choose strokes or steps that feel comfortable.",
+    "Keep everything pain-free."
+  ],
+  "user_facing_common_mistakes": [
+    "Choosing strong kicking too soon.",
+    "Overdoing it early."
+  ],
+  "user_facing_safety_note": "Avoid forceful kicking and stop if you feel pain at the front of your thigh.",
+  "plan_card_category": "conditioning",
+  "plan_card_subcategory": "",
+  "difficulty_label": "foundational",
+  "advanced_label": "none",
+  "easier_option_labels": [],
+  "harder_option_labels": [],
+  "related_exercise_labels": [
+    "Easy cycling"
+  ],
+  "media": {
+    "demo_video_url": null,
+    "demo_video_asset_id": null,
+    "image_asset_id": null,
+    "animation_asset_id": null,
+    "thumbnail_asset_id": null,
+    "media_status": "none",
+    "media_notes": null
+  },
+  "user_facing_status": "draft_copy",
+  "log_completion_available": true,
+  "log_pain_response_available": true,
+  "log_difficulty_available": true,
+  "log_confidence_available": false,
+  "log_notes_available": true,
+  "next_day_response_prompt_available": true
+}

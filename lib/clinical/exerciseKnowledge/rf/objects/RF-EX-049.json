@@ -1,0 +1,189 @@
+{
+  "exercise_id": "RF-EX-049",
+  "module": "rectus_femoris",
+  "name": "Mid-stance running mechanics drill",
+  "aliases": [
+    "mid-stance running drill",
+    "mid-stance mechanics drill"
+  ],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "trunk",
+    "pelvis",
+    "hip",
+    "knee",
+    "lower_limb"
+  ],
+  "target_tissues": [
+    "trunk_pelvis_control_system",
+    "lower_limb_control_system"
+  ],
+  "exercise_family": "running_mechanics_control",
+  "primary_function": [
+    "mid_stance_control",
+    "running_mechanics_control"
+  ],
+  "movement_category": [
+    "running_mechanics_drill",
+    "lower_limb_control"
+  ],
+  "joint_actions": [
+    "single_limb_support_control",
+    "pelvic_control",
+    "hip_knee_alignment_context"
+  ],
+  "contraction_bias": [
+    "dynamic_control"
+  ],
+  "position_tags": [
+    "upright",
+    "mid_stance_context",
+    "single_limb_support_context"
+  ],
+  "tissue_demand_tags": [
+    "running_mechanics_demand",
+    "lower_limb_control_demand"
+  ],
+  "speed_power_demand": "low_to_moderate",
+  "stretch_demand": "low",
+  "impact_demand": "low_to_moderate",
+  "field_demand_tags": [
+    "running_preparation"
+  ],
+  "equipment": [
+    "open_space"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile",
+    "requires_external_load_context"
+  ],
+  "allowed_when": [
+    "metadata_candidate_only",
+    "requires_future_rule_authoring",
+    "exposure_metadata_only"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity",
+    "running_mechanics_breakdown"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [
+    "Aspetar_Rectus_Femoris_Injury_Rehabilitation_Pathway_2026"
+  ],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-FIELD-001",
+    "RF-FIELD-003",
+    "RF-REHAB-006"
+  ],
+  "notes": "Running mechanics metadata only. Does not define running volume, speed, progression, or clearance.",
+  "canonical_name": "mid_stance_running_drill",
+  "final_decision": "second_batch_manual_review",
+  "evidence_grade": "B",
+  "source_authority": "moderate",
+  "source_support_type": "direct_exercise_support",
+  "RF_specificity": "low-moderate",
+  "central_tendon_fibrosis_risk": "moderate",
+  "manual_review_required": true,
+  "library_classification": "running_field_exposure",
+  "injury_site_relevance": [
+    "muscular"
+  ],
+  "guardrail_notes": [
+    "not a prescription",
+    "not dosage",
+    "not progression",
+    "not readiness",
+    "not RTT/RTS",
+    "not clearance",
+    "not a test"
+  ],
+  "source_ids": [
+    "CGDR-S2",
+    "CGDR-S4"
+  ],
+  "source_verification_status": "partially_verified",
+  "user_facing_name": "Mid-stance control drill",
+  "user_facing_summary": "Holding a steady single-leg stance.",
+  "user_facing_purpose": "This helps you control your leg during the running stance.",
+  "user_facing_setup": "Stand on one leg with light support if needed.",
+  "user_facing_instructions": [
+    "Stand on one leg with light support if needed.",
+    "Hold a tall, steady position.",
+    "Keep your knee and hip aligned."
+  ],
+  "user_facing_common_mistakes": [
+    "Letting the knee fall inward.",
+    "Losing balance by rushing."
+  ],
+  "user_facing_safety_note": "Keep it steady and stop if you feel sharp pain.",
+  "plan_card_category": "running_preparation",
+  "plan_card_subcategory": "",
+  "difficulty_label": "controlled",
+  "advanced_label": "none",
+  "easier_option_labels": [],
+  "harder_option_labels": [],
+  "related_exercise_labels": [
+    "Toe-off control drill"
+  ],
+  "media": {
+    "demo_video_url": null,
+    "demo_video_asset_id": null,
+    "image_asset_id": null,
+    "animation_asset_id": null,
+    "thumbnail_asset_id": null,
+    "media_status": "none",
+    "media_notes": null
+  },
+  "user_facing_status": "draft_copy",
+  "log_completion_available": true,
+  "log_pain_response_available": true,
+  "log_difficulty_available": true,
+  "log_confidence_available": false,
+  "log_notes_available": true,
+  "next_day_response_prompt_available": true
+}

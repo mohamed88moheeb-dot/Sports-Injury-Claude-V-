@@ -1,0 +1,177 @@
+{
+  "exercise_id": "RF-EX-097",
+  "module": "rectus_femoris",
+  "name": "Reverse sled drag",
+  "aliases": [],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "hip",
+    "knee",
+    "ankle",
+    "lower_limb"
+  ],
+  "target_tissues": [
+    "quadriceps",
+    "lower_limb",
+    "locomotor_system"
+  ],
+  "exercise_family": "locomotor_strength_support",
+  "primary_function": [
+    "controlled_propulsion",
+    "locomotor_strength"
+  ],
+  "movement_category": [
+    "sled_drag",
+    "locomotor_strength"
+  ],
+  "joint_actions": [
+    "hip_knee_extension",
+    "gait_propulsion"
+  ],
+  "contraction_bias": [
+    "concentric_dominant"
+  ],
+  "position_tags": [
+    "backward_drag",
+    "controlled_propulsion"
+  ],
+  "tissue_demand_tags": [
+    "lower_limb_strength_demand",
+    "locomotor_demand"
+  ],
+  "speed_power_demand": "low_to_moderate",
+  "stretch_demand": "low",
+  "impact_demand": "low",
+  "field_demand_tags": [],
+  "equipment": [
+    "sled"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile"
+  ],
+  "allowed_when": [
+    "metadata_candidate_only",
+    "requires_future_rule_authoring"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-REHAB-005",
+    "RF-REHAB-006"
+  ],
+  "notes": "Batch 2 normalized locomotor strength-support object. Metadata only; not a prescription, dosage, progression, readiness, RTT/RTS, or clearance.",
+  "canonical_name": "reverse_sled_drag",
+  "final_decision": "second_batch_manual_review",
+  "evidence_grade": "B",
+  "source_authority": "moderate",
+  "source_support_type": "direct_exercise_support",
+  "RF_specificity": "indirect-moderate",
+  "central_tendon_fibrosis_risk": "moderate",
+  "manual_review_required": true,
+  "library_classification": "running_field_exposure",
+  "injury_site_relevance": [
+    "muscular"
+  ],
+  "guardrail_notes": [
+    "not a prescription",
+    "not dosage",
+    "not progression",
+    "not readiness",
+    "not RTT/RTS",
+    "not clearance",
+    "not a test"
+  ],
+  "source_ids": [
+    "CGDR-S4"
+  ],
+  "source_verification_status": "partially_verified",
+  "user_facing_name": "Backward sled pull",
+  "user_facing_summary": "Walking backward while pulling a sled.",
+  "user_facing_purpose": "This helps build leg strength and steady control.",
+  "user_facing_setup": "Set up a sled with a comfortable, light weight.",
+  "user_facing_instructions": [
+    "Set up a sled with a comfortable, light weight.",
+    "Walk backward, pulling the sled smoothly.",
+    "Keep your steps steady and controlled."
+  ],
+  "user_facing_common_mistakes": [
+    "Pulling too hard.",
+    "Rushing the steps."
+  ],
+  "user_facing_safety_note": "Keep it comfortable and stop if you feel sharp pain.",
+  "plan_card_category": "strength",
+  "plan_card_subcategory": "",
+  "difficulty_label": "controlled",
+  "advanced_label": "none",
+  "easier_option_labels": [
+    "Step-up"
+  ],
+  "harder_option_labels": [],
+  "related_exercise_labels": [
+    "Sled march"
+  ],
+  "media": {
+    "demo_video_url": null,
+    "demo_video_asset_id": null,
+    "image_asset_id": null,
+    "animation_asset_id": null,
+    "thumbnail_asset_id": null,
+    "media_status": "none",
+    "media_notes": null
+  },
+  "user_facing_status": "draft_copy",
+  "log_completion_available": true,
+  "log_pain_response_available": true,
+  "log_difficulty_available": true,
+  "log_confidence_available": false,
+  "log_notes_available": true,
+  "next_day_response_prompt_available": true
+}

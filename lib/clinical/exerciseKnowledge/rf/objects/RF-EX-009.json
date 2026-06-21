@@ -1,0 +1,185 @@
+{
+  "exercise_id": "RF-EX-009",
+  "module": "rectus_femoris",
+  "name": "Resisted hip flexion in Thomas-test position",
+  "aliases": [
+    "Thomas-position resisted hip flexion",
+    "lengthened hip flexion loading"
+  ],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "anterior_thigh",
+    "hip"
+  ],
+  "target_tissues": [
+    "rectus_femoris",
+    "hip_flexors"
+  ],
+  "exercise_family": "hip_flexor_rectus_femoris_biased_loading",
+  "primary_function": [
+    "lengthened_position_hip_flexion_loading"
+  ],
+  "movement_category": [
+    "hip_flexion",
+    "lengthened_position_loading"
+  ],
+  "joint_actions": [
+    "hip_flexion"
+  ],
+  "contraction_bias": [
+    "isotonic_or_isometric_unspecified"
+  ],
+  "position_tags": [
+    "thomas_position",
+    "lengthened_rectus_femoris_context",
+    "hip_extension_context",
+    "knee_flexion_context"
+  ],
+  "tissue_demand_tags": [
+    "rectus_femoris_load",
+    "hip_flexor_load",
+    "lengthened_anterior_thigh_load"
+  ],
+  "speed_power_demand": "low_to_moderate",
+  "stretch_demand": "high",
+  "impact_demand": "none",
+  "field_demand_tags": [],
+  "equipment": [
+    "manual_or_external_resistance"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile"
+  ],
+  "allowed_when": [
+    "metadata_candidate_only",
+    "requires_future_rule_authoring"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [
+    "Gonzalez_de_la_Flor_Garcia_Perez_de_Sevilla_2024_RF_strain_case_report"
+  ],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-REHAB-001",
+    "RF-REHAB-002",
+    "RF-REHAB-004",
+    "RF-RECUR-002"
+  ],
+  "notes": "Higher length-demand metadata. Block or avoid under high irritability, symptom worsening, or unresolved restrictions. No dose.",
+  "canonical_name": "resisted_hip_flexion_thomas",
+  "final_decision": "high_caution_do_not_convert_yet",
+  "evidence_grade": "C",
+  "source_authority": "moderate",
+  "source_support_type": "direct_exercise_support",
+  "RF_specificity": "high",
+  "central_tendon_fibrosis_risk": "high",
+  "manual_review_required": true,
+  "library_classification": "high_caution_sport_specific_exposure",
+  "injury_site_relevance": [
+    "proximal_tendon",
+    "central_intramuscular_tendon",
+    "muscular"
+  ],
+  "guardrail_notes": [
+    "not a prescription",
+    "not dosage",
+    "not progression",
+    "not readiness",
+    "not RTT/RTS",
+    "not clearance",
+    "not a test"
+  ],
+  "source_ids": [
+    "CGDR-S3",
+    "SG-S3"
+  ],
+  "source_verification_status": "partially_verified",
+  "user_facing_name": "Lengthened hip-flexor hold",
+  "user_facing_summary": "Holding the thigh in a lengthened position.",
+  "user_facing_purpose": "This works the front of your hip in a longer position.",
+  "user_facing_setup": "Lie back at the edge of a bench with one leg lowered.",
+  "user_facing_instructions": [
+    "Lie back at the edge of a bench with one leg lowered.",
+    "Gently lift the lowered thigh a small amount.",
+    "Lower it back with control."
+  ],
+  "user_facing_common_mistakes": [
+    "Arching the back.",
+    "Lifting too high."
+  ],
+  "user_facing_safety_note": "This is an advanced movement — keep it small and stop if you feel sharp pain.",
+  "plan_card_category": "strength",
+  "plan_card_subcategory": "",
+  "difficulty_label": "advanced",
+  "advanced_label": "clinician_guided",
+  "easier_option_labels": [
+    "Seated hip-flexion hold"
+  ],
+  "harder_option_labels": [],
+  "related_exercise_labels": [
+    "Standing knee lift"
+  ],
+  "media": {
+    "demo_video_url": null,
+    "demo_video_asset_id": null,
+    "image_asset_id": null,
+    "animation_asset_id": null,
+    "thumbnail_asset_id": null,
+    "media_status": "none",
+    "media_notes": null
+  },
+  "user_facing_status": "draft_copy",
+  "log_completion_available": true,
+  "log_pain_response_available": true,
+  "log_difficulty_available": true,
+  "log_confidence_available": false,
+  "log_notes_available": true,
+  "next_day_response_prompt_available": true
+}

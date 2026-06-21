@@ -1,0 +1,195 @@
+{
+  "exercise_id": "RF-EX-060",
+  "module": "rectus_femoris",
+  "name": "Plyometric jump",
+  "aliases": [
+    "generic plyometric jump",
+    "jump exposure"
+  ],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "hip",
+    "knee",
+    "ankle",
+    "lower_limb"
+  ],
+  "target_tissues": [
+    "lower_limb_power_system",
+    "quadriceps_secondary",
+    "hip_extensors"
+  ],
+  "exercise_family": "plyometric_preparation",
+  "primary_function": [
+    "generic_jump_exposure",
+    "reactive_power_preparation"
+  ],
+  "movement_category": [
+    "jump",
+    "plyometric_exposure"
+  ],
+  "joint_actions": [
+    "hip_knee_extension_power",
+    "landing_control"
+  ],
+  "contraction_bias": [
+    "plyometric_or_explosive"
+  ],
+  "position_tags": [
+    "jump_context",
+    "generic_plyometric",
+    "higher_demand_support"
+  ],
+  "tissue_demand_tags": [
+    "lower_limb_power_demand",
+    "landing_control_demand",
+    "anterior_thigh_monitoring_required"
+  ],
+  "speed_power_demand": "high",
+  "stretch_demand": "low_to_moderate",
+  "impact_demand": "high",
+  "field_demand_tags": [
+    "plyometric_preparation",
+    "field_exposure_preparation"
+  ],
+  "equipment": [
+    "bodyweight_or_open_space"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile",
+    "requires_external_load_context"
+  ],
+  "allowed_when": [
+    "metadata_candidate_only",
+    "requires_future_rule_authoring",
+    "exposure_metadata_only"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure",
+    "high_irritability",
+    "poor_landing_control",
+    "symptom_worsening_after_power_exposure"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity",
+    "running_mechanics_breakdown"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [
+    "Gonzalez_de_la_Flor_Garcia_Perez_de_Sevilla_2024_RF_strain_case_report"
+  ],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-REHAB-002",
+    "RF-FIELD-003",
+    "RF-RTS-004"
+  ],
+  "notes": "Generic plyometric exposure metadata from a case report. Does not define jump type, volume, readiness, progression, or clearance.",
+  "canonical_name": "plyometric_hop_progression",
+  "final_decision": "high_caution_do_not_convert_yet",
+  "evidence_grade": "C",
+  "source_authority": "moderate",
+  "source_support_type": "indirect_principle_support",
+  "RF_specificity": "moderate",
+  "central_tendon_fibrosis_risk": "high",
+  "manual_review_required": true,
+  "library_classification": "high_caution_sport_specific_exposure",
+  "injury_site_relevance": [
+    "muscular"
+  ],
+  "guardrail_notes": [
+    "not a prescription",
+    "not dosage",
+    "not progression",
+    "not readiness",
+    "not RTT/RTS",
+    "not clearance",
+    "not a test"
+  ],
+  "source_ids": [
+    "CR-S12",
+    "CR-S19"
+  ],
+  "source_verification_status": "partially_verified",
+  "user_facing_name": "Hopping drill",
+  "user_facing_summary": "Controlled, springy hops.",
+  "user_facing_purpose": "This helps build springy strength in your legs.",
+  "user_facing_setup": "Stand tall with a light, springy posture.",
+  "user_facing_instructions": [
+    "Stand tall with a light posture.",
+    "Perform small, springy hops in place.",
+    "Land softly and stay controlled."
+  ],
+  "user_facing_common_mistakes": [
+    "Landing heavily.",
+    "Going too high too soon."
+  ],
+  "user_facing_safety_note": "This is an advanced drill — keep hops small and stop if you feel sharp pain.",
+  "plan_card_category": "sport_preparation",
+  "plan_card_subcategory": "",
+  "difficulty_label": "advanced",
+  "advanced_label": "clinician_guided",
+  "easier_option_labels": [
+    "Squat jump"
+  ],
+  "harder_option_labels": [],
+  "related_exercise_labels": [
+    "Squat jump"
+  ],
+  "media": {
+    "demo_video_url": null,
+    "demo_video_asset_id": null,
+    "image_asset_id": null,
+    "animation_asset_id": null,
+    "thumbnail_asset_id": null,
+    "media_status": "none",
+    "media_notes": null
+  },
+  "user_facing_status": "draft_copy",
+  "log_completion_available": true,
+  "log_pain_response_available": true,
+  "log_difficulty_available": true,
+  "log_confidence_available": false,
+  "log_notes_available": true,
+  "next_day_response_prompt_available": true
+}

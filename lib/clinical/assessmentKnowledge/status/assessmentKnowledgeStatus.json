@@ -1,0 +1,14 @@
+{
+  "module": "assessment_knowledge_system",
+  "version": "v2_rf_assess_batch_1",
+  "status": "rf_assess_batch_1_authored",
+  "approval_status": "pending",
+  "clinical_approval_status": "not_approved",
+  "executable": false,
+  "runtime_integration": "none",
+  "rf_assessment_objects_authored": 18,
+  "assessment_objects_authored": 18,
+  "assessment_objects_approved": 0,
+  "permitted_use": "assessment_metadata_only",
+  "notes": "RF-ASSESS Batch 1 authored as draft metadata only. No assessment objects approved. No runtime behavior. No diagnosis authority. No autonomous triage. No prescription. No dosage. No progression. No readiness. No RTT/RTS. No clearance authority."
+}

@@ -1,0 +1,131 @@
+{
+  "exercise_id": "RF-EX-052",
+  "module": "rectus_femoris",
+  "name": "Deceleration mechanics drill",
+  "aliases": [
+    "deceleration drill",
+    "braking mechanics drill"
+  ],
+  "exercise_status": "draft",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "exercise_metadata_only",
+  "body_region": [
+    "trunk",
+    "pelvis",
+    "hip",
+    "knee",
+    "lower_limb"
+  ],
+  "target_tissues": [
+    "quadriceps_secondary",
+    "hip_extensors",
+    "trunk_pelvis_control_system",
+    "lower_limb_control_system"
+  ],
+  "exercise_family": "deceleration_preparation",
+  "primary_function": [
+    "deceleration_control",
+    "braking_mechanics_preparation"
+  ],
+  "movement_category": [
+    "deceleration_drill",
+    "field_exposure_preparation"
+  ],
+  "joint_actions": [
+    "hip_knee_flexion_control",
+    "trunk_control",
+    "single_limb_or_bilateral_braking_context"
+  ],
+  "contraction_bias": [
+    "eccentric_control",
+    "dynamic_control"
+  ],
+  "position_tags": [
+    "upright",
+    "deceleration_context",
+    "braking_control"
+  ],
+  "tissue_demand_tags": [
+    "quadriceps_secondary_load",
+    "field_exposure_demand",
+    "control_demand"
+  ],
+  "speed_power_demand": "moderate_to_high",
+  "stretch_demand": "low_to_moderate",
+  "impact_demand": "moderate_to_high",
+  "field_demand_tags": [
+    "field_exposure_preparation",
+    "change_of_direction_preparation"
+  ],
+  "equipment": [
+    "open_space",
+    "cones_optional"
+  ],
+  "setup_summary": "",
+  "coaching_cues": [],
+  "common_errors": [],
+  "contraindications": [],
+  "safety_blockers": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "new_or_worsening_neurological_or_vascular_symptoms"
+  ],
+  "prerequisites": [
+    "requires_future_selection_rules",
+    "requires_current_safety_state",
+    "requires_current_capacity_profile",
+    "requires_external_load_context"
+  ],
+  "allowed_when": [
+    "metadata_candidate_only",
+    "requires_future_rule_authoring",
+    "exposure_metadata_only"
+  ],
+  "blocked_when": [
+    "active_red_flag",
+    "rehab_blocked",
+    "unresolved_external_restriction",
+    "symptom_worsening_after_exposure",
+    "poor_deceleration_control",
+    "symptom_worsening_after_field_exposure"
+  ],
+  "monitoring_triggers": [
+    "pain_during",
+    "pain_after",
+    "next_day_response",
+    "anterior_thigh_tightness",
+    "loss_of_capacity",
+    "running_mechanics_breakdown"
+  ],
+  "progression_options": [],
+  "regression_options": [],
+  "substitution_options": [],
+  "dosage_status": "requires_future_rule_authoring",
+  "dosage": {
+    "active_prescription_present": false,
+    "prescribed_volume": null,
+    "prescribed_load": null,
+    "prescribed_tempo": null,
+    "prescribed_schedule": null,
+    "prescribed_recovery_interval": null,
+    "prescribed_session_length": null,
+    "prescribed_progression_step": null,
+    "prescribed_target_timeline": null,
+    "notes": "No active dosage authored. Dosage requires separately governed future rule authoring."
+  },
+  "source_refs": [
+    "Aspetar_Rectus_Femoris_Injury_Rehabilitation_Pathway_2026"
+  ],
+  "evidence_claim_ids": [],
+  "architecture_refs": [
+    "Master_Architecture_V3.1_Final",
+    "Master_Rectus_Femoris_Clinical_Rule_Specification_v1.2"
+  ],
+  "linked_rule_ids": [
+    "RF-FIELD-003",
+    "RF-RTS-004"
+  ],
+  "notes": "Deceleration mechanics metadata only. Does not authorize cutting, game play, or unrestricted field exposure."
+}

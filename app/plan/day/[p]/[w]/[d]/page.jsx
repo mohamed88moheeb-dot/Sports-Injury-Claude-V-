@@ -219,6 +219,11 @@ export default function DayPage() {
                               <strong>Pain rule: </strong>{ex.painRule}
                             </p>
                           )}
+                          {ex.betaDefaultLabel && (
+                            <p style={{ fontSize: 11, color: 'var(--ink-3)', marginTop: 8, padding: '6px 10px', background: 'rgba(245,158,11,0.06)', borderRadius: 8, border: '1px solid rgba(245,158,11,0.18)' }}>
+                              {ex.betaDefaultLabel}
+                            </p>
+                          )}
                         </div>
                       )}
                     </div>

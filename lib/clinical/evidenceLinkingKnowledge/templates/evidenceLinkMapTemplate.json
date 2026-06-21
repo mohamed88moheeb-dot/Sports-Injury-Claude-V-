@@ -1,0 +1,26 @@
+{
+  "$comment": "BLANK, NON-EXECUTABLE template for an evidence-link map document. Inert metadata only: no calculation, no user state, no runtime adaptation, no score/threshold/pass-fail, no prescription/dosage/progression/readiness/RTT-RTS/diagnosis/triage/clearance authority. A link describes how an RF-ASSESS finding qualitatively informs a universal CAP capacity.",
+  "map_id": "",
+  "module": "rectus_femoris",
+  "version": "",
+  "status": "draft",
+  "approval_status": "pending",
+  "clinical_approval_status": "not_approved",
+  "executable": false,
+  "runtime_integration": "none",
+  "permitted_use": "evidence_linking_metadata_only",
+  "source_assessment_batch": "",
+  "target_capacity_batch": "",
+  "signal_types_allowed": [
+    "supports_capacity",
+    "limits_capacity_confidence",
+    "requires_caution",
+    "requires_clinician_confirmation",
+    "does_not_inform_capacity",
+    "safety_context_only",
+    "diagnostic_context_only",
+    "monitoring_context"
+  ],
+  "links": [],
+  "governance_notes": ""
+}

@@ -1,0 +1,47 @@
+{
+  "$comment": "Gate B DRAFT rule object for RF-DX-002 — pending, NON-EXECUTABLE. Authored only from RF Clinical Rule Specification v1.2 §8.4 and the RF-DX-002 inventory entry. Clinical-content-only rule: it cites an evidence claim and has NO architecture references (architecture_refs intentionally empty per v1.2 §4.3). Expresses evidence-record / history-feature STRUCTURE only: sudden localized stabbing pain may be recorded as a non-specific history feature but proves nothing. No diagnosis, diagnostic weight, probability, confidence, rehab, dosage, progression, or return-to-sport logic; safety precedence preserved. Not approved. Not wired into any runtime.",
+  "rule_id": "RF-DX-002",
+  "rule_family": "diagnosis",
+  "source_spec_rule_id": "RF-DX-002",
+  "rule_title": "Sudden stabbing pain (non-specific history feature)",
+  "source_section": "§8.4",
+  "approval_status": "pending",
+  "executable": false,
+  "permitted_use": "evidence_record_only",
+  "architecture_refs": [],
+  "evidence_claim_ids": ["QRF-002"],
+  "input_contract": {
+    "$comment": "Structural symptom-history feature taken verbatim-in-meaning from v1.2 §8.4. Recorded only as a non-specific history feature.",
+    "symptom_history_feature": "sudden_localized_stabbing_pain",
+    "feature_role": "record_as_non_specific_history_feature_only",
+    "unknown_handling": "treat_safety_unknown_as_unsafe_until_resolved"
+  },
+  "decision_contract": {
+    "$comment": "Evidence-record structure only. The history feature is stored; it assigns no diagnostic weight, probability, or confidence and does not diagnose or rank RF. No rehab authorization, no numeric values. Safety precedence preserved.",
+    "action": "record_symptom_history_feature",
+    "feature_assigns_diagnostic_weight": false,
+    "feature_distinguishes_rf_from_other_anterior_thigh_conditions": false,
+    "feature_determines_structural_grade": false,
+    "does_not_diagnose_rf": true,
+    "does_not_rank_rf_above_differentials_from_symptom_alone": true,
+    "safety_precedence_preserved": true,
+    "symptom_is_not_safety_clearance": true,
+    "defers_diagnostic_confidence_objects": "history_feature_only_no_confidence_model_authored_here"
+  },
+  "safety_state_output": null,
+  "blocked_targets": [],
+  "prohibited_outputs": [
+    "diagnose_rf_injury_from_sudden_stabbing_pain_alone",
+    "assign_diagnostic_weight_from_sudden_stabbing_pain_alone",
+    "assign_numeric_confidence_from_sudden_stabbing_pain",
+    "assign_patient_level_probability_from_sudden_stabbing_pain",
+    "rank_rf_above_differentials_from_sudden_stabbing_pain_alone",
+    "bypass_safety_because_symptom_appears_typical",
+    "treat_sudden_stabbing_pain_as_safety_clearance",
+    "clear_user_for_rehabilitation",
+    "produce_a_complete_rehab_plan",
+    "produce_a_return_to_sport_decision"
+  ],
+  "test_fixtures": [],
+  "notes": "Clinical_content normative source; MAY; permitted_use evidence_record_only. Architecture references are intentionally empty: per v1.2 §4.3 clinical-content rules cite valid evidence_claim_ids and do not carry architecture refs (none are present in the §8.4 source); [] here means 'none in source', not 'missing'. Evidence grade preserved per source: QRF-002 (C1). Per §8.4: sudden localized stabbing pain may be recorded as a non-specific history feature; per the prohibited use it must NOT distinguish RF injury from other anterior-thigh conditions or determine structural grade. This is a diagnosis history-feature rule, not a safety rule, so safety_state_output is null and blocked_targets is empty; it preserves safety precedence and must not be treated as safety clearance. No diagnostic confidence model is authored here (deferred to the later confidence objects). Draft — approval_status remains pending."
+}
