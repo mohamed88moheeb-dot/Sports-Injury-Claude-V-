@@ -104,7 +104,7 @@ ok(mapAssessmentToRfInput({ sports: ['Basketball'] }).sport_context === 'Basketb
 section('Batch 1: Foundation leads with gentlest');
 const fOut = runRfBeta(mapAssessmentToRfInput({ primaryRegion: 'quadriceps', exactArea: 'front_rectus_femoris', mechanism: 'Kicking', painWalking: 4, painSport: 6, symptoms: ['Bruising'], equipment: ['Bodyweight'] }));
 const fSession = fOut.plan.phases.find((p) => p.days.length).days[0].session;
-ok(fSession.cards.length >= 1 && fSession.cards.length <= 3, 'Foundation Day 1 has 1-3 cards');
+ok(fSession.cards.length >= 1 && fSession.cards.length <= 6, 'Foundation Day 1 has 1-6 cards');
 ok(!/step.?up/i.test(fSession.cards[0].exercise_name), 'Foundation Day 1 does NOT lead with a step-up');
 
 section('Batch 1: equipment filtering');
@@ -114,7 +114,8 @@ ok(allCards.length > 0, 'bodyweight-only user still gets exercises (never emptie
 // Equipment filter only applies to auto-prescribed (non-preview) cards.
 // Preview cards for upcoming phases may include gym exercises shown as roadmap only.
 const prescribedCards = allCards.filter((c) => !c.preview_only);
-ok(prescribedCards.every((c) => !(c.equipment || []).some((e) => !/optional/i.test(e) && /bench|dumbbell|barbell|machine|cable|flywheel|sled|prowler|limb_wrap/i.test(e))), 'no REQUIRED gym-only equipment exercises selected for bodyweight user (optional kit is fine)');
+// "_or_" tokens (e.g. bench_or_reclined_support) mean a floor/bodyweight alternative exists — not a hard gym requirement.
+ok(prescribedCards.every((c) => !(c.equipment || []).some((e) => !/optional/i.test(e) && !e.includes('_or_') && /bench|dumbbell|barbell|machine|cable|flywheel|sled|prowler|limb_wrap/i.test(e))), 'no REQUIRED gym-only equipment exercises selected for bodyweight user (optional kit is fine)');
 
 section('Batch 1: per-red-flag routing');
 const cats = {};

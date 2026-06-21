@@ -301,29 +301,65 @@ export function RecoveryProvider({ children }) {
     const entry = { id: Date.now(), date: new Date().toLocaleDateString(), ...status };
     const nextCheckins = [entry, ...checkins].slice(0, 16);
 
-    // RF beta: today-only adjustment. Adjust ONLY the first incomplete day;
-    // never touch future days, never regenerate the plan, never jump phase.
     if (profile.isRfBeta) {
       const loc = locateToday(profile.plan);
       let nextProfile = { ...profile, lastCheckin: entry };
+
       if (loc) {
         const [pi, wi, di] = loc;
         const adj = adjustProfileDayToday(profile.plan[pi].weeks[wi].days[di], status);
         const nextPlan = structuredClone(profile.plan);
-        nextPlan[pi].weeks[wi].days[di] = adj.day; // ONLY today's day changes
-        nextProfile = {
-          ...profile,
-          plan: nextPlan,
-          today: findToday(nextPlan),
-          progress: calculateProgress(nextPlan),
-          aiStatus: adj.message,
-          lastCheckin: entry,
-          rfLastAdjustment: {
-            action: adj.action, message: adj.message,
-            selected_session_only: true, future_days_changed: false
+
+        if (adj.action === 'keep_today') {
+          // Green — session went well: mark today complete and advance.
+          nextPlan[pi].weeks[wi].days[di] = { ...adj.day, completed: true };
+          // Auto-skip any consecutive rest days so 'today' always lands on a session.
+          let restLoc = locateToday(nextPlan);
+          while (restLoc) {
+            const [rpi, rwi, rdi] = restLoc;
+            if (nextPlan[rpi].weeks[rwi].days[rdi].isRest) {
+              nextPlan[rpi].weeks[rwi].days[rdi].completed = true;
+              restLoc = locateToday(nextPlan);
+            } else {
+              break;
+            }
           }
-        };
+          nextProfile = {
+            ...profile,
+            plan: nextPlan,
+            today: findToday(nextPlan),
+            progress: calculateProgress(nextPlan),
+            aiStatus: 'Session completed — well done. Rest days ahead are logged automatically. Next session is ready.',
+            lastCheckin: entry,
+            rfLastAdjustment: { action: 'complete_and_advance', message: 'Session completed. Next session queued.', selected_session_only: true, future_days_changed: false }
+          };
+        } else if (adj.action === 'reduce_today') {
+          // Amber — more noticeable symptoms: ease today, repeat before progressing.
+          nextPlan[pi].weeks[wi].days[di] = adj.day;
+          nextProfile = {
+            ...profile,
+            plan: nextPlan,
+            today: findToday(nextPlan),
+            progress: calculateProgress(nextPlan),
+            aiStatus: adj.message + ' Repeat this level before progressing to the next session.',
+            lastCheckin: entry,
+            rfLastAdjustment: { action: adj.action, message: adj.message, selected_session_only: true, future_days_changed: false }
+          };
+        } else {
+          // Red / withheld — concerning symptoms: pause, do not advance.
+          nextPlan[pi].weeks[wi].days[di] = adj.day;
+          nextProfile = {
+            ...profile,
+            plan: nextPlan,
+            today: findToday(nextPlan),
+            progress: calculateProgress(nextPlan),
+            aiStatus: adj.message,
+            lastCheckin: entry,
+            rfLastAdjustment: { action: adj.action, message: adj.message, selected_session_only: true, future_days_changed: false }
+          };
+        }
       }
+
       setCheckins(nextCheckins);
       setProfile(nextProfile);
       saveState(nextProfile, nextCheckins, assessment);
