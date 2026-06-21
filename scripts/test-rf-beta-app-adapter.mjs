@@ -111,7 +111,10 @@ section('Batch 1: equipment filtering');
 const bw = runRfBeta(mapAssessmentToRfInput({ primaryRegion: 'quadriceps', exactArea: 'front_rectus_femoris', mechanism: 'Kicking', painSport: 5, equipment: ['Bodyweight'] }));
 const allCards = bw.plan.phases.flatMap((p) => p.days.flatMap((d) => d.session.cards));
 ok(allCards.length > 0, 'bodyweight-only user still gets exercises (never emptied)');
-ok(allCards.every((c) => !(c.equipment || []).some((e) => !/optional/i.test(e) && /bench|dumbbell|barbell|machine|cable|flywheel|sled|prowler|limb_wrap/i.test(e))), 'no REQUIRED gym-only equipment exercises selected for bodyweight user (optional kit is fine)');
+// Equipment filter only applies to auto-prescribed (non-preview) cards.
+// Preview cards for upcoming phases may include gym exercises shown as roadmap only.
+const prescribedCards = allCards.filter((c) => !c.preview_only);
+ok(prescribedCards.every((c) => !(c.equipment || []).some((e) => !/optional/i.test(e) && /bench|dumbbell|barbell|machine|cable|flywheel|sled|prowler|limb_wrap/i.test(e))), 'no REQUIRED gym-only equipment exercises selected for bodyweight user (optional kit is fine)');
 
 section('Batch 1: per-red-flag routing');
 const cats = {};

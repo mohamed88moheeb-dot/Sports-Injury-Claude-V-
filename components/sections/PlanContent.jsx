@@ -161,45 +161,30 @@ export function PlanContent({ profile }) {
             )}
           </div>
 
-          {/* ── Week Cards / Upcoming phase overview ── */}
-          {isUpcoming ? (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              {phase.progression_note && (
-                <div style={{
-                  padding: '12px 16px', borderRadius: 12,
-                  background: 'rgba(96,165,250,.07)', border: '1px solid rgba(96,165,250,.18)',
-                  fontSize: 13, color: 'var(--ink-3)', lineHeight: 1.6
-                }}>
-                  <span style={{ fontWeight: 700, color: 'var(--primary)', marginRight: 6 }}>What to expect:</span>
-                  {phase.progression_note}
-                </div>
-              )}
-            </div>
-          ) : (
-            <div className="plan-v2-weeks">
-              {phase.weeks.map((week, wIdx) => {
-                const wDone = week.days.filter((d) => d.completed).length;
-                const hasToday = todayPath && todayPath[0] === activePhase && todayPath[1] === wIdx;
-                return (
-                  <button
-                    key={`${activePhase}-${wIdx}`}
-                    className={`plan-v2-week-card ${hasToday ? 'has-today' : ''}`}
-                    onClick={() => router.push(`/plan/week/${activePhase}/${wIdx}`)}
-                  >
-                    <span className="plan-v2-week-index">W{wIdx + 1}</span>
-                    <div className="plan-v2-week-info">
-                      <span className="plan-v2-week-focus">{week.focus}</span>
-                      <span className="plan-v2-week-count">{wDone}/{week.days.length} days done</span>
-                    </div>
-                    {hasToday && <span className="plan-v2-today-dot">Today</span>}
-                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M9 18l6-6-6-6" />
-                    </svg>
-                  </button>
-                );
-              })}
-            </div>
-          )}
+          {/* ── Week Cards ── */}
+          <div className="plan-v2-weeks">
+            {phase.weeks.map((week, wIdx) => {
+              const wDone = week.days.filter((d) => d.completed).length;
+              const hasToday = todayPath && todayPath[0] === activePhase && todayPath[1] === wIdx;
+              return (
+                <button
+                  key={`${activePhase}-${wIdx}`}
+                  className={`plan-v2-week-card ${hasToday ? 'has-today' : ''}`}
+                  onClick={() => router.push(`/plan/week/${activePhase}/${wIdx}`)}
+                >
+                  <span className="plan-v2-week-index">W{wIdx + 1}</span>
+                  <div className="plan-v2-week-info">
+                    <span className="plan-v2-week-focus">{week.focus}</span>
+                    <span className="plan-v2-week-count">{wDone}/{week.days.length} days done</span>
+                  </div>
+                  {hasToday && <span className="plan-v2-today-dot">Today</span>}
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M9 18l6-6-6-6" />
+                  </svg>
+                </button>
+              );
+            })}
+          </div>
         </div>
       )}
     </section>
