@@ -4,6 +4,22 @@ import { useState } from 'react';
 import { Field } from '../ui/Field';
 import { Slider } from '../ui/Slider';
 
+function classifyStatus(status) {
+  const pain = Number(status.pain ?? 0);
+  const conf = Number(status.confidence ?? 100);
+  const { swelling, response } = status;
+  if (pain >= 7 || swelling === 'New swelling' || swelling === 'Worse' || response === 'Worse than yesterday') {
+    return { tier: 'red', label: 'Red — session paused', desc: 'Symptoms are too high to train today. We\'ll pause the session and monitor.', color: '#EF4444' };
+  }
+  if (pain >= 5 || response === 'Sore but settled') {
+    return { tier: 'amber', label: 'Amber — session eased', desc: 'Some symptoms present. Today\'s session will be made easier; repeat before progressing.', color: '#F59E0B' };
+  }
+  if (conf < 40) {
+    return { tier: 'amber', label: 'Amber — low confidence', desc: 'Low confidence flagged. Session will be simplified with a clarifying prompt.', color: '#F59E0B' };
+  }
+  return { tier: 'green', label: 'Green — carry on', desc: 'Response looks good. Today\'s session proceeds as planned.', color: '#22C55E' };
+}
+
 export function CheckInContent({ addCheckin, checkins }) {
   const [status, setStatus] = useState({
     pain: 2,
@@ -12,6 +28,8 @@ export function CheckInContent({ addCheckin, checkins }) {
     response: 'Stable',
     notes: '',
   });
+
+  const result = classifyStatus(status);
 
   return (
     <section className="checkin-grid app-section app-section-soft">
@@ -54,6 +72,18 @@ export function CheckInContent({ addCheckin, checkins }) {
             <option>Worse than yesterday</option>
           </select>
         </Field>
+
+        <div style={{
+          margin: '16px 0',
+          padding: '12px 16px',
+          borderRadius: 10,
+          background: result.color + '18',
+          borderLeft: `4px solid ${result.color}`,
+        }}>
+          <p style={{ margin: 0, fontWeight: 700, fontSize: 14, color: result.color }}>{result.label}</p>
+          <p style={{ margin: '4px 0 0', fontSize: 13, color: 'var(--ink-2)' }}>{result.desc}</p>
+        </div>
+
         <textarea
           placeholder="Notes"
           value={status.notes}

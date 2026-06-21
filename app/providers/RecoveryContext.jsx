@@ -324,12 +324,21 @@ export function RecoveryProvider({ children }) {
               break;
             }
           }
+          // Detect phase completion: if every day in the current phase is now done,
+          // surface a phase-advancement message so the user knows they've graduated.
+          const phaseNowComplete = nextPlan[pi].weeks.every((w) => w.days.every((d) => d.completed));
+          const nextPhase = phaseNowComplete ? nextPlan[pi + 1] : null;
+          const aiStatus = phaseNowComplete
+            ? nextPhase
+              ? `Phase complete — great work! You've finished ${nextPlan[pi].label}. Starting ${nextPhase.label} next.`
+              : 'Rehabilitation complete — outstanding effort! Maintain your fitness and return-to-sport capacity.'
+            : 'Session completed — well done. Rest days ahead are logged automatically. Next session is ready.';
           nextProfile = {
             ...profile,
             plan: nextPlan,
             today: findToday(nextPlan),
             progress: calculateProgress(nextPlan),
-            aiStatus: 'Session completed — well done. Rest days ahead are logged automatically. Next session is ready.',
+            aiStatus,
             lastCheckin: entry,
             rfLastAdjustment: { action: 'complete_and_advance', message: 'Session completed. Next session queued.', selected_session_only: true, future_days_changed: false }
           };
