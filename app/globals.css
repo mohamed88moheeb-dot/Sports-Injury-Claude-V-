@@ -4771,15 +4771,15 @@ body { padding-top: 0; }
 
 /* ── Glow Card (premium glass with intense edge glow) ────── */
 .glow-card {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.35);
   border-radius: 20px;
   padding: 24px;
   position: relative;
   overflow: hidden;
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 6px 24px rgba(10,30,80,0.14);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.40), 0 4px 20px rgba(0,0,0,0.08);
   transition: box-shadow .3s, border-color .3s, transform .3s cubic-bezier(0.16,1,0.3,1);
 }
 .glow-card:hover {
@@ -5213,16 +5213,20 @@ body { padding-top: 0; }
 
 /* ── Topbar ─────────────────────────────────────────────── */
 .topbar {
-  background: rgba(255,255,255,0.72) !important;
-  border: 1px solid rgba(255,255,255,0.90) !important;
-  box-shadow: 0 4px 24px rgba(40,90,180,0.10), inset 0 1px 0 rgba(255,255,255,0.95) !important;
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(255,255,255,0.20) !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.40) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
 }
 
 /* ── App sections / glass cards ─────────────────────────── */
 .app-section {
-  background: rgba(255,255,255,0.62) !important;
-  border: 1px solid rgba(255,255,255,0.82) !important;
-  box-shadow: 0 4px 32px rgba(40,90,180,0.10), inset 0 1px 0 rgba(255,255,255,0.95) !important;
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(255,255,255,0.35) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.40), 0 4px 20px rgba(0,0,0,0.08) !important;
 }
 .app-section-light {
   background: transparent !important;
@@ -5241,9 +5245,11 @@ body { padding-top: 0; }
   -webkit-backdrop-filter: none !important;
 }
 .app-section-dark {
-  background: rgba(255,255,255,0.60) !important;
-  border: 1px solid rgba(255,255,255,0.80) !important;
-  box-shadow: 0 4px 32px rgba(40,90,180,0.12) !important;
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(255,255,255,0.35) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.40), 0 4px 20px rgba(0,0,0,0.08) !important;
 }
 .app-section-dark .eyebrow    { color: var(--primary) !important; text-shadow: none !important; }
 .app-section-dark .small-label { color: var(--muted) !important; }
@@ -5273,28 +5279,34 @@ body { padding-top: 0; }
 }
 .hero-copy { color: rgba(255,255,255,0.72) !important; }
 .hero-points span {
-  background: rgba(59,125,216,0.07) !important;
-  border-color: rgba(59,125,216,0.18) !important;
-  color: var(--ink-2) !important;
+  background: rgba(47,140,255,0.12) !important;
+  border-color: rgba(47,140,255,0.28) !important;
+  color: rgba(255,255,255,0.85) !important;
 }
 .hero-panel {
-  background: rgba(255,255,255,0.65) !important;
-  border-color: rgba(255,255,255,0.85) !important;
+  background: rgba(255,255,255,0.07) !important;
+  border-color: rgba(255,255,255,0.35) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
 }
-.hero-panel .small-label { color: var(--muted) !important; }
-.hero-panel strong { color: var(--ink) !important; }
-.hero-panel span   { color: var(--ink-3) !important; }
+.hero-panel .small-label { color: rgba(255,255,255,0.55) !important; }
+.hero-panel strong { color: #ffffff !important; }
+.hero-panel span   { color: rgba(255,255,255,0.70) !important; }
 
 /* ── Glass card ─────────────────────────────────────────── */
 .glass-card {
-  background: rgba(255,255,255,0.62) !important;
-  border: 1px solid rgba(255,255,255,0.85) !important;
-  box-shadow: 0 4px 24px rgba(40,90,180,0.10), inset 0 1px 0 rgba(255,255,255,0.95) !important;
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(255,255,255,0.35) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.40), 0 4px 20px rgba(0,0,0,0.08) !important;
 }
 .section-card {
-  background: rgba(255,255,255,0.62) !important;
-  border: 1px solid rgba(255,255,255,0.85) !important;
-  box-shadow: 0 4px 24px rgba(40,90,180,0.10), inset 0 1px 0 rgba(255,255,255,0.95) !important;
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(255,255,255,0.35) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.40), 0 4px 20px rgba(0,0,0,0.08) !important;
 }
 
 /* ── Top nav (desktop) ──────────────────────────────────── */
@@ -5337,42 +5349,42 @@ body { padding-top: 0; }
 
 /* ── Secondary / ghost buttons ──────────────────────────── */
 .secondary-btn {
-  background: rgba(255,255,255,0.70) !important;
-  border-color: rgba(59,125,216,0.25) !important;
-  color: var(--ink-2) !important;
+  background: rgba(255,255,255,0.10) !important;
+  border-color: rgba(255,255,255,0.30) !important;
+  color: rgba(255,255,255,0.90) !important;
 }
 .secondary-btn:hover {
-  background: rgba(255,255,255,0.90) !important;
-  border-color: rgba(59,125,216,0.45) !important;
+  background: rgba(255,255,255,0.18) !important;
+  border-color: rgba(255,255,255,0.45) !important;
 }
 .secondary-btn.done {
-  background: rgba(59,125,216,0.10) !important;
-  border-color: rgba(59,125,216,0.30) !important;
-  color: var(--primary) !important;
+  background: rgba(47,140,255,0.18) !important;
+  border-color: rgba(47,140,255,0.40) !important;
+  color: #fff !important;
 }
 .ghost-btn {
-  border-color: rgba(59,125,216,0.22) !important;
-  color: var(--ink-3) !important;
+  border-color: rgba(255,255,255,0.25) !important;
+  color: rgba(255,255,255,0.75) !important;
 }
 .ghost-btn:hover {
-  background: rgba(255,255,255,0.60) !important;
-  border-color: rgba(59,125,216,0.40) !important;
-  color: var(--ink) !important;
+  background: rgba(255,255,255,0.10) !important;
+  border-color: rgba(255,255,255,0.40) !important;
+  color: #ffffff !important;
 }
 
 /* ── Form inputs ─────────────────────────────────────────── */
 input, select, textarea {
-  background: rgba(255,255,255,0.72) !important;
-  border-color: rgba(59,125,216,0.20) !important;
-  color: var(--ink) !important;
+  background: rgba(255,255,255,0.08) !important;
+  border-color: rgba(255,255,255,0.28) !important;
+  color: #ffffff !important;
 }
 input:focus, select:focus, textarea:focus {
-  border-color: var(--primary) !important;
-  background: rgba(255,255,255,0.90) !important;
-  box-shadow: 0 0 0 3px rgba(59,125,216,0.12) !important;
+  border-color: rgba(255,255,255,0.55) !important;
+  background: rgba(255,255,255,0.12) !important;
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.08) !important;
 }
-input::placeholder, textarea::placeholder { color: var(--faint) !important; }
-select option { background: #fff !important; color: var(--ink) !important; }
+input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.45) !important; }
+select option { background: #1a2a4a !important; color: #ffffff !important; }
 
 /* ── Range / slider ─────────────────────────────────────── */
 input[type="range"] {
@@ -5397,14 +5409,14 @@ input[type="range"]::-webkit-slider-thumb {
   background: rgba(255,255,255,0.12) !important;
 }
 .msd-panel {
-  background: rgba(255,255,255,0.92) !important;
-  border: 1px solid rgba(59,125,216,0.22) !important;
-  box-shadow: 0 8px 32px rgba(40,90,180,0.18) !important;
+  background: rgba(15,25,55,0.90) !important;
+  border: 1px solid rgba(255,255,255,0.22) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.30) !important;
   backdrop-filter: blur(12px) !important;
 }
-.msd-option { color: var(--ink) !important; }
-.msd-option:hover { background: rgba(59,125,216,0.07) !important; }
-.msd-option.selected { background: rgba(59,125,216,0.12) !important; color: var(--primary) !important; }
+.msd-option { color: rgba(255,255,255,0.85) !important; }
+.msd-option:hover { background: rgba(255,255,255,0.08) !important; }
+.msd-option.selected { background: rgba(47,140,255,0.18) !important; color: #ffffff !important; }
 .msd-chip {
   background: rgba(59,125,216,0.10) !important;
   border-color: rgba(59,125,216,0.22) !important;
@@ -5413,15 +5425,15 @@ input[type="range"]::-webkit-slider-thumb {
 
 /* ── Tabs ───────────────────────────────────────────────── */
 .tab-bar {
-  background: rgba(255,255,255,0.50) !important;
-  border-color: rgba(200,220,255,0.40) !important;
+  background: rgba(255,255,255,0.06) !important;
+  border-color: rgba(255,255,255,0.22) !important;
 }
-.tab { color: var(--ink-3) !important; }
-.tab:hover { background: rgba(255,255,255,0.70) !important; color: var(--ink-2) !important; }
+.tab { color: rgba(255,255,255,0.65) !important; }
+.tab:hover { background: rgba(255,255,255,0.10) !important; color: rgba(255,255,255,0.85) !important; }
 .tab.active {
-  background: rgba(255,255,255,0.90) !important;
-  color: var(--primary) !important;
-  border-color: rgba(59,125,216,0.25) !important;
+  background: rgba(255,255,255,0.14) !important;
+  color: #ffffff !important;
+  border-color: rgba(47,140,255,0.35) !important;
 }
 
 /* ── Anatomy page ───────────────────────────────────────── */
@@ -5477,25 +5489,25 @@ input[type="range"]::-webkit-slider-thumb {
   50%       { box-shadow: 0 0 18px rgba(47,140,255,0.70), 0 0 40px rgba(47,140,255,0.38), inset 0 1px 0 rgba(255,255,255,0.30); }
 }
 .anatomy-back-btn {
-  color: var(--ink-3) !important;
-  background: rgba(255,255,255,0.60) !important;
-  border: 1px solid rgba(200,220,255,0.40) !important;
+  color: rgba(255,255,255,0.80) !important;
+  background: rgba(255,255,255,0.08) !important;
+  border: 1px solid rgba(255,255,255,0.25) !important;
 }
 .anatomy-back-btn:hover {
-  background: rgba(255,255,255,0.85) !important;
-  color: var(--ink) !important;
+  background: rgba(255,255,255,0.14) !important;
+  color: #ffffff !important;
 }
 .ia-toggle {
-  background: rgba(255,255,255,0.60) !important;
-  border-color: rgba(200,220,255,0.40) !important;
+  background: rgba(255,255,255,0.06) !important;
+  border-color: rgba(255,255,255,0.22) !important;
 }
 .ia-toggle-btn {
-  color: var(--ink-3) !important;
+  color: rgba(255,255,255,0.65) !important;
 }
 .ia-toggle-btn.active {
-  background: rgba(255,255,255,0.92) !important;
-  color: var(--primary) !important;
-  box-shadow: 0 2px 12px rgba(59,125,216,0.15) !important;
+  background: rgba(255,255,255,0.14) !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 12px rgba(47,140,255,0.20) !important;
 }
 .ia-region-chip {
   background: rgba(59,125,216,0.10) !important;
@@ -5503,9 +5515,9 @@ input[type="range"]::-webkit-slider-thumb {
   color: var(--primary) !important;
 }
 .ia-muscle-chip {
-  background: rgba(255,255,255,0.70) !important;
-  border-color: rgba(59,125,216,0.20) !important;
-  color: var(--ink-3) !important;
+  background: rgba(255,255,255,0.08) !important;
+  border-color: rgba(255,255,255,0.22) !important;
+  color: rgba(255,255,255,0.80) !important;
 }
 .ia-muscle-chip.active {
   background: var(--primary) !important;
@@ -5550,14 +5562,14 @@ input[type="range"]::-webkit-slider-thumb {
   color: #fff !important;
 }
 .session-card {
-  background: rgba(255,255,255,0.60) !important;
-  border-top-color: rgba(200,220,255,0.35) !important;
+  background: rgba(255,255,255,0.05) !important;
+  border-top-color: rgba(255,255,255,0.18) !important;
 }
 .exercise-card {
-  background: rgba(255,255,255,0.55) !important;
-  border-color: rgba(200,220,255,0.35) !important;
+  background: rgba(255,255,255,0.05) !important;
+  border-color: rgba(255,255,255,0.22) !important;
 }
-.exercise-card:hover { background: rgba(255,255,255,0.80) !important; }
+.exercise-card:hover { background: rgba(255,255,255,0.09) !important; }
 .alternative-box {
   background: rgba(59,125,216,0.06) !important;
   border-color: rgba(59,125,216,0.18) !important;
@@ -5576,9 +5588,11 @@ input[type="range"]::-webkit-slider-thumb {
 
 /* ── Assessment sections ───────────────────────────────── */
 .assessment-step {
-  background: rgba(255,255,255,0.62) !important;
-  border: 1px solid rgba(255,255,255,0.82) !important;
-  box-shadow: 0 4px 24px rgba(40,90,180,0.10) !important;
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(255,255,255,0.35) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.40), 0 4px 20px rgba(0,0,0,0.08) !important;
 }
 .step-number {
   background: rgba(59,125,216,0.12) !important;
@@ -5596,16 +5610,20 @@ input[type="range"]::-webkit-slider-thumb {
 
 /* ── Dashboard metrics ──────────────────────────────────── */
 .metric {
-  background: rgba(255,255,255,0.55) !important;
-  border-color: rgba(200,220,255,0.40) !important;
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(255,255,255,0.35) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
 }
-.metric:hover { background: rgba(255,255,255,0.80) !important; }
+.metric:hover { background: rgba(255,255,255,0.09) !important; }
 .metric-value { color: var(--primary) !important; }
 
 /* ── Today card ─────────────────────────────────────────── */
 .today-card {
-  background: rgba(255,255,255,0.65) !important;
-  border: 1px solid rgba(255,255,255,0.85) !important;
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(255,255,255,0.35) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
 }
 
 /* ── Progress bar ───────────────────────────────────────── */
@@ -5650,44 +5668,45 @@ input[type="range"]::-webkit-slider-thumb {
 
 /* ── Account pill ───────────────────────────────────────── */
 .account-pill {
-  background: rgba(255,255,255,0.65) !important;
-  border-color: rgba(59,125,216,0.20) !important;
-  color: var(--ink-3) !important;
+  background: rgba(255,255,255,0.08) !important;
+  border-color: rgba(255,255,255,0.25) !important;
+  color: rgba(255,255,255,0.80) !important;
 }
-.account-pill:hover { background: rgba(255,255,255,0.88) !important; }
+.account-pill:hover { background: rgba(255,255,255,0.14) !important; }
 
 /* ── Status strip ───────────────────────────────────────── */
 .status-strip {
-  background: rgba(255,255,255,0.55) !important;
-  border-color: rgba(200,220,255,0.35) !important;
+  background: rgba(255,255,255,0.05) !important;
+  border-color: rgba(255,255,255,0.22) !important;
 }
 
 /* ── Body region selector ───────────────────────────────── */
 .body-region-selector {
-  background: rgba(255,255,255,0.60) !important;
-  border-color: rgba(200,220,255,0.40) !important;
+  background: rgba(255,255,255,0.08) !important;
+  border-color: rgba(255,255,255,0.28) !important;
+  color: rgba(255,255,255,0.90) !important;
 }
 .region-btn {
-  background: rgba(255,255,255,0.55) !important;
-  border-color: rgba(200,220,255,0.35) !important;
-  color: var(--ink-3) !important;
+  background: rgba(255,255,255,0.06) !important;
+  border-color: rgba(255,255,255,0.22) !important;
+  color: rgba(255,255,255,0.80) !important;
 }
 .region-btn.active, .region-btn:hover {
-  background: rgba(59,125,216,0.10) !important;
-  border-color: rgba(59,125,216,0.30) !important;
-  color: var(--primary) !important;
+  background: rgba(47,140,255,0.18) !important;
+  border-color: rgba(47,140,255,0.45) !important;
+  color: rgba(255,255,255,1) !important;
 }
 
 /* ── Symptom chips ──────────────────────────────────────── */
 .symptom-chip {
-  background: rgba(255,255,255,0.65) !important;
-  border-color: rgba(200,220,255,0.40) !important;
-  color: var(--ink-3) !important;
+  background: rgba(255,255,255,0.06) !important;
+  border-color: rgba(255,255,255,0.22) !important;
+  color: rgba(255,255,255,0.80) !important;
 }
 .symptom-chip.active {
-  background: rgba(59,125,216,0.12) !important;
-  border-color: rgba(59,125,216,0.30) !important;
-  color: var(--primary) !important;
+  background: rgba(47,140,255,0.18) !important;
+  border-color: rgba(47,140,255,0.45) !important;
+  color: rgba(255,255,255,1) !important;
 }
 
 /* ── Glow button ────────────────────────────────────────── */
@@ -5766,14 +5785,16 @@ input[type="range"]::-webkit-slider-thumb {
 
 /* ── Session block header ───────────────────────────────── */
 .session-block-header {
-  color: var(--muted) !important;
-  border-bottom-color: rgba(200,220,255,0.40) !important;
+  color: rgba(255,255,255,0.60) !important;
+  border-bottom-color: rgba(255,255,255,0.18) !important;
 }
 
 /* ── Diagnosis / summary cards ──────────────────────────── */
 .summary-card, .diagnosis-card {
-  background: rgba(255,255,255,0.62) !important;
-  border-color: rgba(255,255,255,0.85) !important;
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(255,255,255,0.35) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
 }
 .confidence-badge {
   background: rgba(59,125,216,0.10) !important;
@@ -5783,23 +5804,29 @@ input[type="range"]::-webkit-slider-thumb {
 
 /* ── Coach chat ─────────────────────────────────────────── */
 .coach-message {
-  background: rgba(255,255,255,0.72) !important;
-  border-color: rgba(200,220,255,0.40) !important;
-  color: var(--ink) !important;
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(255,255,255,0.25) !important;
+  color: rgba(255,255,255,0.92) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
 }
 .user-message {
   background: var(--primary) !important;
   color: #fff !important;
 }
 .coach-input-wrap {
-  background: rgba(255,255,255,0.72) !important;
-  border-color: rgba(200,220,255,0.35) !important;
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(255,255,255,0.35) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
 }
 
 /* ── Check-in page ──────────────────────────────────────── */
 .checkin-card {
-  background: rgba(255,255,255,0.62) !important;
-  border-color: rgba(255,255,255,0.85) !important;
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(255,255,255,0.35) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
 }
 .pain-scale-btn {
   background: rgba(255,255,255,0.65) !important;
