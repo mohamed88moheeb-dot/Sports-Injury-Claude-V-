@@ -880,17 +880,17 @@ select option { background: #EEF6FF; color: var(--ink); }
 
 /* Today card */
 .today-card.highlight-card {
-  background: rgba(255,255,255,0.72);
-  border: 1px solid rgba(255,255,255,0.90);
-  color: var(--ink);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.35);
+  color: rgba(255,255,255,0.92);
   border-radius: var(--r-lg);
   padding: 24px;
   display: flex;
   flex-direction: column;
   gap: var(--space-5);
-  box-shadow: 0 8px 32px rgba(30,70,160,0.14), inset 0 1px 0 rgba(255,255,255,0.95);
-  backdrop-filter: blur(14px) saturate(1.8);
-  -webkit-backdrop-filter: blur(14px) saturate(1.8);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.40), 0 4px 20px rgba(0,0,0,0.08);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   position: relative;
   overflow: hidden;
   transition: box-shadow 0.28s, transform 0.28s;
@@ -923,8 +923,8 @@ select option { background: #EEF6FF; color: var(--ink); }
   position: relative;
   z-index: 1;
 }
-.today-card-top .eyebrow { color: var(--primary); display: block; margin-bottom: 6px; }
-.today-card-top h3 { color: var(--ink); font-size: 22px; }
+.today-card-top .eyebrow { color: rgba(127,216,255,0.90); display: block; margin-bottom: 6px; }
+.today-card-top h3 { color: #ffffff; font-size: 22px; }
 .today-card.highlight-card > p {
   color: var(--ink-3);
   font-size: 14px;
@@ -986,16 +986,17 @@ select option { background: #EEF6FF; color: var(--ink); }
 
 /* Progress ring card */
 .progress-card {
-  background: rgba(255,255,255,0.62);
-  border: 1px solid rgba(255,255,255,0.85);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.35);
   border-radius: var(--r-lg);
   padding: 24px;
-  box-shadow: 0 4px 24px rgba(30,70,160,0.10), inset 0 1px 0 rgba(255,255,255,0.90);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.40), 0 4px 20px rgba(0,0,0,0.08);
   display: flex;
   flex-direction: column;
-  backdrop-filter: blur(14px) saturate(1.8);
-  -webkit-backdrop-filter: blur(14px) saturate(1.8);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   transition: box-shadow 0.28s;
+  color: rgba(255,255,255,0.92);
 }
 .progress-card:hover {
   box-shadow: 0 8px 32px rgba(30,70,160,0.16), inset 0 1px 0 rgba(255,255,255,0.90);
@@ -1088,17 +1089,18 @@ select option { background: #EEF6FF; color: var(--ink); }
   gap: var(--space-4);
 }
 .stat-pill-card {
-  background: rgba(255,255,255,0.70);
-  border: 1px solid rgba(255,255,255,0.88);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.35);
   border-radius: var(--r-md);
   padding: 16px 18px;
   display: flex;
   flex-direction: column;
   gap: 6px;
-  backdrop-filter: blur(12px) saturate(1.8);
-  -webkit-backdrop-filter: blur(12px) saturate(1.8);
-  box-shadow: 0 3px 16px rgba(30,70,160,0.10), inset 0 1px 0 rgba(255,255,255,0.95);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.40), 0 4px 20px rgba(0,0,0,0.08);
   transition: transform .25s cubic-bezier(0.16,1,0.3,1), box-shadow .25s, border-color .25s;
+  color: rgba(255,255,255,0.92);
 }
 .stat-pill-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--line-med); }
 .stat-pill-card strong { font-size: 18px; font-weight: 800; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
@@ -1672,15 +1674,16 @@ select option { background: #EEF6FF; color: var(--ink); }
   gap: var(--space-5);
 }
 .section-card {
-  background: var(--surface-mid);
-  border: 1px solid rgba(59,125,216,0.18);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.35);
   border-radius: var(--r-lg);
   padding: 24px;
-  box-shadow: 0 2px 16px rgba(40,90,180,0.09), inset 0 1px 0 rgba(255,255,255,0.90);
-  backdrop-filter: blur(14px) saturate(1.8);
-  -webkit-backdrop-filter: blur(14px) saturate(1.8);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.40), 0 4px 20px rgba(0,0,0,0.08);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   position: relative;
   overflow: visible;
+  color: rgba(255,255,255,0.92);
   transition: box-shadow .28s, border-color .28s, transform .28s cubic-bezier(0.16,1,0.3,1);
 }
 .section-card::before {
@@ -2300,17 +2303,18 @@ input[type='range']::-moz-range-thumb {
   gap: 6px;
   padding: 14px 16px;
   border-radius: var(--r-lg);
-  background: rgba(255,255,255,0.60);
-  border: 1.5px solid rgba(255,255,255,0.80);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.35);
   text-align: left;
   cursor: pointer;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   will-change: transform;
-  backdrop-filter: blur(12px) saturate(1.6);
-  -webkit-backdrop-filter: blur(12px) saturate(1.6);
-  box-shadow: 0 2px 12px rgba(30,70,160,0.10), inset 0 1px 0 rgba(255,255,255,0.92);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.40), 0 4px 20px rgba(0,0,0,0.08);
   transition: border-color 180ms ease-out, box-shadow 180ms ease-out, background 180ms ease-out, transform 180ms ease-out;
+  color: rgba(255,255,255,0.92);
 }
 .phase-carousel-card:hover {
   border-color: rgba(47,140,255,0.45);
@@ -2320,8 +2324,8 @@ input[type='range']::-moz-range-thumb {
 .phase-carousel-card:active { transform: scale(0.97); transition: transform 60ms ease-out; }
 .phase-carousel-card.active {
   border-color: rgba(47,140,255,0.60);
-  background: rgba(255,255,255,0.78);
-  box-shadow: 0 0 0 3px rgba(47,140,255,0.14), 0 6px 28px rgba(47,140,255,0.18), inset 0 1px 0 rgba(255,255,255,0.95);
+  background: rgba(47,140,255,0.18);
+  box-shadow: 0 0 0 2px rgba(47,140,255,0.30), inset 0 1px 0 rgba(255,255,255,0.40);
 }
 .phase-carousel-index {
   font-size: 10px;
@@ -2336,7 +2340,7 @@ input[type='range']::-moz-range-thumb {
 .phase-carousel-label {
   font-size: 13px;
   font-weight: 600;
-  color: var(--ink);
+  color: rgba(255,255,255,0.92);
   line-height: 1.3;
 }
 .phase-carousel-bar {
@@ -2355,7 +2359,7 @@ input[type='range']::-moz-range-thumb {
 .phase-carousel-pct {
   font-size: 11px;
   font-weight: 600;
-  color: var(--ink-3);
+  color: rgba(255,255,255,0.65);
 }
 
 /* ── Active phase detail ── */
@@ -2370,15 +2374,16 @@ input[type='range']::-moz-range-thumb {
   justify-content: space-between;
   gap: 12px;
   padding: 18px 20px;
-  background: rgba(255,255,255,0.68);
-  border: 1px solid rgba(255,255,255,0.88);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.35);
   border-radius: var(--r-lg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 4px 20px rgba(30,70,160,0.10), inset 0 1px 0 rgba(255,255,255,0.92);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.40), 0 4px 20px rgba(0,0,0,0.08);
+  color: rgba(255,255,255,0.92);
 }
-.plan-v2-phase-meta h3 { font-size: 18px; margin: 4px 0 6px; }
-.plan-v2-phase-meta p  { font-size: 13px; color: var(--ink-3); }
+.plan-v2-phase-meta h3 { font-size: 18px; margin: 4px 0 6px; color: #fff; }
+.plan-v2-phase-meta p  { font-size: 13px; color: rgba(255,255,255,0.65); }
 .plan-v2-progress-pill {
   flex-shrink: 0;
   font-size: 11px;
@@ -2399,18 +2404,19 @@ input[type='range']::-moz-range-thumb {
   align-items: center;
   gap: 12px;
   padding: 14px 18px;
-  background: rgba(255,255,255,0.62);
-  border: 1.5px solid rgba(255,255,255,0.82);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.35);
   border-radius: var(--r-lg);
   text-align: left;
   cursor: pointer;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   will-change: transform;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 2px 10px rgba(30,70,160,0.08), inset 0 1px 0 rgba(255,255,255,0.90);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.40), 0 4px 20px rgba(0,0,0,0.08);
   transition: border-color 160ms ease-out, box-shadow 160ms ease-out, background 160ms ease-out, transform 180ms ease-out;
+  color: rgba(255,255,255,0.92);
 }
 .plan-v2-week-card:hover {
   border-color: rgba(47,140,255,0.45);
@@ -2422,8 +2428,8 @@ input[type='range']::-moz-range-thumb {
 .plan-v2-week-card:active { transform: scale(0.988); transition: transform 60ms ease-out; }
 .plan-v2-week-card.has-today {
   border-color: rgba(47,140,255,0.55);
-  background: rgba(235,245,255,0.78);
-  box-shadow: 0 0 0 3px rgba(47,140,255,0.10), 0 4px 20px rgba(47,140,255,0.12), inset 0 1px 0 rgba(255,255,255,0.90);
+  background: rgba(47,140,255,0.15);
+  box-shadow: 0 0 0 2px rgba(47,140,255,0.25), inset 0 1px 0 rgba(255,255,255,0.40);
 }
 .plan-v2-week-index {
   flex-shrink: 0;
@@ -2438,8 +2444,8 @@ input[type='range']::-moz-range-thumb {
   border: 1.5px solid rgba(47,140,255,0.28);
 }
 .plan-v2-week-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
-.plan-v2-week-focus { font-size: 14px; font-weight: 600; color: var(--ink); }
-.plan-v2-week-count { font-size: 12px; color: var(--ink-3); }
+.plan-v2-week-focus { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.92); }
+.plan-v2-week-count { font-size: 12px; color: rgba(255,255,255,0.60); }
 .plan-v2-today-dot {
   flex-shrink: 0;
   font-size: 10px;
@@ -2517,19 +2523,20 @@ input[type='range']::-moz-range-thumb {
   align-items: center;
   gap: 12px;
   padding: 14px 16px;
-  background: rgba(255,255,255,0.66);
-  border: 1.5px solid rgba(255,255,255,0.84);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.35);
   border-radius: var(--r-lg);
   text-align: left;
   cursor: pointer;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 2px 10px rgba(30,70,160,0.08), inset 0 1px 0 rgba(255,255,255,0.92);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.40), 0 4px 20px rgba(0,0,0,0.08);
   transition: border-color .18s, box-shadow .18s, transform 0.2s;
+  color: rgba(255,255,255,0.92);
 }
-.subpage-day-card:hover { border-color: rgba(47,140,255,0.40); box-shadow: 0 5px 22px rgba(47,140,255,0.12), inset 0 1px 0 rgba(255,255,255,0.92); transform: translateX(2px); }
+.subpage-day-card:hover { border-color: rgba(47,140,255,0.50); transform: translateX(2px); }
 .subpage-day-card:active { transform: scale(0.985); transition: transform 80ms ease-out; }
-.subpage-day-card.is-today { border-color: rgba(47,140,255,0.52); background: rgba(235,245,255,0.80); box-shadow: 0 0 0 3px rgba(47,140,255,0.10), 0 4px 20px rgba(47,140,255,0.12), inset 0 1px 0 rgba(255,255,255,0.92); }
+.subpage-day-card.is-today { border-color: rgba(47,140,255,0.55); background: rgba(47,140,255,0.15); box-shadow: 0 0 0 2px rgba(47,140,255,0.25), inset 0 1px 0 rgba(255,255,255,0.40); }
 .subpage-day-card.completed { opacity: 0.65; }
 .subpage-day-card.completed .subpage-day-status { background: var(--green); border-color: var(--green); color: #fff; }
 .subpage-day-status {
@@ -6812,12 +6819,12 @@ input[type="range"]::-webkit-slider-thumb {
   background: rgba(255,255,255,0.10) !important;
 }
 
-/* ── Diagnosis card — own glass style, dark-readable text ── */
+/* ── Diagnosis card — glass standard ── */
 .rf-diagnosis-card {
-  background: rgba(255,255,255,0.08) !important;
-  border: 1px solid rgba(255,255,255,0.18) !important;
-  backdrop-filter: blur(20px) saturate(160%) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(160%) !important;
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(255,255,255,0.35) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
 }
 .rf-diagnosis-card, .rf-diagnosis-card * { color: rgba(255,255,255,0.92) !important; }
 .rfd-stat { background: rgba(255,255,255,0.08) !important; border-color: rgba(255,255,255,0.14) !important; }
@@ -7028,3 +7035,75 @@ input[type="range"]::-webkit-slider-thumb {
 }
 .coach-send-btn:hover { transform: scale(1.06); box-shadow: 0 6px 20px rgba(47,140,255,0.50); }
 .coach-send-btn:active { transform: scale(0.96); }
+
+/* ══════════════════════════════════════════════════════════════
+   GLASS STANDARD — final override, wins everything above
+   Approved spec from ac-card. Applies to every card/container.
+   ══════════════════════════════════════════════════════════════ */
+.ac-card,
+.glass-card,
+.auth-form,
+.auth-form-transparent,
+.today-card,
+.today-card.highlight-card,
+.progress-card,
+.coach-note,
+.stat-pill-card,
+.phase-carousel-card,
+.plan-v2-week-card,
+.subpage-day-card,
+.day-card,
+.session-card,
+.checkin-card,
+.history-item,
+.section-card,
+.hero-card,
+.hero-panel,
+.auth-card,
+.metric,
+.recovery-box,
+.mobility-strip,
+.phase-card,
+.week-card,
+.day-session-strip,
+.day-rest-card,
+.day-rule-card,
+.day-ex-card,
+.day-section-block,
+.dash-trend-card,
+.dash-coach-card,
+.dash-today-card,
+.dash-hero-card,
+.dash-pill-card,
+.chat-bubble,
+.chat-bubble.coach,
+.chat-bubble.user,
+.coach-input-wrap,
+.rf-diagnosis-card,
+.app-section.app-section-light {
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(255,255,255,0.35) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.40), 0 4px 20px rgba(0,0,0,0.08) !important;
+}
+
+/* Inputs and selects inside all cards — match ac-card rf-select spec */
+.auth-form input,
+.auth-form-transparent input,
+.auth-card input,
+.glass-card input,
+.section-card input,
+.section-card select,
+.section-card textarea {
+  background: rgba(255,255,255,0.08) !important;
+  border: 1px solid rgba(255,255,255,0.28) !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.40) !important;
+  color: #ffffff !important;
+  border-radius: 14px !important;
+}
+
+/* Keep rf-diagnosis-card slightly distinct with its own radius */
+.rf-diagnosis-card { border-radius: 24px !important; }
