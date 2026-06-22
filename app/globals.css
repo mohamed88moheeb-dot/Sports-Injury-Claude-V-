@@ -1779,21 +1779,21 @@ select option { background: #EEF6FF; color: var(--ink); }
 
 .msd-trigger-text {
   font-size: 14px;
-  color: var(--muted);
+  color: rgba(255,255,255,0.55);
   font-weight: 500;
   flex: 1;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.msd-trigger-text.has-value { color: var(--ink); font-weight: 600; }
+.msd-trigger-text.has-value { color: #ffffff; font-weight: 600; }
 
 .msd-chevron {
   flex-shrink: 0;
-  color: var(--muted);
+  color: #ffffff;
   transition: transform .2s;
 }
-.msd-open .msd-chevron { transform: rotate(180deg); color: var(--primary); }
+.msd-open .msd-chevron { transform: rotate(180deg); color: #ffffff; }
 
 .msd-panel {
   position: absolute;
@@ -1902,14 +1902,13 @@ select option { background: #EEF6FF; color: var(--ink); }
   touch-action: none;
   user-select: none;
   outline: none;
-  background: rgba(255,255,255,0.62);
-  backdrop-filter: blur(14px) saturate(1.4);
-  -webkit-backdrop-filter: blur(14px) saturate(1.4);
-  border: 1px solid rgba(255,255,255,0.85);
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.35);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.90),
-    inset 0 -1px 0 rgba(0,0,0,0.03),
-    0 2px 12px rgba(40,90,180,0.08);
+    inset 0 1px 0 rgba(255,255,255,0.40),
+    0 2px 12px rgba(0,0,0,0.06);
   transition: box-shadow .18s;
 }
 .gs-pill-slider:focus-visible {
@@ -1968,7 +1967,7 @@ select option { background: #EEF6FF; color: var(--ink); }
   padding-left: 18px;
   font-size: 11px;
   font-weight: 600;
-  color: #1A2A4A;
+  color: #ffffff;
   letter-spacing: 0.01em;
   flex: 1;
   pointer-events: none;
@@ -5382,13 +5381,16 @@ input[type="range"]::-webkit-slider-thumb {
 
 /* ── MultiSelect dropdown ───────────────────────────────── */
 .msd-trigger {
-  background: rgba(255,255,255,0.72) !important;
-  border-color: rgba(59,125,216,0.20) !important;
-  color: var(--ink) !important;
+  background: rgba(255,255,255,0.08) !important;
+  border: 1px solid rgba(255,255,255,0.35) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.40) !important;
+  color: #ffffff !important;
 }
 .msd-trigger:focus, .msd-trigger.open {
-  border-color: var(--primary) !important;
-  background: rgba(255,255,255,0.90) !important;
+  border-color: rgba(255,255,255,0.55) !important;
+  background: rgba(255,255,255,0.12) !important;
 }
 .msd-panel {
   background: rgba(255,255,255,0.92) !important;
@@ -5513,23 +5515,27 @@ input[type="range"]::-webkit-slider-thumb {
 
 /* ── Plan / phase cards ─────────────────────────────────── */
 .phase-card {
-  background: rgba(255,255,255,0.62) !important;
-  border: 1px solid rgba(255,255,255,0.82) !important;
-  box-shadow: 0 4px 24px rgba(40,90,180,0.10) !important;
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(255,255,255,0.35) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.40), 0 4px 20px rgba(0,0,0,0.08) !important;
 }
 .phase-head {
   background: transparent !important;
 }
-.phase-index { color: var(--primary) !important; text-shadow: 0 0 10px rgba(47,140,255,0.55), 0 0 20px rgba(47,140,255,0.25) !important; }
+.phase-index { color: #ffffff !important; text-shadow: 0 0 10px rgba(255,255,255,0.4) !important; }
 .week-card {
-  background: rgba(240,246,255,0.70) !important;
-  border-color: rgba(47,140,255,0.38) !important;
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(255,255,255,0.28) !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
 }
-.week-head { background: rgba(47,140,255,0.05) !important; color: var(--ink) !important; }
-.week-index { background: rgba(47,140,255,0.10) !important; border-color: rgba(47,140,255,0.45) !important; color: var(--primary) !important; }
+.week-head { background: transparent !important; color: #ffffff !important; }
+.week-index { background: rgba(255,255,255,0.10) !important; border-color: rgba(255,255,255,0.28) !important; color: #ffffff !important; }
 .day-card {
-  background: rgba(255,255,255,0.45) !important;
-  border-color: rgba(200,220,255,0.35) !important;
+  background: rgba(255,255,255,0.05) !important;
+  border-color: rgba(255,255,255,0.28) !important;
 }
 .day-card.is-today {
   background: rgba(59,125,216,0.06) !important;
@@ -6206,16 +6212,16 @@ input[type="range"]::-webkit-slider-thumb {
   color: rgba(255,255,255,0.65);
 }
 
-/* Assessment card interior — keep all text dark for readability on white glass */
+/* Assessment card interior */
 .ac-card,
 .ac-card * {
-  color: var(--ink);
+  color: #ffffff;
 }
 .ac-card .rf-field-label         { color: var(--ink);   font-size: 13px; font-weight: 600; }
 .ac-card .rf-field-label *       { color: inherit; }
 .ac-card select,
 .ac-card input[type="number"],
-.ac-card .rf-select              { color: #1A2A4A !important; }
+.ac-card .rf-select              { color: #ffffff !important; }
 .ac-card .rf-flag-chip           { color: var(--ink-2) !important; }
 .ac-card .rf-flag-chip--active   { color: #fff !important; }
 .ac-card .body-region-selected strong { color: #1A2A4A !important; }
@@ -6573,13 +6579,13 @@ input[type="range"]::-webkit-slider-thumb {
 .chat-bubble.user,
 .chat-input input,
 .coach-input-wrap {
-  background: rgba(255,255,255,0.06) !important;
-  border: 1px solid rgba(255,255,255,0.18) !important;
-  backdrop-filter: blur(20px) saturate(160%) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(160%) !important;
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(255,255,255,0.35) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.22),
-    0 6px 24px rgba(10,30,80,0.14) !important;
+    inset 0 1px 0 rgba(255,255,255,0.40),
+    0 4px 20px rgba(0,0,0,0.08) !important;
   border-radius: 20px !important;
 }
 .today-card.highlight-card,
@@ -6625,9 +6631,9 @@ input[type="range"]::-webkit-slider-thumb {
 /* ac-card text: dark on the white-glass fields, white on the transparent card bg */
 .ac-card .rf-field-label,
 .ac-card .body-region-label { color: #FFFFFF !important; }
-.ac-card .body-region-selected strong { color: #1A2A4A !important; }
-.ac-card .body-region-sub { color: #3A5070 !important; }
-.ac-card .gs-pill-label { color: #1A2A4A; }
+.ac-card .body-region-selected strong { color: #ffffff !important; }
+.ac-card .body-region-sub { color: rgba(255,255,255,0.65) !important; }
+.ac-card .gs-pill-label { color: #ffffff; }
 /* gs-pill-value: NO color rule here — JS inline style controls dynamic severity color */
 .chat-input input::placeholder { color: rgba(255,255,255,0.50) !important; }
 
@@ -6691,13 +6697,15 @@ input[type="range"]::-webkit-slider-thumb {
   -webkit-backdrop-filter: none !important;
 }
 
-/* ac-card: no fill, no blur — fully see-through with just a border */
+/* ac-card: liquid-glass — white-dominant fill to counter blue bleed */
 .ac-card {
-  background: transparent !important;
-  border: 1px solid rgba(255,255,255,0.22) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.12) !important;
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(255,255,255,0.35) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.4),
+    0 4px 20px rgba(0,0,0,0.08) !important;
   border-radius: 20px !important;
 }
 
@@ -6734,11 +6742,11 @@ input[type="range"]::-webkit-slider-thumb {
 .ac-card .ac-textarea {
   -webkit-appearance: none !important;
   appearance: none !important;
-  background-color: rgba(255,255,255,0.62) !important;
-  border: 1px solid rgba(255,255,255,0.85) !important;
-  backdrop-filter: blur(14px) saturate(1.4) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(1.4) !important;
-  color: #1A2A4A !important;
+  background-color: rgba(255,255,255,0.08) !important;
+  border: 1px solid rgba(255,255,255,0.28) !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+  color: #ffffff !important;
   border-radius: 14px !important;
   min-height: 44px !important;
 }
@@ -6752,8 +6760,8 @@ input[type="range"]::-webkit-slider-thumb {
 .ac-card select option { color: #0F172A; background: #fff; }
 
 .ac-card .body-region-selector {
-  background: rgba(255,255,255,0.62) !important;
-  border: 1px solid rgba(255,255,255,0.22) !important;
+  background: rgba(255,255,255,0.12) !important;
+  border: 1px solid rgba(255,255,255,0.30) !important;
   border-radius: 16px !important;
   backdrop-filter: blur(14px) !important;
   -webkit-backdrop-filter: blur(14px) !important;
@@ -6830,27 +6838,27 @@ input[type="range"]::-webkit-slider-thumb {
 
 /* ── Day landing page — white on dark background ── */
 /* Session strip */
-.day-session-strip { background: rgba(255,255,255,0.06) !important; border-color: rgba(255,255,255,0.14) !important; }
-.day-session-strip-item { background: transparent !important; border-color: rgba(255,255,255,0.10) !important; }
+.day-session-strip { background: rgba(255,255,255,0.05) !important; border: 1px solid rgba(255,255,255,0.35) !important; backdrop-filter: blur(6px) !important; -webkit-backdrop-filter: blur(6px) !important; box-shadow: inset 0 1px 0 rgba(255,255,255,0.40) !important; }
+.day-session-strip-item { background: transparent !important; border-color: rgba(255,255,255,0.18) !important; }
 .day-session-strip-item strong, .small-label { color: rgba(255,255,255,0.95) !important; }
 /* Rest card */
-.day-rest-card { background: rgba(255,255,255,0.06) !important; border-color: rgba(255,255,255,0.14) !important; }
+.day-rest-card { background: rgba(255,255,255,0.05) !important; border: 1px solid rgba(255,255,255,0.35) !important; backdrop-filter: blur(6px) !important; -webkit-backdrop-filter: blur(6px) !important; box-shadow: inset 0 1px 0 rgba(255,255,255,0.40) !important; }
 .day-rest-card h3 { color: rgba(255,255,255,0.95) !important; }
 .day-rest-card p { color: rgba(255,255,255,0.70) !important; }
 /* Section blocks */
-.day-section-block { background: rgba(255,255,255,0.06) !important; border-color: rgba(255,255,255,0.14) !important; }
+.day-section-block { background: rgba(255,255,255,0.05) !important; border: 1px solid rgba(255,255,255,0.35) !important; backdrop-filter: blur(6px) !important; -webkit-backdrop-filter: blur(6px) !important; box-shadow: inset 0 1px 0 rgba(255,255,255,0.40) !important; }
 .day-section-label { color: rgba(255,255,255,0.55) !important; }
 .day-recovery-item { color: rgba(255,255,255,0.82) !important; }
 .day-mobility-item strong { color: rgba(255,255,255,0.92) !important; }
 .day-mobility-item span { color: rgba(255,255,255,0.55) !important; }
 /* Rule card */
-.day-rule-card { background: rgba(255,255,255,0.06) !important; border-color: rgba(255,255,255,0.14) !important; }
+.day-rule-card { background: rgba(255,255,255,0.05) !important; border: 1px solid rgba(255,255,255,0.35) !important; backdrop-filter: blur(6px) !important; -webkit-backdrop-filter: blur(6px) !important; box-shadow: inset 0 1px 0 rgba(255,255,255,0.40) !important; }
 .day-rule-card p { color: rgba(255,255,255,0.75) !important; }
 /* Day header subtitle */
 .day-subpage-header p { color: rgba(255,255,255,0.60) !important; }
 /* Exercise cards */
-.day-ex-card { background: rgba(255,255,255,0.06) !important; border-color: rgba(255,255,255,0.14) !important; }
-.day-ex-card.open { border-color: rgba(47,140,255,0.45) !important; }
+.day-ex-card { background: rgba(255,255,255,0.05) !important; border: 1px solid rgba(255,255,255,0.35) !important; backdrop-filter: blur(6px) !important; -webkit-backdrop-filter: blur(6px) !important; box-shadow: inset 0 1px 0 rgba(255,255,255,0.40) !important; }
+.day-ex-card.open { border-color: rgba(47,140,255,0.55) !important; }
 .day-ex-info h5 { color: rgba(255,255,255,0.95) !important; }
 .day-ex-tags span:first-child { color: rgba(255,255,255,0.85) !important; background: rgba(255,255,255,0.10) !important; border-color: rgba(255,255,255,0.18) !important; }
 .day-ex-tags span:not(:first-child), .day-ex-right { color: rgba(255,255,255,0.55) !important; }

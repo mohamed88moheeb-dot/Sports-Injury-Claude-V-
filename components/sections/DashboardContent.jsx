@@ -130,53 +130,10 @@ export function DashboardContent({ profile, stats, saving, saveMessage }) {
   return (
     <section className="dashboard-v2">
 
-      {/* Top status pill */}
-      <div className="dash-status-pill">
-        <span className="dash-status-pill-dot" />
-        <span>Recovery plan generated</span>
-      </div>
-
-      {/* Eyebrow + glow title */}
-      <p className="eyebrow dash-eyebrow">Recovery</p>
-      <h2 className="dash-title">{injuryTitle(profile)}</h2>
-
-      {/* Hero glass card — region/grade pill, ring, 3 stat tiles */}
-      <div className="dash-hero-card">
-        <div className="dash-region-pill">
-          <span>{region}{grade ? ` · ${grade}` : ''}</span>
-        </div>
-
-        <ConfidenceRing value={confidence} label={ringLabel} />
-
-        <div className="dash-stat-tiles">
-          <div className="dash-stat-tile">
-            <div className="dash-stat-tile-value">{stats?.completedPhases ?? 0}/{stats?.totalPhases ?? 6}</div>
-            <div className="dash-stat-tile-label">Phases</div>
-          </div>
-          <div className="dash-stat-tile">
-            <div className="dash-stat-tile-value">{stats?.completedWeeks ?? 0}/{stats?.totalWeeks ?? 12}</div>
-            <div className="dash-stat-tile-label">Weeks</div>
-          </div>
-          <div className="dash-stat-tile">
-            <div className="dash-stat-tile-value">{stats?.completedDays ?? 0}/{stats?.totalDays ?? 42}</div>
-            <div className="dash-stat-tile-label">Days</div>
-          </div>
-        </div>
-      </div>
-
-      {/* Paired pill cards: expected return + save status */}
-      <div className="dash-pill-row">
-        <div className="dash-pill-card">
-          <div className="dash-pill-label">Expected return</div>
-          <div className="dash-pill-value">{expectedReturn}</div>
-        </div>
-        <div className="dash-pill-card">
-          <div className="dash-pill-label">Save status</div>
-          <div className="dash-pill-value dash-pill-synced">
-            <span className="dash-synced-dot" />{saveLabel}
-          </div>
-        </div>
-      </div>
+      {/* RF diagnosis card — top of dashboard */}
+      {isRf && profile.rfDiagnosis && (
+        <RfDiagnosisCard diagnosis={profile.rfDiagnosis} />
+      )}
 
       {/* Pain trend card */}
       <div className="dash-trend-card">
@@ -192,13 +149,6 @@ export function DashboardContent({ profile, stats, saving, saveMessage }) {
             <div className="dash-coach-label">Recovery coach note</div>
             <p className="dash-coach-text">{profile.aiStatus}</p>
           </div>
-        </div>
-      )}
-
-      {/* RF diagnosis details below — kept for clinical context */}
-      {isRf && profile.rfDiagnosis && (
-        <div style={{ marginTop: 18 }}>
-          <RfDiagnosisCard diagnosis={profile.rfDiagnosis} />
         </div>
       )}
 
