@@ -2541,13 +2541,13 @@ input[type='range']::-moz-range-thumb {
   place-items: center;
   font-size: 12px;
   font-weight: 700;
-  color: var(--ink-3);
-  background: var(--bg-3);
-  border: 1.5px solid var(--line-strong);
+  color: #ffffff;
+  background: #2F8CFF;
+  border: none;
 }
 .subpage-day-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
 .subpage-day-title-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.subpage-day-title-row strong { font-size: 14px; font-weight: 700; color: var(--ink); }
+.subpage-day-title-row strong { display: none; }
 .subpage-day-info > span { font-size: 12px; color: var(--ink-3); line-height: 1.4; }
 .subpage-day-load { font-size: 11px; font-weight: 600; color: var(--muted); margin-top: 2px; }
 .rest-badge {
@@ -4765,48 +4765,24 @@ body { padding-top: 0; }
 
 /* ── Glow Card (premium glass with intense edge glow) ────── */
 .glow-card {
-  background: rgba(15,23,42,0.65);
-  border: 1px solid rgba(96,165,250,0.22);
-  border-radius: var(--r-xl);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 20px;
   padding: 24px;
   position: relative;
   overflow: hidden;
-  backdrop-filter: blur(14px) saturate(1.8);
-  -webkit-backdrop-filter: blur(14px) saturate(1.8);
-  box-shadow:
-    0 0 0 1px rgba(47,140,255,0.08),
-    0 12px 48px rgba(0,0,0,0.60),
-    inset 0 1px 0 rgba(255,255,255,0.08);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 6px 24px rgba(10,30,80,0.14);
   transition: box-shadow .3s, border-color .3s, transform .3s cubic-bezier(0.16,1,0.3,1);
 }
-.glow-card::before {
-  content: '';
-  position: absolute;
-  bottom: -60px; left: 50%; transform: translateX(-50%);
-  width: 80%; height: 120px;
-  background: radial-gradient(ellipse at center, rgba(47,140,255,0.22) 0%, transparent 70%);
-  pointer-events: none;
-  border-radius: 50%;
-}
 .glow-card:hover {
-  border-color: rgba(96,165,250,0.38);
-  box-shadow:
-    0 0 0 1px rgba(47,140,255,0.15),
-    0 20px 60px rgba(0,0,0,0.65),
-    0 0 60px rgba(47,140,255,0.12),
-    inset 0 1px 0 rgba(255,255,255,0.10);
-  transform: translateY(-3px);
+  border-color: rgba(255,255,255,0.24);
+  transform: translateY(-2px);
 }
 .glow-card-intense {
-  border-color: rgba(47,140,255,0.35);
-  box-shadow:
-    0 0 0 1px rgba(47,140,255,0.20),
-    0 16px 56px rgba(0,0,0,0.70),
-    0 0 80px rgba(47,140,255,0.14),
-    inset 0 1px 0 rgba(255,255,255,0.10);
-}
-.glow-card-intense::before {
-  background: radial-gradient(ellipse at center, rgba(47,140,255,0.35) 0%, transparent 70%);
+  border-color: rgba(140,200,255,0.30);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 6px 28px rgba(10,30,80,0.18);
 }
 
 /* Dark glass glow-card carries a dark background — force readable light text and
@@ -6574,7 +6550,6 @@ input[type="range"]::-webkit-slider-thumb {
 .progress-card,
 .coach-note,
 .stat-pill-card,
-.rf-diagnosis-card,
 .phase-carousel-card,
 .plan-v2-week-card,
 .plan-v2-phase-meta,
@@ -6591,8 +6566,6 @@ input[type="range"]::-webkit-slider-thumb {
 .app-section.app-section-light,
 .metric,
 .ac-card,
-.rfd-stat,
-.rfd-diff-item,
 .recovery-box,
 .mobility-strip,
 .chat-bubble,
@@ -6630,7 +6603,6 @@ input[type="range"]::-webkit-slider-thumb {
 .progress-card, .progress-card *,
 .coach-note, .coach-note *,
 .stat-pill-card, .stat-pill-card *,
-.rf-diagnosis-card, .rf-diagnosis-card *,
 .phase-carousel-card, .phase-carousel-card *,
 .plan-v2-week-card, .plan-v2-week-card *,
 .plan-v2-phase-meta, .plan-v2-phase-meta *,
@@ -6656,7 +6628,7 @@ input[type="range"]::-webkit-slider-thumb {
 .ac-card .body-region-selected strong { color: #1A2A4A !important; }
 .ac-card .body-region-sub { color: #3A5070 !important; }
 .ac-card .gs-pill-label { color: #1A2A4A; }
-.ac-card .gs-pill-value { color: #1A2A4A; }
+/* gs-pill-value: NO color rule here — JS inline style controls dynamic severity color */
 .chat-input input::placeholder { color: rgba(255,255,255,0.50) !important; }
 
 /* Inputs inside auth/glass cards */
@@ -6840,6 +6812,58 @@ input[type="range"]::-webkit-slider-thumb {
 .progress-track {
   background: rgba(255,255,255,0.10) !important;
 }
+
+/* ── Diagnosis card — own glass style, dark-readable text ── */
+.rf-diagnosis-card {
+  background: rgba(255,255,255,0.08) !important;
+  border: 1px solid rgba(255,255,255,0.18) !important;
+  backdrop-filter: blur(20px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(160%) !important;
+}
+.rf-diagnosis-card, .rf-diagnosis-card * { color: rgba(255,255,255,0.92) !important; }
+.rfd-stat { background: rgba(255,255,255,0.08) !important; border-color: rgba(255,255,255,0.14) !important; }
+.rfd-diff-item { background: rgba(255,255,255,0.06) !important; border-color: rgba(255,255,255,0.12) !important; }
+.rfd-diff-item--top { background: rgba(140,200,255,0.14) !important; border-color: rgba(180,220,255,0.30) !important; }
+.rfd-stat-label, .rfd-stat-note, .rfd-section-label,
+.rfd-pattern-detail, .rfd-disclaimer, .rfd-diff-meta { color: rgba(255,255,255,0.55) !important; }
+.rfd-title, .rfd-stat-value, .rfd-diff-name { color: #ffffff !important; }
+
+/* ── Day landing page — white on dark background ── */
+/* Session strip */
+.day-session-strip { background: rgba(255,255,255,0.06) !important; border-color: rgba(255,255,255,0.14) !important; }
+.day-session-strip-item { background: transparent !important; border-color: rgba(255,255,255,0.10) !important; }
+.day-session-strip-item strong, .small-label { color: rgba(255,255,255,0.95) !important; }
+/* Rest card */
+.day-rest-card { background: rgba(255,255,255,0.06) !important; border-color: rgba(255,255,255,0.14) !important; }
+.day-rest-card h3 { color: rgba(255,255,255,0.95) !important; }
+.day-rest-card p { color: rgba(255,255,255,0.70) !important; }
+/* Section blocks */
+.day-section-block { background: rgba(255,255,255,0.06) !important; border-color: rgba(255,255,255,0.14) !important; }
+.day-section-label { color: rgba(255,255,255,0.55) !important; }
+.day-recovery-item { color: rgba(255,255,255,0.82) !important; }
+.day-mobility-item strong { color: rgba(255,255,255,0.92) !important; }
+.day-mobility-item span { color: rgba(255,255,255,0.55) !important; }
+/* Rule card */
+.day-rule-card { background: rgba(255,255,255,0.06) !important; border-color: rgba(255,255,255,0.14) !important; }
+.day-rule-card p { color: rgba(255,255,255,0.75) !important; }
+/* Day header subtitle */
+.day-subpage-header p { color: rgba(255,255,255,0.60) !important; }
+/* Exercise cards */
+.day-ex-card { background: rgba(255,255,255,0.06) !important; border-color: rgba(255,255,255,0.14) !important; }
+.day-ex-card.open { border-color: rgba(47,140,255,0.45) !important; }
+.day-ex-info h5 { color: rgba(255,255,255,0.95) !important; }
+.day-ex-tags span:first-child { color: rgba(255,255,255,0.85) !important; background: rgba(255,255,255,0.10) !important; border-color: rgba(255,255,255,0.18) !important; }
+.day-ex-tags span:not(:first-child), .day-ex-right { color: rgba(255,255,255,0.55) !important; }
+.day-ex-purpose, .day-ex-cue { color: rgba(255,255,255,0.85) !important; }
+.day-ex-mistakes li { color: rgba(255,255,255,0.75) !important; }
+.day-ex-video { background: rgba(255,255,255,0.06) !important; border-color: rgba(255,255,255,0.18) !important; }
+.day-ex-video span { color: rgba(255,255,255,0.85) !important; }
+.day-ex-video small { color: rgba(255,255,255,0.50) !important; }
+.day-ex-expanded { border-color: rgba(255,255,255,0.12) !important; }
+/* Week day list */
+.subpage-day-info > span { color: rgba(255,255,255,0.65) !important; }
+.subpage-day-load { color: rgba(255,255,255,0.50) !important; }
+.rest-badge { color: rgba(255,255,255,0.70) !important; background: rgba(255,255,255,0.08) !important; border-color: rgba(255,255,255,0.16) !important; }
 
 /* ── Reduced motion: respect user preference ────────────── */
 @media (prefers-reduced-motion: reduce) {
