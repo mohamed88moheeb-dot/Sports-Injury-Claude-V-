@@ -6212,9 +6212,9 @@ input[type="range"]::-webkit-slider-thumb {
   color: rgba(255,255,255,0.65);
 }
 
-/* Assessment card interior */
+/* Assessment card interior — white text everywhere except dynamic slider value */
 .ac-card,
-.ac-card * {
+.ac-card *:not(.gs-pill-value):not(.gs-pill-value span) {
   color: #ffffff;
 }
 .ac-card .rf-field-label         { color: var(--ink);   font-size: 13px; font-weight: 600; }
