@@ -10,8 +10,8 @@ import { AnimatedTendonLogo } from '../brand/AnimatedTendonLogo';
 
 const NAV_ITEMS = [
   { href: '/',           label: 'Home',       icon: 'M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z' },
-  { href: '/dashboard',  label: 'Dashboard',  icon: 'M4 5h6v6H4zM14 5h6v6h-6zM4 15h6v4H4zM14 15h6v4h-6z' },
-  { href: '/assessment', label: 'Assessment', icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4' },
+  { href: '/dashboard',  label: 'Progress',   icon: 'M3 20h2.5v-7H3v7zm5.5 0H11v-12H8.5v12zM14 20h2.5v-5H14v5zm5.5 0H22V4h-2.5v16z' },
+  { href: '/assessment', label: 'Assess',     icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4' },
   { href: '/plan',       label: 'Plan',       icon: 'M4 6h16M4 12h16M4 18h10' },
   { href: '/check-in',   label: 'Check-in',   icon: 'M5 12l4 4L19 6' },
   { href: '/coach',      label: 'Coach',      icon: 'M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-3 3-3-3z' },
@@ -185,12 +185,10 @@ function MobileNav({ items, pathname }) {
           top: 4, bottom: 4,
           left: pillLeft,
           width: `${100 / n}%`,
-          background: 'rgba(255,255,255,0.28)',
+          background: 'rgba(255,255,255,0.12)',
           borderRadius: 9999,
-          border: '1px solid rgba(255,255,255,0.60)',
-          boxShadow:
-            'inset 0 1px 0 rgba(255,255,255,0.70), ' +
-            '0 2px 12px rgba(47,140,255,0.18)',
+          border: '1px solid rgba(255,255,255,0.22)',
+          boxShadow: '0 1px 8px rgba(47,140,255,0.12)',
           pointerEvents: 'none',
           zIndex: 0,
         }}
@@ -247,7 +245,7 @@ export function AppNav() {
         <div className="app-nav-top-inner">
           <Link href="/" className="app-nav-brand">
             <AnimatedTendonLogo size={40} />
-            <span>InjuryGuide</span>
+            <span>ROYO</span>
           </Link>
 
           <DesktopNav items={NAV_ITEMS} pathname={pathname} />

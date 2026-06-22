@@ -62,7 +62,7 @@ export default function DiagnosisPage() {
               <AIBadge label="AI Analysis" />
             </div>
             <h2>Likely diagnosis</h2>
-            <p style={{ marginTop: 8, color: 'var(--ink-3)', fontSize: 15 }}>
+            <p style={{ marginTop: 8, color: 'rgba(255,255,255,0.65)', fontSize: 15 }}>
               Based on your location, mechanism, symptoms, and pain pattern.
             </p>
           </div>

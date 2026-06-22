@@ -86,17 +86,7 @@ export default function LandingPage() {
             sport demands, and recovery stage.
           </p>
 
-          {/* Feature pills */}
-          <div className="hero-points" style={{ marginTop: 20 }}>
-            {FEATURES.map(f => (
-              <span key={f.label} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                <span style={{ color: 'var(--primary)' }}>{f.icon}</span>
-                {f.label}
-              </span>
-            ))}
-          </div>
-
-          {/* CTA — signed in */}
+{/* CTA — signed in */}
           {user && (
             <div className="hero-cta-row">
               {profile ? (

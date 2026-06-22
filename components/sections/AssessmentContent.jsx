@@ -33,13 +33,14 @@ const GENERIC_STEPS = [
   { label: 'Red flags' },
 ];
 
-// RF carousel steps (each = one group from the governed RF-ASSESS model).
+// RF carousel steps — labels are user-facing; groups match RF_ASSESSMENT_QUESTIONS.
 const RF_STEPS = [
-  { label: 'Pain & how it started', group: 'Pain & how it started' },
-  { label: 'Response & history', group: 'Response & history' },
-  { label: 'Movement & strength checks', group: 'Movement & strength checks' },
-  { label: 'Running & sport tolerance', group: 'Running & sport tolerance' },
-  { label: 'Safety check', group: 'Safety check' },
+  { label: 'How it started',      group: 'Injury context' },
+  { label: 'Pain & symptoms',     group: 'Pain & symptoms' },
+  { label: 'Strength & movement', group: 'Physical tests' },
+  { label: 'Running & sport',     group: 'Running & sport tolerance' },
+  { label: 'History',             group: 'Response & history' },
+  { label: 'Safety check',        group: 'Safety check' },
 ];
 
 export function AssessmentContent({ assessment, setAssessment, toggleArray, generateProfile, profile }) {
@@ -276,34 +277,34 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
       <div className="ac-header">
         <div className="ac-page-heading">
           <h2>Tell us what happened.</h2>
-          <p>Your plan will adapt to injury location, how it happened, sport demands, pain levels, and any warning signs — so be specific.</p>
+          <p>Your plan adapts to injury location, how it happened, pain levels, and warning signs.</p>
         </div>
+
+        {/* Step progress bar */}
+        <div className="ac-progress-bar">
+          {STEPS.map((s, i) => (
+            <button
+              key={i}
+              type="button"
+              className={`ac-progress-seg${i === step ? ' active' : i < step ? ' done' : ''}`}
+              onClick={() => goTo(i)}
+              aria-label={`Go to step ${i + 1}: ${s.label}`}
+            />
+          ))}
+        </div>
+
+        {/* Step label row */}
         <div className="ac-step-row">
-          <span className="ac-step-label">{(STEPS[step] || STEPS[0]).label}</span>
-          <div className="ac-dots">
-            {STEPS.map((s, i) => (
-              <button
-                key={i}
-                className={`ac-dot${i === step ? ' active' : i < step ? ' done' : ''}`}
-                onClick={() => goTo(i)}
-                aria-label={`Go to step ${i + 1}: ${s.label}`}
-              />
-            ))}
+          <div className="ac-step-meta">
+            <span className="ac-step-count">Step {step + 1} of {STEPS.length}</span>
+            <span className="ac-step-label">{(STEPS[step] || STEPS[0]).label}</span>
           </div>
-        </div>
-        {isRf && fill && (
-          <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-            <span style={{
-              fontSize: 11, fontWeight: 700, padding: '3px 10px', borderRadius: 999,
-              background: 'rgba(15,27,46,0.06)',
-              color: '#0F1B2E',
-              border: '1px solid rgba(15,27,46,0.18)'
-            }}>RF assessment · {fill.percent}%</span>
-            <span style={{ fontSize: 12, color: fill.allFilled ? '#1B8F5A' : 'var(--muted)' }}>
-              {fill.allFilled ? 'All fields have been filled' : 'Please fill all fields for a better assessment'}
+          {isRf && fill && (
+            <span className={`ac-fill-badge${fill.allFilled ? ' ac-fill-badge--done' : ''}`}>
+              {fill.percent}%
             </span>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
       {/* ── Stale plan banner (step 0 only) ─────────────── */}
@@ -325,44 +326,57 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
 
         {isRf ? (
           <>
-            {/* RF STEP 1 — Pain & how it started */}
+            {/* RF STEP 1 — How it started (Injury context) */}
             <div className={slidePos(0)}>
               <div className="ac-card">
                 {regionSelector()}
-                <p style={{ fontSize: 12, color: 'var(--muted)', margin: '-4px 0 14px' }}>
+                <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.50)', margin: '-4px 0 16px' }}>
                   Your selected area sets your pain location — tap above to change it on the body map.
                 </p>
-                <RfGroupFields group="Pain & how it started" assessment={assessment} setAssessment={setAssessment} />
+                <RfGroupFields group="Injury context" assessment={assessment} setAssessment={setAssessment} />
               </div>
             </div>
 
-            {/* RF STEP 2 — Response & history (+ sport / equipment) */}
+            {/* RF STEP 2 — Pain & symptoms */}
             <div className={slidePos(1)}>
               <div className="ac-card">
-                <RfGroupFields group="Response & history" assessment={assessment} setAssessment={setAssessment} />
+                <RfGroupFields group="Pain & symptoms" assessment={assessment} setAssessment={setAssessment} />
+              </div>
+            </div>
+
+            {/* RF STEP 3 — Movement & strength (Physical tests) */}
+            <div className={slidePos(2)}>
+              <div className="ac-card">
+                <RfGroupFields group="Physical tests" assessment={assessment} setAssessment={setAssessment} />
+              </div>
+            </div>
+
+            {/* RF STEP 4 — Running & sport (+ sport / equipment) */}
+            <div className={slidePos(3)}>
+              <div className="ac-card">
+                <RfGroupFields group="Running & sport tolerance" assessment={assessment} setAssessment={setAssessment} />
                 {sportField()}
                 {equipmentField()}
               </div>
             </div>
 
-            {/* RF STEP 3 — Movement & strength checks */}
-            <div className={slidePos(2)}>
-              <div className="ac-card">
-                <RfGroupFields group="Movement & strength checks" assessment={assessment} setAssessment={setAssessment} />
-              </div>
-            </div>
-
-            {/* RF STEP 4 — Running & sport tolerance */}
-            <div className={slidePos(3)}>
-              <div className="ac-card">
-                <RfGroupFields group="Running & sport tolerance" assessment={assessment} setAssessment={setAssessment} />
-              </div>
-            </div>
-
-            {/* RF STEP 5 — Safety check */}
+            {/* RF STEP 5 — Response & history */}
             <div className={slidePos(4)}>
               <div className="ac-card">
-                <p className="ac-redflag-intro">If you tick one, see a doctor before starting rehab.</p>
+                <RfGroupFields group="Response & history" assessment={assessment} setAssessment={setAssessment} />
+              </div>
+            </div>
+
+            {/* RF STEP 6 — Safety check */}
+            <div className={slidePos(5)}>
+              <div className="ac-card">
+                <div className="ac-safety-intro">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                    <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+                  </svg>
+                  <p>Select anything that applies. If any of these match, see a clinician before starting rehab.</p>
+                </div>
                 <RfGroupFields group="Safety check" assessment={assessment} setAssessment={setAssessment} />
               </div>
             </div>

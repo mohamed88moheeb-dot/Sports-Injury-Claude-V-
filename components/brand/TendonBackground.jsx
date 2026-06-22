@@ -32,43 +32,22 @@ export function TendonBackground() {
       viewBox="0 0 390 844"
       preserveAspectRatio="xMidYMid slice"
     >
-      {rings.map(({ r, dash, dur, dir, glow, line, strand }) => (
+      {rings.map(({ r, dash, dur, dir, line }) => (
         <g
           key={r}
           className={`tb-spin-${dir}`}
-          style={{ '--spin-dur': dur }}
+          style={{ '--spin-dur': dur, willChange: 'transform' }}
         >
-          {/* Soft glow halo */}
-          <circle cx={cx} cy={cy} r={r}
-            fill="none"
-            stroke={`rgba(180,215,255,${glow})`}
-            strokeWidth="18"
-            strokeDasharray={dash}
-          />
-          {/* Primary fiber line */}
+          {/* Primary fiber line — single stroke per ring */}
           <circle cx={cx} cy={cy} r={r}
             fill="none"
             stroke={`rgba(255,255,255,${line})`}
             strokeWidth="0.75"
             strokeDasharray={dash}
           />
-          {/* Offset secondary strand */}
-          <circle cx={cx} cy={cy} r={r + 3}
-            fill="none"
-            stroke={`rgba(255,255,255,${strand})`}
-            strokeWidth="0.5"
-            strokeDasharray={`${parseFloat(dash) * 0.6} ${parseFloat(dash.split(' ')[1]) * 1.8}`}
-          />
         </g>
       ))}
 
-      {/* Static icy center halo — opacity breathe only */}
-      <circle cx={cx} cy={cy} r="52"
-        fill="none"
-        stroke="rgba(180,215,255,0.18)"
-        strokeWidth="40"
-        className="tb-center-pulse"
-      />
     </svg>
   );
 }

@@ -37,8 +37,8 @@ export function Slider({
   const snap  = (v) => Math.round(v / step) * step;
 
   const colorFor = (pct) => invertColor
-    ? (pct >= 70 ? 'rgba(100,110,130,0.85)' : pct >= 40 ? '#F59316' : '#EF4444')
-    : (pct >= 70 ? '#EF4444' : pct >= 40 ? '#F59316' : 'rgba(100,110,130,0.85)');
+    ? (pct >= 70 ? '#16A34A' : pct >= 40 ? '#D97706' : '#DC2626')
+    : (pct >= 70 ? '#DC2626' : pct >= 40 ? '#D97706' : '#16A34A');
 
   const rect = () => rectRef.current || pillRef.current.getBoundingClientRect();
 

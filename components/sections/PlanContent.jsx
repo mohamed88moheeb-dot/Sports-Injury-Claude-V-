@@ -2,6 +2,7 @@
 
 import { useMemo, useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { RfImagingGate } from './RfImagingGate';
 
 function findTodayPath(plan) {
   if (!plan) return null;
@@ -87,6 +88,11 @@ export function PlanContent({ profile }) {
 
   return (
     <section className="plan-v2">
+
+      {/* ── Imaging gate (RF beta only — shown when diagnosis requires imaging before exercise) ── */}
+      {isRfBeta && profile.rfDiagnosis?.imaging_gate && (
+        <RfImagingGate diagnosis={profile.rfDiagnosis} />
+      )}
 
       {/* ── Header ── */}
       <div className="plan-v2-header">
