@@ -5327,8 +5327,8 @@ body { padding-top: 0; }
   box-shadow: none !important;
 }
 .app-nav-top-inner { background: transparent !important; }
-.app-nav-link { color: var(--ink-3) !important; }
-.app-nav-link.active { color: var(--primary) !important; }
+.app-nav-link { color: rgba(255,255,255,0.75) !important; }
+.app-nav-link.active { color: #ffffff !important; }
 .app-nav-slide-pill {
   background: rgba(59,125,216,0.10) !important;
 }
@@ -6655,7 +6655,7 @@ input[type="range"]::-webkit-slider-thumb {
 .ac-card .body-region-label { color: #FFFFFF !important; }
 .ac-card .body-region-selected strong { color: #1A2A4A !important; }
 .ac-card .body-region-sub { color: #3A5070 !important; }
-.ac-card .gs-pill-label { color: #1A2A4A !important; }
+.ac-card .gs-pill-label { color: #1A2A4A; }
 .ac-card .gs-pill-value { color: #1A2A4A; }
 .chat-input input::placeholder { color: rgba(255,255,255,0.50) !important; }
 

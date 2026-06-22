@@ -30,6 +30,7 @@ export function Slider({
   const thumbRef = useRef(null);
   const numRef   = useRef(null);
   const valRef   = useRef(null);
+  const lblRef   = useRef(null);
   const dragging = useRef(false);
   const rectRef  = useRef(null);   // cached geometry during a drag
 
@@ -58,7 +59,9 @@ export function Slider({
       thumbRef.current.style.opacity   = (ratio > 0 && ratio < 1) ? '1' : '0';
     }
     if (numRef.current) numRef.current.textContent = String(Math.round(v));
-    if (valRef.current) valRef.current.style.color = colorFor(ratio * 100);
+    const c = colorFor(ratio * 100);
+    if (valRef.current) valRef.current.style.color = c;
+    if (lblRef.current) lblRef.current.style.color = c;
     pillRef.current?.querySelectorAll('.gs-pill-dot').forEach((d) => {
       d.style.opacity = (parseFloat(d.style.left) > ratio * 100 + 2) ? '' : '0';
     });
@@ -137,7 +140,7 @@ export function Slider({
         <span key={i} className="gs-pill-dot" style={{ left: `${p}%` }} aria-hidden="true" />
       ))}
 
-      <span className="gs-pill-label">{label}</span>
+      <span ref={lblRef} className="gs-pill-label" style={{ color: colorFor(ratio0 * 100) }}>{label}</span>
 
       <span ref={valRef} className="gs-pill-value" style={{ color: colorFor(ratio0 * 100) }}>
         <span ref={numRef}>{Math.round(value)}</span><span className="gs-pill-max">/{max}</span>
