@@ -252,7 +252,13 @@ export function RecoveryProvider({ children }) {
           const data = await res.json();
           if (!res.ok || !data.ok) throw new Error(data.error || 'RF beta generation failed');
           const base = rfOutputToProfile(data.output, assessmentWithGrade);
-          const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan), rfDiagnosis: rfInput.diagnosis || null };
+          // Merge Bayesian confidence_pct into rfDiagnosis so every UI component
+          // that reads rfDiagnosis.confidence_pct shows the same Bayesian value.
+          const rawDiag = rfInput.diagnosis || null;
+          const rfDiagnosis = rawDiag
+            ? { ...rawDiag, confidence_pct: base.confidence ?? rawDiag.confidence_pct }
+            : null;
+          const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan), rfDiagnosis };
           setProfile(nextProfile);
           setCheckins([]);
           setGenerating(false);

@@ -5,7 +5,15 @@ import { Slider } from '../ui/Slider';
 
 export function RfGroupFields({ group, assessment, setAssessment }) {
   const answers = assessment.rfAnswers || {};
-  const questions = RF_ASSESSMENT_QUESTIONS.filter((q) => q.group === group);
+  const questions = RF_ASSESSMENT_QUESTIONS.filter((q) => {
+    if (q.group !== group) return false;
+    if (!q.conditional) return true;
+    const { key, in: mustIn, notIn } = q.conditional;
+    const val = answers[key];
+    if (mustIn && !mustIn.includes(val)) return false;
+    if (notIn && notIn.includes(val)) return false;
+    return true;
+  });
 
   function setAnswer(key, value) {
     setAssessment((prev) => ({
@@ -45,6 +53,7 @@ export function RfGroupFields({ group, assessment, setAssessment }) {
                 {q.core && <span className="rf-field-required"> *</span>}
                 {q.highCaution && <span className="rf-field-advanced"> Advanced</span>}
               </label>
+              {q.hint && <p className="rf-field-hint">{q.hint}</p>}
               <Slider
                 label={answered ? band.label : 'Slide to answer'}
                 value={val}
@@ -99,6 +108,9 @@ export function RfGroupFields({ group, assessment, setAssessment }) {
               {q.core && <span className="rf-field-required"> *</span>}
               {q.highCaution && <span className="rf-field-advanced"> Advanced</span>}
             </label>
+            {q.hint && (
+              <p className="rf-field-hint">{q.hint}</p>
+            )}
             <select
               value={answers[q.key] ?? ''}
               onChange={(e) => setAnswer(q.key, e.target.value)}

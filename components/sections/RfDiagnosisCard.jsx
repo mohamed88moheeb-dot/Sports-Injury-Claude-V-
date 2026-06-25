@@ -134,7 +134,7 @@ export function RfDiagnosisCard({ diagnosis }) {
           <p className="rfd-stat-label">Confidence</p>
           <p className="rfd-stat-value">{confidence_pct}%</p>
           <ConfidenceBar pct={confidence_pct} />
-          <p className="rfd-stat-note">Capped at 78% without imaging</p>
+          <p className="rfd-stat-note">Capped at 84% without imaging</p>
         </div>
         <div className="rfd-stat">
           <p className="rfd-stat-label">Est. return</p>
@@ -200,7 +200,7 @@ export function RfDiagnosisCard({ diagnosis }) {
 
       {/* ── Disclaimer ── */}
       <p className="rfd-disclaimer">
-        Self-reported result — not a clinical diagnosis. Confidence capped at 78% without imaging (clinical tests have limited diagnostic accuracy). See a physiotherapist or sports medicine doctor to confirm.
+        Self-reported result — not a clinical diagnosis. Confidence capped at 84% without imaging (clinical tests have limited diagnostic accuracy). See a physiotherapist or sports medicine doctor to confirm.
       </p>
     </div>
   );

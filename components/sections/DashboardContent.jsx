@@ -111,8 +111,9 @@ export function DashboardContent({ profile, stats, saving, saveMessage }) {
   const isRf = !!profile.isRfBeta;
   const region = profile.regionName || 'Recovery';
   const grade = shortGrade(profile.gradeName || '');
-  const confidence = isRf && profile.rfDiagnosis?.confidence_pct != null
-    ? profile.rfDiagnosis.confidence_pct
+  // Use Bayesian confidence (profile.confidence) for RF; fall back to additive only if missing.
+  const confidence = isRf
+    ? (profile.confidence ?? profile.rfDiagnosis?.confidence_pct ?? 0)
     : (stats?.percent ?? 0);
   const ringLabel = isRf ? 'Confidence' : 'Progress';
 
