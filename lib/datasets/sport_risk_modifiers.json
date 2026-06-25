@@ -1,0 +1,293 @@
+{
+  "_meta": {
+    "description": "Sport-specific risk modifiers for return-to-sport decision making. Multipliers adjust base RTS timelines based on the physical demands and injury risk profile of each sport. Sourced from PubMed consensus statements and epidemiological data.",
+    "last_updated": "2026-06-22",
+    "source_database": "PubMed / MEDLINE",
+    "how_to_use": "Multiply base injury timeline by the risk_multiplier for the athlete's sport. A multiplier >1.0 means extended caution is warranted. Multipliers are evidence-informed estimates, not hard rules.",
+    "demand_categories": {
+      "contact": "Physical collision with other athletes is part of gameplay",
+      "limited_contact": "Incidental contact but not central to gameplay",
+      "non_contact": "No physical contact with other athletes during play"
+    }
+  },
+  "sport_risk_modifiers": [
+    {
+      "sport": "Soccer (Football)",
+      "sport_id": "SOCCER",
+      "contact_classification": "contact",
+      "common_injuries": ["HAMSTRING_G1", "HAMSTRING_G2", "ACL_RECON", "ANKLE_SPRAIN_G2", "ANKLE_SPRAIN_G3", "MUSCLE_STRAIN_GENERAL_G1", "MUSCLE_STRAIN_GENERAL_G2"],
+      "risk_multiplier_by_injury": {
+        "HAMSTRING_G1": 1.1,
+        "HAMSTRING_G2": 1.15,
+        "HAMSTRING_G3": 1.2,
+        "ACL_RECON": 1.15,
+        "ANKLE_SPRAIN_G2": 1.1,
+        "ANKLE_SPRAIN_G3": 1.1,
+        "MUSCLE_STRAIN_GENERAL_G2": 1.1,
+        "CONCUSSION": 1.1
+      },
+      "sport_demands": [
+        "Cutting and pivoting at high velocity",
+        "Kicking mechanics – eccentric hamstring load",
+        "Contact and aerial challenges",
+        "High-speed sprints >90min",
+        "90-minute match with intermittent high-intensity efforts",
+        "Rapid direction changes on varied surfaces (grass, turf)"
+      ],
+      "rts_specific_tests": [
+        "5-10-5 agility drill at full speed",
+        "90-minute aerobic endurance test",
+        "Sport-specific kicking motion without pain",
+        "Heading and aerial contest simulation",
+        "GPS match-load simulation: >8km total distance, >600m high-intensity running"
+      ],
+      "notes": "ACL re-injury in soccer: graft rupture 10%, contralateral 8% at 5 years. Males ≤18 have 44% further ACL injury risk (PMID 36190172). Italian Consensus recommends GPS criteria for RTP (PMID 31673400).",
+      "pmid_sources": ["36190172", "31673400", "41385332"]
+    },
+    {
+      "sport": "Australian Rules Football (AFL) / Rugby League / Rugby Union",
+      "sport_id": "RUGBY_AFL",
+      "contact_classification": "contact",
+      "common_injuries": ["HAMSTRING_G1", "HAMSTRING_G2", "HAMSTRING_G3", "ACL_RECON", "CONCUSSION", "ROTATOR_CUFF_REPAIR", "ANKLE_SPRAIN_G2", "ANKLE_SPRAIN_G3"],
+      "risk_multiplier_by_injury": {
+        "HAMSTRING_G1": 1.15,
+        "HAMSTRING_G2": 1.2,
+        "HAMSTRING_G3": 1.25,
+        "ACL_RECON": 1.2,
+        "CONCUSSION": 1.15,
+        "ROTATOR_CUFF_REPAIR": 1.15,
+        "ANKLE_SPRAIN_G2": 1.15,
+        "ANKLE_SPRAIN_G3": 1.2
+      },
+      "sport_demands": [
+        "High-speed collisions and tackling",
+        "Maximal sprint acceleration and deceleration",
+        "Overhead marking (AFL) / lifting (lineout rugby)",
+        "Contact under fatigue",
+        "Multiple high-intensity efforts across 80–120 minutes"
+      ],
+      "rts_specific_tests": [
+        "Collision simulation testing",
+        "Maximal sprint series: 10×40m",
+        "Match simulation at full contact level",
+        "Shoulder stability under load (rugby / AFL marking)",
+        "GPS: match-load threshold >10km, >800m high-speed running"
+      ],
+      "notes": "High hamstring recurrence risk in sprint-dominant field sports. Contact risk elevates concussion danger. All concussion RTS requires stepwise protocol minimum (PMID 30356457).",
+      "pmid_sources": ["21051422", "30356457", "40894294"]
+    },
+    {
+      "sport": "Basketball",
+      "sport_id": "BASKETBALL",
+      "contact_classification": "limited_contact",
+      "common_injuries": ["ANKLE_SPRAIN_G1", "ANKLE_SPRAIN_G2", "ANKLE_SPRAIN_G3", "PATELLAR_TENDINOPATHY", "ACL_RECON", "STRESS_FRACTURE_LOW"],
+      "risk_multiplier_by_injury": {
+        "ANKLE_SPRAIN_G1": 1.1,
+        "ANKLE_SPRAIN_G2": 1.15,
+        "ANKLE_SPRAIN_G3": 1.15,
+        "PATELLAR_TENDINOPATHY": 1.2,
+        "ACL_RECON": 1.1,
+        "STRESS_FRACTURE_LOW": 1.15
+      },
+      "sport_demands": [
+        "Explosive jump-landing repetitions",
+        "Rapid lateral cutting",
+        "High ankle-loading on hard court surfaces",
+        "Jump-shot mechanics with patellar tendon high load"
+      ],
+      "rts_specific_tests": [
+        "Drop jump landing symmetry",
+        "SEBT or Y-balance for ankle stability",
+        "VISA-P score ≥80 for patellar tendinopathy",
+        "Sport-specific jump-shot and lay-up sequence without pain",
+        "3-on-3 non-contact session before full 5-on-5"
+      ],
+      "notes": "Patellar tendinopathy (Jumper's Knee) is the leading chronic basketball injury; load management is essential for prevention. Hard court surfaces increase ankle sprain frequency.",
+      "pmid_sources": ["41553011", "41385332"]
+    },
+    {
+      "sport": "Running (Track, Road, Cross-Country)",
+      "sport_id": "RUNNING",
+      "contact_classification": "non_contact",
+      "common_injuries": ["STRESS_FRACTURE_LOW", "STRESS_FRACTURE_HIGH", "ACHILLES_TENDINOPATHY", "HAMSTRING_G1", "HAMSTRING_G2", "MUSCLE_STRAIN_GENERAL_G1", "MUSCLE_STRAIN_GENERAL_G2"],
+      "risk_multiplier_by_injury": {
+        "STRESS_FRACTURE_LOW": 1.2,
+        "STRESS_FRACTURE_HIGH": 1.4,
+        "ACHILLES_TENDINOPATHY": 1.25,
+        "ACHILLES_RUPTURE": 1.3,
+        "HAMSTRING_G1": 1.1,
+        "HAMSTRING_G2": 1.15,
+        "MUSCLE_STRAIN_GENERAL_G2": 1.1
+      },
+      "sport_demands": [
+        "Repetitive cyclic loading (thousands of foot strikes per session)",
+        "Eccentric hamstring and calf loading at high velocities",
+        "Training load errors most common mechanism of injury",
+        "Female runners at higher RED-S/stress fracture risk"
+      ],
+      "rts_specific_tests": [
+        "Pain-free progressive running program (5km → 10km → race pace)",
+        "Calf raise endurance ≥90% contralateral",
+        "Single-leg hop for distance LSI ≥90%",
+        "Running mechanics analysis (no antalgic pattern)",
+        "Training load: <10% weekly increase rule"
+      ],
+      "notes": "Stress fractures high-risk locations (navicular, femoral neck, anterior tibial cortex) require imaging clearance before running resumes (PMID 9421865). Female athletes with menstrual disturbance at elevated bone stress risk.",
+      "pmid_sources": ["9421865", "29671490", "37235667"]
+    },
+    {
+      "sport": "Overhead Sports (Baseball, Cricket, Javelin, Volleyball)",
+      "sport_id": "OVERHEAD",
+      "contact_classification": "non_contact",
+      "common_injuries": ["ROTATOR_CUFF_REPAIR", "ACHILLES_TENDINOPATHY", "STRESS_FRACTURE_LOW"],
+      "risk_multiplier_by_injury": {
+        "ROTATOR_CUFF_REPAIR": 1.25,
+        "ACHILLES_TENDINOPATHY": 1.1,
+        "STRESS_FRACTURE_LOW": 1.1
+      },
+      "sport_demands": [
+        "High-velocity overhead throwing mechanics (≥80mph in pitchers)",
+        "Repetitive eccentric shoulder load at deceleration",
+        "Shoulder ER/IR ratio critical for injury prevention",
+        "Graduated throwing program required"
+      ],
+      "rts_specific_tests": [
+        "Functional Throwing Performance Index (FTPI) ≥80%",
+        "Closed kinetic chain upper extremity test",
+        "Upper quarter Y-balance symmetric",
+        "Staged throwing program (15 → 30 → 45 → 60 → 90 feet → game distance → game intensity)",
+        "Shoulder strength ER:IR ratio within 15% of contralateral"
+      ],
+      "notes": "Rotator cuff repairs in overhead athletes require the most conservative timelines (9–12 months for throwers) due to high eccentric deceleration forces (PMID 37588949).",
+      "pmid_sources": ["37588949", "41680115", "35141557"]
+    },
+    {
+      "sport": "Gymnastics / Cheerleading",
+      "sport_id": "GYMNASTICS",
+      "contact_classification": "non_contact",
+      "common_injuries": ["STRESS_FRACTURE_LOW", "STRESS_FRACTURE_HIGH", "ACL_RECON", "ANKLE_SPRAIN_G2", "ANKLE_SPRAIN_G3"],
+      "risk_multiplier_by_injury": {
+        "STRESS_FRACTURE_LOW": 1.25,
+        "STRESS_FRACTURE_HIGH": 1.4,
+        "ACL_RECON": 1.1,
+        "ANKLE_SPRAIN_G2": 1.1,
+        "ANKLE_SPRAIN_G3": 1.15
+      },
+      "sport_demands": [
+        "High-impact landings (>10× body weight GRF)",
+        "Extreme ROM requirements (hypermobility risk)",
+        "Repetitive spinal loading (back walkovers, tumbling)",
+        "Early sport specialization increases RED-S/stress fracture risk"
+      ],
+      "rts_specific_tests": [
+        "Bilateral landing mechanics without valgus or spinal flexion",
+        "Pain-free gymnastics vault or beam elements",
+        "Bone density screening if RED-S suspected",
+        "Sport-specific skills testing under coaching observation"
+      ],
+      "notes": "Gymnastics/cheerleading athletes at high risk for low bone density and stress fractures due to energy restriction. RED-S screening mandatory before RTS in young athletes.",
+      "pmid_sources": ["9421865", "42077697"]
+    },
+    {
+      "sport": "Swimming",
+      "sport_id": "SWIMMING",
+      "contact_classification": "non_contact",
+      "common_injuries": ["ROTATOR_CUFF_REPAIR", "ACHILLES_TENDINOPATHY", "STRESS_FRACTURE_LOW"],
+      "risk_multiplier_by_injury": {
+        "ROTATOR_CUFF_REPAIR": 1.1,
+        "ACHILLES_TENDINOPATHY": 1.05,
+        "STRESS_FRACTURE_LOW": 1.05
+      },
+      "sport_demands": [
+        "High-volume repetitive overhead shoulder motion",
+        "Swimmer's shoulder (impingement, RC tendinopathy) common",
+        "Lower-limb non-weight-bearing during rehabilitation",
+        "Pool used as rehab modality for many injuries"
+      ],
+      "rts_specific_tests": [
+        "Pain-free freestyle and backstroke at training pace",
+        "Shoulder impingement tests negative",
+        "Timed swim sets at race pace"
+      ],
+      "notes": "Swimming can be used therapeutically during Phases 1–2 for non-shoulder injuries. Shoulder injuries in swimmers may require extended rotator cuff rehabilitation due to volume demands.",
+      "pmid_sources": ["37588949"]
+    },
+    {
+      "sport": "Cycling",
+      "sport_id": "CYCLING",
+      "contact_classification": "non_contact",
+      "common_injuries": ["STRESS_FRACTURE_LOW", "ACHILLES_TENDINOPATHY", "PATELLAR_TENDINOPATHY"],
+      "risk_multiplier_by_injury": {
+        "STRESS_FRACTURE_LOW": 1.05,
+        "ACHILLES_TENDINOPATHY": 1.05,
+        "PATELLAR_TENDINOPATHY": 1.1
+      },
+      "sport_demands": [
+        "Non-weight-bearing cyclic knee and ankle loading",
+        "High cadence repetitive patellar tendon stress",
+        "Bike fit critical for injury prevention",
+        "Used as cardiovascular rehabilitation tool for many injuries"
+      ],
+      "rts_specific_tests": [
+        "Pain-free cycling at race intensity and duration",
+        "VISA-P ≥80 if patellar tendinopathy"
+      ],
+      "notes": "Cycling is frequently used as Phase 1–2 rehabilitation tool for lower limb injuries. Cycling RTS after PATELLAR_TENDINOPATHY or ACHILLES requires load monitoring.",
+      "pmid_sources": ["29671490"]
+    },
+    {
+      "sport": "American Football",
+      "sport_id": "AMERICAN_FOOTBALL",
+      "contact_classification": "contact",
+      "common_injuries": ["CONCUSSION", "ACL_RECON", "HAMSTRING_G2", "HAMSTRING_G3", "ROTATOR_CUFF_REPAIR", "ANKLE_SPRAIN_G3"],
+      "risk_multiplier_by_injury": {
+        "CONCUSSION": 1.2,
+        "ACL_RECON": 1.2,
+        "HAMSTRING_G2": 1.2,
+        "HAMSTRING_G3": 1.25,
+        "ROTATOR_CUFF_REPAIR": 1.2,
+        "ANKLE_SPRAIN_G3": 1.15
+      },
+      "sport_demands": [
+        "High-impact collision and tackle forces",
+        "Explosive short-sprint bursts",
+        "Overhead blocking and throwing mechanics (QB/receiver)",
+        "Highest concussion incidence of all team sports"
+      ],
+      "rts_specific_tests": [
+        "Full-contact practice clearance by team physician",
+        "Concussion clearance per stepwise protocol minimum",
+        "Helmet-contact simulation before return",
+        "Sport-specific positional testing (QB throwing, lineman blocking)"
+      ],
+      "notes": "NFL PCL injuries have RTS <6–12 months (PMID 41811648). Concussion protocol mandatory under US federal and state laws. Highest single-sport concussion incidence.",
+      "pmid_sources": ["30356457", "41811648", "28065992"]
+    },
+    {
+      "sport": "Tennis / Racket Sports",
+      "sport_id": "TENNIS",
+      "contact_classification": "non_contact",
+      "common_injuries": ["ROTATOR_CUFF_REPAIR", "PATELLAR_TENDINOPATHY", "ANKLE_SPRAIN_G1", "ANKLE_SPRAIN_G2", "STRESS_FRACTURE_LOW"],
+      "risk_multiplier_by_injury": {
+        "ROTATOR_CUFF_REPAIR": 1.2,
+        "PATELLAR_TENDINOPATHY": 1.1,
+        "ANKLE_SPRAIN_G1": 1.05,
+        "ANKLE_SPRAIN_G2": 1.1
+      },
+      "sport_demands": [
+        "Overhead serving with high rotator cuff demands",
+        "Explosive lateral movement on clay, hard court, grass",
+        "Repetitive forehand/backhand eccentric loading",
+        "High volume of unilateral upper limb use"
+      ],
+      "rts_specific_tests": [
+        "Pain-free serving mechanics at full speed",
+        "Lateral movement agility (T-test, 4-corner drill)",
+        "Shoulder strength ER:IR ratio within 15% of contralateral",
+        "Baseline rally simulation at match intensity"
+      ],
+      "notes": "Serving demands can be highest force requirement in upper limb sports – rotator cuff healing must be complete before aggressive serving resumes.",
+      "pmid_sources": ["37588949"]
+    }
+  ]
+}

@@ -1,0 +1,221 @@
+{
+  "_meta": {
+    "description": "Evidence-based 4-phase recovery framework for sports injuries. Data sourced from PubMed-indexed peer-reviewed literature. PMID sources cited for each phase.",
+    "last_updated": "2026-06-22",
+    "source_database": "PubMed / MEDLINE",
+    "framework_rationale": "A biopsychosocial, criteria-based phased approach to rehabilitation is superior to time-based-only models (PMID 42205141, 41021821). The four phases align with tissue healing biology and functional capacity restoration."
+  },
+  "phases": [
+    {
+      "phase_number": 1,
+      "phase_name": "Protection",
+      "phase_color": "#EF4444",
+      "phase_hex": "red-500",
+      "phase_duration_guidance": "Days 1–7 (mild injuries) to weeks 1–6 (severe injuries / surgical)",
+      "biological_basis": "Inflammatory and proliferative phase of tissue healing. Vascular response, immune cell infiltration, and early fibroblast activity. Disrupting this phase delays repair.",
+      "goals": [
+        "Protect injured tissue from further damage",
+        "Manage swelling, pain, and inflammation",
+        "Maintain non-injured areas active",
+        "Prevent disuse atrophy where possible",
+        "Begin gentle pain-free range of motion (ROM)",
+        "Establish therapeutic alliance and set recovery expectations"
+      ],
+      "allowed_activities": [
+        "POLICE protocol: Protection, Optimal Loading, Ice, Compression, Elevation",
+        "Pool walking or swimming (non-weight-bearing injuries)",
+        "Upper-body conditioning if lower limb injured",
+        "Isometric exercises in pain-free range",
+        "Gentle ROM exercises within pain threshold",
+        "Breathing exercises and nervous system down-regulation",
+        "Sleep optimization (≥8 hours; critical for tissue repair)"
+      ],
+      "prohibited_activities": [
+        "Weight-bearing if contraindicated by clinical findings",
+        "Aggressive stretching of injured tissue",
+        "High-load resistance training of injured structure",
+        "Sport-specific activities",
+        "Activities that increase swelling >baseline",
+        "NSAID overuse beyond 72h (impairs satellite cell-mediated repair in muscle injuries)"
+      ],
+      "criteria_to_advance": {
+        "pain_nrs_max": 3,
+        "functional_milestones": [
+          "Swelling stable or reducing",
+          "Pain not worsening with gentle ROM",
+          "Full weight-bearing tolerated (if lower limb) with normal gait",
+          "Isometric exercises tolerated without pain flare"
+        ],
+        "time_minimum_days": 3,
+        "additional_criteria": "Physician or physiotherapist sign-off for surgical cases; imaging clearance if fracture"
+      },
+      "coach_messaging_templates": [
+        "Right now your body's repair crew is on the job – let them work. The goal this week isn't rest, it's smart loading.",
+        "Protection doesn't mean doing nothing. We're keeping everything else sharp while your {injury} heals.",
+        "Every day you follow the protocol is a day you get back sooner. Trust the process.",
+        "Ice, elevate, move gently. Your recovery has officially started."
+      ],
+      "evidence_rationale": "Italian Consensus Statement (PMID 31673400) and Bisciotti et al. support phased RTP with protection as phase 1. APKASS 2024 (PMID 42205141) emphasizes criteria-based advancement rather than fixed timelines. Optimal Loading (vs complete rest) is superior per current evidence (PMID 38642570).",
+      "pmid_sources": ["42205141", "31673400", "38642570", "42245759"]
+    },
+    {
+      "phase_number": 2,
+      "phase_name": "Restore",
+      "phase_color": "#F97316",
+      "phase_hex": "orange-500",
+      "phase_duration_guidance": "Days 5–21 (mild) to weeks 3–12 (severe / surgical)",
+      "biological_basis": "Proliferative phase: collagen synthesis, scar maturation, and early tensile strength restoration. Controlled loading stimulates appropriate collagen alignment.",
+      "goals": [
+        "Restore full pain-free range of motion",
+        "Rebuild neuromuscular activation of injured structure",
+        "Address compensatory movement patterns",
+        "Progressive resistance training within pain tolerance",
+        "Restore proprioception and balance",
+        "Initiate eccentric strengthening when tolerated"
+      ],
+      "allowed_activities": [
+        "Progressive resistance training (pain-free range, low-to-moderate load)",
+        "Eccentric strengthening of injured muscle (when tolerated, NRS ≤3/10)",
+        "Proprioception and balance board exercises",
+        "Light cardiovascular conditioning (cycling, pool running, walking)",
+        "Core stability and kinetic chain exercises",
+        "Neuromuscular retraining (single-leg balance, perturbation training)",
+        "Sports massage and manual therapy as adjunct",
+        "Nutritional support: protein ≥1.6g/kg/day (PMID 23315753)"
+      ],
+      "prohibited_activities": [
+        "Maximal-speed running or sprinting",
+        "Plyometric or jump-landing tasks",
+        "Contact or collision activities",
+        "Sport-specific agility at high intensity",
+        "Activities that reproduce sharp pain (NRS >4/10)"
+      ],
+      "criteria_to_advance": {
+        "pain_nrs_max": 2,
+        "functional_milestones": [
+          "Full pain-free ROM equal to contralateral",
+          "Single-leg stance ≥20 seconds without excessive sway",
+          "Strength deficit <30% vs contralateral on key muscle groups",
+          "No pain flare >24h after exercise sessions",
+          "Normal gait mechanics on treadmill (lower limb)"
+        ],
+        "time_minimum_days": 7,
+        "additional_criteria": "LSI on relevant strength testing ≥70% before progressing"
+      },
+      "coach_messaging_templates": [
+        "Phase 2 is where real progress happens. We're teaching your body to move again – properly.",
+        "Your strength is coming back. Every rep is rebuilding the architecture that got you here.",
+        "Focus: full movement, full muscle activation, no compensations. Quality over everything.",
+        "We're restoring the foundation. Don't rush – what you build here determines when you get back."
+      ],
+      "evidence_rationale": "Eccentric protocols (L-protocol) significantly reduce reinjury rates in hamstring injuries (MD −1.95, PMID 40954668). Neuromuscular training is key to restoring proprioception post-ankle sprain (PMID 41385332). Protein intake ≥1.6g/kg/day supports muscle protein synthesis during recovery (PMID 23315753).",
+      "pmid_sources": ["40954668", "41385332", "42188564", "23315753", "32516908"]
+    },
+    {
+      "phase_number": 3,
+      "phase_name": "Build Capacity",
+      "phase_color": "#EAB308",
+      "phase_hex": "yellow-500",
+      "phase_duration_guidance": "Weeks 2–4 (mild) to weeks 8–24 (ACL, Achilles, RC repair)",
+      "biological_basis": "Remodeling phase: immature scar tissue replaced by organized collagen. Load stimulus required for optimal maturation. Neuromuscular control restoration is critical.",
+      "goals": [
+        "Achieve ≥90% limb symmetry index (LSI) on strength testing",
+        "Restore sport-specific neuromuscular patterns",
+        "Build plyometric capacity (hop, bound, jump-land)",
+        "Introduce change of direction and agility training",
+        "Address psychological readiness (fear of reinjury screening)",
+        "Graduated running progression",
+        "Fatigue-resistance: ensure capacity to perform under match-level loads"
+      ],
+      "allowed_activities": [
+        "Progressive plyometrics: bilateral → unilateral, low-impact → high-impact",
+        "Change-of-direction drills at sub-maximal intensity (50–80% max)",
+        "Maximal-effort isokinetic testing to guide progression",
+        "Running program: intervals progressing to continuous runs",
+        "Sport-specific skill drills without contact",
+        "High-intensity interval training (cardio)",
+        "Mental imagery and confidence rebuilding exercises",
+        "ACL-RSI or Tampa Scale monitoring (PMID 33604148, 37681565)"
+      ],
+      "prohibited_activities": [
+        "Full-contact sport participation",
+        "Match play or live game simulations",
+        "Maximal speed without clearance from hop test battery",
+        "Returning to drills that consistently reproduce pain >NRS 2/10"
+      ],
+      "criteria_to_advance": {
+        "pain_nrs_max": 1,
+        "functional_milestones": [
+          "Quadriceps LSI ≥90% on isokinetic testing at 60°/s and 180°/s",
+          "Single-leg hop battery (SLH, triple hop, crossover hop, 6m timed) LSI ≥90%",
+          "Change of direction at ≥80% max velocity without pain or guarding",
+          "Bilateral drop-jump landing symmetry (no valgus collapse)",
+          "ACL-RSI score ≥65 (or equivalent psychological readiness scale)",
+          "No pain flare >24h post-maximal training session",
+          "Running at sport-specific velocity with normal mechanics"
+        ],
+        "time_minimum_days": 14,
+        "additional_criteria": "Physician and physiotherapist dual sign-off; ACL-RSI ≥65 for ACLR cases (OR 2.1–2.5 for successful RTS, PMID 40894294)"
+      },
+      "coach_messaging_templates": [
+        "This is where athletes are made. You're not just rehabbing – you're rebuilding better.",
+        "Hop test at 90%? Check. Cutting at full pace? Almost there. You're closer than you think.",
+        "Trust the numbers. When your strength and movement are back, so are you.",
+        "The body's ready. Now we make sure the mind is too. Confidence is part of the criteria."
+      ],
+      "evidence_rationale": "LSI ≥90% on hop tests and isokinetic testing is the internationally accepted benchmark for RTS readiness (PMID 27423208, 40894294). Psychological readiness (ACL-RSI) is independently predictive of RTS success (PMID 35325002, 37681565). Bilateral drop-landing symmetry predicts reinjury risk after ACLR (PMID 41995908).",
+      "pmid_sources": ["27423208", "40894294", "35325002", "37681565", "41571570", "41995908", "33604148"]
+    },
+    {
+      "phase_number": 4,
+      "phase_name": "Return to Sport",
+      "phase_color": "#22C55E",
+      "phase_hex": "green-500",
+      "phase_duration_guidance": "1–4 weeks transition period; graduated from training to full competition",
+      "biological_basis": "Ligament/tendon graft (if applicable) achieves 50–70% native strength by 6 months and up to 85–90% by 12–24 months. Sport demands must be titrated to tissue maturity.",
+      "goals": [
+        "Full training participation without restriction",
+        "Match/competition-intensity exposure graduated",
+        "Confirm all RTS criteria met (physical + psychological)",
+        "Shared decision-making between athlete, clinician, coach",
+        "Ongoing monitoring for re-injury risk signals",
+        "Establish injury prevention program post-RTS",
+        "Load management plan for first 4–6 weeks post-RTS"
+      ],
+      "allowed_activities": [
+        "Full non-contact training at 100% intensity",
+        "Gradual contact exposure (modified contact → full contact)",
+        "Match simulation (training games)",
+        "Return to full competition",
+        "GPS/wearable load monitoring (PMID 31673400)",
+        "Ongoing neuromuscular prehab exercises",
+        "Psychological support continuation if needed"
+      ],
+      "prohibited_activities": [
+        "None (all activities permitted once criteria met)",
+        "NOTE: Activities should be graduated – avoid sudden jump to full competition volume"
+      ],
+      "criteria_to_advance": {
+        "pain_nrs_max": 0,
+        "functional_milestones": [
+          "All phase 3 criteria maintained",
+          "Full match-intensity training completed ≥3 sessions without adverse effects",
+          "Clinician, athlete, and coach all agree on readiness",
+          "Injury prevention program established",
+          "ACL-RSI ≥65–70 (ACLR); condition-specific psychological clearance",
+          "Load monitoring plan in place for first 4 weeks"
+        ],
+        "time_minimum_days": 7,
+        "additional_criteria": "Shared decision-making model (PMID 41021821, 42205141); biopsychosocial sign-off including physical, psychological, and contextual factors"
+      },
+      "coach_messaging_templates": [
+        "You did everything right. This is what the work was for.",
+        "You're back. And not just back – better prepared than before.",
+        "Your first few games back, we're tracking your load carefully. Smart return keeps you in the game long-term.",
+        "The criteria are met. The team is ready for you. Let's go."
+      ],
+      "evidence_rationale": "Biopsychosocial, criteria-based, shared decision-making RTS is recommended by APKASS 2024 (PMID 42205141) and qualitative analysis of elite clinicians (PMID 41021821). GPS-based load monitoring at RTS reduces recurrence in football (PMID 31673400). ACL-RSI ≥70 at RTS significantly predicts successful return (PMID 40894294).",
+      "pmid_sources": ["42205141", "41021821", "31673400", "40894294", "28065992"]
+    }
+  ]
+}

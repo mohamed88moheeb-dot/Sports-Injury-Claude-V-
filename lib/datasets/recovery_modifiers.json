@@ -1,0 +1,405 @@
+{
+  "_meta": {
+    "description": "Evidence-based recovery modifier factors that adjust injury recovery timelines. Each modifier has a multiplier (1.0 = neutral/baseline), direction of effect, confidence level, and supporting PubMed citations.",
+    "last_updated": "2026-06-22",
+    "source_database": "PubMed / MEDLINE",
+    "how_to_apply": "Apply modifiers multiplicatively to the typical_days from rts_timelines_dataset.json. Multiple modifier product should be capped at a reasonable range (0.6–2.0× baseline) to prevent extreme outliers. Always use clinical judgment alongside algorithmic estimates.",
+    "modifier_scale": {
+      "1.0": "Baseline / neutral",
+      ">1.0": "Extends recovery timeline (adverse factor)",
+      "<1.0": "Shortens recovery timeline (favorable factor)"
+    }
+  },
+  "modifier_categories": [
+    {
+      "category_id": "AGE",
+      "category_name": "Athlete Age",
+      "description": "Age affects tissue healing rate, psychological adaptability, and hormonal environment. Youth athletes have growth plate vulnerabilities; masters athletes have reduced regenerative capacity.",
+      "evidence_summary": "Youth athletes (≤18) have 3–7× higher ACL re-injury risk vs adults >25 (PMID 36190172). Average ACL recovery 14–16 months in skeletally immature vs 9–12 months in adults (PMID 42077697). Masters athletes show reduced satellite cell proliferation but retain tendon adaptability.",
+      "modifiers": [
+        {
+          "label": "Youth (≤15 years)",
+          "multiplier": 1.3,
+          "direction": "extends",
+          "rationale": "Open growth plates, psychosocial development, higher reinjury risk post-ACL. Physician physeal clearance required before RTS.",
+          "pmid_sources": ["42077697", "36190172"],
+          "apply_to_injuries": ["ACL_RECON", "ACL_RECON_PEDS", "STRESS_FRACTURE_LOW", "STRESS_FRACTURE_HIGH", "CONCUSSION"]
+        },
+        {
+          "label": "Adolescent (16–18 years)",
+          "multiplier": 1.15,
+          "direction": "extends",
+          "rationale": "Near-skeletally mature but higher reinjury risk than adults; hormonal peak but psychological immaturity. Near-physeal stress fracture risk elevated.",
+          "pmid_sources": ["42077697", "36190172"],
+          "apply_to_injuries": ["ACL_RECON", "STRESS_FRACTURE_LOW", "STRESS_FRACTURE_HIGH", "CONCUSSION"]
+        },
+        {
+          "label": "Young Adult (19–29 years)",
+          "multiplier": 1.0,
+          "direction": "neutral",
+          "rationale": "Baseline reference population for most RTS research.",
+          "pmid_sources": ["42085052", "27423208"],
+          "apply_to_injuries": ["ALL"]
+        },
+        {
+          "label": "Adult (30–39 years)",
+          "multiplier": 1.1,
+          "direction": "slight_extension",
+          "rationale": "Reduced collagen synthesis rate; longer inflammatory phase; muscle satellite cell response slightly reduced.",
+          "pmid_sources": ["40954668"],
+          "apply_to_injuries": ["HAMSTRING_G1", "HAMSTRING_G2", "HAMSTRING_G3", "ACHILLES_TENDINOPATHY", "ACHILLES_RUPTURE"]
+        },
+        {
+          "label": "Masters Athlete (≥40 years)",
+          "multiplier": 1.25,
+          "direction": "extends",
+          "rationale": "Decreased muscle regeneration, tendon collagen stiffening, reduced hormonal anabolic environment (testosterone, GH, IGF-1 decline). Longer remodeling phase.",
+          "pmid_sources": ["9421865", "37235667"],
+          "apply_to_injuries": ["ALL"]
+        }
+      ]
+    },
+    {
+      "category_id": "SLEEP",
+      "category_name": "Sleep Quality",
+      "description": "Sleep is the primary period for growth hormone secretion and tissue repair. Sleep disturbance is common after concussion and musculoskeletal injuries.",
+      "evidence_summary": "Sleep disturbances documented post-SRC in 9/10 studies (PMID 34145161). Sleep <6h impairs inflammatory resolution and satellite cell activity. Optimal sleep (≥8h) is recommended for athletes during recovery (PMID 42188564).",
+      "modifiers": [
+        {
+          "label": "Optimal Sleep (≥8 hours/night, good quality)",
+          "multiplier": 0.95,
+          "direction": "shortens",
+          "rationale": "GH secretion peaks during slow-wave sleep; collagen synthesis, muscle protein synthesis, and inflammatory resolution all optimized. Athletes self-reporting good sleep have faster functional recovery.",
+          "pmid_sources": ["42188564", "34145161"],
+          "apply_to_injuries": ["ALL"]
+        },
+        {
+          "label": "Moderate Sleep Disruption (6–7 hours/night, occasional disturbance)",
+          "multiplier": 1.0,
+          "direction": "neutral",
+          "rationale": "Clinically acceptable; monitor and address as part of recovery education.",
+          "pmid_sources": ["34145161"],
+          "apply_to_injuries": ["ALL"]
+        },
+        {
+          "label": "Poor Sleep (<6 hours/night or severe insomnia)",
+          "multiplier": 1.2,
+          "direction": "extends",
+          "rationale": "Insufficient GH secretion; impaired inflammatory resolution; psychological stress amplified; higher pain catastrophizing. Concussion recovery specifically impaired (PMID 34145161).",
+          "pmid_sources": ["34145161", "39505248"],
+          "apply_to_injuries": ["ALL"]
+        }
+      ],
+      "clinical_action": "Screen sleep with Pittsburgh Sleep Quality Index (PSQI) or athlete self-report. Address sleep hygiene, screen room use, and chronotype before prescribing sleep aids."
+    },
+    {
+      "category_id": "NUTRITION",
+      "category_name": "Nutritional Status",
+      "description": "Adequate energy availability, protein intake, and micronutrients directly support tissue repair, immune function, and neuromuscular recovery.",
+      "evidence_summary": "Protein ≥1.6g/kg/day supports muscle protein synthesis during recovery (PMID 23315753, 32516908). Vitamin D and Calcium are critical for bone stress fracture healing. Energy deficiency (RED-S) significantly prolongs recovery.",
+      "modifiers": [
+        {
+          "label": "Optimal Nutrition (protein ≥1.6g/kg/day, adequate energy, micronutrients replete)",
+          "multiplier": 0.9,
+          "direction": "shortens",
+          "rationale": "Sufficient leucine-triggered mTOR activation, adequate collagen precursors (Vitamin C, glycine), and energy balance supports full repair machinery.",
+          "pmid_sources": ["23315753", "32516908", "26553492"],
+          "apply_to_injuries": ["ALL"]
+        },
+        {
+          "label": "Suboptimal Nutrition (protein 1.2–1.6g/kg/day, borderline energy availability)",
+          "multiplier": 1.1,
+          "direction": "slight_extension",
+          "rationale": "Partial reduction in anabolic signaling; may meet minimal thresholds but recovery is slower.",
+          "pmid_sources": ["23315753"],
+          "apply_to_injuries": ["ALL"]
+        },
+        {
+          "label": "Poor Nutrition / Energy Deficiency (protein <1.2g/kg/day or RED-S / eating disorder)",
+          "multiplier": 1.4,
+          "direction": "extends",
+          "rationale": "Catabolism exceeds anabolism; satellite cell proliferation impaired; bone healing compromised (especially stress fractures); immune function reduced. RED-S associated with stress fracture risk in female athletes (PMID 9421865).",
+          "pmid_sources": ["9421865", "23315753", "21923203"],
+          "apply_to_injuries": ["ALL"],
+          "clinical_alert": "Refer to sports dietitian if RED-S suspected. RTS not recommended until energy availability restored in stress fracture cases."
+        },
+        {
+          "label": "Vitamin D Deficiency (<20 ng/mL serum 25(OH)D)",
+          "multiplier": 1.15,
+          "direction": "extends",
+          "rationale": "Vitamin D regulates muscle protein synthesis, satellite cell activity, and bone mineralization. Deficiency impairs all three pathways.",
+          "pmid_sources": ["21346336"],
+          "apply_to_injuries": ["STRESS_FRACTURE_LOW", "STRESS_FRACTURE_HIGH", "MUSCLE_STRAIN_GENERAL_G2", "HAMSTRING_G2"]
+        }
+      ],
+      "key_nutrients_for_recovery": {
+        "protein": "≥1.6g/kg/day; ≥2.0g/kg/day in high muscle damage injuries",
+        "vitamin_c": "≥200mg/day for collagen synthesis (tendons, ligaments)",
+        "vitamin_d": "Target serum 40–60 ng/mL",
+        "calcium": "1000–1200mg/day for bone stress injuries",
+        "creatine": "3–5g/day may preserve muscle mass during immobilization",
+        "omega_3": "2–4g EPA+DHA/day for anti-inflammatory support"
+      }
+    },
+    {
+      "category_id": "INJURY_HISTORY",
+      "category_name": "Previous Injury History",
+      "description": "Prior ipsilateral or contralateral injury increases structural vulnerability, alters movement patterns, and creates psychological barriers to RTS.",
+      "evidence_summary": "Previous hamstring strain is leading predictor of recurrence (PMID 21051422, 27826402). Prior ACL injury: 3–5× higher re-injury risk in young soccer players (PMID 36190172). Previous ankle sprain is primary predictor of chronic ankle instability and recurrence (PMID 41385332).",
+      "modifiers": [
+        {
+          "label": "No relevant injury history",
+          "multiplier": 1.0,
+          "direction": "neutral",
+          "rationale": "Baseline reference",
+          "pmid_sources": [],
+          "apply_to_injuries": ["ALL"]
+        },
+        {
+          "label": "Single previous same-structure injury (>12 months ago, fully resolved)",
+          "multiplier": 1.1,
+          "direction": "slight_extension",
+          "rationale": "Residual scar tissue may alter biomechanics; psychological re-injury fear may be present",
+          "pmid_sources": ["21051422", "42221209"],
+          "apply_to_injuries": ["ALL"]
+        },
+        {
+          "label": "Same-structure reinjury (within 12 months)",
+          "multiplier": 1.35,
+          "direction": "extends",
+          "rationale": "Immature scar tissue at previous injury site is mechanically weaker; remodeling phase was incomplete. Grade II hamstring re-injury rates 24.1% (PMID 21051422).",
+          "pmid_sources": ["21051422", "27826402"],
+          "apply_to_injuries": ["HAMSTRING_G1", "HAMSTRING_G2", "HAMSTRING_G3", "ANKLE_SPRAIN_G2", "ACL_RECON"]
+        },
+        {
+          "label": "Multiple previous injuries (≥3 events, same structure)",
+          "multiplier": 1.5,
+          "direction": "extends",
+          "rationale": "Chronic instability, altered proprioception, and psychological barriers significantly elevate reinjury risk. Structural intervention may be needed.",
+          "pmid_sources": ["42221209", "25700101"],
+          "apply_to_injuries": ["ANKLE_SPRAIN_G2", "ANKLE_SPRAIN_G3", "HAMSTRING_G2", "HAMSTRING_G3"]
+        },
+        {
+          "label": "Contralateral ACL injury history",
+          "multiplier": 1.15,
+          "direction": "extends",
+          "rationale": "Contralateral ACL rupture 8% within 5 years post-ACLR (PMID 36190172); altered movement asymmetry may increase loading on repaired side",
+          "pmid_sources": ["36190172"],
+          "apply_to_injuries": ["ACL_RECON"]
+        }
+      ]
+    },
+    {
+      "category_id": "ATHLETE_LEVEL",
+      "category_name": "Athlete Performance Level",
+      "description": "Elite athletes typically have superior rehabilitation access, compliance, physiological recovery capacity, and motivational drive. Recreational athletes may have competing commitments and less structured support.",
+      "evidence_summary": "Elite athletes have dedicated medical staff, structured protocols, and higher training baseline fitness, enabling faster recovery in some injury types. However, elite sport demands (contact risk, match schedule pressure) may create premature return pressure (PMID 41021821).",
+      "modifiers": [
+        {
+          "label": "Elite / Professional Athlete",
+          "multiplier": 0.85,
+          "direction": "shortens",
+          "rationale": "Dedicated medical team, daily physiotherapy access, nutritionist and psychology support, high baseline fitness, high compliance. However: note that competitive pressure may create RTP pressure – clinical criteria must not be compromised.",
+          "pmid_sources": ["41021821", "40841946"],
+          "apply_to_injuries": ["ALL"],
+          "caution": "External pressure from clubs/coaches to return early is documented; clinicians must maintain criteria-based standards (PMID 41021821, 28065992)"
+        },
+        {
+          "label": "Semi-professional / Collegiate Athlete",
+          "multiplier": 0.95,
+          "direction": "slight_shortening",
+          "rationale": "Good access to healthcare but not daily; compliance generally high; team-based structure supports adherence",
+          "pmid_sources": ["37681565"],
+          "apply_to_injuries": ["ALL"]
+        },
+        {
+          "label": "Recreational / Amateur Athlete",
+          "multiplier": 1.2,
+          "direction": "extends",
+          "rationale": "Limited healthcare access, competing work/family commitments, less structured rehab adherence, lower baseline fitness, may delay seeking treatment",
+          "pmid_sources": ["41021821"],
+          "apply_to_injuries": ["ALL"]
+        },
+        {
+          "label": "Masters Recreational Athlete (≥40 years, non-professional)",
+          "multiplier": 1.35,
+          "direction": "extends",
+          "rationale": "Combined effect of age-related healing deceleration and recreational athlete access limitations",
+          "pmid_sources": ["9421865"],
+          "apply_to_injuries": ["ALL"]
+        }
+      ]
+    },
+    {
+      "category_id": "PSYCHOLOGICAL",
+      "category_name": "Psychological Factors",
+      "description": "Fear of reinjury, kinesiophobia, anxiety, depression, and low self-efficacy all independently predict delayed or failed return to sport.",
+      "evidence_summary": "Fear of reinjury and relaxation about sport are the two most important nodes in ACL-RSI network models (PMID 35325002). ACL-RSI ≥70 correlates with OR 2.1–2.5 for successful RTS (PMID 40894294). 38% of ACLR patients show no improvement in psychological readiness at 6 months (PMID 36454346). TSK-11 <37 is the recommended cutoff (PMID 41943059). In-sport ACL injuries show significantly lower ACL-RSI than out-of-sport injuries (PMID 33604148).",
+      "modifiers": [
+        {
+          "label": "High Psychological Readiness (ACL-RSI ≥70 or equivalent; TSK-11 <30)",
+          "multiplier": 0.9,
+          "direction": "shortens",
+          "rationale": "High confidence and low fear enable more aggressive rehabilitation engagement and full effort during testing. Significantly associated with successful RTS (PMID 40894294).",
+          "pmid_sources": ["40894294", "35325002", "37681565"],
+          "apply_to_injuries": ["ACL_RECON", "HAMSTRING_G2", "HAMSTRING_G3", "ACL_RECON_PEDS"]
+        },
+        {
+          "label": "Moderate Psychological Readiness (ACL-RSI 50–70; TSK-11 30–37)",
+          "multiplier": 1.0,
+          "direction": "neutral",
+          "rationale": "Baseline; psychological support recommended but not urgently required",
+          "pmid_sources": ["33604148"],
+          "apply_to_injuries": ["ALL"]
+        },
+        {
+          "label": "Low Psychological Readiness / Kinesiophobia (ACL-RSI <50; TSK-11 >37)",
+          "multiplier": 1.3,
+          "direction": "extends",
+          "rationale": "Fear of reinjury leads to protective movement inhibition, inhibits performance testing, and predicts non-return to sport. Psychological intervention required before RTS clearance (PMID 35325002, 33604148).",
+          "pmid_sources": ["35325002", "36454346", "33604148", "41943059", "35404788"],
+          "apply_to_injuries": ["ALL"],
+          "clinical_action": "Refer to sport psychologist; implement graded exposure, cognitive behavioral techniques (TOR-C model, PMID 39505248 for concussion), and confidence-building protocols"
+        },
+        {
+          "label": "Prior Traumatic In-Sport Injury (same mechanism)",
+          "multiplier": 1.15,
+          "direction": "extends",
+          "rationale": "Athletes injured during their primary sport (vs outside it) show significantly lower ACL-RSI scores, higher injury-risk perception, and lower emotional scores (PMID 33604148)",
+          "pmid_sources": ["33604148"],
+          "apply_to_injuries": ["ACL_RECON", "HAMSTRING_G2", "HAMSTRING_G3", "ANKLE_SPRAIN_G3"]
+        }
+      ],
+      "validated_tools": [
+        {
+          "tool": "ACL-Return to Sport after Injury Scale (ACL-RSI)",
+          "description": "12-item validated scale covering emotions, confidence, and injury risk perception. Score 0–100; ≥65 minimum for RTS, ≥70 optimal",
+          "pmid": "27423208"
+        },
+        {
+          "tool": "Tampa Scale of Kinesiophobia – 11 (TSK-11)",
+          "description": "11-item kinesiophobia scale; cutoff <37 recommended for post-ACL (optimal 33.5 for re-injury fear, PMID 41943059)",
+          "pmid": "41943059"
+        },
+        {
+          "tool": "SCAT5 (Sport Concussion Assessment Tool)",
+          "description": "Concussion symptom and cognitive screening; must be within normal limits before concussion RTS",
+          "pmid": "40503565"
+        }
+      ]
+    },
+    {
+      "category_id": "BIOLOGICAL_SEX",
+      "category_name": "Biological Sex",
+      "description": "Biological sex influences injury patterns, hormone-mediated healing, and injury risk profiles.",
+      "evidence_summary": "Female athletes have 2–3× higher ACL injury incidence in soccer. Male soccer players have higher ACL graft rupture rates (88% vs 94% 5-year survivorship in females, PMID 36190172). Females are at higher RED-S and stress fracture risk.",
+      "modifiers": [
+        {
+          "label": "Female Athlete (general)",
+          "multiplier": 1.0,
+          "direction": "neutral",
+          "rationale": "No blanket timeline extension; however ACL reinjury graft survivorship is better in females than males (PMID 36190172). Specific injuries (stress fractures with RED-S) may warrant extended monitoring.",
+          "pmid_sources": ["36190172", "9421865"],
+          "apply_to_injuries": ["ALL"],
+          "specific_notes": "Screen for RED-S in female athletes with stress fractures or repeated muscle strains. Female H:Q ratio threshold is 55% (vs 62.5% males) at 300°/s for ACL RTS (PMID 27423208)"
+        },
+        {
+          "label": "Male Athlete (general)",
+          "multiplier": 1.0,
+          "direction": "neutral",
+          "rationale": "Higher ACL graft rupture rates in males vs females (12% vs 6%). Higher hamstring recurrence risk in sprint-dominant sports.",
+          "pmid_sources": ["36190172", "21051422"],
+          "apply_to_injuries": ["ALL"]
+        }
+      ]
+    },
+    {
+      "category_id": "INJURY_SEVERITY",
+      "category_name": "Injury Severity at Presentation",
+      "description": "Imaging grade and initial clinical severity are the strongest predictors of recovery timeline.",
+      "evidence_summary": "Grade I–IV hamstring classification based on knee ROM deficit predicts RTP (7.4 → 55 days, PMID 21051422). MRI grade of muscle injury is gold-standard. Small RC tears recover faster than large/massive tears.",
+      "modifiers": [
+        {
+          "label": "MRI Grade 0 (no signal change / edema only)",
+          "multiplier": 0.7,
+          "direction": "shortens",
+          "rationale": "Bone bruise or muscle soreness without structural disruption heals faster",
+          "pmid_sources": ["21051422"],
+          "apply_to_injuries": ["HAMSTRING_G1", "MUSCLE_STRAIN_GENERAL_G1"]
+        },
+        {
+          "label": "MRI Grade 1 (mild signal change, <10% cross-sectional area)",
+          "multiplier": 0.9,
+          "direction": "slight_shortening",
+          "rationale": "Minimal structural disruption; fast healer if managed correctly",
+          "pmid_sources": ["21051422"],
+          "apply_to_injuries": ["HAMSTRING_G1", "MUSCLE_STRAIN_GENERAL_G1"]
+        },
+        {
+          "label": "MRI Grade 2 (moderate, 10–50% CSA affected)",
+          "multiplier": 1.0,
+          "direction": "neutral",
+          "rationale": "Baseline for moderate injuries",
+          "pmid_sources": ["21051422"],
+          "apply_to_injuries": ["HAMSTRING_G2", "MUSCLE_STRAIN_GENERAL_G2"]
+        },
+        {
+          "label": "MRI Grade 3 (severe, >50% CSA or complete rupture)",
+          "multiplier": 1.5,
+          "direction": "extends",
+          "rationale": "Extensive structural disruption; long remodeling phase; surgical intervention possible",
+          "pmid_sources": ["21051422"],
+          "apply_to_injuries": ["HAMSTRING_G3", "ACHILLES_RUPTURE", "ROTATOR_CUFF_REPAIR"]
+        }
+      ]
+    },
+    {
+      "category_id": "ADHERENCE",
+      "category_name": "Rehabilitation Adherence",
+      "description": "Compliance with prescribed exercises, load management guidelines, and lifestyle factors is a major determinant of recovery speed.",
+      "evidence_summary": "Non-compliant patients after rotator cuff repair have 20–40% re-tear rates (PMID 37588949). Functional rehabilitation model showed 89.3% vs 62.1% successful RTS rate over traditional model (PMID 42085052).",
+      "modifiers": [
+        {
+          "label": "High Adherence (>90% session completion, sleep/nutrition optimized)",
+          "multiplier": 0.9,
+          "direction": "shortens",
+          "rationale": "Consistent exercise stimulus drives faster adaptation; optimal recovery environment maximized",
+          "pmid_sources": ["42085052", "40954668"],
+          "apply_to_injuries": ["ALL"]
+        },
+        {
+          "label": "Moderate Adherence (70–90% session completion)",
+          "multiplier": 1.0,
+          "direction": "neutral",
+          "rationale": "Clinically acceptable; outcomes within expected range",
+          "pmid_sources": ["42085052"],
+          "apply_to_injuries": ["ALL"]
+        },
+        {
+          "label": "Low Adherence (<70% session completion or significant lifestyle disruption)",
+          "multiplier": 1.3,
+          "direction": "extends",
+          "rationale": "Insufficient stimulus for tissue adaptation; risk of setback and re-injury. May indicate need for psychological or social support intervention.",
+          "pmid_sources": ["37588949"],
+          "apply_to_injuries": ["ALL"]
+        }
+      ]
+    }
+  ],
+  "composite_modifier_example": {
+    "description": "Example: 17-year-old recreational male soccer player, ACL reconstruction, poor sleep, moderate nutrition, first-time injury, moderate psychological readiness, moderate adherence",
+    "base_typical_days": 270,
+    "modifiers_applied": [
+      {"factor": "Age: Adolescent 16-18", "multiplier": 1.15},
+      {"factor": "Athlete Level: Recreational", "multiplier": 1.2},
+      {"factor": "Sleep: Moderate Disruption", "multiplier": 1.0},
+      {"factor": "Nutrition: Suboptimal", "multiplier": 1.1},
+      {"factor": "Injury History: First time", "multiplier": 1.0},
+      {"factor": "Psychological: Moderate (ACL-RSI 55)", "multiplier": 1.0},
+      {"factor": "Adherence: Moderate", "multiplier": 1.0}
+    ],
+    "composite_multiplier": 1.265,
+    "estimated_adjusted_days": 341,
+    "note": "Product of modifiers: 1.15 × 1.2 × 1.0 × 1.1 × 1.0 × 1.0 × 1.0 = 1.518 → capped at 1.4 per clinical ceiling → 270 × 1.4 = 378 days. Clinical judgment should always prevail."
+  }
+}

@@ -1,0 +1,2397 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created": "2026-06-22",
+    "sources": "PubMed evidence-based research (30+ queries)",
+    "total_injuries": 28,
+    "body_regions": ["thigh", "knee", "ankle_foot", "shoulder", "elbow", "hip", "lower_leg", "spine", "head"],
+    "pmid_attribution": "Data sourced from PubMed articles. All PMIDs reference peer-reviewed literature retrieved from PubMed (https://pubmed.ncbi.nlm.nih.gov/)."
+  },
+  "classification_systems": {
+    "muscle_injury": [
+      {
+        "name": "British Athletics Muscle Injury Classification (BAMIC)",
+        "grades": ["0a", "0b", "0c", "1a", "1b", "1c", "2a", "2b", "2c", "3a", "3b", "3c", "4"],
+        "basis": "MRI - injury location within muscle (a=myofascial, b=muscle belly, c=musculotendinous junction) and severity",
+        "pmid_sources": ["36650035", "34740516", "40801936"]
+      },
+      {
+        "name": "Munich Consensus Injury Classification (MCIC)",
+        "grades": ["0 (Indirect functional)", "1 (Direct structural)", "2 (Partial tear)", "3 (Complete rupture)"],
+        "basis": "MRI - structural vs. functional, anatomical location",
+        "pmid_sources": ["40801936"]
+      },
+      {
+        "name": "Traditional Grade 1/2/3 System",
+        "grades": ["Grade 1 (mild, <5% fiber disruption)", "Grade 2 (moderate, partial tear)", "Grade 3 (complete rupture)"],
+        "basis": "Clinical + imaging",
+        "pmid_sources": ["31683363"]
+      }
+    ],
+    "ligament_injury": [
+      {
+        "name": "Standard Ligament Sprain Classification",
+        "grades": ["Grade 1 (mild stretch, microscopic tears, full strength)", "Grade 2 (partial tear, moderate laxity)", "Grade 3 (complete rupture, gross instability)"],
+        "basis": "Clinical examination, stress testing",
+        "pmid_sources": ["30414650", "18674420", "16971243"]
+      }
+    ],
+    "tendinopathy": [
+      {
+        "name": "Cook-Purdam Continuum Model",
+        "stages": ["Reactive tendinopathy (acute overload)", "Tendon dysrepair (failed healing)", "Degenerative tendinopathy (chronic)"],
+        "outcome_tools": ["VISA-P (patellar)", "VISA-A (Achilles)"],
+        "pmid_sources": ["32044845", "20517802"]
+      }
+    ],
+    "bone_stress": [
+      {
+        "name": "MRI Grading for Bone Stress Injuries",
+        "grades": [
+          "Grade 1: periosteal edema on fat-suppressed MRI, no cortical signal abnormality",
+          "Grade 2: periosteal edema + medullary signal change, no fracture line",
+          "Grade 3: periosteal edema + medullary signal + cortical involvement",
+          "Grade 4: fracture line visible on MRI"
+        ],
+        "pmid_sources": ["26616181"]
+      }
+    ],
+    "ankle_sprain_ottawa": {
+      "name": "Ottawa Ankle Rules",
+      "description": "Clinical decision tool for excluding fractures after ankle sprain",
+      "criteria": [
+        "Bone tenderness at posterior tip or distal 6cm of fibula",
+        "Bone tenderness at posterior tip or distal 6cm of tibia",
+        "Inability to bear weight immediately and in ED",
+        "Bone tenderness at navicular or base of 5th metatarsal"
+      ],
+      "sensitivity": 0.98,
+      "specificity": 0.40,
+      "pmid_sources": ["30414650", "18674420"]
+    }
+  },
+  "injuries": [
+    {
+      "injury_id": "HST_001",
+      "injury_name": "Hamstring Strain",
+      "body_region": "thigh",
+      "sub_region": "posterior",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "BAMIC 1a/1b: Mild myofascial or muscle belly injury, minimal fiber disruption (<5%), intact architecture",
+          "typical_return_days_min": 7,
+          "typical_return_days_max": 21
+        },
+        {
+          "grade": 2,
+          "description": "BAMIC 2a/2b/2c: Moderate partial tear, significant fiber disruption, possible musculotendinous junction involvement",
+          "typical_return_days_min": 14,
+          "typical_return_days_max": 42
+        },
+        {
+          "grade": 3,
+          "description": "BAMIC 3a/3b/3c or 4: Severe partial-to-complete tear, may involve intramuscular tendon; each BAMIC grade increase = ~3 additional days recovery",
+          "typical_return_days_min": 28,
+          "typical_return_days_max": 84
+        }
+      ],
+      "mechanisms": [
+        "High-speed sprinting (most common non-contact mechanism)",
+        "Sudden acceleration or deceleration",
+        "Overstretching during kicking or lunging",
+        "Fatigue-related during late game/race",
+        "Passing, stretching actions"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Posterior thigh pain during or immediately after sprinting",
+          "Tenderness on palpation of posterior thigh",
+          "Pain with resisted knee flexion",
+          "Pain with passive hip flexion + knee extended (active slump)"
+        ],
+        "high_specificity": [
+          "MRI signal change on fat-suppressed sequences",
+          "Ultrasound confirmation of fiber disruption",
+          "BAMIC grading by radiologist (Kappa 0.506)",
+          "Pain on palpation at specific muscle belly vs. musculotendinous junction"
+        ],
+        "clinical_tests": [
+          {
+            "name": "Active knee extension test",
+            "sensitivity": 0.89,
+            "specificity": 0.72
+          },
+          {
+            "name": "Palpation of posterior thigh",
+            "sensitivity": 0.92,
+            "specificity": 0.55
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "Football/soccer (highest incidence)",
+        "Athletics/sprinting",
+        "Rugby",
+        "Australian rules football",
+        "Previous hamstring injury (strongest predictor of re-injury)",
+        "Being removed from play rather than self-withdrawing"
+      ],
+      "prevalence_pct": 12.0,
+      "pmid_sources": ["34740516", "36650035", "40801936"]
+    },
+    {
+      "injury_id": "QDC_001",
+      "injury_name": "Quadriceps Strain",
+      "body_region": "thigh",
+      "sub_region": "anterior",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Mild: minimal fiber disruption, localized anterior thigh pain, full strength",
+          "typical_return_days_min": 5,
+          "typical_return_days_max": 14
+        },
+        {
+          "grade": 2,
+          "description": "Moderate: partial tear, significant pain with resisted knee extension, palpable defect possible",
+          "typical_return_days_min": 14,
+          "typical_return_days_max": 35
+        },
+        {
+          "grade": 3,
+          "description": "Severe: complete or near-complete tear, significant functional deficit, may require surgical consultation",
+          "typical_return_days_min": 30,
+          "typical_return_days_max": 90
+        }
+      ],
+      "mechanisms": [
+        "Eccentric overload during sprinting",
+        "Direct kick/impact (contusion leading to strain)",
+        "Sudden forceful knee extension",
+        "Overstretch with hip extended and knee flexed"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Anterior thigh pain with resisted knee extension",
+          "Tenderness on palpation of quadriceps bulk",
+          "Pain with passive knee flexion (stretch)"
+        ],
+        "high_specificity": [
+          "MRI/ultrasound confirming fiber disruption at rectus femoris or vastus intermedius",
+          "BAMIC or MCIC classification via imaging"
+        ],
+        "clinical_tests": [
+          {
+            "name": "Resisted knee extension pain provocation",
+            "sensitivity": 0.85,
+            "specificity": 0.65
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "Football/soccer (kicking sports)",
+        "Rugby",
+        "Sprinting events",
+        "Contact sports (direct blow contusion)"
+      ],
+      "prevalence_pct": 8.0,
+      "pmid_sources": ["40801936", "36650035"]
+    },
+    {
+      "injury_id": "ACL_001",
+      "injury_name": "Anterior Cruciate Ligament Tear",
+      "body_region": "knee",
+      "sub_region": "intra-articular",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Partial ACL tear: some fibers intact, minimal laxity, no complete instability",
+          "typical_return_days_min": 42,
+          "typical_return_days_max": 90
+        },
+        {
+          "grade": 2,
+          "description": "Significant partial tear: increased laxity, functional instability in high-demand activities",
+          "typical_return_days_min": 90,
+          "typical_return_days_max": 180
+        },
+        {
+          "grade": 3,
+          "description": "Complete rupture: gross instability, positive pivot shift, typically requires reconstruction; return 9-12 months post-surgery",
+          "typical_return_days_min": 270,
+          "typical_return_days_max": 365
+        }
+      ],
+      "mechanisms": [
+        "Non-contact: valgus collapse during landing or cutting (most common female mechanism)",
+        "Non-contact: deceleration + pivoting",
+        "Contact: valgus force at knee (tackle, collision)",
+        "Hyperextension mechanism",
+        "Rotational force during change of direction"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Acute onset knee pain with audible pop",
+          "Rapid hemarthrosis (within 2 hours)",
+          "Subjective giving way or instability",
+          "Positive Lachman test (>3mm anterior translation)"
+        ],
+        "high_specificity": [
+          "Positive pivot shift test (pathognomonic for ACL deficiency)",
+          "MRI T2 signal change at ACL",
+          "Dynamic ultrasound Lachman (cutoff 2.6mm: sensitivity 80%, specificity 90%)"
+        ],
+        "clinical_tests": [
+          {
+            "name": "Lachman test",
+            "sensitivity": 0.85,
+            "specificity": 0.94
+          },
+          {
+            "name": "Anterior drawer test",
+            "sensitivity": 0.62,
+            "specificity": 0.88
+          },
+          {
+            "name": "Pivot shift test",
+            "sensitivity": 0.56,
+            "specificity": 0.98
+          },
+          {
+            "name": "Dynamic handheld ultrasound Lachman",
+            "sensitivity": 0.80,
+            "specificity": 0.90
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "Football/soccer",
+        "Basketball",
+        "Skiing",
+        "Rugby",
+        "Female athletes (2-8x higher risk than males)",
+        "Adolescents with open growth plates",
+        "Previous ACL injury (highest re-injury risk)"
+      ],
+      "prevalence_pct": 3.5,
+      "pmid_sources": ["41509056", "42315273", "38910689"]
+    },
+    {
+      "injury_id": "MCL_001",
+      "injury_name": "Medial Collateral Ligament Sprain (Knee)",
+      "body_region": "knee",
+      "sub_region": "medial",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Mild stretch: microscopic tears, no laxity, localized medial joint tenderness",
+          "typical_return_days_min": 7,
+          "typical_return_days_max": 14
+        },
+        {
+          "grade": 2,
+          "description": "Partial tear: moderate laxity with firm endpoint, significant pain. HBO2 group return ~31 days vs 42 days standard care",
+          "typical_return_days_min": 21,
+          "typical_return_days_max": 45
+        },
+        {
+          "grade": 3,
+          "description": "Complete rupture: gross valgus laxity, no endpoint; may require surgery if combined with ACL injury",
+          "typical_return_days_min": 42,
+          "typical_return_days_max": 120
+        }
+      ],
+      "mechanisms": [
+        "Direct valgus blow to lateral knee (most common)",
+        "Contact during tackle",
+        "Clip or block (football)",
+        "Ski fall with binding engagement",
+        "Non-contact valgus collapse during landing"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Medial joint line tenderness on palpation",
+          "Pain with valgus stress at 30 degrees knee flexion",
+          "Swelling over medial aspect"
+        ],
+        "high_specificity": [
+          "Valgus stress test with measurable laxity (>3mm opening = Grade 2, no endpoint = Grade 3)",
+          "MRI confirms location: superficial vs. deep MCL"
+        ],
+        "clinical_tests": [
+          {
+            "name": "Valgus stress test at 30 degrees",
+            "sensitivity": 0.91,
+            "specificity": 0.82
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "Rugby (most common)",
+        "Football/soccer",
+        "Ice hockey",
+        "Skiing",
+        "Wrestling"
+      ],
+      "prevalence_pct": 7.0,
+      "pmid_sources": ["31683363"]
+    },
+    {
+      "injury_id": "MEN_001",
+      "injury_name": "Meniscus Tear",
+      "body_region": "knee",
+      "sub_region": "intra-articular",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Grade 1 MRI: intrasubstance signal change not reaching articular surface (often incidental)",
+          "typical_return_days_min": 0,
+          "typical_return_days_max": 14
+        },
+        {
+          "grade": 2,
+          "description": "Grade 2 MRI: horizontal or linear signal not reaching surface",
+          "typical_return_days_min": 14,
+          "typical_return_days_max": 42
+        },
+        {
+          "grade": 3,
+          "description": "Grade 3 MRI: signal reaching articular surface = true tear; classified by pattern (vertical, horizontal, radial, complex, root tear)",
+          "typical_return_days_min": 28,
+          "typical_return_days_max": 180
+        }
+      ],
+      "mechanisms": [
+        "Twisting/rotation on planted foot (acute tear)",
+        "Deep squat with forceful extension",
+        "Valgus/varus force combined with rotation",
+        "Degenerative: repetitive loading, no specific incident",
+        "Combined ACL injury (associated medial meniscus tear)"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Joint line tenderness (medial or lateral)",
+          "Pain with deep knee flexion",
+          "Locking or catching sensation",
+          "Delayed swelling (6-24 hours post-injury)"
+        ],
+        "high_specificity": [
+          "McMurray test positive (click/pain with rotation)",
+          "Thessaly test at 20 degrees",
+          "MRI Grade 3 signal at appropriate meniscal zone"
+        ],
+        "clinical_tests": [
+          {
+            "name": "McMurray test",
+            "sensitivity": 0.70,
+            "specificity": 0.71
+          },
+          {
+            "name": "Thessaly test at 20 degrees",
+            "sensitivity": 0.89,
+            "specificity": 0.97
+          },
+          {
+            "name": "Joint line tenderness",
+            "sensitivity": 0.77,
+            "specificity": 0.62
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "Football/soccer",
+        "Basketball",
+        "Skiing",
+        "Rugby",
+        "Gymnastics",
+        "Age > 35 (degenerative tears increase)"
+      ],
+      "prevalence_pct": 6.5,
+      "pmid_sources": ["42099183", "41367768"]
+    },
+    {
+      "injury_id": "PAT_TEN_001",
+      "injury_name": "Patellar Tendinopathy (Jumper's Knee)",
+      "body_region": "knee",
+      "sub_region": "anterior",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Blazina Stage 1: Pain only after activity, does not interfere with performance",
+          "typical_return_days_min": 7,
+          "typical_return_days_max": 21
+        },
+        {
+          "grade": 2,
+          "description": "Blazina Stage 2: Pain at beginning and after activity, satisfactory performance maintained",
+          "typical_return_days_min": 21,
+          "typical_return_days_max": 56
+        },
+        {
+          "grade": 3,
+          "description": "Blazina Stage 3: Pain during and after activity, unable to perform; VISA-P score <40/100 indicates severe impairment",
+          "typical_return_days_min": 60,
+          "typical_return_days_max": 180
+        }
+      ],
+      "mechanisms": [
+        "Overuse: repetitive jumping and landing",
+        "Rapid increase in training load",
+        "Hard training surfaces",
+        "Poor quad flexibility / strength imbalance",
+        "Inadequate recovery periods"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Proximal patellar tendon tenderness on palpation",
+          "Pain with single-leg squat",
+          "Pain with resisted knee extension",
+          "VISA-P score <80/100"
+        ],
+        "high_specificity": [
+          "Ultrasound: hypoechoic area at proximal patellar tendon",
+          "MRI: intrasubstance signal at proximal attachment",
+          "VISA-P reliability ICC = 0.94 (meta-analysis of 12 studies)"
+        ],
+        "clinical_tests": [
+          {
+            "name": "VISA-P questionnaire",
+            "sensitivity": 0.90,
+            "specificity": 0.78
+          },
+          {
+            "name": "Single-leg decline squat pain provocation",
+            "sensitivity": 0.85,
+            "specificity": 0.80
+          },
+          {
+            "name": "Palpation proximal patellar tendon",
+            "sensitivity": 0.88,
+            "specificity": 0.66
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "Volleyball (highest prevalence ~45%)",
+        "Basketball (~32%)",
+        "Track and field (jumping events)",
+        "Handball",
+        "Football/soccer",
+        "Elite vs recreational athletes (higher risk elite)",
+        "Hard training surfaces"
+      ],
+      "prevalence_pct": 14.0,
+      "pmid_sources": ["32044845", "24366015", "41742200"]
+    },
+    {
+      "injury_id": "PFP_001",
+      "injury_name": "Patellofemoral Pain Syndrome",
+      "body_region": "knee",
+      "sub_region": "patellofemoral",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Mild: pain with prolonged activity only, no restriction of daily activities",
+          "typical_return_days_min": 7,
+          "typical_return_days_max": 21
+        },
+        {
+          "grade": 2,
+          "description": "Moderate: pain with moderate activity, some restriction; Kujala score 65-80",
+          "typical_return_days_min": 14,
+          "typical_return_days_max": 56
+        },
+        {
+          "grade": 3,
+          "description": "Severe: pain at rest or minimal activity; Kujala score <65; chondral changes may be present",
+          "typical_return_days_min": 42,
+          "typical_return_days_max": 120
+        }
+      ],
+      "mechanisms": [
+        "Overuse: repetitive knee loading",
+        "Training load spike (runners, cyclists)",
+        "Biomechanical: excessive contralateral pelvic drop (1 degree increase = 80% odds increase)",
+        "Weak hip abductors and external rotators",
+        "Altered vastus medialis timing"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Anterior or retropatellar knee pain with activity",
+          "Pain worse on stairs, squatting, prolonged sitting",
+          "Peripatellar or retropatellar tenderness on palpation",
+          "Crepitus with knee movement"
+        ],
+        "high_specificity": [
+          "Patellar grind test positive",
+          "Clarke's sign (painful inhibition test)",
+          "Exclusion of other knee pathology (meniscal, ligamentous)"
+        ],
+        "clinical_tests": [
+          {
+            "name": "Patellar grind / compression test",
+            "sensitivity": 0.39,
+            "specificity": 0.67
+          },
+          {
+            "name": "Squatting pain provocation",
+            "sensitivity": 0.91,
+            "specificity": 0.50
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "Running (most common in runners)",
+        "Cycling (prepatellar friction most common ~46% of cyclists)",
+        "Skiing",
+        "Jumping sports",
+        "Female athletes (2x higher risk)",
+        "Excessive contralateral pelvic drop (biomechanical)"
+      ],
+      "prevalence_pct": 16.0,
+      "pmid_sources": ["40414550", "33418617", "30193080"]
+    },
+    {
+      "injury_id": "ITB_001",
+      "injury_name": "Iliotibial Band Syndrome",
+      "body_region": "knee",
+      "sub_region": "lateral",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Mild: pain after exercise only, does not limit activity",
+          "typical_return_days_min": 7,
+          "typical_return_days_max": 21
+        },
+        {
+          "grade": 2,
+          "description": "Moderate: pain during exercise, limits activity",
+          "typical_return_days_min": 14,
+          "typical_return_days_max": 42
+        },
+        {
+          "grade": 3,
+          "description": "Severe: pain with all activity including walking; chronic friction bursitis",
+          "typical_return_days_min": 28,
+          "typical_return_days_max": 84
+        }
+      ],
+      "mechanisms": [
+        "Overuse: repetitive knee flexion-extension (running, cycling)",
+        "Rapid mileage increase in runners",
+        "Downhill running",
+        "Biomechanical: excessive contralateral pelvic drop, hip abductor weakness",
+        "Cambered road running (same side traffic exposure)"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Lateral knee pain approximately 2-3 cm proximal to lateral joint line",
+          "Pain onset at consistent distance/time during run",
+          "Ober test positive for IT band tightness"
+        ],
+        "high_specificity": [
+          "Noble compression test (maximum tenderness at 30 degrees knee flexion)",
+          "MRI: signal change in IT band at lateral femoral condyle"
+        ],
+        "clinical_tests": [
+          {
+            "name": "Noble compression test",
+            "sensitivity": 0.80,
+            "specificity": 0.70
+          },
+          {
+            "name": "Ober test",
+            "sensitivity": 0.75,
+            "specificity": 0.55
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "Long-distance running (most prevalent)",
+        "Cycling (3.7% of overuse knee injuries in cyclists)",
+        "Triathlon",
+        "Weak hip abductors",
+        "Excessive training load increases",
+        "Female runners"
+      ],
+      "prevalence_pct": 7.0,
+      "pmid_sources": ["35391855", "33418617", "30193080"]
+    },
+    {
+      "injury_id": "ANK_LAT_001",
+      "injury_name": "Lateral Ankle Sprain",
+      "body_region": "ankle_foot",
+      "sub_region": "lateral ligament complex",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Grade I: ATFL stretch, minimal swelling, full weight-bearing, normal stress radiographs. Return to sport: days to 1 week",
+          "typical_return_days_min": 3,
+          "typical_return_days_max": 10
+        },
+        {
+          "grade": 2,
+          "description": "Grade II: Partial ATFL tear (+/- CFL), moderate swelling, pain with weight-bearing, mild laxity. Ottawa Rules negative for fracture typically",
+          "typical_return_days_min": 7,
+          "typical_return_days_max": 21
+        },
+        {
+          "grade": 3,
+          "description": "Grade IIIA/IIIB (expanded): Complete ATFL (+/- CFL) rupture. IIIA: <10 degrees talar tilt; IIIB: >10 degrees talar tilt or >3mm anterior drawer vs. contralateral",
+          "typical_return_days_min": 21,
+          "typical_return_days_max": 84
+        }
+      ],
+      "mechanisms": [
+        "Inversion + plantarflexion (most common mechanism)",
+        "Landing from jump on uneven surface",
+        "Cutting movements",
+        "Stepping off curb unexpectedly",
+        "Contact: player landing on another's foot"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Lateral ankle pain after inversion mechanism",
+          "Swelling and ecchymosis over ATFL",
+          "Tenderness on palpation of anterior talofibular ligament",
+          "Ottawa Ankle Rules for excluding fracture (sensitivity 98%)"
+        ],
+        "high_specificity": [
+          "Anterior drawer test >3mm or >3mm vs. contralateral",
+          "Talar tilt test >10 degrees",
+          "Stress radiographs (if clinically indicated)",
+          "MRI if Grade III suspected or chronic instability"
+        ],
+        "clinical_tests": [
+          {
+            "name": "Ottawa Ankle Rules",
+            "sensitivity": 0.98,
+            "specificity": 0.40
+          },
+          {
+            "name": "Anterior drawer test",
+            "sensitivity": 0.73,
+            "specificity": 0.97
+          },
+          {
+            "name": "Talar tilt test",
+            "sensitivity": 0.50,
+            "specificity": 0.88
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "Basketball (highest incidence)",
+        "Football/soccer",
+        "Volleyball",
+        "Gymnastics",
+        "Previous ankle sprain (strongest risk factor)",
+        "Playing on uneven surfaces"
+      ],
+      "prevalence_pct": 25.0,
+      "pmid_sources": ["30414650", "18674420", "16971243", "30910488"]
+    },
+    {
+      "injury_id": "ANK_SYN_001",
+      "injury_name": "Ankle Syndesmosis Injury (High Ankle Sprain)",
+      "body_region": "ankle_foot",
+      "sub_region": "distal tibiofibular syndesmosis",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Grade I: Sprain only, stable syndesmosis on stress radiograph",
+          "typical_return_days_min": 14,
+          "typical_return_days_max": 28
+        },
+        {
+          "grade": 2,
+          "description": "Grade II: Partial disruption, equivocal stability",
+          "typical_return_days_min": 21,
+          "typical_return_days_max": 56
+        },
+        {
+          "grade": 3,
+          "description": "Grade III: Complete disruption, tibiofibular diastasis on stress radiograph; often requires surgical stabilization. Chronic symptoms in 23.6% if untreated >2 months",
+          "typical_return_days_min": 56,
+          "typical_return_days_max": 120
+        }
+      ],
+      "mechanisms": [
+        "External rotation of foot on planted ankle",
+        "Forced dorsiflexion",
+        "Contact with external rotation force",
+        "Clipping tackle in football",
+        "Misidentified as lateral ankle sprain (incidence 1-16% of all ankle sprains)"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Pain proximal to ankle joint (above lateral malleolus)",
+          "External rotation stress test positive",
+          "Squeeze test (proximal fibula compression) positive",
+          "Pain with dorsiflexion"
+        ],
+        "high_specificity": [
+          "Stress radiograph showing tibiofibular diastasis",
+          "MRI confirming interosseous membrane disruption",
+          "Cotton test (lateral drawer of fibula relative to tibia)"
+        ],
+        "clinical_tests": [
+          {
+            "name": "External rotation stress test",
+            "sensitivity": 0.71,
+            "specificity": 0.63
+          },
+          {
+            "name": "Squeeze test",
+            "sensitivity": 0.30,
+            "specificity": 0.93
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "American football (high incidence)",
+        "Rugby",
+        "Ice hockey",
+        "Alpine skiing",
+        "Football/soccer"
+      ],
+      "prevalence_pct": 5.0,
+      "pmid_sources": ["23218625"]
+    },
+    {
+      "injury_id": "ACH_TEN_001",
+      "injury_name": "Achilles Tendinopathy",
+      "body_region": "ankle_foot",
+      "sub_region": "posterior",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Reactive/Early (VISA-A 70-100): pain only after activity, no structural change on imaging",
+          "typical_return_days_min": 7,
+          "typical_return_days_max": 21
+        },
+        {
+          "grade": 2,
+          "description": "Tendon dysrepair/Moderate (VISA-A 40-70): pain during and after activity, degenerative changes on ultrasound, Curwin-Stanish Grade 3-4",
+          "typical_return_days_min": 21,
+          "typical_return_days_max": 84
+        },
+        {
+          "grade": 3,
+          "description": "Degenerative (VISA-A <40): persistent pain limiting all sport, neovascularization on Doppler, possible calcific deposits",
+          "typical_return_days_min": 84,
+          "typical_return_days_max": 180
+        }
+      ],
+      "mechanisms": [
+        "Overuse: repetitive running/jumping",
+        "Sudden training load increase",
+        "Stiff footwear or heel drop",
+        "Poor ankle dorsiflexion mobility",
+        "Fluoroquinolone antibiotic use (iatrogenic risk)"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Pain 2-6 cm proximal to calcaneal insertion (mid-portion) or at insertion",
+          "Morning stiffness improving with activity",
+          "Tenderness on palpation with pinch compression",
+          "VISA-A score < 70"
+        ],
+        "high_specificity": [
+          "Ultrasound: hypoechoic area, neovascularization on Doppler",
+          "MRI: signal change in tendon substance",
+          "VISA-A-G ICC = 0.96 (validated German version, rho -0.95 vs. Curwin-Stanish)"
+        ],
+        "clinical_tests": [
+          {
+            "name": "VISA-A questionnaire",
+            "sensitivity": 0.88,
+            "specificity": 0.82
+          },
+          {
+            "name": "Painful arc sign (tendon movement with passive dorsiflexion)",
+            "sensitivity": 0.80,
+            "specificity": 0.84
+          },
+          {
+            "name": "Royal London Hospital test",
+            "sensitivity": 0.52,
+            "specificity": 0.83
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "Running (highest prevalence ~9%)",
+        "Volleyball",
+        "Basketball",
+        "Tennis",
+        "Age 35-45 (masters athletes peak)",
+        "Male sex (2x more prevalent)"
+      ],
+      "prevalence_pct": 9.0,
+      "pmid_sources": ["20517802", "28394684", "19503640"]
+    },
+    {
+      "injury_id": "ACH_RUP_001",
+      "injury_name": "Achilles Tendon Rupture",
+      "body_region": "ankle_foot",
+      "sub_region": "posterior",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Partial rupture (<50% cross-sectional area): Thompson test negative or equivocal, surgical vs. conservative based on MRI findings",
+          "typical_return_days_min": 90,
+          "typical_return_days_max": 180
+        },
+        {
+          "grade": 2,
+          "description": "Complete rupture: Thompson test positive, palpable gap, complete loss of plantarflexion strength. Conservative: 90-180 days. Surgical: 6-9 months",
+          "typical_return_days_min": 180,
+          "typical_return_days_max": 270
+        }
+      ],
+      "mechanisms": [
+        "Sudden push-off (sprinting, jumping) - non-contact",
+        "Sudden change of direction",
+        "Forced dorsiflexion (fall downstairs)",
+        "Pre-existing tendinopathy (degeneration)  increases risk",
+        "Fluoroquinolone-associated rupture"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Sudden calf pain with sensation of being struck or kicked",
+          "Inability to stand on tiptoe",
+          "Palpable gap 2-6cm above calcaneus",
+          "Thompson/Simmonds test positive (absent plantarflexion with calf squeeze)"
+        ],
+        "high_specificity": [
+          "Thompson-Simmonds test: specific for complete rupture",
+          "MRI: confirms complete vs. partial and gap length (guides surgical planning)"
+        ],
+        "clinical_tests": [
+          {
+            "name": "Thompson-Simmonds test",
+            "sensitivity": 0.96,
+            "specificity": 0.93
+          },
+          {
+            "name": "Palpable gap",
+            "sensitivity": 0.73,
+            "specificity": 0.89
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "Recreational athletes 35-50 years (weekend warrior pattern)",
+        "Basketball",
+        "Racquet sports",
+        "Football",
+        "Male sex (5:1 male:female ratio)"
+      ],
+      "prevalence_pct": 1.5,
+      "pmid_sources": ["28394684", "19503640"]
+    },
+    {
+      "injury_id": "PLF_001",
+      "injury_name": "Plantar Fasciitis",
+      "body_region": "ankle_foot",
+      "sub_region": "plantar heel",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Mild: morning pain resolving within minutes, does not limit activity",
+          "typical_return_days_min": 14,
+          "typical_return_days_max": 42
+        },
+        {
+          "grade": 2,
+          "description": "Moderate: pain with first steps, persists 15-30 minutes, limits high-impact activity",
+          "typical_return_days_min": 42,
+          "typical_return_days_max": 90
+        },
+        {
+          "grade": 3,
+          "description": "Severe: pain throughout day, limits walking, may have calcaneal heel spur on X-ray; chronic >6 months",
+          "typical_return_days_min": 90,
+          "typical_return_days_max": 365
+        }
+      ],
+      "mechanisms": [
+        "Overuse: repetitive loading of plantar fascia",
+        "Sudden training load increase (runners)",
+        "Tight gastrocnemius/soleus complex",
+        "Pes planus (flat foot) or pes cavus (high arch)",
+        "Obesity / rapid weight gain",
+        "Prolonged standing on hard surfaces"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Medial calcaneal heel pain, worst with first morning steps",
+          "Pain after prolonged rest then initial weight-bearing",
+          "Point tenderness at medial calcaneal tubercle",
+          "Pain with toe extension (Windlass test)"
+        ],
+        "high_specificity": [
+          "Windlass test (passive dorsiflexion of first MTP) reproducing heel pain",
+          "Ultrasound: plantar fascia thickness >4mm",
+          "MRI: signal change at calcaneal insertion"
+        ],
+        "clinical_tests": [
+          {
+            "name": "Windlass test",
+            "sensitivity": 0.32,
+            "specificity": 1.00
+          },
+          {
+            "name": "Palpation medial calcaneal tubercle",
+            "sensitivity": 0.84,
+            "specificity": 0.56
+          },
+          {
+            "name": "First step pain history",
+            "sensitivity": 0.85,
+            "specificity": 0.55
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "Running (most prevalent in runners)",
+        "Basketball",
+        "Dance",
+        "Military recruits",
+        "Masters athletes",
+        "BMI >27 (modifiable risk)"
+      ],
+      "prevalence_pct": 10.0,
+      "pmid_sources": ["41697693", "38652568", "38497651"]
+    },
+    {
+      "injury_id": "BSI_001",
+      "injury_name": "Bone Stress Injury / Stress Fracture",
+      "body_region": "lower_leg",
+      "sub_region": "tibia (most common site in runners)",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Grade 1 MRI: periosteal edema only. Low risk. Return: 2-4 weeks",
+          "typical_return_days_min": 14,
+          "typical_return_days_max": 28
+        },
+        {
+          "grade": 2,
+          "description": "Grade 2 MRI: periosteal + medullary edema. Low-moderate risk. Return: 4-6 weeks",
+          "typical_return_days_min": 28,
+          "typical_return_days_max": 42
+        },
+        {
+          "grade": 3,
+          "description": "Grade 3 MRI: periosteal + medullary + cortical involvement. Moderate-high risk. Return: 6-12 weeks",
+          "typical_return_days_min": 42,
+          "typical_return_days_max": 84
+        },
+        {
+          "grade": 4,
+          "description": "Grade 4 MRI: fracture line visible. High risk (femoral neck, anterior tibial cortex, navicular, 5th metatarsal = high-risk sites). Return: 12-24 weeks, may require surgery",
+          "typical_return_days_min": 84,
+          "typical_return_days_max": 168
+        }
+      ],
+      "mechanisms": [
+        "Cumulative repetitive loading exceeding bone remodeling capacity",
+        "Rapid training volume increase",
+        "Return to training after rest",
+        "Low energy availability / female athlete triad",
+        "Vitamin D and calcium deficiency",
+        "Biomechanical: high impact loading rates"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Localized bony tenderness with progressive exertion-related pain",
+          "Pain improving with rest",
+          "Hop test positive (tibial stress fracture)",
+          "Tuning fork vibration pain"
+        ],
+        "high_specificity": [
+          "MRI (gold standard): periosteal edema + marrow signal change on fat-suppressed sequences",
+          "DEXA: low bone mineral density",
+          "Bone scan: focal uptake (high sensitivity, lower specificity)"
+        ],
+        "clinical_tests": [
+          {
+            "name": "MRI grading 1-4",
+            "sensitivity": 0.99,
+            "specificity": 0.85
+          },
+          {
+            "name": "Single-leg hop test pain provocation (tibia)",
+            "sensitivity": 0.78,
+            "specificity": 0.70
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "Running (20% annual rate in runners)",
+        "Military recruits",
+        "Dance/ballet",
+        "Female athletes (female athlete triad)",
+        "Track and field",
+        "Low bone mineral density",
+        "Previous bone stress injury"
+      ],
+      "prevalence_pct": 4.0,
+      "pmid_sources": ["26616181", "42074879"]
+    },
+    {
+      "injury_id": "MTSS_001",
+      "injury_name": "Medial Tibial Stress Syndrome (Shin Splints)",
+      "body_region": "lower_leg",
+      "sub_region": "posteromedial tibia",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Mild: pain after exercise only, diffuse posteromedial tibial tenderness >5cm",
+          "typical_return_days_min": 7,
+          "typical_return_days_max": 21
+        },
+        {
+          "grade": 2,
+          "description": "Moderate: pain during exercise but not preventing completion; affects up to 20% of runners",
+          "typical_return_days_min": 21,
+          "typical_return_days_max": 42
+        },
+        {
+          "grade": 3,
+          "description": "Severe: pain preventing exercise; must exclude stress fracture via MRI",
+          "typical_return_days_min": 28,
+          "typical_return_days_max": 84
+        }
+      ],
+      "mechanisms": [
+        "Overuse: repetitive running and jumping",
+        "Rapid training increase",
+        "Overpronation",
+        "Female sex (higher risk)",
+        "Low bone mineral density",
+        "Running surface changes"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Diffuse posteromedial tibial pain (>5cm length) with exertion",
+          "Pain improving with rest",
+          "Tenderness along posteromedial tibial border",
+          "Pain with resisted ankle dorsiflexion"
+        ],
+        "high_specificity": [
+          "MRI: periosteal edema along posteromedial tibia without fracture line (differentiates from stress fracture)",
+          "DEXA: low bone density"
+        ],
+        "clinical_tests": [
+          {
+            "name": "Posteromedial tibial palpation >5cm",
+            "sensitivity": 0.85,
+            "specificity": 0.62
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "Running (most prevalent)",
+        "Military recruits",
+        "Female athletes (1.7x higher risk)",
+        "Dancers",
+        "Soccer players",
+        "High weekly mileage"
+      ],
+      "prevalence_pct": 13.0,
+      "pmid_sources": ["40483161", "32015745", "29880657"]
+    },
+    {
+      "injury_id": "ROT_CUF_001",
+      "injury_name": "Rotator Cuff Tear",
+      "body_region": "shoulder",
+      "sub_region": "supraspinatus / infraspinatus",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Partial thickness tear: <50% tendon depth involved; GOUTALLIER classification 0-1 (no fatty infiltration)",
+          "typical_return_days_min": 28,
+          "typical_return_days_max": 84
+        },
+        {
+          "grade": 2,
+          "description": "Partial thickness: >50% tendon depth or small full thickness (<1cm); conservative treatment first",
+          "typical_return_days_min": 56,
+          "typical_return_days_max": 120
+        },
+        {
+          "grade": 3,
+          "description": "Full thickness tear: Cofield classification small (<1cm), medium (1-3cm), large (3-5cm), massive (>5cm). Surgery often required for athletes. Return 9-12 months post-repair",
+          "typical_return_days_min": 180,
+          "typical_return_days_max": 365
+        }
+      ],
+      "mechanisms": [
+        "Overhead throwing (chronic overuse leading to partial tear)",
+        "Fall on outstretched hand",
+        "Forced abduction / external rotation",
+        "Repetitive overhead sport (swimming, tennis, baseball)",
+        "Acute traumatic: heavy lifting or unexpected load",
+        "Degeneration with age (>40 years)"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Pain with shoulder abduction 60-120 degrees (painful arc)",
+          "Pain with overhead activity",
+          "Night pain in affected shoulder",
+          "Weakness with resisted external rotation"
+        ],
+        "high_specificity": [
+          "Drop arm test positive (complete tear)",
+          "MRI arthrogram (gold standard for partial tears)",
+          "Ultrasound (sensitivity 0.87, specificity 0.96 for full-thickness tears)"
+        ],
+        "clinical_tests": [
+          {
+            "name": "Drop arm test",
+            "sensitivity": 0.35,
+            "specificity": 0.99
+          },
+          {
+            "name": "Painful arc sign",
+            "sensitivity": 0.74,
+            "specificity": 0.81
+          },
+          {
+            "name": "Empty can (Jobe) test",
+            "sensitivity": 0.69,
+            "specificity": 0.66
+          },
+          {
+            "name": "External rotation lag sign",
+            "sensitivity": 0.79,
+            "specificity": 0.75
+          },
+          {
+            "name": "Ultrasound (full-thickness)",
+            "sensitivity": 0.87,
+            "specificity": 0.96
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "Baseball pitchers (highest rate)",
+        "Swimming (swimmer's shoulder)",
+        "Tennis",
+        "Volleyball (overhead athletes)",
+        "Water polo",
+        "Age >40 (degenerative tears prevalent)"
+      ],
+      "prevalence_pct": 8.0,
+      "pmid_sources": ["41549447", "41339877", "42226781"]
+    },
+    {
+      "injury_id": "SHO_IMP_001",
+      "injury_name": "Shoulder Impingement Syndrome",
+      "body_region": "shoulder",
+      "sub_region": "subacromial space",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Neer Stage I: edema and hemorrhage of rotator cuff (age <25), reversible with conservative care",
+          "typical_return_days_min": 7,
+          "typical_return_days_max": 21
+        },
+        {
+          "grade": 2,
+          "description": "Neer Stage II: fibrosis and tendinitis of cuff (age 25-40), usually responds to conservative care",
+          "typical_return_days_min": 21,
+          "typical_return_days_max": 84
+        },
+        {
+          "grade": 3,
+          "description": "Neer Stage III: bony changes and partial/complete cuff tear (age >40), may require surgery",
+          "typical_return_days_min": 84,
+          "typical_return_days_max": 180
+        }
+      ],
+      "mechanisms": [
+        "Repetitive overhead arm elevation",
+        "Internal impingement in throwers (posterior shoulder)",
+        "Acromion morphology (Type II/III hook)",
+        "Weak rotator cuff and scapular stabilizers",
+        "Poor posture (forward head, rounded shoulders)"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Neer impingement sign (pain with passive forward flexion)",
+          "Hawkins-Kennedy test positive (pain with internal rotation at 90 degrees)"
+        ],
+        "high_specificity": [
+          "Neer impingement test (pain relief with subacromial lidocaine injection)",
+          "MRI/ultrasound: subacromial bursal thickening or cuff changes"
+        ],
+        "clinical_tests": [
+          {
+            "name": "Neer impingement sign",
+            "sensitivity": 0.79,
+            "specificity": 0.53
+          },
+          {
+            "name": "Hawkins-Kennedy test",
+            "sensitivity": 0.79,
+            "specificity": 0.59
+          },
+          {
+            "name": "Neer impingement test (injection relief)",
+            "sensitivity": 0.88,
+            "specificity": 0.76
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "Swimming",
+        "Baseball / softball pitching",
+        "Tennis",
+        "Volleyball",
+        "Rowing",
+        "Overhead workers (occupational)"
+      ],
+      "prevalence_pct": 18.0,
+      "pmid_sources": ["41234447", "28655271", "28571725"]
+    },
+    {
+      "injury_id": "SLAP_001",
+      "injury_name": "SLAP Tear (Superior Labrum Anterior-Posterior)",
+      "body_region": "shoulder",
+      "sub_region": "glenoid labrum superior",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Snyder Type I: degenerative fraying, biceps anchor intact; typically no surgical intervention",
+          "typical_return_days_min": 14,
+          "typical_return_days_max": 42
+        },
+        {
+          "grade": 2,
+          "description": "Snyder Type II: biceps anchor detachment (most common, 55-75%); requires repair in overhead athletes; return 4-6 months",
+          "typical_return_days_min": 120,
+          "typical_return_days_max": 180
+        },
+        {
+          "grade": 3,
+          "description": "Snyder Type III/IV: bucket-handle tear or with biceps extension; typically requires debridement or repair; return 6-9 months",
+          "typical_return_days_min": 180,
+          "typical_return_days_max": 270
+        }
+      ],
+      "mechanisms": [
+        "Repetitive overhead throwing (chronic traction on biceps anchor)",
+        "Fall on outstretched hand with compression",
+        "Sudden traction on arm (catching weight)",
+        "Direct blow to shoulder",
+        "Forced internal rotation during follow-through (throwers)"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Deep shoulder aching, pain with overhead activities",
+          "Painful catching or popping in shoulder",
+          "Decreased throwing velocity in pitchers"
+        ],
+        "high_specificity": [
+          "MRI arthrogram (preferred imaging, though sensitivity varies)",
+          "O'Brien active compression test (positive with pain in pronation vs. supination)",
+          "Arthroscopy (gold standard)"
+        ],
+        "clinical_tests": [
+          {
+            "name": "O'Brien active compression test",
+            "sensitivity": 0.47,
+            "specificity": 0.55
+          },
+          {
+            "name": "Speed's test",
+            "sensitivity": 0.32,
+            "specificity": 0.61
+          },
+          {
+            "name": "MRI arthrogram",
+            "sensitivity": 0.82,
+            "specificity": 0.98
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "Baseball (pitchers highest incidence)",
+        "Softball pitchers",
+        "Volleyball (overhead serves)",
+        "Swimming (backstroke, butterfly)",
+        "Tennis",
+        "Weightlifting (overhead press)"
+      ],
+      "prevalence_pct": 6.0,
+      "pmid_sources": ["37954863", "26818554"]
+    },
+    {
+      "injury_id": "AC_001",
+      "injury_name": "Acromioclavicular Joint Injury",
+      "body_region": "shoulder",
+      "sub_region": "acromioclavicular joint",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Rockwood Type I: AC ligament sprain only, no displacement, normal radiographs",
+          "typical_return_days_min": 3,
+          "typical_return_days_max": 10
+        },
+        {
+          "grade": 2,
+          "description": "Rockwood Type II: AC ligament torn, CC ligament sprain; minimal displacement on radiograph",
+          "typical_return_days_min": 7,
+          "typical_return_days_max": 21
+        },
+        {
+          "grade": 3,
+          "description": "Rockwood Type III-VI: AC + CC ligament disruption, 25-100%+ clavicular elevation; Types IV-VI typically require surgery; Type III controversial",
+          "typical_return_days_min": 21,
+          "typical_return_days_max": 84
+        }
+      ],
+      "mechanisms": [
+        "Direct blow to superior or lateral shoulder (fall, tackle)",
+        "Fall on outstretched hand",
+        "Contact sport collision",
+        "Cycling fall (direct shoulder impact)"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Pain directly over AC joint",
+          "AC joint tenderness on palpation",
+          "Positive cross-arm adduction test",
+          "Palpable AC step deformity (Type III+)"
+        ],
+        "high_specificity": [
+          "Radiograph: weighted stress views showing clavicular elevation",
+          "MRI: useful for Type III classification and CC ligament status",
+          "Rockwood classification on radiograph (gold standard)"
+        ],
+        "clinical_tests": [
+          {
+            "name": "Cross-arm adduction test",
+            "sensitivity": 0.77,
+            "specificity": 0.79
+          },
+          {
+            "name": "AC joint palpation",
+            "sensitivity": 0.96,
+            "specificity": 0.75
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "Rugby (highest incidence in contact sports)",
+        "American football",
+        "Ice hockey",
+        "Cycling",
+        "Skiing",
+        "Combat sports (judo, wrestling)"
+      ],
+      "prevalence_pct": 9.0,
+      "pmid_sources": ["36535595", "41783397", "41507044"]
+    },
+    {
+      "injury_id": "LAT_EPI_001",
+      "injury_name": "Lateral Epicondylalgia (Tennis Elbow)",
+      "body_region": "elbow",
+      "sub_region": "lateral epicondyle",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Nirschl Stage 1-2: reversible inflammatory reaction; pain with activity only",
+          "typical_return_days_min": 7,
+          "typical_return_days_max": 28
+        },
+        {
+          "grade": 2,
+          "description": "Nirschl Stage 3-4: tendinosis (angiofibroblastic degeneration); pain limits activity",
+          "typical_return_days_min": 28,
+          "typical_return_days_max": 90
+        },
+        {
+          "grade": 3,
+          "description": "Nirschl Stage 5-7: significant tendon disruption or structural failure; may require surgery; chronic >6 months common",
+          "typical_return_days_min": 90,
+          "typical_return_days_max": 270
+        }
+      ],
+      "mechanisms": [
+        "Overuse: repetitive wrist extension and gripping",
+        "Backhand tennis stroke with poor technique",
+        "Occupational: repetitive forearm rotation",
+        "Sudden overload of wrist extensors",
+        "Poor equipment (heavy racquet, tight strings)"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Lateral elbow pain reproduced with wrist extension",
+          "Tenderness on palpation at lateral epicondyle / extensor carpi radialis brevis",
+          "Pain with resisted middle finger extension (Maudsley's test)"
+        ],
+        "high_specificity": [
+          "Mill's test: pain with forearm pronation + wrist flexion + elbow extension",
+          "Cozen's test: pain with resisted wrist extension from pronation",
+          "Ultrasound: tendon hypoechogenicity at lateral epicondyle"
+        ],
+        "clinical_tests": [
+          {
+            "name": "Cozen's test (resisted wrist extension)",
+            "sensitivity": 0.84,
+            "specificity": 0.72
+          },
+          {
+            "name": "Mill's test",
+            "sensitivity": 0.53,
+            "specificity": 0.87
+          },
+          {
+            "name": "Maudsley's test",
+            "sensitivity": 0.80,
+            "specificity": 0.75
+          },
+          {
+            "name": "Lateral epicondyle palpation",
+            "sensitivity": 0.92,
+            "specificity": 0.60
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "Tennis (especially recreational players with poor technique)",
+        "Racquet sports (badminton, squash)",
+        "Baseball (throwing)",
+        "Golf (lead arm)",
+        "Repetitive occupational tasks",
+        "Age 35-55 peak incidence"
+      ],
+      "prevalence_pct": 3.0,
+      "pmid_sources": ["42313885", "42264811", "42184399"]
+    },
+    {
+      "injury_id": "HIP_LAB_001",
+      "injury_name": "Hip Labral Tear",
+      "body_region": "hip",
+      "sub_region": "acetabular labrum",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Beck Grade 0-2 CLJ: Labral contusion or minor tear, chondrolabral junction intact or mildly affected. Conservative management appropriate",
+          "typical_return_days_min": 28,
+          "typical_return_days_max": 84
+        },
+        {
+          "grade": 2,
+          "description": "Beck Grade 3-4 CLJ: Significant tear with chondrolabral junction breakdown; hip arthroscopy if conservative fails. Return 4-6 months post-arthroscopy",
+          "typical_return_days_min": 120,
+          "typical_return_days_max": 180
+        }
+      ],
+      "mechanisms": [
+        "Repetitive hip flexion and rotation (dance, gymnastics, martial arts)",
+        "Femoroacetabular impingement (FAI) - cam or pincer morphology",
+        "Acute pivoting or twisting injury",
+        "Soccer/football kicking",
+        "Long-distance running (repetitive impact)"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Deep groin or anterior hip pain, often with C-sign",
+          "Pain with hip flexion and internal rotation",
+          "Clicking or locking sensation in hip",
+          "Pain with prolonged sitting"
+        ],
+        "high_specificity": [
+          "FADIR test (Flexion-Adduction-Internal Rotation): most sensitive clinical test",
+          "MRI arthrogram (gold standard, sensitivity 71-90%)",
+          "Intra-articular injection: diagnostic and therapeutic"
+        ],
+        "clinical_tests": [
+          {
+            "name": "FADIR test",
+            "sensitivity": 0.95,
+            "specificity": 0.56
+          },
+          {
+            "name": "FABER test",
+            "sensitivity": 0.88,
+            "specificity": 0.43
+          },
+          {
+            "name": "MRI arthrogram",
+            "sensitivity": 0.90,
+            "specificity": 0.91
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "Dance / ballet",
+        "Gymnastics",
+        "Martial arts",
+        "Ice hockey",
+        "Soccer/football",
+        "Long-distance running",
+        "CAM morphology (pistol grip deformity)"
+      ],
+      "prevalence_pct": 5.0,
+      "pmid_sources": ["38872427", "38670346"]
+    },
+    {
+      "injury_id": "GTPS_001",
+      "injury_name": "Greater Trochanteric Pain Syndrome (Gluteal Tendinopathy)",
+      "body_region": "hip",
+      "sub_region": "lateral hip",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Mild: lateral hip pain with prolonged activity, minimal functional limitation",
+          "typical_return_days_min": 14,
+          "typical_return_days_max": 42
+        },
+        {
+          "grade": 2,
+          "description": "Moderate: pain with walking, stairs, single-leg standing; gluteus medius/minimus tendinopathy on imaging",
+          "typical_return_days_min": 42,
+          "typical_return_days_max": 120
+        },
+        {
+          "grade": 3,
+          "description": "Severe: constant lateral hip/thigh pain, may extend distally; partial or full thickness gluteal tendon tear",
+          "typical_return_days_min": 90,
+          "typical_return_days_max": 180
+        }
+      ],
+      "mechanisms": [
+        "Overuse: repetitive hip abductor loading",
+        "Rapid increase in running mileage",
+        "Weak hip abductors causing increased tendon load",
+        "Compressive loading: crossing legs, side lying on hip",
+        "Biomechanical: excessive hip adduction (running)"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Lateral hip pain, greater trochanteric region",
+          "Pain with single-leg stance on affected side",
+          "Tenderness on palpation of greater trochanter",
+          "Pain with hip abduction against resistance"
+        ],
+        "high_specificity": [
+          "MRI: gluteus medius/minimus tendon signal change at trochanteric insertion",
+          "Ultrasound: gluteal tendon hypoechogenicity",
+          "IMPORTANT: clinical tests unable to differentiate specific pathoanatomical structure"
+        ],
+        "clinical_tests": [
+          {
+            "name": "Trendelenburg test",
+            "sensitivity": 0.73,
+            "specificity": 0.77
+          },
+          {
+            "name": "Single-leg squat pain provocation",
+            "sensitivity": 0.80,
+            "specificity": 0.65
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "Female athletes (2-4x more common)",
+        "Masters runners",
+        "Hip abductor weakness",
+        "BMI >27",
+        "IT band tightness",
+        "Rapid running mileage increase"
+      ],
+      "prevalence_pct": 4.0,
+      "pmid_sources": ["35391855"]
+    },
+    {
+      "injury_id": "ADD_STR_001",
+      "injury_name": "Adductor / Groin Strain",
+      "body_region": "hip",
+      "sub_region": "medial hip/groin",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Mild: minor adductor muscle-tendon injury, minimal strength loss, pain with resisted adduction only",
+          "typical_return_days_min": 5,
+          "typical_return_days_max": 14
+        },
+        {
+          "grade": 2,
+          "description": "Moderate: partial tear, significant pain and weakness with resisted adduction, antalgic gait possible",
+          "typical_return_days_min": 14,
+          "typical_return_days_max": 42
+        },
+        {
+          "grade": 3,
+          "description": "Severe: complete rupture, avulsion possible; gross weakness and ecchymosis; surgical consultation for complete avulsion",
+          "typical_return_days_min": 42,
+          "typical_return_days_max": 120
+        }
+      ],
+      "mechanisms": [
+        "Sudden change of direction (kicking, sidestepping)",
+        "Forced abduction while adductors contracting",
+        "Overstretching during slide tackle",
+        "Contact: player collision"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Medial groin pain with resisted hip adduction",
+          "Pain with passive hip abduction stretch",
+          "Tenderness on palpation of adductor longus origin"
+        ],
+        "high_specificity": [
+          "MRI: confirms grade and location (adductor longus most common)",
+          "Ultrasound: fiber disruption at musculotendinous junction"
+        ],
+        "clinical_tests": [
+          {
+            "name": "Resisted adduction test",
+            "sensitivity": 0.86,
+            "specificity": 0.70
+          },
+          {
+            "name": "Squeeze test (0/45/90 degrees)",
+            "sensitivity": 0.78,
+            "specificity": 0.82
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "Ice hockey (highest prevalence ~10%)",
+        "Football/soccer",
+        "Rugby",
+        "Equestrian sports",
+        "Previous groin injury"
+      ],
+      "prevalence_pct": 6.0,
+      "pmid_sources": ["42105089"]
+    },
+    {
+      "injury_id": "PCL_001",
+      "injury_name": "Posterior Cruciate Ligament Injury",
+      "body_region": "knee",
+      "sub_region": "intra-articular",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Grade I: partial tear, <5mm posterior tibial step-off (normal ~8-10mm); usually managed conservatively",
+          "typical_return_days_min": 21,
+          "typical_return_days_max": 42
+        },
+        {
+          "grade": 2,
+          "description": "Grade II: complete isolated PCL tear, 5-10mm posterior step-off; conservative first-line for isolated injuries",
+          "typical_return_days_min": 42,
+          "typical_return_days_max": 90
+        },
+        {
+          "grade": 3,
+          "description": "Grade III: complete PCL with posterolateral corner or other ligament involvement; often requires surgery",
+          "typical_return_days_min": 90,
+          "typical_return_days_max": 270
+        }
+      ],
+      "mechanisms": [
+        "Dashboard injury: direct blow to anterior tibia with knee flexed",
+        "Fall on flexed knee with plantarflexed foot",
+        "Hyperflexion injury",
+        "Contact: tackle or collision with posterior tibial force",
+        "Hyperextension (combined injury pattern)"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Posterior knee pain after direct anterior tibial blow",
+          "Posterior sag sign (gravity posterior tibial translation)",
+          "Positive posterior drawer test",
+          "Vague knee instability on stairs or slopes"
+        ],
+        "high_specificity": [
+          "Posterior drawer test (most accurate): posterior tibial translation",
+          "Quadriceps active test: anterior tibial translation with quad contraction",
+          "MRI: PCL signal change (gold standard)"
+        ],
+        "clinical_tests": [
+          {
+            "name": "Posterior drawer test",
+            "sensitivity": 0.90,
+            "specificity": 0.99
+          },
+          {
+            "name": "Posterior sag sign",
+            "sensitivity": 0.79,
+            "specificity": 1.00
+          },
+          {
+            "name": "Quadriceps active test",
+            "sensitivity": 0.54,
+            "specificity": 0.97
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "Contact sports (football, rugby)",
+        "Skiing (hyperflexion falls)",
+        "Soccer",
+        "Motor sport (dashboard impact)"
+      ],
+      "prevalence_pct": 3.0,
+      "pmid_sources": ["42095739", "42058347"]
+    },
+    {
+      "injury_id": "CONC_001",
+      "injury_name": "Sport-Related Concussion",
+      "body_region": "head",
+      "sub_region": "brain",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Mild: no LOC, symptoms <15 minutes. SCAT5 symptoms score <20. Standard return-to-play protocol days 1-6",
+          "typical_return_days_min": 7,
+          "typical_return_days_max": 14
+        },
+        {
+          "grade": 2,
+          "description": "Moderate: no LOC, symptoms >15 minutes. Requires medical clearance; postconcussion symptoms may persist",
+          "typical_return_days_min": 14,
+          "typical_return_days_max": 28
+        },
+        {
+          "grade": 3,
+          "description": "Severe: LOC any duration, prolonged amnesia, or persistent symptoms >7 days. Specialist evaluation; potential prolonged (>1 month) recovery",
+          "typical_return_days_min": 28,
+          "typical_return_days_max": 90
+        }
+      ],
+      "mechanisms": [
+        "Direct blow to head (contact sport collision)",
+        "Biomechanical force transmitted to brain without direct head contact",
+        "Rotational acceleration/deceleration",
+        "High-speed collision (cycling, skiing, motor sport)",
+        "Heading in football/soccer (repetitive sub-concussive impacts)"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Any one of: headache, dizziness, nausea, confusion, amnesia, LOC after head impact",
+          "SCAT5 symptom checklist ≥1 symptom after mechanism",
+          "Maddocks questions (inability to recall recent game events)"
+        ],
+        "high_specificity": [
+          "Graded Symptom Checklist sensitivity 0.89, specificity 1.00",
+          "Post-Concussion Scale + ImPACT neurocognitive: sensitivity 0.82, specificity 0.85",
+          "Cervical spine and vestibular assessment to differentiate"
+        ],
+        "clinical_tests": [
+          {
+            "name": "Graded Symptom Checklist (GSC)",
+            "sensitivity": 0.89,
+            "specificity": 1.00
+          },
+          {
+            "name": "Post-Concussion Scale + ImPACT combined",
+            "sensitivity": 0.82,
+            "specificity": 0.85
+          },
+          {
+            "name": "SCAT5 symptom evaluation",
+            "sensitivity": 0.91,
+            "specificity": 0.79
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "American football",
+        "Rugby",
+        "Ice hockey",
+        "Boxing / combat sports",
+        "Soccer (heading)",
+        "Basketball",
+        "Previous concussion (significantly increases risk and prolongs recovery)"
+      ],
+      "prevalence_pct": 4.5,
+      "pmid_sources": ["22488289", "24925965"]
+    },
+    {
+      "injury_id": "BSI_TALAR_001",
+      "injury_name": "Tibial Stress Fracture (High-Risk Site)",
+      "body_region": "lower_leg",
+      "sub_region": "anterior tibial cortex",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Grade 3-4 MRI: anterior tibial cortex or dreaded black line on X-ray; high-risk fracture requiring non-weight-bearing",
+          "typical_return_days_min": 84,
+          "typical_return_days_max": 168
+        }
+      ],
+      "mechanisms": [
+        "Tension stress fracture of anterior tibial cortex",
+        "Repetitive loading during running",
+        "Increased training volume without adequate recovery",
+        "Female athlete triad"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Focal anterior tibial pain with exertion",
+          "Night pain (distinguishes from MTSS)",
+          "Dreaded black line on lateral X-ray (specific but late sign)"
+        ],
+        "high_specificity": [
+          "MRI: Grade 3-4 with cortical involvement",
+          "CT scan for precise characterization",
+          "DEXA: assess bone mineral density"
+        ],
+        "clinical_tests": [
+          {
+            "name": "Percussion/vibration test",
+            "sensitivity": 0.70,
+            "specificity": 0.67
+          },
+          {
+            "name": "Single-leg hop pain",
+            "sensitivity": 0.78,
+            "specificity": 0.70
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "Distance runners",
+        "Track and field athletes",
+        "Military personnel",
+        "Low BMD",
+        "Female athlete triad"
+      ],
+      "prevalence_pct": 1.5,
+      "pmid_sources": ["26616181", "42074879"]
+    },
+    {
+      "injury_id": "OSGOOD_001",
+      "injury_name": "Osgood-Schlatter Disease",
+      "body_region": "knee",
+      "sub_region": "tibial tuberosity",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Mild (Flowers-Bhadreshwar Stage 1): pain only with activity, no prominent tuberosity, normal X-ray; typically self-limiting",
+          "typical_return_days_min": 7,
+          "typical_return_days_max": 21
+        },
+        {
+          "grade": 2,
+          "description": "Flowers Stage 2-3: prominent tibial tuberosity, fragmentation on X-ray, pain limits activity; 3-6 months typical",
+          "typical_return_days_min": 42,
+          "typical_return_days_max": 180
+        },
+        {
+          "grade": 3,
+          "description": "Flowers Stage 4: ossicle formation, bony prominence; may be chronic until skeletal maturity; rare surgical excision needed",
+          "typical_return_days_min": 90,
+          "typical_return_days_max": 365
+        }
+      ],
+      "mechanisms": [
+        "Traction apophysitis at patellar tendon insertion",
+        "Repetitive quadriceps contraction during growth spurt",
+        "Running, jumping, kicking sports in adolescents",
+        "Rapid height increase (growth velocity peak)"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Tibial tuberosity pain and swelling in adolescent athlete",
+          "Pain with kneeling, jumping, and quadriceps contraction",
+          "Point tenderness on tibial tuberosity palpation",
+          "Age 10-15 boys, 8-13 girls (correlates with growth spurt)"
+        ],
+        "high_specificity": [
+          "X-ray: fragmentation of tibial tuberosity apophysis",
+          "Ultrasound: patellar tendon thickening at tuberosity insertion",
+          "Clinical diagnosis in appropriate age group with classic presentation"
+        ],
+        "clinical_tests": [
+          {
+            "name": "Tibial tuberosity palpation pain",
+            "sensitivity": 0.96,
+            "specificity": 0.90
+          },
+          {
+            "name": "Single-leg squat pain (tibial tuberosity)",
+            "sensitivity": 0.88,
+            "specificity": 0.75
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "Male adolescents (3x more common)",
+        "Football/soccer",
+        "Basketball",
+        "Gymnastics",
+        "Athletics (jumping events)",
+        "Growth spurt period"
+      ],
+      "prevalence_pct": 12.0,
+      "pmid_sources": ["40626288", "34990396", "23018164"]
+    },
+    {
+      "injury_id": "LBP_001",
+      "injury_name": "Sports-Related Low Back Pain / Lumbar Strain",
+      "body_region": "spine",
+      "sub_region": "lumbar",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Acute muscular/ligamentous strain: pain <6 weeks, no neurological symptoms; self-limiting",
+          "typical_return_days_min": 7,
+          "typical_return_days_max": 28
+        },
+        {
+          "grade": 2,
+          "description": "Subacute: pain 6 weeks to 3 months; may have disc involvement on MRI without neurological deficit",
+          "typical_return_days_min": 28,
+          "typical_return_days_max": 84
+        },
+        {
+          "grade": 3,
+          "description": "Chronic / structural: pain >3 months, disc herniation with radiculopathy or spondylolysis; may require surgery",
+          "typical_return_days_min": 84,
+          "typical_return_days_max": 180
+        }
+      ],
+      "mechanisms": [
+        "Flexion/rotation overload (rowing, golf, cricket)",
+        "Repetitive extension loading (gymnastics, cricket fast bowling, volleyball)",
+        "Heavy lifting with poor mechanics (weightlifting)",
+        "Contact sport impact",
+        "Spondylolysis in adolescent extension sports"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Lumbosacral pain with activity",
+          "Movement-related pain (flexion or extension limited)",
+          "Lumbar paraspinal muscle tenderness"
+        ],
+        "high_specificity": [
+          "Straight leg raise (for disc herniation with radiculopathy): sensitivity 0.91, specificity 0.26",
+          "SPECT or MRI for spondylolysis (adolescent with extension pain)",
+          "Waddell's signs (psychosocial modifiers of poor prognosis)"
+        ],
+        "clinical_tests": [
+          {
+            "name": "Straight leg raise (disc herniation)",
+            "sensitivity": 0.91,
+            "specificity": 0.26
+          },
+          {
+            "name": "Cross straight leg raise (disc herniation)",
+            "sensitivity": 0.29,
+            "specificity": 0.88
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "Cricket fast bowling",
+        "Rowing",
+        "Golf",
+        "Gymnastics (spondylolysis)",
+        "Volleyball",
+        "Weightlifting",
+        "Adolescent extension sport athletes"
+      ],
+      "prevalence_pct": 15.0,
+      "pmid_sources": ["24691895", "17710178"]
+    },
+    {
+      "injury_id": "CALF_STR_001",
+      "injury_name": "Calf Strain (Gastrocnemius / Soleus)",
+      "body_region": "lower_leg",
+      "sub_region": "posterior",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Mild (BAMIC 1): minor fiber disruption at musculotendinous junction or muscle belly, minor calf tightness; MCIC Functional Grade",
+          "typical_return_days_min": 7,
+          "typical_return_days_max": 14
+        },
+        {
+          "grade": 2,
+          "description": "Moderate (BAMIC 2): significant partial tear at medial gastrocnemius musculotendinous junction (tennis leg); echymosis, antalgic gait",
+          "typical_return_days_min": 14,
+          "typical_return_days_max": 42
+        },
+        {
+          "grade": 3,
+          "description": "Severe (BAMIC 3-4): complete tear, significant gap palpable; conservative or surgical depending on structure",
+          "typical_return_days_min": 42,
+          "typical_return_days_max": 90
+        }
+      ],
+      "mechanisms": [
+        "Explosive push-off (acceleration, jumping)",
+        "Sudden dorsiflexion with knee extended (tennis, badminton)",
+        "Inadequate warm-up",
+        "Fatigue-related in endurance athletes",
+        "Direct calf impact"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Sudden posterior lower leg pain with push-off or explosive movement",
+          "Tenderness on palpation of medial gastrocnemius musculotendinous junction",
+          "Pain with calf raise or toe-walking",
+          "Thompson test negative (distinguishes from Achilles rupture)"
+        ],
+        "high_specificity": [
+          "Ultrasound: focal hyperechoic area at medial gastrocnemius MTJ",
+          "MRI: BAMIC/MCIC grading for return-to-sport decision",
+          "Negative Thompson test (intact Achilles)"
+        ],
+        "clinical_tests": [
+          {
+            "name": "Palpation medial gastrocnemius MTJ",
+            "sensitivity": 0.88,
+            "specificity": 0.65
+          },
+          {
+            "name": "Thompson test (to exclude Achilles rupture)",
+            "sensitivity": 0.96,
+            "specificity": 0.93
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "Tennis / badminton / squash (tennis leg)",
+        "Running",
+        "Masters athletes (>35 years)",
+        "Basketball",
+        "Soccer",
+        "Previous calf injury"
+      ],
+      "prevalence_pct": 6.5,
+      "pmid_sources": ["40801936", "32015745"]
+    },
+    {
+      "injury_id": "HIP_FL_001",
+      "injury_name": "Hip Flexor Strain (Iliopsoas / Rectus Femoris)",
+      "body_region": "hip",
+      "sub_region": "anterior hip",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Mild: minor tear, pain with activity, full range of motion, no significant weakness",
+          "typical_return_days_min": 5,
+          "typical_return_days_max": 14
+        },
+        {
+          "grade": 2,
+          "description": "Moderate: partial tear, pain limits high-intensity activities, possible ecchymosis",
+          "typical_return_days_min": 14,
+          "typical_return_days_max": 35
+        },
+        {
+          "grade": 3,
+          "description": "Severe: complete tear or avulsion (often rectus femoris at AIIS), gross weakness; avulsions may require surgical fixation",
+          "typical_return_days_min": 42,
+          "typical_return_days_max": 120
+        }
+      ],
+      "mechanisms": [
+        "Explosive hip flexion (sprinting, kicking)",
+        "Sudden forced hip extension while flexing",
+        "Kicking in football/soccer",
+        "Gymnastics and dance (splits, high kicks)",
+        "Avulsion: adolescent AIIS avulsion from forceful kick"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Anterior hip/groin pain with resisted hip flexion",
+          "Thomas test: increased hip flexor tightness",
+          "Pain with passive hip extension stretch"
+        ],
+        "high_specificity": [
+          "MRI: signal change at iliopsoas or rectus femoris proximal attachment",
+          "Ultrasound: fiber disruption at iliopsoas musculotendinous junction",
+          "X-ray: avulsion fragment at AIIS (adolescent athletes)"
+        ],
+        "clinical_tests": [
+          {
+            "name": "Resisted hip flexion pain provocation",
+            "sensitivity": 0.82,
+            "specificity": 0.72
+          },
+          {
+            "name": "Thomas test (flexibility deficit)",
+            "sensitivity": 0.70,
+            "specificity": 0.60
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "Football/soccer (kicking motions)",
+        "Sprinting events",
+        "Gymnastics",
+        "Dance",
+        "Adolescent athletes (AIIS avulsion)",
+        "Cyclists (prolonged hip flexion posture)"
+      ],
+      "prevalence_pct": 5.0,
+      "pmid_sources": ["41838630"]
+    },
+    {
+      "injury_id": "MAV_ANKLE_001",
+      "injury_name": "5th Metatarsal Fracture (Jones / Avulsion)",
+      "body_region": "ankle_foot",
+      "sub_region": "lateral midfoot",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Zone 1 Avulsion: tuberosity avulsion by peroneus brevis or lateral band of plantar fascia; excellent prognosis conservative",
+          "typical_return_days_min": 28,
+          "typical_return_days_max": 56
+        },
+        {
+          "grade": 2,
+          "description": "Zone 2 Jones fracture: metaphyseal-diaphyseal junction; higher risk of non-union; often managed surgically in athletes",
+          "typical_return_days_min": 56,
+          "typical_return_days_max": 120
+        },
+        {
+          "grade": 3,
+          "description": "Zone 3 Diaphyseal stress fracture: highest non-union risk; surgery (intramedullary screw) recommended for athletes",
+          "typical_return_days_min": 84,
+          "typical_return_days_max": 168
+        }
+      ],
+      "mechanisms": [
+        "Inversion sprain (Zone 1 avulsion)",
+        "Direct impact on lateral foot",
+        "Repetitive overuse (Zone 3 stress fracture)",
+        "Cutting and pivoting sports",
+        "Dancing (lateral foot load)"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Lateral foot pain after inversion or direct blow",
+          "Point tenderness at base of 5th metatarsal",
+          "Ottawa Foot Rules: tenderness at base of 5th MT = X-ray indicated"
+        ],
+        "high_specificity": [
+          "X-ray: confirms fracture zone and displacement",
+          "CT: for surgical planning and union assessment",
+          "Ottawa Foot Rules sensitivity 100% for 5th MT fracture"
+        ],
+        "clinical_tests": [
+          {
+            "name": "Ottawa Foot Rules (base 5th MT tenderness)",
+            "sensitivity": 1.00,
+            "specificity": 0.40
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "Basketball (highest prevalence)",
+        "Football/soccer",
+        "Dance",
+        "Running",
+        "Any lateral ankle sprain sport"
+      ],
+      "prevalence_pct": 3.0,
+      "pmid_sources": ["30414650"]
+    },
+    {
+      "injury_id": "PECT_MAJ_001",
+      "injury_name": "Pectoralis Major Tear",
+      "body_region": "shoulder",
+      "sub_region": "anterior chest / proximal humerus",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Grade I partial: strain without structural failure; conservative treatment; return 6-8 weeks",
+          "typical_return_days_min": 42,
+          "typical_return_days_max": 56
+        },
+        {
+          "grade": 2,
+          "description": "Grade II: significant partial tear >50% of tendon; conservative or surgical based on athlete demands; return 3-6 months",
+          "typical_return_days_min": 90,
+          "typical_return_days_max": 180
+        },
+        {
+          "grade": 3,
+          "description": "Grade III complete rupture: complete tendon avulsion typically at humeral insertion; surgical repair recommended for athletes; return 6-9 months",
+          "typical_return_days_min": 180,
+          "typical_return_days_max": 270
+        }
+      ],
+      "mechanisms": [
+        "Eccentric overload during bench press (most common in weightlifters)",
+        "Forced shoulder extension and external rotation",
+        "Rugby tackle/scrummage",
+        "Wrestling / grappling sports"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Sudden anterior chest / shoulder pain during bench press or forced extension",
+          "Audible pop",
+          "Visible deformity or asymmetry of anterior chest",
+          "Weakness of adduction and internal rotation"
+        ],
+        "high_specificity": [
+          "MRI: confirms complete vs. partial tear and retraction distance",
+          "Ultrasound: visible gap in pectoralis major tendon",
+          "Clinical: loss of anterior axillary fold contour"
+        ],
+        "clinical_tests": [
+          {
+            "name": "Resisted adduction / internal rotation pain",
+            "sensitivity": 0.85,
+            "specificity": 0.70
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "Powerlifting / weightlifting (bench press)",
+        "Rugby",
+        "American football",
+        "Wrestling",
+        "Male athletes (95%+ of cases)"
+      ],
+      "prevalence_pct": 0.5,
+      "pmid_sources": ["41632428"]
+    },
+    {
+      "injury_id": "WRIST_SCAPH_001",
+      "injury_name": "Scaphoid Fracture",
+      "body_region": "elbow",
+      "sub_region": "wrist / hand",
+      "grades": [
+        {
+          "grade": 1,
+          "description": "Non-displaced (Herbert Type A/B1): waist or distal pole, stable; cast immobilization 8-12 weeks OR early surgery for athletes",
+          "typical_return_days_min": 56,
+          "typical_return_days_max": 90
+        },
+        {
+          "grade": 2,
+          "description": "Displaced / proximal pole (Herbert Type B2-D): higher non-union risk; surgical fixation standard for athletes; return 3-6 months",
+          "typical_return_days_min": 90,
+          "typical_return_days_max": 180
+        }
+      ],
+      "mechanisms": [
+        "Fall on outstretched hand (FOOSH)",
+        "Forced wrist dorsiflexion",
+        "Goalkeeper/basketball catching injuries",
+        "Direct impact to wrist in boxing or martial arts"
+      ],
+      "diagnostic_criteria": {
+        "high_sensitivity": [
+          "Anatomical snuffbox tenderness (sensitivity 100%, specificity 9%)",
+          "Pain with axial load on thumb",
+          "Scaphoid tubercle tenderness"
+        ],
+        "high_specificity": [
+          "MRI: gold standard within 24-48h (sensitivity 98%, specificity 99%)",
+          "CT: used if X-ray normal but clinical suspicion high",
+          "X-ray: only 65-80% sensitive acutely"
+        ],
+        "clinical_tests": [
+          {
+            "name": "Anatomical snuffbox tenderness",
+            "sensitivity": 1.00,
+            "specificity": 0.09
+          },
+          {
+            "name": "Scaphoid tubercle tenderness",
+            "sensitivity": 0.87,
+            "specificity": 0.57
+          },
+          {
+            "name": "Axial thumb compression test",
+            "sensitivity": 0.69,
+            "specificity": 0.70
+          }
+        ]
+      },
+      "sport_risk_factors": [
+        "Contact sports (rugby, football, martial arts)",
+        "Gymnastics",
+        "Skateboarding / snowboarding",
+        "Basketball / handball",
+        "Young male athletes (peak age 15-30)"
+      ],
+      "prevalence_pct": 2.5,
+      "pmid_sources": ["17710178"]
+    }
+  ],
+  "diagnostic_confidence_framework": {
+    "description": "Evidence-based confidence scoring for clinical diagnosis without imaging",
+    "levels": [
+      {
+        "level": "High Confidence (>80%)",
+        "criteria": [
+          "Classic mechanism of injury matching injury type",
+          "2+ high-sensitivity clinical tests positive",
+          "1+ high-specificity clinical test positive",
+          "Anatomically consistent symptom location",
+          "Consistent onset pattern (acute vs. gradual)"
+        ],
+        "action": "Proceed with injury-specific rehabilitation protocol"
+      },
+      {
+        "level": "Moderate Confidence (50-80%)",
+        "criteria": [
+          "Consistent mechanism",
+          "1-2 clinical tests positive but mixed sensitivity/specificity",
+          "Some atypical features present"
+        ],
+        "action": "Initiate conservative management; consider imaging if no improvement in 2-4 weeks"
+      },
+      {
+        "level": "Low Confidence (<50%)",
+        "criteria": [
+          "Atypical mechanism",
+          "Conflicting clinical test results",
+          "Non-anatomical pain distribution",
+          "Red flags present (bone tenderness suggesting fracture, neurological symptoms)"
+        ],
+        "action": "Imaging required before proceeding; refer to physician"
+      }
+    ],
+    "red_flags": [
+      "Night pain at rest (bone pathology, tumor)",
+      "Unrelenting pain not modified by position",
+      "Fever + joint pain (septic arthritis)",
+      "Neurological symptoms (weakness, numbness, bowel/bladder)",
+      "Ottawa Rules positive (suspected fracture after ankle sprain)",
+      "Inability to weight-bear",
+      "Acute haemarthrosis (ACL, patellar dislocation, fracture)"
+    ],
+    "pmid_sources": ["33826224", "41509056"]
+  },
+  "return_to_sport_principles": {
+    "description": "Evidence-based return-to-sport criteria applicable across injury types",
+    "criteria": [
+      "Pain-free at rest AND during sport-specific activities",
+      "Full range of motion vs. contralateral side",
+      "Strength symmetry >90% vs. contralateral (limb symmetry index)",
+      "Successful completion of graduated return-to-sport protocol",
+      "Psychological readiness (ACL-specific: ACL-RSI scale)",
+      "Sport-specific functional performance tests passed"
+    ],
+    "return_protocol_phases": [
+      "Phase 1: Complete rest / symptom control",
+      "Phase 2: Active recovery (light aerobic non-impact)",
+      "Phase 3: Sport-specific exercise without contact",
+      "Phase 4: Non-contact training drills",
+      "Phase 5: Full training with contact",
+      "Phase 6: Return to competition"
+    ],
+    "pmid_sources": ["34740516", "39131096"]
+  }
+}

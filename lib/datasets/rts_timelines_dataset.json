@@ -1,0 +1,481 @@
+{
+  "_meta": {
+    "description": "Return-to-Sport (RTS) timelines and criteria for common sports injuries. All data sourced from PubMed-indexed peer-reviewed literature. PMIDs cited for each entry.",
+    "last_updated": "2026-06-22",
+    "source_database": "PubMed / MEDLINE",
+    "note": "Timelines represent consensus estimates from systematic reviews and meta-analyses. Individual variation is expected. Always apply criteria-based clearance alongside time-based guidelines."
+  },
+  "rts_timelines": [
+    {
+      "injury_id": "HAMSTRING_G1",
+      "injury_name": "Hamstring Strain",
+      "grade_or_severity": "Grade I (minor – <10% fiber disruption, full ROM, mild pain)",
+      "rts_timeline": {
+        "minimum_days": 5,
+        "typical_days": 10,
+        "maximum_days": 21,
+        "elite_athlete_modifier": 0.85,
+        "recreational_athlete_modifier": 1.25,
+        "notes": "Grade I average RTP 7.4 days in elite track athletes (Malliaropoulos et al., 2010)"
+      },
+      "rts_criteria": {
+        "pain_threshold": "NRS ≤1/10 during sport-specific movements at full speed",
+        "strength_criteria": "Hamstring:Quadriceps ratio ≥60% (concentric); eccentric hamstring strength ≥90% limb symmetry index (LSI)",
+        "functional_tests": [
+          "Pain-free jogging progressing to full sprint",
+          "Askling H-test (pain-free)",
+          "Nordic hamstring exercise without pain",
+          "Agility ladder without guarding"
+        ],
+        "psychological_clearance": "Athlete self-reports confidence ≥7/10 in ACL-RSI analog item"
+      },
+      "re_injury_risk_if_early": "Grade II recurrence rate 24.1% within 24 months vs 9.3% Grade I (PMID 21051422); premature RTP is the primary modifiable recurrence risk factor",
+      "pmid_sources": ["21051422", "40954668", "29671490"]
+    },
+    {
+      "injury_id": "HAMSTRING_G2",
+      "injury_name": "Hamstring Strain",
+      "grade_or_severity": "Grade II (moderate – 10–50% fiber disruption, restricted ROM, palpable defect possible)",
+      "rts_timeline": {
+        "minimum_days": 10,
+        "typical_days": 21,
+        "maximum_days": 42,
+        "elite_athlete_modifier": 0.85,
+        "recreational_athlete_modifier": 1.25,
+        "notes": "Average 12.9 days in elite athletes; recreational athletes average 3–6 weeks"
+      },
+      "rts_criteria": {
+        "pain_threshold": "NRS 0/10 during maximal sprint, change-of-direction, and Nordic curl",
+        "strength_criteria": "Eccentric hamstring LSI ≥90%; H:Q ratio ≥60% at 60°/s isokinetic",
+        "functional_tests": [
+          "Askling H-test (pain-free)",
+          "Sprint at 100% perceived effort without compensation",
+          "Three-hop single-leg distance LSI ≥90%",
+          "Change of direction at full speed (5-10-5 drill)"
+        ],
+        "psychological_clearance": "Athlete self-reports readiness; no fear of re-injury at full speed"
+      },
+      "re_injury_risk_if_early": "Grade II shows highest recurrence rates (24.1% at 24 months); L-protocol eccentric exercises reduce reinjury rate (MD −1.95, PMID 40954668)",
+      "pmid_sources": ["21051422", "40954668", "31673400"]
+    },
+    {
+      "injury_id": "HAMSTRING_G3",
+      "injury_name": "Hamstring Strain",
+      "grade_or_severity": "Grade III (severe – >50% fiber disruption or complete rupture)",
+      "rts_timeline": {
+        "minimum_days": 21,
+        "typical_days": 56,
+        "maximum_days": 120,
+        "elite_athlete_modifier": 0.8,
+        "recreational_athlete_modifier": 1.3,
+        "notes": "Average 29.5–55 days in elite athletes (Grades III–IV); severe injuries require imaging clearance"
+      },
+      "rts_criteria": {
+        "pain_threshold": "NRS 0/10 at maximal exertion; MRI confirmation of structural healing at minimum 4 weeks",
+        "strength_criteria": "Eccentric hamstring LSI ≥90%; isokinetic peak torque symmetry ≥85%",
+        "functional_tests": [
+          "Full sprint series (10×30m) without pain",
+          "Maximal Nordic hamstring exercise",
+          "Triple hop for distance LSI ≥90%",
+          "Askling H-test (pain-free)"
+        ],
+        "psychological_clearance": "Structured psychological readiness assessment; kinesiophobia screening (TSK-11 <37)"
+      },
+      "re_injury_risk_if_early": "Lower absolute recurrence in high-grade vs Grade II but catastrophic if re-ruptured; MRI guidance reduces premature RTP",
+      "pmid_sources": ["21051422", "40954668", "29671490"]
+    },
+    {
+      "injury_id": "ACL_RECON",
+      "injury_name": "Anterior Cruciate Ligament (ACL) Reconstruction",
+      "grade_or_severity": "Complete tear requiring surgical reconstruction (BPTB or hamstring autograft)",
+      "rts_timeline": {
+        "minimum_days": 180,
+        "typical_days": 270,
+        "maximum_days": 365,
+        "elite_athlete_modifier": 0.85,
+        "recreational_athlete_modifier": 1.2,
+        "notes": "APKASS 2024 consensus discourages purely time-based RTP; 9–12 months most evidence-supported. Youth athletes (≤18) may require 14–16 months (PMID 42077697)"
+      },
+      "rts_criteria": {
+        "pain_threshold": "NRS 0/10 at all activities; no effusion",
+        "strength_criteria": "Quadriceps LSI ≥90% (isokinetic at 60°/s); H:Q ratio ≥55–62.5%; LSI ≥90% required on isokinetic testing to pass battery (PMID 27423208)",
+        "functional_tests": [
+          "Single-leg hop for distance LSI ≥90%",
+          "Triple hop for distance LSI ≥90%",
+          "Crossover hop LSI ≥90%",
+          "6-m timed hop LSI ≥90%",
+          "Lachman test negative / Pivot shift negative",
+          "Full range of motion equal bilaterally",
+          "Sport-specific agility (cutting, pivoting) without pain or guarding",
+          "Bilateral drop-landing with symmetric knee flexion mechanics"
+        ],
+        "psychological_clearance": "ACL-RSI score ≥65 (optimal ≥70 associated with OR 2.1–2.5 for successful RTS, PMID 40894294); TSK-11 <37; fear of reinjury addressed via education and graded exposure"
+      },
+      "re_injury_risk_if_early": "ACL graft rupture 10%, contralateral ACL rupture 8% at 5 years in soccer population; risk 3–7× higher in athletes ≤18 vs >25 (PMID 36190172). 44% of males ≤18 sustained further ACL injury",
+      "pmid_sources": ["42205141", "42077697", "27423208", "40894294", "36190172", "37681565", "41571570", "41252942", "42085052", "41995908", "42072194", "35325002", "33604148", "35404788"]
+    },
+    {
+      "injury_id": "ACL_RECON_PEDS",
+      "injury_name": "ACL Reconstruction – Pediatric / Skeletally Immature",
+      "grade_or_severity": "Complete tear in athlete ≤18 years with open physes",
+      "rts_timeline": {
+        "minimum_days": 270,
+        "typical_days": 365,
+        "maximum_days": 490,
+        "elite_athlete_modifier": 0.9,
+        "recreational_athlete_modifier": 1.15,
+        "notes": "Average 9–12 months; younger athletes may require 14–16 months (PMID 42077697)"
+      },
+      "rts_criteria": {
+        "pain_threshold": "NRS 0/10; radiographic physeal closure or surgeon clearance",
+        "strength_criteria": "Quadriceps LSI ≥90%; bilateral strength parity",
+        "functional_tests": [
+          "Single-leg hop battery LSI ≥90%",
+          "Sport-specific skill testing",
+          "Gapski-Goodman or ImPACT-style sport-specific tests if concussion history"
+        ],
+        "psychological_clearance": "ACL-RSI ≥65; parental and coaching team involved in decision; graduated sport exposure"
+      },
+      "re_injury_risk_if_early": "Highest risk group – 3–7× increased graft rupture vs adults >25 years",
+      "pmid_sources": ["42077697", "36190172"]
+    },
+    {
+      "injury_id": "ANKLE_SPRAIN_G1",
+      "injury_name": "Lateral Ankle Sprain",
+      "grade_or_severity": "Grade I (mild – ATFL stretched, no rupture)",
+      "rts_timeline": {
+        "minimum_days": 5,
+        "typical_days": 10,
+        "maximum_days": 21,
+        "elite_athlete_modifier": 0.8,
+        "recreational_athlete_modifier": 1.2
+      },
+      "rts_criteria": {
+        "pain_threshold": "NRS ≤1/10 on weight-bearing activities",
+        "strength_criteria": "Ankle eversion/inversion strength deficit <15% vs contralateral",
+        "functional_tests": [
+          "Single-leg balance 30 seconds (eyes open and closed)",
+          "Star Excursion Balance Test (SEBT) reach ≥90% of contralateral",
+          "Hopping and jogging without antalgic gait",
+          "Figure-8 running at full speed"
+        ],
+        "psychological_clearance": "Ankle instability self-report minimal; willing to play without brace dependency"
+      },
+      "re_injury_risk_if_early": "Early mobilization superior to immobilization; functional bracing during return reduces reinjury; 6–12 months bracing during sport prevents recurrence (PMID 29671490)",
+      "pmid_sources": ["41385332", "29671490", "42273496", "9083943"]
+    },
+    {
+      "injury_id": "ANKLE_SPRAIN_G2",
+      "injury_name": "Lateral Ankle Sprain",
+      "grade_or_severity": "Grade II (moderate – partial ATFL rupture, possible CFL involvement)",
+      "rts_timeline": {
+        "minimum_days": 14,
+        "typical_days": 28,
+        "maximum_days": 56,
+        "elite_athlete_modifier": 0.85,
+        "recreational_athlete_modifier": 1.2
+      },
+      "rts_criteria": {
+        "pain_threshold": "NRS 0/10 during sport-specific drills",
+        "strength_criteria": "Evertor:invertor strength ratio symmetric; peroneals ≥90% LSI",
+        "functional_tests": [
+          "SEBT reach score ≥90% contralateral",
+          "Single-leg squat without valgus collapse",
+          "Running and cutting without bracing dependency (long-term)",
+          "Dorsiflexion lunge test symmetric",
+          "Proprioception assessment (dynamic balance)"
+        ],
+        "psychological_clearance": "Fear of reinjury addressed; ankle confidence self-report ≥8/10"
+      },
+      "re_injury_risk_if_early": "Previous lateral ankle sprain is top predictor of recurrence; functional rehab required before full RTS (PMID 41385332)",
+      "pmid_sources": ["41385332", "42273496", "8406246"]
+    },
+    {
+      "injury_id": "ANKLE_SPRAIN_G3",
+      "injury_name": "Lateral Ankle Sprain",
+      "grade_or_severity": "Grade III (complete ATFL + CFL rupture)",
+      "rts_timeline": {
+        "minimum_days": 42,
+        "typical_days": 84,
+        "maximum_days": 180,
+        "elite_athlete_modifier": 0.85,
+        "recreational_athlete_modifier": 1.2,
+        "notes": "Some require surgical stabilization (Brostrom); post-surgical timeline 4–6 months"
+      },
+      "rts_criteria": {
+        "pain_threshold": "NRS 0/10; no mechanical instability on talar tilt/anterior drawer",
+        "strength_criteria": "Peroneals ≥90% LSI; full dorsiflexion ROM",
+        "functional_tests": [
+          "Stable single-leg landing mechanics",
+          "SEBT ≥90% contralateral",
+          "Sport-specific cutting and acceleration",
+          "Proprioception equal bilaterally"
+        ],
+        "psychological_clearance": "Confidence with rapid direction change; no habitual bracing dependency"
+      },
+      "re_injury_risk_if_early": "Incomplete ligament healing leads to chronic ankle instability if RTS premature",
+      "pmid_sources": ["41385332", "42273496"]
+    },
+    {
+      "injury_id": "ROTATOR_CUFF_REPAIR",
+      "injury_name": "Rotator Cuff Repair",
+      "grade_or_severity": "Surgical repair (small-to-medium tears: ≤3cm; large: 3–5cm)",
+      "rts_timeline": {
+        "minimum_days": 120,
+        "typical_days": 180,
+        "maximum_days": 365,
+        "elite_athlete_modifier": 0.85,
+        "recreational_athlete_modifier": 1.2,
+        "notes": "Small-medium tears typically 4–6 months; large/massive tears 9–12 months. Overhead throwers often require 12 months (PMID 37588949)"
+      },
+      "rts_criteria": {
+        "pain_threshold": "NRS 0/10 at end-range overhead motion",
+        "strength_criteria": "Rotator cuff strength ≥90% LSI; external rotation:abduction strength ratio within normal",
+        "functional_tests": [
+          "Full pain-free ROM (forward flexion, IR, ER, abduction)",
+          "Functional Throwing Performance Index (FTPI) ≥80%",
+          "Closed kinetic chain upper extremity stability test",
+          "Sport-specific throwing/overhead program completed",
+          "Upper quarter Y-balance symmetric"
+        ],
+        "psychological_clearance": "Confidence with overhead loading; no pain anticipation"
+      },
+      "re_injury_risk_if_early": "Premature loading during early repair phase leads to re-tear (failure rates 20–40% if non-compliant); protecting tissue for first 6 weeks critical (PMID 37588949)",
+      "pmid_sources": ["37588949", "41680115", "32579853"]
+    },
+    {
+      "injury_id": "PATELLAR_TENDINOPATHY",
+      "injury_name": "Patellar Tendinopathy (Jumper's Knee)",
+      "grade_or_severity": "Chronic / reactive (VISA-P guided)",
+      "rts_timeline": {
+        "minimum_days": 84,
+        "typical_days": 180,
+        "maximum_days": 365,
+        "elite_athlete_modifier": 0.85,
+        "recreational_athlete_modifier": 1.25,
+        "notes": "Conservative: 3–6 months; surgical (if refractory): 6–12 months. Fat pad debridement adds 7-week delay (PMID 41553011)"
+      },
+      "rts_criteria": {
+        "pain_threshold": "NRS ≤2/10 during jumping and landing (Victorian Institute of Sports Assessment – Patellar [VISA-P] score ≥80)",
+        "strength_criteria": "Eccentric quad strength (decline squat) equal bilaterally; single-leg decline squat pain-free",
+        "functional_tests": [
+          "VISA-P score ≥80",
+          "Single-leg decline squat 25 reps pain-free",
+          "Drop jump landing mechanics symmetric",
+          "Sport-specific jumping volume without pain flare >24h post-activity",
+          "Reactive strength index symmetric"
+        ],
+        "psychological_clearance": "Understanding of load management; kinesiophobia screened; graduated sport exposure"
+      },
+      "re_injury_risk_if_early": "Load-related flare-up risk if VISA-P <70 at RTS; tendon not pain-free under load is primary risk factor",
+      "pmid_sources": ["41553011"]
+    },
+    {
+      "injury_id": "ACHILLES_TENDINOPATHY",
+      "injury_name": "Achilles Tendinopathy (Mid-portion or Insertional)",
+      "grade_or_severity": "Mid-portion or insertional (non-rupture)",
+      "rts_timeline": {
+        "minimum_days": 84,
+        "typical_days": 180,
+        "maximum_days": 365,
+        "elite_athlete_modifier": 0.85,
+        "recreational_athlete_modifier": 1.2,
+        "notes": "Heavy slow resistance loading (HSR) protocol 12 weeks minimum; progression to sport 3–12 months based on severity"
+      },
+      "rts_criteria": {
+        "pain_threshold": "NRS ≤2/10 during single-leg calf raises and running; no post-activity flare >24h",
+        "strength_criteria": "Single-leg calf raise repetitions ≥90% contralateral; calf raise endurance matched",
+        "functional_tests": [
+          "25 single-leg calf raises at bodyweight pain-free",
+          "Hop tests without pain",
+          "Running >5km without pain flare",
+          "Single-leg triple hop for distance LSI ≥90%",
+          "Reactive isometric strength index"
+        ],
+        "psychological_clearance": "Load monitoring understanding; graduated running plan adhered to"
+      },
+      "re_injury_risk_if_early": "Premature running loads without tendon capacity causes re-irritation; 40–60% require >6 months",
+      "pmid_sources": ["29671490"]
+    },
+    {
+      "injury_id": "ACHILLES_RUPTURE",
+      "injury_name": "Achilles Tendon Rupture (Surgical Repair)",
+      "grade_or_severity": "Complete rupture requiring operative repair",
+      "rts_timeline": {
+        "minimum_days": 90,
+        "typical_days": 210,
+        "maximum_days": 402,
+        "elite_athlete_modifier": 0.85,
+        "recreational_athlete_modifier": 1.15,
+        "notes": "65–100% return to sport between 3–13.4 months; mean 7 months in surgical cohorts (PMID 37235667). Re-rupture rate 0–5.74%"
+      },
+      "rts_criteria": {
+        "pain_threshold": "NRS 0/10 at full running and single-leg activities",
+        "strength_criteria": "Calf peak torque ≥90% contralateral; limb symmetry on hop tests ≥90%",
+        "functional_tests": [
+          "25 single-leg calf raises at bodyweight",
+          "Running at target sport velocity",
+          "Single-leg hop for distance LSI ≥90%",
+          "Drop-landing mechanics symmetric"
+        ],
+        "psychological_clearance": "Fear of re-rupture addressed; graduated RTS protocol completed"
+      },
+      "re_injury_risk_if_early": "Re-rupture 0–5.74%; functional outcome highly dependent on adherence to staged return (PMID 37235667)",
+      "pmid_sources": ["37235667"]
+    },
+    {
+      "injury_id": "STRESS_FRACTURE_LOW",
+      "injury_name": "Stress Fracture – Low Risk (Metatarsal shaft, fibula, medial tibia)",
+      "grade_or_severity": "Low-risk location: metatarsal shaft (2–4), fibula, medial tibia",
+      "rts_timeline": {
+        "minimum_days": 28,
+        "typical_days": 42,
+        "maximum_days": 84,
+        "elite_athlete_modifier": 0.9,
+        "recreational_athlete_modifier": 1.2,
+        "notes": "Most stress fractures heal in 6–8 weeks; rate of resumption guided by symptoms (PMID 9421865)"
+      },
+      "rts_criteria": {
+        "pain_threshold": "Pain-free at fracture site on palpation and activity",
+        "strength_criteria": "Functional strength and proprioception restored; no limping",
+        "functional_tests": [
+          "Pain-free walking on fracture site",
+          "Progressive running program: walk→jog→run→sprint over 4–6 weeks",
+          "Hop test on affected limb pain-free",
+          "Return of sport-specific mechanics without compensation"
+        ],
+        "psychological_clearance": "Athlete understands load management; training error identified and corrected"
+      },
+      "re_injury_risk_if_early": "Progression to displaced fracture or non-union if loading resumed too early; female athletes with menstrual disturbances at higher risk (PMID 9421865)",
+      "pmid_sources": ["9421865", "29671490"]
+    },
+    {
+      "injury_id": "STRESS_FRACTURE_HIGH",
+      "injury_name": "Stress Fracture – High Risk (Femoral neck, anterior tibia cortex, navicular, 5th metatarsal)",
+      "grade_or_severity": "High-risk location requiring extended management",
+      "rts_timeline": {
+        "minimum_days": 84,
+        "typical_days": 120,
+        "maximum_days": 365,
+        "elite_athlete_modifier": 0.9,
+        "recreational_athlete_modifier": 1.2,
+        "notes": "Femoral neck, anterior tibia cortex, navicular, 2nd and 5th metatarsals: delayed union or non-union risk; some require surgery"
+      },
+      "rts_criteria": {
+        "pain_threshold": "Radiographic healing confirmed (CT or MRI) AND pain-free weight-bearing",
+        "strength_criteria": "No cortical defect on imaging; symmetrical lower limb mechanics",
+        "functional_tests": [
+          "Pain-free single-leg hop",
+          "Imaging-confirmed healing before running",
+          "Progressive sport-specific return over 4–6 weeks after imaging clearance"
+        ],
+        "psychological_clearance": "Underlying causes (RED-S, training error) addressed"
+      },
+      "re_injury_risk_if_early": "Femoral neck displaced fractures are surgical emergencies; non-union of navicular requires screw fixation. Risk of catastrophic failure if RTS premature",
+      "pmid_sources": ["9421865"]
+    },
+    {
+      "injury_id": "CONCUSSION",
+      "injury_name": "Sport-Related Concussion (SRC)",
+      "grade_or_severity": "Single uncomplicated SRC",
+      "rts_timeline": {
+        "minimum_days": 7,
+        "typical_days": 10,
+        "maximum_days": 28,
+        "elite_athlete_modifier": 1.0,
+        "recreational_athlete_modifier": 1.0,
+        "notes": "Stepwise protocol – each stage minimum 24h. Pediatric athletes require additional caution and physician clearance. Complex concussion may require weeks–months"
+      },
+      "rts_criteria": {
+        "pain_threshold": "Complete symptom resolution at rest; SCAT5 score within normal limits",
+        "strength_criteria": "Not applicable for typical concussion; neurological examination normal",
+        "functional_tests": [
+          "Stage 1: Symptom-limited activity (daily activities that do not provoke symptoms)",
+          "Stage 2: Light aerobic exercise (walking, swimming – no resistance training)",
+          "Stage 3: Sport-specific exercise (skating drills, running – no head impact)",
+          "Stage 4: Non-contact training drills (passing drills, complex agility)",
+          "Stage 5: Full-contact practice after medical clearance",
+          "Stage 6: Return to competition",
+          "ImPACT or neurocognitive testing within normal limits",
+          "Vestibulo-ocular motor screen (VOMS) passed"
+        ],
+        "psychological_clearance": "No anxiety or depression; sleep quality monitored (sleep disturbance post-SRC is common – PMID 34145161)"
+      },
+      "re_injury_risk_if_early": "Second Impact Syndrome (catastrophic brain swelling) documented in youth athletes who sustain second concussion before full recovery; symptomatic RTS is strictly contraindicated",
+      "pmid_sources": ["30356457", "40503565", "39962915", "38646724", "34145161"]
+    },
+    {
+      "injury_id": "MUSCLE_STRAIN_GENERAL_G1",
+      "injury_name": "General Muscle Strain (Quadriceps, Calf, Groin / Adductor)",
+      "grade_or_severity": "Grade I",
+      "rts_timeline": {
+        "minimum_days": 3,
+        "typical_days": 7,
+        "maximum_days": 14,
+        "elite_athlete_modifier": 0.85,
+        "recreational_athlete_modifier": 1.2
+      },
+      "rts_criteria": {
+        "pain_threshold": "NRS ≤1/10 at full speed",
+        "strength_criteria": "Strength deficit <10% contralateral",
+        "functional_tests": [
+          "Full sprint pain-free",
+          "Sport-specific movements pain-free"
+        ],
+        "psychological_clearance": "Athlete confidence ≥8/10"
+      },
+      "re_injury_risk_if_early": "20–30% recurrence risk in general muscle strains without criteria-based clearance",
+      "pmid_sources": ["29671490", "31673400"]
+    },
+    {
+      "injury_id": "MUSCLE_STRAIN_GENERAL_G2",
+      "injury_name": "General Muscle Strain (Quadriceps, Calf, Groin / Adductor)",
+      "grade_or_severity": "Grade II",
+      "rts_timeline": {
+        "minimum_days": 14,
+        "typical_days": 28,
+        "maximum_days": 56,
+        "elite_athlete_modifier": 0.85,
+        "recreational_athlete_modifier": 1.2
+      },
+      "rts_criteria": {
+        "pain_threshold": "NRS 0/10 at maximal sport-specific exertion",
+        "strength_criteria": "LSI ≥90% on isokinetic testing",
+        "functional_tests": [
+          "Full sprint series",
+          "Agility and change of direction pain-free",
+          "Single-leg hop LSI ≥90%"
+        ],
+        "psychological_clearance": "No fear of re-injury; graduated return under supervision"
+      },
+      "re_injury_risk_if_early": "Without eccentric strengthening, re-injury risk is elevated; eccentric protocols significantly reduce recurrence (PMID 40954668)",
+      "pmid_sources": ["29671490", "40954668", "31673400"]
+    },
+    {
+      "injury_id": "PCL_RECON",
+      "injury_name": "Posterior Cruciate Ligament (PCL) Reconstruction",
+      "grade_or_severity": "Complete tear requiring surgical reconstruction",
+      "rts_timeline": {
+        "minimum_days": 150,
+        "typical_days": 270,
+        "maximum_days": 365,
+        "elite_athlete_modifier": 0.85,
+        "recreational_athlete_modifier": 1.2,
+        "notes": "RTS timelines range <6 to 12 months across studies; limited standardization (PMID 41811648)"
+      },
+      "rts_criteria": {
+        "pain_threshold": "NRS 0/10; no effusion",
+        "strength_criteria": "LSI ≥90% quadriceps and hamstring; isokinetic testing recommended; IKDC >90 and Lysholm >85",
+        "functional_tests": [
+          "Full ROM extension and near-full flexion",
+          "Single-leg hop battery LSI >90%",
+          "Sport-specific agility and cutting",
+          "Pivot-shift test negative"
+        ],
+        "psychological_clearance": "ACL-RSI analog; confidence with pivoting and contact"
+      },
+      "re_injury_risk_if_early": "Re-instability and chronic PCL laxity if RTS without full strength and ROM recovery (PMID 41811648)",
+      "pmid_sources": ["41811648"]
+    }
+  ]
+}

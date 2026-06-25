@@ -1,0 +1,505 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created": "2026-06-22",
+    "description": "Evidence-based rehabilitation phase templates for sports injuries. Based on systematic review of rehabilitation frameworks from PubMed and Consensus research."
+  },
+  "phase_templates": [
+    {
+      "phase_id": 1,
+      "phase_name": "Protection / Acute",
+      "typical_duration_days": {"min": 3, "max": 14},
+      "goals": [
+        "Control pain and swelling (PRICE/PEACE protocol)",
+        "Protect injured tissue from further damage",
+        "Maintain range of motion within pain-free limits",
+        "Preserve cardiovascular fitness with non-painful activities",
+        "Reduce muscle inhibition / atrophy",
+        "Patient education on injury and recovery timeline",
+        "Psychological support: address fear of re-injury"
+      ],
+      "criteria_to_progress": [
+        "Pain at rest ≤ 2/10",
+        "Significant reduction in swelling",
+        "Pain-free or near-pain-free active range of motion",
+        "Able to perform daily activities without significant limitation",
+        "Full weight-bearing (for lower limb injuries) with minimal pain"
+      ],
+      "exercise_ids": [
+        "HST_001",
+        "ACL_001",
+        "ANK_001",
+        "RCF_001",
+        "PAT_001",
+        "ACH_003",
+        "PF_001",
+        "PF_002",
+        "IT_001",
+        "GRN_001",
+        "LBK_001",
+        "QDC_001",
+        "CLF_001",
+        "HIP_001",
+        "MCL_001",
+        "GEN_001",
+        "GEN_002",
+        "GEN_006"
+      ],
+      "loading_principles": [
+        "Isometric exercises are preferred - provide analgesic effect without joint movement",
+        "Pain allowed ≤ 3/10 during gentle ROM exercises",
+        "Avoid loading positions that stress the healing tissue under tension",
+        "Aquatic therapy provides early loading with reduced weight-bearing forces",
+        "BFR training can be initiated early to reduce quad atrophy (e.g. post-ACLR)"
+      ],
+      "clinical_notes": "Based on evidence from van Melick et al. 2016 (PMID via DOI 10.1136/bjsports-2014-093474) and rehabilitation role in sport injury consensus (Defi 2023). The PEACE & LOVE framework (Protection, Elevation, Avoid anti-inflammatory modalities, Compression, Education / Load, Optimism, Vascularization, Exercise) represents the current evidence-based approach replacing older RICE/PRICE protocols."
+    },
+
+    {
+      "phase_id": 2,
+      "phase_name": "Rehabilitation / Subacute",
+      "typical_duration_days": {"min": 7, "max": 42},
+      "goals": [
+        "Restore full pain-free range of motion",
+        "Begin progressive loading of injured tissue",
+        "Rebuild muscle strength and endurance",
+        "Restore proprioception and neuromuscular control",
+        "Maintain or improve cardiovascular fitness",
+        "Address contributing biomechanical deficits",
+        "Normalize movement patterns"
+      ],
+      "criteria_to_progress": [
+        "Full pain-free active and passive ROM",
+        "Injured limb strength ≥ 60-70% of contralateral limb",
+        "Good quality neuromuscular control during closed-kinetic-chain exercises",
+        "No pain with moderate-intensity activities",
+        "For lower limb: able to walk normally, jog straight-line"
+      ],
+      "exercise_ids": [
+        "HST_001",
+        "HST_002",
+        "HST_003",
+        "HST_004",
+        "ACL_002",
+        "ACL_003",
+        "ACL_004",
+        "ACL_007",
+        "ANK_002",
+        "ANK_003",
+        "ANK_004",
+        "RCF_002",
+        "RCF_003",
+        "RCF_004",
+        "PAT_002",
+        "ACH_001",
+        "ACH_002",
+        "ACH_004",
+        "PF_001",
+        "PF_002",
+        "PF_003",
+        "PF_004",
+        "IT_002",
+        "IT_003",
+        "GRN_001",
+        "GRN_003",
+        "LBK_002",
+        "LBK_003",
+        "LBK_004",
+        "QDC_002",
+        "CLF_001",
+        "CLF_002",
+        "HIP_001",
+        "HIP_002",
+        "MCL_001",
+        "MCL_002",
+        "GEN_001",
+        "GEN_002",
+        "GEN_004"
+      ],
+      "loading_principles": [
+        "Progressive overload: increase sets/reps/load every 1-2 weeks",
+        "Pain monitoring: allow up to 4/10 pain during exercise that returns to baseline within 24 hours",
+        "For tendinopathies: isometric → isotonic → eccentric → heavy slow resistance progression",
+        "Closed kinetic chain exercises preferred for knee injuries (less ACL stress than OKC)",
+        "Eccentric training emphasized: reduces injury recurrence rates for hamstring and Achilles",
+        "Frequency: 3-5 sessions per week; allow 48h recovery between resistance sessions"
+      ],
+      "clinical_notes": "This phase spans the inflammatory-to-proliferative tissue healing transition. Evidence from Bourne et al. 2018 (PMID 29116573, DOI 10.1007/s40279-017-0796-x) supports eccentric exercises for hamstring strengthening. HSR protocol (Liu et al. 2026, PMID 42192475) demonstrates patellar tendinopathy management. Alfredson eccentric protocol (PMID 37628466, 36538166) remains gold standard for Achilles tendinopathy rehabilitation."
+    },
+
+    {
+      "phase_id": 3,
+      "phase_name": "Functional Integration / Sport Preparation",
+      "typical_duration_days": {"min": 14, "max": 56},
+      "goals": [
+        "Achieve injured limb strength ≥ 85% of contralateral (Limb Symmetry Index)",
+        "Introduce sport-specific movement patterns",
+        "Progressive plyometric loading",
+        "High-speed running and direction changes",
+        "Restore confidence in the injured area",
+        "Address psychological readiness for sport return",
+        "Develop sport-specific power and endurance"
+      ],
+      "criteria_to_progress": [
+        "Limb Symmetry Index ≥ 85-90% on strength testing",
+        "No pain with any rehabilitation exercises",
+        "Successful completion of single-leg hop test battery (≥90% LSI)",
+        "Ability to run at 85-90% maximum speed pain-free",
+        "Good quality cutting and change of direction",
+        "Psychological readiness score ≥ 7/10 on ACL-RSI or equivalent"
+      ],
+      "exercise_ids": [
+        "HST_004",
+        "HST_005",
+        "HST_006",
+        "ACL_003",
+        "ACL_004",
+        "ACL_005",
+        "ACL_007",
+        "ANK_004",
+        "ANK_005",
+        "RCF_004",
+        "RCF_005",
+        "PAT_002",
+        "PAT_003",
+        "PAT_004",
+        "ACH_001",
+        "ACH_002",
+        "ACH_004",
+        "PF_003",
+        "PF_004",
+        "IT_002",
+        "GRN_002",
+        "GRN_003",
+        "LBK_004",
+        "LBK_005",
+        "QDC_003",
+        "CLF_002",
+        "CLF_003",
+        "HIP_003",
+        "MCL_002",
+        "MCL_003",
+        "GEN_002",
+        "GEN_003",
+        "GEN_007"
+      ],
+      "loading_principles": [
+        "Progressive plyometric introduction: bilateral jumps → unilateral → reactive plyometrics",
+        "Running progression: linear → curved → lateral → cutting/sprinting",
+        "Load monitoring: rate sport as 1-10, target return to 7 before full sport",
+        "Training load: controlled increase (≤10% weekly volume increase recommended)",
+        "On-field rehabilitation: 4 pillars - movement quality, physical conditioning, sport-specific skills, training load development (Buckthorpe et al. 2019)",
+        "Nordic Hamstring Exercise introduced in this phase for hamstring injury prevention"
+      ],
+      "clinical_notes": "Key reference: Buckthorpe et al. 2019 (Consensus result) on on-field rehabilitation. For ACL: criteria-based progression with LSI testing is the evidence standard per van Melick 2016. Nordic Hamstring Exercise demonstrated 64-65% reduction in hamstring injury incidence (van der Horst 2015, PMID 25794868). Copenhagen adductor exercise for groin: PMID 26750142."
+    },
+
+    {
+      "phase_id": 4,
+      "phase_name": "Return to Sport / Performance",
+      "typical_duration_days": {"min": 7, "max": 42},
+      "goals": [
+        "Full return to unrestricted sport participation",
+        "Achieve symmetric performance to pre-injury level",
+        "Injury prevention screening and ongoing monitoring",
+        "Return to competition with confidence",
+        "Establish ongoing maintenance program to prevent recurrence"
+      ],
+      "criteria_to_progress": [
+        "Limb Symmetry Index ≥ 90% on all functional tests (hop tests, strength testing)",
+        "Psychological readiness: ACL-RSI ≥ 65 (for ACL) or equivalent score",
+        "Successful completion of sport-specific clearance testing",
+        "Pain-free sprinting at 100% (mandatory for hamstring injuries)",
+        "Movement quality assessment: clinician sign-off on landing and cutting mechanics",
+        "Minimum time criterion met (e.g. ≥9 months post-ACLR per van Melick guidelines)"
+      ],
+      "exercise_ids": [
+        "HST_007",
+        "ACL_005",
+        "ACL_006",
+        "ANK_005",
+        "ANK_006",
+        "PAT_004",
+        "CLF_003",
+        "HIP_003",
+        "GRN_002",
+        "GEN_003",
+        "GEN_005",
+        "GEN_007",
+        "GEN_008"
+      ],
+      "loading_principles": [
+        "Full sport load introduction over 2-4 weeks of graduated team participation",
+        "Progress from individual drills → small group → full training → competitive play",
+        "Ongoing strength maintenance: minimum 1 session/week to prevent deconditioning",
+        "Re-testing at 1, 3, 6, and 12 months post-return to detect early recurrence",
+        "Psychological preparation: graduated exposure, visualization techniques"
+      ],
+      "return_to_sport_tests": {
+        "hop_tests": [
+          "Single-Leg Hop for Distance (target ≥90% LSI)",
+          "Triple Hop for Distance (target ≥90% LSI)",
+          "6-Meter Timed Hop (target ≤10% asymmetry)",
+          "Crossover Hop for Distance (target ≥90% LSI)"
+        ],
+        "strength_tests": [
+          "Isokinetic knee extension strength (target ≥90% LSI at 60°/s and 180°/s)",
+          "Single-leg calf raise (≥30 reps and symmetric)",
+          "Single-leg press (≥90% LSI)"
+        ],
+        "functional_tests": [
+          "Y-Balance test (anterior reach ≥90% LSI)",
+          "Agility T-test (symmetric times)",
+          "Countermovement Jump height (≥90% LSI)"
+        ],
+        "psychological": [
+          "ACL-Return to Sport Index (ACL-RSI) ≥65 for ACL injuries",
+          "Fear-Avoidance Beliefs Questionnaire if elevated fear",
+          "Athlete self-report confidence ≥8/10 for sport-specific activities"
+        ]
+      },
+      "clinical_notes": "Return-to-sport criteria are multifactorial. Evidence from van Melick 2016 mandates 9-12 month post-ACLR rehabilitation with combined strength + hop tests + psychological assessment. Paton et al. 2023 Delphi (Consensus, 78.3-98.3% agreement) for hamstring: pain-free sprinting is mandatory criterion. Schwank et al. 2022 (Bern Consensus) provides shoulder RTS framework. Aquatic therapy (PMID 38992731) may accelerate return timelines for ankle sprains."
+    }
+  ],
+
+  "injury_phase_mapping": {
+    "hamstring_strain": {
+      "injury_id": "hamstring_strain",
+      "typical_phases_used": [1, 2, 3, 4],
+      "phase_durations": {
+        "phase_1_days": {"min": 3, "max": 10},
+        "phase_2_days": {"min": 7, "max": 28},
+        "phase_3_days": {"min": 14, "max": 28},
+        "phase_4_days": {"min": 7, "max": 21}
+      },
+      "total_typical_days": {"min": 21, "max": 87},
+      "key_exercises_per_phase": {
+        "phase_1": ["HST_001"],
+        "phase_2": ["HST_002", "HST_003", "HST_004", "HST_006"],
+        "phase_3": ["HST_004", "HST_005", "HST_006", "ACL_007"],
+        "phase_4": ["HST_007", "GEN_005", "GEN_008"]
+      }
+    },
+    "acl_sprain": {
+      "injury_id": "acl_sprain",
+      "typical_phases_used": [1, 2, 3, 4],
+      "phase_durations": {
+        "phase_1_days": {"min": 7, "max": 21},
+        "phase_2_days": {"min": 30, "max": 90},
+        "phase_3_days": {"min": 60, "max": 120},
+        "phase_4_days": {"min": 30, "max": 90}
+      },
+      "total_typical_days": {"min": 270, "max": 365},
+      "key_exercises_per_phase": {
+        "phase_1": ["ACL_001", "GEN_002", "GEN_004"],
+        "phase_2": ["ACL_002", "ACL_003", "ACL_004", "ACL_007", "ANK_003"],
+        "phase_3": ["ACL_003", "ACL_004", "ACL_005", "ACL_007", "GEN_002"],
+        "phase_4": ["ACL_005", "ACL_006", "GEN_003", "GEN_005", "GEN_008"]
+      }
+    },
+    "ankle_sprain": {
+      "injury_id": "ankle_sprain",
+      "typical_phases_used": [1, 2, 3, 4],
+      "phase_durations": {
+        "phase_1_days": {"min": 3, "max": 7},
+        "phase_2_days": {"min": 7, "max": 21},
+        "phase_3_days": {"min": 7, "max": 21},
+        "phase_4_days": {"min": 7, "max": 14}
+      },
+      "total_typical_days": {"min": 14, "max": 63},
+      "key_exercises_per_phase": {
+        "phase_1": ["ANK_001", "GEN_001"],
+        "phase_2": ["ANK_002", "ANK_003", "ANK_004"],
+        "phase_3": ["ANK_003", "ANK_004", "ANK_005", "GEN_001"],
+        "phase_4": ["ANK_005", "ANK_006", "GEN_005", "GEN_008"]
+      }
+    },
+    "rotator_cuff_strain": {
+      "injury_id": "rotator_cuff_strain",
+      "typical_phases_used": [1, 2, 3, 4],
+      "phase_durations": {
+        "phase_1_days": {"min": 5, "max": 14},
+        "phase_2_days": {"min": 14, "max": 42},
+        "phase_3_days": {"min": 21, "max": 56},
+        "phase_4_days": {"min": 14, "max": 42}
+      },
+      "total_typical_days": {"min": 54, "max": 154},
+      "key_exercises_per_phase": {
+        "phase_1": ["RCF_001"],
+        "phase_2": ["RCF_002", "RCF_003", "RCF_004"],
+        "phase_3": ["RCF_004", "RCF_005"],
+        "phase_4": ["RCF_005", "GEN_008"]
+      }
+    },
+    "patella_tendinopathy": {
+      "injury_id": "patella_tendinopathy",
+      "typical_phases_used": [1, 2, 3, 4],
+      "phase_durations": {
+        "phase_1_days": {"min": 7, "max": 21},
+        "phase_2_days": {"min": 28, "max": 56},
+        "phase_3_days": {"min": 28, "max": 56},
+        "phase_4_days": {"min": 14, "max": 42}
+      },
+      "total_typical_days": {"min": 77, "max": 175},
+      "key_exercises_per_phase": {
+        "phase_1": ["PAT_001"],
+        "phase_2": ["PAT_002"],
+        "phase_3": ["PAT_002", "PAT_003"],
+        "phase_4": ["PAT_004", "GEN_003"]
+      }
+    },
+    "achilles_tendinopathy": {
+      "injury_id": "achilles_tendinopathy",
+      "typical_phases_used": [1, 2, 3, 4],
+      "phase_durations": {
+        "phase_1_days": {"min": 7, "max": 21},
+        "phase_2_days": {"min": 42, "max": 84},
+        "phase_3_days": {"min": 28, "max": 56},
+        "phase_4_days": {"min": 14, "max": 28}
+      },
+      "total_typical_days": {"min": 91, "max": 189},
+      "key_exercises_per_phase": {
+        "phase_1": ["ACH_003", "ANK_001"],
+        "phase_2": ["ACH_001", "ACH_002"],
+        "phase_3": ["ACH_001", "ACH_002", "ACH_004"],
+        "phase_4": ["CLF_003", "GEN_007"]
+      }
+    },
+    "plantar_fasciitis": {
+      "injury_id": "plantar_fasciitis",
+      "typical_phases_used": [1, 2, 3, 4],
+      "phase_durations": {
+        "phase_1_days": {"min": 7, "max": 21},
+        "phase_2_days": {"min": 21, "max": 42},
+        "phase_3_days": {"min": 14, "max": 42},
+        "phase_4_days": {"min": 7, "max": 21}
+      },
+      "total_typical_days": {"min": 49, "max": 126},
+      "key_exercises_per_phase": {
+        "phase_1": ["PF_001", "PF_002"],
+        "phase_2": ["PF_001", "PF_002", "PF_003", "PF_004"],
+        "phase_3": ["PF_003", "PF_004", "ANK_002"],
+        "phase_4": ["GEN_005", "GEN_007"]
+      }
+    },
+    "groin_strain": {
+      "injury_id": "groin_strain",
+      "typical_phases_used": [1, 2, 3, 4],
+      "phase_durations": {
+        "phase_1_days": {"min": 3, "max": 14},
+        "phase_2_days": {"min": 14, "max": 42},
+        "phase_3_days": {"min": 14, "max": 42},
+        "phase_4_days": {"min": 7, "max": 21}
+      },
+      "total_typical_days": {"min": 38, "max": 119},
+      "key_exercises_per_phase": {
+        "phase_1": ["GRN_001"],
+        "phase_2": ["GRN_001", "GRN_003"],
+        "phase_3": ["GRN_002", "GRN_003", "HIP_003"],
+        "phase_4": ["GRN_002", "GEN_005", "GEN_008"]
+      }
+    },
+    "lumbar_strain": {
+      "injury_id": "lumbar_strain",
+      "typical_phases_used": [1, 2, 3, 4],
+      "phase_durations": {
+        "phase_1_days": {"min": 3, "max": 10},
+        "phase_2_days": {"min": 7, "max": 28},
+        "phase_3_days": {"min": 14, "max": 42},
+        "phase_4_days": {"min": 7, "max": 21}
+      },
+      "total_typical_days": {"min": 31, "max": 101},
+      "key_exercises_per_phase": {
+        "phase_1": ["LBK_001"],
+        "phase_2": ["LBK_002", "LBK_003", "LBK_004", "GEN_002"],
+        "phase_3": ["LBK_004", "LBK_005"],
+        "phase_4": ["GEN_007", "GEN_008"]
+      }
+    },
+    "calf_strain": {
+      "injury_id": "calf_strain",
+      "typical_phases_used": [1, 2, 3, 4],
+      "phase_durations": {
+        "phase_1_days": {"min": 3, "max": 10},
+        "phase_2_days": {"min": 7, "max": 21},
+        "phase_3_days": {"min": 7, "max": 21},
+        "phase_4_days": {"min": 7, "max": 14}
+      },
+      "total_typical_days": {"min": 24, "max": 66},
+      "key_exercises_per_phase": {
+        "phase_1": ["CLF_001", "ANK_001", "GEN_001"],
+        "phase_2": ["CLF_001", "CLF_002", "PF_002"],
+        "phase_3": ["CLF_002", "CLF_003"],
+        "phase_4": ["CLF_003", "GEN_005", "GEN_007"]
+      }
+    },
+    "it_band_syndrome": {
+      "injury_id": "it_band_syndrome",
+      "typical_phases_used": [1, 2, 3, 4],
+      "phase_durations": {
+        "phase_1_days": {"min": 3, "max": 10},
+        "phase_2_days": {"min": 14, "max": 28},
+        "phase_3_days": {"min": 14, "max": 28},
+        "phase_4_days": {"min": 7, "max": 21}
+      },
+      "total_typical_days": {"min": 38, "max": 87},
+      "key_exercises_per_phase": {
+        "phase_1": ["IT_001", "GEN_006"],
+        "phase_2": ["IT_001", "IT_002", "IT_003", "GEN_002"],
+        "phase_3": ["IT_002", "ACL_004", "ACL_007"],
+        "phase_4": ["GEN_005", "GEN_007", "GEN_008"]
+      }
+    },
+    "hip_flexor_strain": {
+      "injury_id": "hip_flexor_strain",
+      "typical_phases_used": [1, 2, 3, 4],
+      "phase_durations": {
+        "phase_1_days": {"min": 3, "max": 10},
+        "phase_2_days": {"min": 7, "max": 21},
+        "phase_3_days": {"min": 7, "max": 21},
+        "phase_4_days": {"min": 7, "max": 14}
+      },
+      "total_typical_days": {"min": 24, "max": 66},
+      "key_exercises_per_phase": {
+        "phase_1": ["HIP_001"],
+        "phase_2": ["HIP_001", "HIP_002", "IT_003"],
+        "phase_3": ["HIP_002", "HIP_003", "ACL_007"],
+        "phase_4": ["HIP_003", "GEN_005", "GEN_008"]
+      }
+    },
+    "quadriceps_strain": {
+      "injury_id": "quadriceps_strain",
+      "typical_phases_used": [1, 2, 3, 4],
+      "phase_durations": {
+        "phase_1_days": {"min": 3, "max": 10},
+        "phase_2_days": {"min": 7, "max": 21},
+        "phase_3_days": {"min": 7, "max": 21},
+        "phase_4_days": {"min": 7, "max": 14}
+      },
+      "total_typical_days": {"min": 24, "max": 66},
+      "key_exercises_per_phase": {
+        "phase_1": ["ACL_001", "QDC_001"],
+        "phase_2": ["QDC_001", "QDC_002", "ACL_002"],
+        "phase_3": ["QDC_003", "ACL_003", "ACL_004"],
+        "phase_4": ["GEN_003", "GEN_005", "GEN_008"]
+      }
+    },
+    "medial_knee_sprain": {
+      "injury_id": "medial_knee_sprain",
+      "typical_phases_used": [1, 2, 3, 4],
+      "phase_durations": {
+        "phase_1_days": {"min": 5, "max": 14},
+        "phase_2_days": {"min": 14, "max": 28},
+        "phase_3_days": {"min": 14, "max": 28},
+        "phase_4_days": {"min": 7, "max": 21}
+      },
+      "total_typical_days": {"min": 40, "max": 91},
+      "key_exercises_per_phase": {
+        "phase_1": ["MCL_001", "ACL_001"],
+        "phase_2": ["MCL_001", "MCL_002", "ACL_002", "IT_002"],
+        "phase_3": ["MCL_002", "MCL_003", "ACL_004", "ACL_007"],
+        "phase_4": ["GEN_005", "GEN_007", "GEN_008"]
+      }
+    }
+  }
+}

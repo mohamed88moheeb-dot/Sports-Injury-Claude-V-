@@ -1,0 +1,675 @@
+{
+  "_metadata": {
+    "version": "1.0",
+    "date": "2026-06-22",
+    "description": "Bayesian prior probabilities for sports injuries, derived from epidemiological surveillance data. All base rates are expressed as probability (0.0–1.0) within the reference population of athletes presenting to emergency departments or sports medicine clinics with a musculoskeletal complaint in the specified body region.",
+    "important_note": "These are NOT general population incidence rates. They are CONDITIONAL probabilities: P(injury | athlete presents with complaint in body region). This is the correct prior for Bayesian updating from symptom likelihood ratios.",
+    "pubmed_attribution": "All data sourced from PubMed-indexed surveillance studies. DOIs provided.",
+    "primary_sources": [
+      {
+        "label": "NEISS_pediatric_2015_2024",
+        "description": "National Electronic Injury Surveillance System - pediatric lower extremity sports injuries",
+        "citation": "Wong L et al. Orthop J Sports Med. 2026.",
+        "doi": "https://doi.org/10.1177/23259671261416130",
+        "pmid": "41732224",
+        "n": "2,308,476 national injury estimates"
+      },
+      {
+        "label": "HS_RIO_2015_2019",
+        "description": "National High School Sports-Related Injury Surveillance Study",
+        "citation": "Pizzarro J et al. Orthop J Sports Med. 2024.",
+        "doi": "https://doi.org/10.1177/23259671241252637",
+        "pmid": "38784790",
+        "n": "15,531 injuries across 6,778,209 AEs"
+      },
+      {
+        "label": "Ankle_Sprain_HSRIO_2011_2019",
+        "description": "Ankle sprain epidemiology across 16 US high school sports",
+        "citation": "Kerr ZY et al. J Athl Train. 2022.",
+        "doi": "https://doi.org/10.4085/1062-6050-0664.21",
+        "pmid": "35271730",
+        "n": "9,320 ankle sprains"
+      },
+      {
+        "label": "ACL_European_Football",
+        "description": "ACL epidemiology in top 5 European football leagues 2018-2024",
+        "citation": "Ortiz-Sánchez D et al. Orthop J Sports Med. 2026.",
+        "doi": "https://doi.org/10.1177/23259671251400766",
+        "pmid": "41510354"
+      },
+      {
+        "label": "ACL_Mechanisms_SR",
+        "description": "Sport-specific ACL injury mechanisms systematic review",
+        "citation": "Sundberg A et al. Sports Med. 2025.",
+        "doi": "https://doi.org/10.1007/s40279-025-02271-w",
+        "pmid": "40690162"
+      },
+      {
+        "label": "Sex_Differences_TeamSport",
+        "description": "Sex differences in injury rates - meta-analysis 20 studies",
+        "citation": "Zech A et al. J Sport Health Sci. 2021.",
+        "doi": "https://doi.org/10.1016/j.jshs.2021.04.003",
+        "pmid": "34052518"
+      }
+    ],
+    "interpretation_guide": {
+      "base_rate_general": "P(this injury | athlete presents with complaint in this body region), general sports-active population",
+      "base_rate_by_sport": "Adjusted conditional probability given the specific sport context",
+      "base_rate_by_mechanism": "Adjusted conditional probability given reported mechanism",
+      "base_rate_by_sex": "Sex-stratified conditional probabilities where evidence exists",
+      "confidence_intervals": "Where provided, these are 95% CI from source studies"
+    }
+  },
+  "injury_priors": [
+    {
+      "injury_id": "lateral_ankle_sprain",
+      "injury_name": "Lateral Ankle Sprain",
+      "body_region": "ankle_foot",
+      "icd_10": "S93.4",
+      "severity_levels": ["grade_1_mild", "grade_2_moderate", "grade_3_severe"],
+      "base_rate_general": 0.55,
+      "base_rate_95ci": [0.50, 0.60],
+      "notes": "Most common sports injury. Ankle accounts for 17.6% of all HS sports injuries (HS RIO 2015-2019); 42.9% of pediatric lower extremity injuries are ankle injuries (NEISS 2024); ~80% of ankle injuries are lateral sprains.",
+      "base_rate_by_sport": {
+        "basketball": 0.72,
+        "soccer": 0.68,
+        "american_football": 0.60,
+        "volleyball": 0.65,
+        "gymnastics_cheerleading": 0.62,
+        "running_track": 0.40,
+        "tennis_racquet": 0.45,
+        "swimming": 0.15,
+        "weightlifting_crossfit": 0.30,
+        "other": 0.50
+      },
+      "base_rate_by_mechanism": {
+        "inversion_twisting": 0.85,
+        "contact_direct": 0.25,
+        "non_contact_landing": 0.55,
+        "overuse_gradual": 0.05,
+        "unknown": 0.45
+      },
+      "base_rate_by_sex": {
+        "male": 0.52,
+        "female": 0.58,
+        "notes": "No significant sex difference in ankle sprain rates (Zech 2021, IRR not significant)"
+      },
+      "recurrence_rate": 0.145,
+      "recurrence_notes": "14.5% of ankle sprains in HS sports are recurrent (Kerr 2022, DOI 10.4085/1062-6050-0664.21)",
+      "pmid_sources": ["35271730", "41732224", "38784790"]
+    },
+    {
+      "injury_id": "medial_ankle_sprain",
+      "injury_name": "Medial Ankle Sprain (Deltoid Ligament)",
+      "body_region": "ankle_foot",
+      "icd_10": "S93.41",
+      "base_rate_general": 0.08,
+      "notes": "Much less common than lateral sprain; requires eversion mechanism or high-energy trauma",
+      "base_rate_by_sport": {
+        "basketball": 0.09,
+        "soccer": 0.08,
+        "american_football": 0.12,
+        "other": 0.07
+      },
+      "base_rate_by_mechanism": {
+        "eversion": 0.55,
+        "contact_direct": 0.20,
+        "inversion_twisting": 0.02,
+        "overuse_gradual": 0.03
+      },
+      "pmid_sources": ["35271730"]
+    },
+    {
+      "injury_id": "ankle_fracture",
+      "injury_name": "Ankle Fracture (Malleolar or Fibular)",
+      "body_region": "ankle_foot",
+      "icd_10": "S82.6",
+      "base_rate_general": 0.12,
+      "notes": "Fractures represent 13.6% of all sports injuries (HS RIO 2024); 25.3% of ankle injury ED presentations had fractures in Ottawa Ankle Rule study (Morais 2021)",
+      "base_rate_by_sport": {
+        "american_football": 0.18,
+        "basketball": 0.10,
+        "soccer": 0.09,
+        "gymnastics_cheerleading": 0.15,
+        "other": 0.10
+      },
+      "base_rate_by_mechanism": {
+        "contact_direct": 0.35,
+        "inversion_twisting": 0.15,
+        "non_contact_landing": 0.12,
+        "overuse_gradual": 0.02
+      },
+      "ottawa_rule_sensitivity": 1.00,
+      "ottawa_rule_specificity": 0.26,
+      "ottawa_rule_source_doi": "https://doi.org/10.1016/j.injury.2021.01.006",
+      "pmid_sources": ["33551264", "40933976", "38784790"]
+    },
+    {
+      "injury_id": "acl_tear",
+      "injury_name": "Anterior Cruciate Ligament Tear",
+      "body_region": "knee",
+      "icd_10": "S83.5",
+      "severity_levels": ["partial_tear", "complete_tear"],
+      "base_rate_general": 0.18,
+      "notes": "ACL is most significant knee ligament injury. 14.1% of all HS injuries are knee injuries (HS RIO 2024). Among female athletes, ACL injury rate is 2.15x higher (Zech 2021). Surgery required in significant proportion.",
+      "base_rate_by_sport": {
+        "soccer": 0.28,
+        "basketball": 0.25,
+        "american_football": 0.20,
+        "volleyball": 0.22,
+        "skiing": 0.35,
+        "gymnastics_cheerleading": 0.18,
+        "running_track": 0.05,
+        "swimming": 0.02,
+        "other": 0.12
+      },
+      "base_rate_by_mechanism": {
+        "landing_from_jump_knee_valgus": 0.55,
+        "change_of_direction_cutting": 0.48,
+        "contact_direct_to_knee": 0.30,
+        "non_contact_deceleration": 0.40,
+        "overuse_gradual": 0.01
+      },
+      "base_rate_by_sex": {
+        "female": 0.26,
+        "male": 0.12,
+        "irr_female_vs_male": 2.15,
+        "irr_95ci": [1.27, 3.62],
+        "source_doi": "https://doi.org/10.1016/j.jshs.2021.04.003"
+      },
+      "mechanism_distribution": {
+        "change_of_direction": "26-70% by sport",
+        "landing_from_jump": "57-82% in volleyball/badminton",
+        "direct_contact": "53-83% in combat/american football",
+        "gear_induced": "alpine skiing specific",
+        "defensive_action_soccer": "62.2%",
+        "noncontact_soccer": "48.9%"
+      },
+      "pmid_sources": ["40690162", "41510354", "34052518", "41651065"]
+    },
+    {
+      "injury_id": "mcl_sprain",
+      "injury_name": "Medial Collateral Ligament Sprain",
+      "body_region": "knee",
+      "icd_10": "S83.41",
+      "severity_levels": ["grade_1", "grade_2", "grade_3"],
+      "base_rate_general": 0.22,
+      "notes": "Most common ligament injury treated conservatively; contact with valgus stress is classic mechanism",
+      "base_rate_by_sport": {
+        "american_football": 0.35,
+        "basketball": 0.20,
+        "soccer": 0.22,
+        "skiing": 0.28,
+        "other": 0.15
+      },
+      "base_rate_by_mechanism": {
+        "contact_direct_valgus": 0.55,
+        "non_contact_valgus": 0.25,
+        "cutting_change_direction": 0.20,
+        "overuse_gradual": 0.02
+      },
+      "pmid_sources": ["38784790"]
+    },
+    {
+      "injury_id": "meniscus_tear",
+      "injury_name": "Meniscal Tear",
+      "body_region": "knee",
+      "icd_10": "S83.2",
+      "base_rate_general": 0.15,
+      "notes": "Meniscal tears occur in 48.9% of pediatric ACL injuries (Crippa 2026). Associated injuries common. Recurrent clicking and locking are diagnostic clues.",
+      "base_rate_by_sport": {
+        "american_football": 0.20,
+        "soccer": 0.18,
+        "basketball": 0.16,
+        "skiing": 0.22,
+        "other": 0.10
+      },
+      "base_rate_by_mechanism": {
+        "twisting_with_weight_bearing": 0.45,
+        "deep_squat": 0.30,
+        "contact_direct": 0.25,
+        "overuse_gradual": 0.05,
+        "concomitant_acl": 0.50
+      },
+      "pmid_sources": ["41651065"]
+    },
+    {
+      "injury_id": "patellar_tendinopathy",
+      "injury_name": "Patellar Tendinopathy (Jumper's Knee)",
+      "body_region": "knee",
+      "icd_10": "M76.50",
+      "base_rate_general": 0.20,
+      "notes": "Among knee complaints presenting with anterior knee pain in jumping sports, patellar tendinopathy is the most common diagnosis. VISA-P is the gold standard outcome measure (PubMed PMIDs: 41905494, 41588720).",
+      "base_rate_by_sport": {
+        "volleyball": 0.45,
+        "basketball": 0.35,
+        "running_track": 0.25,
+        "american_football": 0.15,
+        "cycling": 0.20,
+        "swimming": 0.05,
+        "other": 0.15
+      },
+      "base_rate_by_mechanism": {
+        "overuse_gradual": 0.80,
+        "sudden_load_increase": 0.60,
+        "contact_direct": 0.05,
+        "non_contact_acute": 0.10
+      },
+      "pmid_sources": ["41905494", "41588720"]
+    },
+    {
+      "injury_id": "patellofemoral_pain",
+      "injury_name": "Patellofemoral Pain Syndrome",
+      "body_region": "knee",
+      "icd_10": "M22.2",
+      "base_rate_general": 0.22,
+      "notes": "Most common anterior knee pain diagnosis, especially in female runners and cyclists. Anterior, diffuse, worse with stairs/squats/prolonged sitting.",
+      "base_rate_by_sport": {
+        "running_track": 0.35,
+        "cycling": 0.30,
+        "basketball": 0.20,
+        "soccer": 0.18,
+        "gymnastics_cheerleading": 0.25,
+        "other": 0.15
+      },
+      "base_rate_by_mechanism": {
+        "overuse_gradual": 0.75,
+        "sudden_load_increase": 0.50,
+        "non_contact_acute": 0.15,
+        "contact_direct": 0.05
+      },
+      "base_rate_by_sex": {
+        "female": 0.28,
+        "male": 0.16
+      },
+      "pmid_sources": ["38784790"]
+    },
+    {
+      "injury_id": "it_band_syndrome",
+      "injury_name": "Iliotibial Band Syndrome",
+      "body_region": "knee",
+      "icd_10": "M76.3",
+      "base_rate_general": 0.10,
+      "notes": "Classic running overuse injury; lateral knee pain worsening with repeated flexion-extension cycles",
+      "base_rate_by_sport": {
+        "running_track": 0.35,
+        "cycling": 0.25,
+        "other": 0.05
+      },
+      "base_rate_by_mechanism": {
+        "overuse_gradual": 0.90,
+        "sudden_load_increase": 0.60,
+        "contact_direct": 0.02
+      },
+      "pmid_sources": ["38784790"]
+    },
+    {
+      "injury_id": "hamstring_strain_g1",
+      "injury_name": "Hamstring Strain Grade 1 (Mild)",
+      "body_region": "hamstring_thigh",
+      "icd_10": "S76.31",
+      "base_rate_general": 0.35,
+      "notes": "Hamstring strains are the most common muscle injury in football/soccer. Grade 1 = mild structural disruption, minimal strength loss. Mechanism: eccentric load at high speed.",
+      "base_rate_by_sport": {
+        "soccer": 0.45,
+        "american_football": 0.40,
+        "running_track": 0.50,
+        "basketball": 0.25,
+        "other": 0.20
+      },
+      "base_rate_by_mechanism": {
+        "eccentric_sprint_deceleration": 0.65,
+        "overuse_gradual": 0.20,
+        "contact_direct": 0.15,
+        "non_contact_landing": 0.10
+      },
+      "pmid_sources": ["42254608", "42140438", "41954418"]
+    },
+    {
+      "injury_id": "hamstring_strain_g2",
+      "injury_name": "Hamstring Strain Grade 2 (Moderate)",
+      "body_region": "hamstring_thigh",
+      "icd_10": "S76.31",
+      "base_rate_general": 0.40,
+      "notes": "Grade 2 = partial muscle tear; palpable defect may be present; significant functional limitation",
+      "base_rate_by_sport": {
+        "soccer": 0.40,
+        "american_football": 0.35,
+        "running_track": 0.40,
+        "basketball": 0.20,
+        "other": 0.18
+      },
+      "base_rate_by_mechanism": {
+        "eccentric_sprint_deceleration": 0.70,
+        "overuse_gradual": 0.15,
+        "contact_direct": 0.15
+      },
+      "pmid_sources": ["42254608", "41954418"]
+    },
+    {
+      "injury_id": "hamstring_strain_g3",
+      "injury_name": "Hamstring Strain Grade 3 (Severe / Complete Tear)",
+      "body_region": "hamstring_thigh",
+      "icd_10": "S76.31",
+      "base_rate_general": 0.10,
+      "notes": "Grade 3 = complete muscle tear; requires urgent specialist evaluation; may need surgical repair if proximal avulsion",
+      "base_rate_by_sport": {
+        "soccer": 0.10,
+        "american_football": 0.12,
+        "running_track": 0.08,
+        "other": 0.05
+      },
+      "base_rate_by_mechanism": {
+        "eccentric_sprint_deceleration": 0.65,
+        "contact_direct": 0.25,
+        "other": 0.10
+      },
+      "pmid_sources": ["42254608"]
+    },
+    {
+      "injury_id": "achilles_tendinopathy",
+      "injury_name": "Achilles Tendinopathy",
+      "body_region": "calf_achilles",
+      "icd_10": "M76.6",
+      "base_rate_general": 0.45,
+      "notes": "Among calf/Achilles complaints in athletes, tendinopathy is the most common. VISA-A is the gold standard outcome measure (PubMed PMIDs: 41884692, 41318330, 35870938).",
+      "base_rate_by_sport": {
+        "running_track": 0.65,
+        "basketball": 0.35,
+        "soccer": 0.30,
+        "volleyball": 0.32,
+        "other": 0.25
+      },
+      "base_rate_by_mechanism": {
+        "overuse_gradual": 0.85,
+        "sudden_load_increase": 0.65,
+        "non_contact_acute": 0.15,
+        "contact_direct": 0.03
+      },
+      "pmid_sources": ["41884692", "41318330", "35870938"]
+    },
+    {
+      "injury_id": "achilles_rupture",
+      "injury_name": "Achilles Tendon Rupture",
+      "body_region": "calf_achilles",
+      "icd_10": "S86.0",
+      "base_rate_general": 0.12,
+      "notes": "Acute, typically complete. Classic mechanism: sudden push-off/plantarflexion without contact. 'Pop' sensation common. Thompson test positive (absence of plantar flexion with calf squeeze). Requires urgent evaluation.",
+      "base_rate_by_sport": {
+        "basketball": 0.18,
+        "soccer": 0.15,
+        "running_track": 0.10,
+        "american_football": 0.12,
+        "other": 0.08
+      },
+      "base_rate_by_mechanism": {
+        "push_off_plantar_flexion": 0.65,
+        "eccentric_deceleration": 0.45,
+        "contact_direct": 0.20,
+        "overuse_gradual": 0.05
+      },
+      "pmid_sources": ["41975560"]
+    },
+    {
+      "injury_id": "plantar_fasciitis",
+      "injury_name": "Plantar Fasciitis",
+      "body_region": "ankle_foot",
+      "icd_10": "M72.2",
+      "base_rate_general": 0.15,
+      "notes": "Classic: heel pain worse with first steps in morning; insidious onset; running athletes",
+      "base_rate_by_sport": {
+        "running_track": 0.40,
+        "basketball": 0.15,
+        "other": 0.08
+      },
+      "base_rate_by_mechanism": {
+        "overuse_gradual": 0.90,
+        "sudden_load_increase": 0.60,
+        "contact_direct": 0.02
+      },
+      "pmid_sources": ["38784790"]
+    },
+    {
+      "injury_id": "rotator_cuff_strain",
+      "injury_name": "Rotator Cuff Strain / Tendinopathy",
+      "body_region": "shoulder",
+      "icd_10": "M75.1",
+      "base_rate_general": 0.40,
+      "notes": "Most common shoulder overuse injury. Ninja warrior study: shoulder most common injury site (19.1%) (PMID 41757627). Swimmers, throwers, overhead athletes at highest risk.",
+      "base_rate_by_sport": {
+        "swimming": 0.60,
+        "tennis_racquet": 0.45,
+        "throwing_sports": 0.55,
+        "weightlifting_crossfit": 0.40,
+        "american_football": 0.25,
+        "other": 0.25
+      },
+      "base_rate_by_mechanism": {
+        "throwing_overhead_motion": 0.65,
+        "overuse_gradual": 0.75,
+        "fall_on_outstretched_hand": 0.20,
+        "contact_direct": 0.15
+      },
+      "pmid_sources": ["41757627"]
+    },
+    {
+      "injury_id": "shoulder_dislocation",
+      "injury_name": "Glenohumeral Joint Dislocation",
+      "body_region": "shoulder",
+      "icd_10": "S43.0",
+      "base_rate_general": 0.12,
+      "notes": "Typically contact sport; anterior dislocation most common (95%); recurrence rate high in young athletes (>50% in under-25)",
+      "base_rate_by_sport": {
+        "american_football": 0.20,
+        "rugby": 0.25,
+        "wrestling": 0.20,
+        "gymnastics_cheerleading": 0.12,
+        "other": 0.06
+      },
+      "base_rate_by_mechanism": {
+        "fall_on_outstretched_hand": 0.45,
+        "contact_direct": 0.55,
+        "overuse_gradual": 0.01
+      },
+      "pmid_sources": ["38784790"]
+    },
+    {
+      "injury_id": "lateral_epicondylitis",
+      "injury_name": "Lateral Epicondylitis (Tennis Elbow)",
+      "body_region": "elbow_forearm",
+      "icd_10": "M77.1",
+      "base_rate_general": 0.55,
+      "notes": "Dominant overuse injury for elbow complaints in racquet sports. Lateral epicondyle point tenderness is highly diagnostic.",
+      "base_rate_by_sport": {
+        "tennis_racquet": 0.75,
+        "throwing_sports": 0.25,
+        "weightlifting_crossfit": 0.20,
+        "other": 0.20
+      },
+      "base_rate_by_mechanism": {
+        "overuse_gradual": 0.90,
+        "sudden_load_increase": 0.60,
+        "contact_direct": 0.05
+      },
+      "pmid_sources": ["41757627"]
+    },
+    {
+      "injury_id": "lumbar_muscle_strain",
+      "injury_name": "Lumbar Muscle Strain / Mechanical Low Back Pain",
+      "body_region": "lower_back",
+      "icd_10": "S39.01",
+      "base_rate_general": 0.50,
+      "notes": "Most common lower back presentation in athletes. Differential includes disc herniation, spondylolysis (especially in adolescent gymnasts/footballers). Red flags must be screened.",
+      "base_rate_by_sport": {
+        "american_football": 0.40,
+        "weightlifting_crossfit": 0.55,
+        "gymnastics_cheerleading": 0.45,
+        "swimming": 0.30,
+        "running_track": 0.25,
+        "other": 0.35
+      },
+      "base_rate_by_mechanism": {
+        "overuse_gradual": 0.65,
+        "sudden_load_lifting": 0.70,
+        "contact_direct": 0.25,
+        "non_contact_rotation": 0.45
+      },
+      "pmid_sources": ["38784790"]
+    },
+    {
+      "injury_id": "groin_strain",
+      "injury_name": "Adductor / Groin Strain",
+      "body_region": "hip_groin",
+      "icd_10": "S76.2",
+      "base_rate_general": 0.45,
+      "notes": "Common in kicking sports; medial thigh pain with resisted adduction. Hip/groin injuries are more prevalent in male athletes (Zech 2021).",
+      "base_rate_by_sport": {
+        "soccer": 0.60,
+        "ice_hockey": 0.65,
+        "american_football": 0.45,
+        "basketball": 0.30,
+        "other": 0.25
+      },
+      "base_rate_by_mechanism": {
+        "eccentric_kicking": 0.70,
+        "sudden_change_direction": 0.55,
+        "overuse_gradual": 0.30,
+        "contact_direct": 0.20
+      },
+      "base_rate_by_sex": {
+        "male": 0.55,
+        "female": 0.35,
+        "notes": "Hip/groin injuries higher in male athletes (Zech 2021)"
+      },
+      "pmid_sources": ["34052518", "38784790"]
+    },
+    {
+      "injury_id": "stress_fracture_tibia",
+      "injury_name": "Tibial Stress Fracture",
+      "body_region": "calf_achilles",
+      "icd_10": "M84.362",
+      "base_rate_general": 0.08,
+      "notes": "Running athletes; point tenderness along tibial shaft; night pain possible (red flag consideration). Female athletes and those with relative energy deficiency at higher risk.",
+      "base_rate_by_sport": {
+        "running_track": 0.25,
+        "basketball": 0.10,
+        "gymnastics_cheerleading": 0.12,
+        "soccer": 0.07,
+        "other": 0.03
+      },
+      "base_rate_by_mechanism": {
+        "overuse_gradual": 0.92,
+        "sudden_load_increase": 0.70,
+        "contact_direct": 0.03
+      },
+      "red_flag_features": ["night_pain", "progressive_pain_worsening_with_activity"],
+      "pmid_sources": ["29939612", "24667169"]
+    },
+    {
+      "injury_id": "calf_strain",
+      "injury_name": "Calf (Gastrocnemius/Soleus) Strain",
+      "body_region": "calf_achilles",
+      "icd_10": "S86.1",
+      "base_rate_general": 0.35,
+      "notes": "'Tennis leg': sudden pain in calf, often felt as being hit or struck; middle-aged recreational athletes most common",
+      "base_rate_by_sport": {
+        "tennis_racquet": 0.45,
+        "running_track": 0.35,
+        "soccer": 0.25,
+        "basketball": 0.20,
+        "other": 0.15
+      },
+      "base_rate_by_mechanism": {
+        "eccentric_sprint_deceleration": 0.55,
+        "push_off_sudden": 0.60,
+        "overuse_gradual": 0.20,
+        "contact_direct": 0.10
+      },
+      "pmid_sources": ["38784790"]
+    }
+  ],
+  "sport_injury_rate_table": {
+    "description": "Overall injury rates per 1,000 athlete exposures (AEs) from national US high school surveillance data (Pizzarro et al. 2024, DOI 10.1177/23259671241252637). Use these for contextualizing risk level.",
+    "source_doi": "https://doi.org/10.1177/23259671241252637",
+    "pmid": "38784790",
+    "data": [
+      { "sport": "american_football", "sex": "male", "rate_per_1000_AE": 3.96, "rank": 1 },
+      { "sport": "soccer", "sex": "female", "rate_per_1000_AE": 2.65, "rank": 2 },
+      { "sport": "wrestling", "sex": "male", "rate_per_1000_AE": 2.36, "rank": 3 },
+      { "sport": "soccer", "sex": "male", "rate_per_1000_AE": 2.20, "rank": 4 },
+      { "sport": "basketball", "sex": "female", "rate_per_1000_AE": 2.08, "rank": 5 },
+      { "sport": "basketball", "sex": "male", "rate_per_1000_AE": 1.95, "rank": 6 },
+      { "sport": "softball", "sex": "female", "rate_per_1000_AE": 1.65, "rank": 7 },
+      { "sport": "baseball", "sex": "male", "rate_per_1000_AE": 1.50, "rank": 8 },
+      { "sport": "volleyball", "sex": "female", "rate_per_1000_AE": 1.40, "rank": 9 }
+    ]
+  },
+  "ankle_sprain_rate_by_sport": {
+    "description": "Ankle sprain rates per 10,000 AEs across US high school sports (Kerr et al. 2022, DOI 10.4085/1062-6050-0664.21). These are the most precise sport-specific ankle sprain priors available.",
+    "source_doi": "https://doi.org/10.4085/1062-6050-0664.21",
+    "pmid": "35271730",
+    "overall_rate": 2.95,
+    "by_sport": [
+      { "sport": "basketball", "sex": "female", "rate_per_10000_AE": 5.32 },
+      { "sport": "basketball", "sex": "male", "rate_per_10000_AE": 5.13 },
+      { "sport": "soccer", "sex": "female", "rate_per_10000_AE": 4.96 },
+      { "sport": "american_football", "sex": "male", "rate_per_10000_AE": 4.55 },
+      { "sport": "volleyball", "sex": "female", "rate_per_10000_AE": 4.20 },
+      { "sport": "wrestling", "sex": "male", "rate_per_10000_AE": 3.90 },
+      { "sport": "soccer", "sex": "male", "rate_per_10000_AE": 3.70 },
+      { "sport": "softball", "sex": "female", "rate_per_10000_AE": 2.80 },
+      { "sport": "baseball", "sex": "male", "rate_per_10000_AE": 1.60 }
+    ]
+  },
+  "red_flags": {
+    "description": "Clinical features that indicate serious pathology requiring urgent medical evaluation. When any of these are present, the confidence scoring system must display a safety referral message regardless of computed confidence score.",
+    "flags": [
+      {
+        "flag_id": "night_pain_waking",
+        "description": "Pain at rest that wakes from sleep",
+        "serious_conditions": ["malignancy", "infection", "inflammatory_arthritis", "stress_fracture"],
+        "action": "urgent_medical_evaluation",
+        "confidence_penalty": 0.30,
+        "evidence_level": "C",
+        "pmid_sources": ["29183875"]
+      },
+      {
+        "flag_id": "fever_with_joint_pain",
+        "description": "Fever, chills, or feeling unwell with joint pain",
+        "serious_conditions": ["septic_arthritis", "osteomyelitis", "reactive_arthritis"],
+        "action": "urgent_emergency_evaluation",
+        "confidence_penalty": 0.40,
+        "evidence_level": "B"
+      },
+      {
+        "flag_id": "unexplained_weight_loss",
+        "description": "Unintentional weight loss with musculoskeletal pain",
+        "serious_conditions": ["malignancy"],
+        "action": "urgent_medical_evaluation",
+        "confidence_penalty": 0.35
+      },
+      {
+        "flag_id": "neurological_symptoms",
+        "description": "Numbness, tingling, or weakness in limbs associated with back/neck pain",
+        "serious_conditions": ["disc_herniation_with_nerve_compression", "cauda_equina_syndrome"],
+        "action": "urgent_medical_evaluation",
+        "confidence_penalty": 0.35
+      },
+      {
+        "flag_id": "deformity_visible",
+        "description": "Visible deformity or gross malalignment at injury site",
+        "serious_conditions": ["fracture", "dislocation"],
+        "action": "emergency_evaluation",
+        "confidence_penalty": 0.10,
+        "notes": "Deformity shifts diagnosis toward fracture/dislocation, does not lower overall confidence"
+      },
+      {
+        "flag_id": "first_episode_over_50",
+        "description": "First episode of significant joint pain, age over 50",
+        "serious_conditions": ["osteoarthritis", "crystal_arthropathy", "malignancy"],
+        "action": "medical_evaluation_recommended",
+        "confidence_penalty": 0.20
+      }
+    ]
+  }
+}
