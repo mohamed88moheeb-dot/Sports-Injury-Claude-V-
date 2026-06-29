@@ -23,7 +23,8 @@ export const muscleComponents = {
     { id: 'vastus_lateralis', name: 'Vastus lateralis', detail: 'Outer quad. Commonly loaded in squats, running, and deceleration.' },
     { id: 'vastus_medialis', name: 'Vastus medialis / VMO', detail: 'Inner quad near the knee. Important for knee tracking and control.' },
     { id: 'vastus_intermedius', name: 'Vastus intermedius', detail: 'Deep central quad. Can feel like deep anterior thigh pain.' },
-    { id: 'quad_tendon', name: 'Quadriceps tendon', detail: 'Above the kneecap. Treat more like tendon loading, not a simple strain.' }
+    { id: 'quad_tendon', name: 'Quadriceps tendon', detail: 'Above the kneecap. Treat more like tendon loading, not a simple strain.' },
+    { id: 'patellar_tendon', name: 'Patellar tendon', detail: 'Below the kneecap (jumper’s knee). Tendon loading pathway: isometrics, heavy slow resistance, then plyometrics.' }
   ],
   calf_shin: [
     { id: 'gastrocnemius_medial', name: 'Medial gastrocnemius', detail: 'Inner upper calf. Often injured during push-off or sudden acceleration.' },

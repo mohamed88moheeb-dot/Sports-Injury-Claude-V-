@@ -47,10 +47,17 @@ export const DETAIL_REGION_MAP = {
     { id: 'back_semimembranosus', dataId: 'semimembranosus',     label: 'Semimembranosus (deep)' },
   ],
   quadriceps: [
-    { id: 'front_rectus_femoris',   dataId: 'rectus_femoris',   label: 'Rectus femoris' },
-    { id: 'front_vastus_lateralis', dataId: 'vastus_lateralis', label: 'Vastus lateralis' },
-    { id: 'front_vastus_medialis',  dataId: 'vastus_medialis',  label: 'Vastus medialis (VMO)' },
-    { id: 'front_sartorius',        dataId: 'sartorius',        label: 'Sartorius' },
+    { id: 'front_rectus_femoris',     dataId: 'rectus_femoris',     label: 'Rectus femoris' },
+    { id: 'front_vastus_lateralis',   dataId: 'vastus_lateralis',   label: 'Vastus lateralis' },
+    { id: 'front_vastus_medialis',    dataId: 'vastus_medialis',    label: 'Vastus medialis (VMO)' },
+    // Deep muscle + extensor-mechanism tendons have no distinct surface region on
+    // the body map, so they are list-only (selectable from the dropdown, not
+    // clickable on the body). listOnly is informational; the SVG sync already
+    // no-ops on ids without a matching path.
+    { id: 'front_vastus_intermedius', dataId: 'vastus_intermedius', label: 'Vastus intermedius (deep)', listOnly: true },
+    { id: 'front_quad_tendon',        dataId: 'quad_tendon',        label: 'Quadriceps tendon (above kneecap)', listOnly: true },
+    { id: 'front_patellar_tendon',    dataId: 'patellar_tendon',    label: 'Patellar tendon (below kneecap / jumper’s knee)', listOnly: true },
+    { id: 'front_sartorius',          dataId: 'sartorius',          label: 'Sartorius' },
   ],
   adductor_groin: [
     { id: 'adductor_longus',       dataId: 'adductor_longus',  label: 'Adductor longus' },

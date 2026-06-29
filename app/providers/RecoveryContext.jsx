@@ -24,6 +24,13 @@ import { isRfCompatible } from '../../lib/clinical/rfBetaAppAdapter/rfBetaCompat
 import { mapAssessmentToRfInput } from '../../lib/clinical/rfBetaAppAdapter/mapAssessmentToRfInput.mjs';
 import { mapRfAnswersToRfInput, CORE_RF_KEYS } from '../../lib/clinical/rfBetaAppAdapter/rfAssessmentModel.mjs';
 import { rfOutputToProfile, adjustProfileDayToday } from '../../lib/clinical/rfBetaAppAdapter/rfOutputToProfile.mjs';
+// Quad engine integration: non-rectus quadriceps injuries (vastus strains,
+// contusion, tendinopathy, tendon rupture) route to the quad engine, which maps
+// into the SAME profile shape. Pure adapters; the engine runs server-side via
+// /api/quad. Rectus femoris and all other regions are unchanged.
+import { quadRouteFor } from '../../lib/clinical/quadEngine/appAdapter/quadCompatibility.mjs';
+import { mapAssessmentToQuadInput } from '../../lib/clinical/quadEngine/appAdapter/mapAssessmentToQuadInput.mjs';
+import { quadOutputToProfile } from '../../lib/clinical/quadEngine/appAdapter/quadOutputToProfile.mjs';
 
 /* ─────────────────────────────────────────────────────────────────────────
  * Constants & lookup maps
@@ -226,6 +233,39 @@ export function RecoveryProvider({ children }) {
     const assessmentWithGrade = { ...assessment, grade: derivedGradeId };
     setAssessment(assessmentWithGrade);
     setGenerating(true);
+
+    // Non-rectus quadriceps injuries → quad engine (vastus strains, contusion,
+    // tendinopathy, tendon rupture). Mapped into the SAME profile shape. Rectus
+    // femoris falls through to the RF engine below; other regions stay legacy.
+    if (quadRouteFor(assessmentWithGrade) === 'quad') {
+      (async () => {
+        try {
+          const quadInput = mapAssessmentToQuadInput(assessmentWithGrade);
+          const res = await fetch('/api/quad', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ quadInput })
+          });
+          const data = await res.json();
+          if (!res.ok || !data.ok) throw new Error(data.error || 'Quad generation failed');
+          const base = quadOutputToProfile(data.output, assessmentWithGrade);
+          const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
+          setProfile(nextProfile);
+          setCheckins([]);
+          setGenerating(false);
+          saveState(nextProfile, [], assessmentWithGrade);
+          onComplete?.();
+        } catch (e) {
+          const fallback = buildProfile(assessmentWithGrade);
+          setProfile(fallback);
+          setCheckins([]);
+          setGenerating(false);
+          saveState(fallback, [], assessmentWithGrade);
+          onComplete?.();
+        }
+      })();
+      return;
+    }
 
     // RF-compatible (anterior thigh / rectus femoris) → governed RF beta engine.
     // The engine runs server-side; its output is mapped into the SAME profile
