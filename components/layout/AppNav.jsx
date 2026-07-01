@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useRef, useEffect, useState } from 'react';
-import { motion, useMotionValue, animate } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useVelocity, useTransform, useMotionTemplate, animate } from 'framer-motion';
 import { useRecovery } from '../../app/providers/RecoveryContext';
 import { hasSupabase } from '../../lib/supabaseClient';
 import { AnimatedTendonLogo } from '../brand/AnimatedTendonLogo';
@@ -64,31 +64,50 @@ function DesktopNav({ items, pathname }) {
 
 /* ── Mobile bottom nav ──────────────────────────────────────── */
 /*
- * Architecture: useMotionValue drives the pill's CSS `left` directly —
- * zero React re-renders during drag. Only `activeIdx` (React state) updates
- * once per item-crossing to re-paint icon/label colours.
- * Hit-testing is pure math (O(1)), not DOM queries.
+ * Liquid pill: a numeric % motion value (`targetPct`) is set directly by the
+ * finger — zero React re-renders during drag. A spring (`pct`) chases that
+ * target so the pill flows/lags under the finger like water, and its velocity
+ * drives a horizontal stretch + vertical squish (surface-tension droplet).
+ * `activeIdx` (React state) only updates once per slot-crossing to re-tint the
+ * icon/label. Hit-testing is pure math (O(1)), not DOM queries.
  */
 function MobileNav({ items, pathname }) {
   const router     = useRouter();
   const navRef     = useRef(null);
   const n          = items.length;
+  const pillW      = 100 / n;                 // pill width in % of nav
+  const maxLeft    = 100 - pillW;             // clamp for pill's left edge
 
   // Index of currently highlighted item
   const pathnameIdx = items.findIndex(i => i.href === pathname);
   const [activeIdx, setActiveIdx] = useState(pathnameIdx >= 0 ? pathnameIdx : 0);
 
-  // Direct DOM motion value — unit: % of nav width  (0 … (n-1)/n * 100)
-  const pillLeft = useMotionValue(`${(activeIdx / n) * 100}%`);
+  // left-edge %, centred in a slot, for a given index
+  const pctFromIdx = (idx) => (idx / n) * 100;
 
-  // Snap pill to index, optionally animated
-  const snapToIdx = (idx, spring = true) => {
-    const target = `${(idx / n) * 100}%`;
-    if (spring) {
-      animate(pillLeft, target, { type: 'spring', stiffness: 520, damping: 36, mass: 0.55 });
-    } else {
-      pillLeft.set(target);
-    }
+  // Target (set instantly by finger) and the spring that liquid-chases it.
+  const targetPct = useMotionValue(pctFromIdx(activeIdx >= 0 ? activeIdx : 0));
+  const pct       = useSpring(targetPct, { stiffness: 260, damping: 26, mass: 1.1 });
+
+  // Velocity of the chase → stretch along travel, squish across it (water).
+  const velocity  = useVelocity(pct);
+  const stretch   = useTransform(velocity, (v) => Math.min(Math.abs(v) / 55, 26)); // 0…26
+  const scaleX    = useTransform(stretch, (s) => 1 + s / 60);   // up to ~1.43
+  const scaleY    = useTransform(stretch, (s) => 1 - s / 130);  // down to ~0.80
+  const left      = useMotionTemplate`${pct}%`;
+
+  // Continuous finger position → clamped pill left-edge %
+  const pctFromX = (clientX) => {
+    if (!navRef.current) return 0;
+    const { left: l, width } = navRef.current.getBoundingClientRect();
+    const rel = Math.max(0, Math.min(1, (clientX - l) / width));  // 0…1
+    return Math.max(0, Math.min(maxLeft, rel * 100 - pillW / 2));
+  };
+  const idxAtX = (clientX) => {
+    if (!navRef.current) return -1;
+    const { left: l, width } = navRef.current.getBoundingClientRect();
+    const rel = (clientX - l) / width;
+    return Math.max(0, Math.min(n - 1, Math.floor(rel * n)));
   };
 
   // Keep pill synced when pathname changes (page navigation)
@@ -96,18 +115,10 @@ function MobileNav({ items, pathname }) {
     const idx = items.findIndex(i => i.href === pathname);
     if (idx >= 0) {
       setActiveIdx(idx);
-      snapToIdx(idx, true);
+      targetPct.set(pctFromIdx(idx));   // spring flows it into place
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
-
-  // Pure-math hit test: which slot is rawX inside?
-  const idxAtX = (rawX) => {
-    if (!navRef.current) return -1;
-    const { left, width } = navRef.current.getBoundingClientRect();
-    const rel = (rawX - left) / width;           // 0 … 1
-    return Math.max(0, Math.min(n - 1, Math.floor(rel * n)));
-  };
 
   // Drag state — all in refs so nothing goes through React during move
   const dragging   = useRef(false);
@@ -120,24 +131,23 @@ function MobileNav({ items, pathname }) {
     didMove.current  = false;
     startX.current   = e.clientX;
     lastIdx.current  = activeIdx;
+    // Grab: the blob immediately begins flowing toward the finger.
+    targetPct.set(pctFromX(e.clientX));
     navRef.current?.setPointerCapture(e.pointerId);
   }
 
   function onPointerMove(e) {
     if (!dragging.current) return;
-    // Mark as a drag once finger moves > 4px
     if (Math.abs(e.clientX - startX.current) > 4) didMove.current = true;
 
+    // Pill flows continuously under the finger — no snapping.
+    targetPct.set(pctFromX(e.clientX));
+
+    // Re-tint icons only when crossing into a new slot.
     const idx = idxAtX(e.clientX);
-    if (idx < 0) return;
-
-    // Move pill directly — NO React state, pure DOM
-    pillLeft.set(`${(idx / n) * 100}%`);
-
-    // Update icon colours only when crossing a new slot boundary
-    if (idx !== lastIdx.current) {
+    if (idx >= 0 && idx !== lastIdx.current) {
       lastIdx.current = idx;
-      setActiveIdx(idx);   // single cheap re-render per slot crossing
+      setActiveIdx(idx);
     }
   }
 
@@ -148,11 +158,10 @@ function MobileNav({ items, pathname }) {
     const idx = idxAtX(e.clientX);
     const finalIdx = idx >= 0 ? idx : lastIdx.current;
 
-    // Spring-snap pill to slot centre
-    snapToIdx(finalIdx, true);
+    // Settle: spring flows the blob to the slot centre.
+    targetPct.set(pctFromIdx(finalIdx));
     setActiveIdx(finalIdx);
 
-    // Navigate — always on tap/release (whether drag or tap)
     const href = items[finalIdx]?.href;
     if (href) router.push(href);
 
@@ -162,9 +171,8 @@ function MobileNav({ items, pathname }) {
   function onPointerCancel() {
     if (!dragging.current) return;
     dragging.current = false;
-    // Snap back to current pathname
     const idx = items.findIndex(i => i.href === pathname);
-    if (idx >= 0) { snapToIdx(idx, true); setActiveIdx(idx); }
+    if (idx >= 0) { targetPct.set(pctFromIdx(idx)); setActiveIdx(idx); }
   }
 
   return (
@@ -178,17 +186,17 @@ function MobileNav({ items, pathname }) {
       onPointerUp={onPointerUp}
       onPointerCancel={onPointerCancel}
     >
-      {/* Pill driven by motion value — zero re-renders during drag */}
+      {/* Liquid-glass blob — position + stretch driven by motion values only */}
       <motion.span
+        className="app-nav-liquid-pill"
         style={{
           position: 'absolute',
           top: 4, bottom: 4,
-          left: pillLeft,
-          width: `${100 / n}%`,
-          background: 'rgba(255,255,255,0.12)',
-          borderRadius: 9999,
-          border: '1px solid rgba(255,255,255,0.22)',
-          boxShadow: '0 1px 8px rgba(47,140,255,0.12)',
+          left,
+          width: `${pillW}%`,
+          scaleX,
+          scaleY,
+          transformOrigin: 'center',
           pointerEvents: 'none',
           zIndex: 0,
         }}
@@ -220,7 +228,7 @@ function MobileNav({ items, pathname }) {
               <path d={icon} />
             </motion.svg>
             <motion.span
-              animate={{ opacity: isActive ? 1 : 0.38 }}
+              animate={{ opacity: isActive ? 1 : 0.7 }}
               transition={{ duration: 0.14 }}
               style={{ fontSize: 8, fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase' }}
             >
