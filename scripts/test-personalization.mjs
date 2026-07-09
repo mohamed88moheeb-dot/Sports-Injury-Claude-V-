@@ -10,8 +10,8 @@ let failed = false;
 const check = (cond, msg) => { if (!cond) { failed = true; console.log(`   ✗ ${msg}`); } };
 
 // ── Two identical-grade athletes, different deficits → different sessions ──
-const athleteA = { single_leg_control: 'poor', weakness_or_giving_way: 'none', movement_confidence: 'ok' };
-const athleteB = { single_leg_control: 'good', weakness_or_giving_way: 'marked', movement_confidence: 'low' };
+const athleteA = { single_leg_control: 'cannot', weakness_or_giving_way: 'none', movement_confidence: 'confident' };
+const athleteB = { single_leg_control: 'yes_pain_free', weakness_or_giving_way: 'marked', movement_confidence: 'low' };
 
 const pA = personalizeEmphasis('accumulation', athleteA);
 const pB = personalizeEmphasis('accumulation', athleteB);

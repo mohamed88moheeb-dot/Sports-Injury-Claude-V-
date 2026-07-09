@@ -24,7 +24,8 @@
     "test:field-effects": "node scripts/test-field-effects.mjs",
     "test:session-architecture": "node scripts/test-session-architecture.mjs",
     "test:personalization": "node scripts/test-personalization.mjs",
-    "test:clinical-core": "node scripts/test-field-effects.mjs && node scripts/test-session-architecture.mjs && node scripts/test-personalization.mjs"
+    "test:rf-deficit-wiring": "node scripts/test-rf-deficit-wiring.mjs",
+    "test:clinical-core": "node scripts/test-field-effects.mjs && node scripts/test-session-architecture.mjs && node scripts/test-personalization.mjs && node scripts/test-rf-deficit-wiring.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.45.4",
