@@ -46,7 +46,10 @@ ok('completed' in d0 && 'sessionTitle' in d0 && 'rule' in d0, 'day keeps title/s
 ok(profile.plan.every((p) => p.weeks.every((w) => w.days.length >= 1)), 'every week has >=1 day (no NaN in week page)');
 
 section('Foundation is minimal + guidance');
-ok(d0.exercises.length >= 1 && d0.exercises.length <= 3, `Foundation Day 1 has 1-3 active cards (got ${d0.exercises.length})`);
+// Warm-up and cooldown are structural blocks present in every session; the
+// "Foundation minimal" intent is about LOADING volume, so exclude them here.
+const d0Loading = d0.exercises.filter((e) => !/warm.?up|cool.?down/i.test(e.blockLabel || ''));
+ok(d0Loading.length >= 1 && d0Loading.length <= 3, `Foundation Day 1 has 1-3 active loading cards (got ${d0Loading.length}; warm-up/cooldown excluded)`);
 const guidance = (d0.recovery || []).join(' ').toLowerCase();
 ok(/rest|protect/.test(guidance), 'Foundation Day 1 guidance includes rest/protection');
 ok(/education|calm|gentle/.test(guidance), 'Foundation Day 1 guidance includes education');
