@@ -20,7 +20,8 @@
     "test:rf-beta-engine": "node scripts/test-rf-beta-engine.mjs",
     "test:rf-beta-app-adapter": "node scripts/test-rf-beta-app-adapter.mjs",
     "test:rf-output-to-profile": "node scripts/test-rf-output-to-profile.mjs",
-    "test:rf-assessment-model": "node scripts/test-rf-assessment-model.mjs"
+    "test:rf-assessment-model": "node scripts/test-rf-assessment-model.mjs",
+    "test:field-effects": "node scripts/test-field-effects.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.45.4",
