@@ -157,6 +157,42 @@ export default function DiagnosisPage() {
               </div>
             </div>
 
+            {/* ── Return-to-sport readiness checklist ──── */}
+            {isRf && profile.rtsReadiness && profile.rtsReadiness.total > 0 && (
+              <div className="glow-card">
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+                  <p className="eyebrow" style={{ margin: 0 }}>Return-to-sport readiness</p>
+                </div>
+                <h3 style={{ fontSize: 20, marginBottom: 8, ...GLOW_BLUE }}>
+                  {profile.rtsReadiness.met} / {profile.rtsReadiness.total} criteria met
+                </h3>
+                <p style={{ color: CARD_TEXT, fontSize: 13, lineHeight: 1.6, marginBottom: 14 }}>
+                  {profile.rtsReadiness.headline}
+                </p>
+                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
+                  {profile.rtsReadiness.criteria.filter((c) => c.state !== 'n/a').map((c) => (
+                    <li key={c.id} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, fontSize: 13 }}>
+                      <span style={{
+                        flexShrink: 0, width: 18, height: 18, borderRadius: 9, marginTop: 1,
+                        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                        fontSize: 11, fontWeight: 800,
+                        background: c.met ? 'rgba(56,189,248,0.18)' : 'rgba(255,255,255,0.06)',
+                        color: c.met ? '#5CC6FF' : CARD_TEXT_DIM,
+                        border: `1px solid ${c.met ? 'rgba(56,189,248,0.5)' : 'rgba(255,255,255,0.15)'}`,
+                      }}>{c.met ? '✓' : '○'}</span>
+                      <span>
+                        <strong style={{ color: c.met ? '#CDEBFF' : CARD_TEXT }}>{c.name}</strong>
+                        <span style={{ display: 'block', color: CARD_TEXT_DIM, fontSize: 12, lineHeight: 1.5 }}>{c.detail}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                <p style={{ color: CARD_TEXT_DIM, fontSize: 11, lineHeight: 1.5, marginTop: 14, fontStyle: 'italic' }}>
+                  {profile.rtsReadiness.clearance_note}
+                </p>
+              </div>
+            )}
+
             {/* ── Actions ──────────────────────────────── */}
             <div className="diagnosis-actions">
               <button className="primary-btn" onClick={() => router.push('/plan')}>
