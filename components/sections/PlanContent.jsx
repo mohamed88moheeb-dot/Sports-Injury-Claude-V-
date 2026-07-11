@@ -159,7 +159,7 @@ export function PlanContent({ profile }) {
                 )}
               </h3>
               <p>{phase.goal}</p>
-              {isUpcoming && phase.progression_note && (
+              {phase.progression_note && (
                 <p style={{ marginTop: 8, fontSize: 13, color: 'var(--ink-3)', fontStyle: 'italic' }}>
                   {phase.progression_note}
                 </p>
