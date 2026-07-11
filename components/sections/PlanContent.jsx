@@ -3,6 +3,7 @@
 import { useMemo, useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { RfImagingGate } from './RfImagingGate';
+import { PlanAdjustBox } from './PlanAdjustBox';
 
 function findTodayPath(plan) {
   if (!plan) return null;
@@ -111,6 +112,8 @@ export function PlanContent({ profile }) {
           </button>
         )}
       </div>
+
+      <PlanAdjustBox profile={profile} />
 
       {/* ── Phase Carousel (all 6 visible) ── */}
       <div className="phase-carousel-wrap">

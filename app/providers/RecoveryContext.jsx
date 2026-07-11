@@ -134,6 +134,11 @@ export function RecoveryProvider({ children }) {
   // built" and navigating away — lets the loading screen show a genuine
   // "done" state instead of a fixed timer that's disconnected from the request.
   const [generatingReady, setGeneratingReady] = useState(false);
+  // Lightweight state for "adjust this week" (Gemini-composed re-selection of
+  // the SAME clinically-vetted pool, steered by free text) — separate from
+  // `generating` because this is a quick in-place refresh, not a full rebuild.
+  const [adjustingPlan, setAdjustingPlan] = useState(false);
+  const [adjustPlanError, setAdjustPlanError] = useState('');
   const [chatInput, setChatInput] = useState('');
   const [chat, setChat] = useState([
     { role: 'coach', text: 'Tell me what you are thinking about today\'s training or your return to sport. I will keep the plan safe and realistic.' }
@@ -303,7 +308,7 @@ export function RecoveryProvider({ children }) {
           });
           const data = await res.json();
           if (!res.ok || !data.ok) throw new Error(data.error || 'Quad generation failed');
-          const base = quadOutputToProfile(data.output, assessmentWithGrade);
+          const base = quadOutputToProfile(data.output, assessmentWithGrade, { aiPlanMode: data.ai_mode, outOfScopeNote: data.out_of_scope_note });
           const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
           await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
         } catch (e) {
@@ -410,6 +415,43 @@ export function RecoveryProvider({ children }) {
       const nextProfile = buildProfile(assessmentWithGrade);
       await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
     })();
+  }
+
+  /**
+   * Re-compose the CURRENT stage's sessions only, steered by free text
+   * ("no gym equipment this week", "focus more on strength", "my hamstring
+   * also hurts"). Re-runs the same deterministic engine (cheap, instant) then
+   * asks Gemini to re-select from the identical clinically-vetted pool — it
+   * never re-diagnoses or changes the stage/timeline. Currently wired for the
+   * quad engine; a no-op (with an error) for any other profile.
+   */
+  async function adjustQuadPlan(comment) {
+    if (!profile || profile.engine !== 'quad') {
+      setAdjustPlanError('Plan adjustment is available for quadriceps injuries right now.');
+      return { ok: false };
+    }
+    setAdjustingPlan(true);
+    setAdjustPlanError('');
+    try {
+      const quadInput = mapAssessmentToQuadInput(assessment);
+      const res = await fetchJsonWithTimeout('/api/quad', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ quadInput, userComment: comment || '' }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) throw new Error(data.error || 'Plan adjustment failed');
+      const base = quadOutputToProfile(data.output, assessment, { aiPlanMode: data.ai_mode, outOfScopeNote: data.out_of_scope_note });
+      const nextProfile = { ...profile, plan: base.plan, aiPlanMode: base.aiPlanMode, aiOutOfScopeNote: base.aiOutOfScopeNote, progress: calculateProgress(base.plan), today: findToday(base.plan) };
+      setProfile(nextProfile);
+      saveState(nextProfile, checkins, assessment);
+      setAdjustingPlan(false);
+      return { ok: true, mode: data.ai_mode, outOfScopeNote: data.out_of_scope_note };
+    } catch (e) {
+      setAdjustingPlan(false);
+      setAdjustPlanError(String(e.message || e));
+      return { ok: false, error: String(e.message || e) };
+    }
   }
 
   function completeDay(phaseIndex, weekIndex, dayIndex) {
@@ -548,6 +590,7 @@ export function RecoveryProvider({ children }) {
     authMessage, authLoading, handleAuth, signOut,
     // assessment
     assessment, setAssessment, toggleArray, generateProfile, generating, generatingReady,
+    adjustQuadPlan, adjustingPlan, adjustPlanError,
     // profile & plan
     profile, checkins, completeDay, addCheckin, dashboardStats, resetProfile,
     // save status
