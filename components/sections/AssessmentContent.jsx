@@ -19,6 +19,9 @@ import { RfGroupFields } from './RfAssessmentSection';
 import { quadRouteFor } from '../../lib/clinical/quadEngine/appAdapter/quadCompatibility.mjs';
 import { inferQuadEntity, quadStepsFor, computeQuadFormFill } from '../../lib/clinical/quadEngine/appAdapter/quadAssessmentModel.mjs';
 import { QuadGroupFields } from './QuadAssessmentSection';
+import { kneeRouteFor } from '../../lib/clinical/kneeEngine/appAdapter/kneeCompatibility.mjs';
+import { KNEE_STEPS, computeKneeFormFill } from '../../lib/clinical/kneeEngine/appAdapter/kneeAssessmentModel.mjs';
+import { KneeGroupFields } from './KneeAssessmentSection';
 
 const REGION_LABELS = {
   hamstring:'Hamstrings', quadriceps:'Quadriceps', adductor_groin:'Adductors',
@@ -50,12 +53,14 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
   const router  = useRouter();
   // Quad engine takes precedence for non-rectus quadriceps injuries; rectus
   // femoris falls through to the RF flow; everything else stays generic.
-  const isQuad = quadRouteFor(assessment) === 'quad';
-  const isRf = !isQuad && isRfCompatible(assessment);
+  const isKnee = kneeRouteFor(assessment) === 'knee';
+  const isQuad = !isKnee && quadRouteFor(assessment) === 'quad';
+  const isRf = !isKnee && !isQuad && isRfCompatible(assessment);
   const quadEntity = isQuad ? inferQuadEntity(assessment) : null;
   const QUAD_STEPS = isQuad ? quadStepsFor(quadEntity) : null;
-  const STEPS = isQuad ? QUAD_STEPS : isRf ? RF_STEPS : GENERIC_STEPS;
-  const fill = isQuad ? computeQuadFormFill(assessment)
+  const STEPS = isKnee ? KNEE_STEPS : isQuad ? QUAD_STEPS : isRf ? RF_STEPS : GENERIC_STEPS;
+  const fill = isKnee ? computeKneeFormFill(assessment)
+    : isQuad ? computeQuadFormFill(assessment)
     : isRf ? computeRfFormFill(assessment.rfAnswers || {}, assessment) : null;
 
   const [step, setStep] = useState(0);
@@ -66,7 +71,7 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
   useEffect(() => {
     if (step > STEPS.length - 1) { setStep(0); stepRef.current = 0; }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isRf, isQuad, quadEntity]);
+  }, [isRf, isQuad, isKnee, quadEntity]);
 
   // Raw touch state — refs only, zero re-renders during drag
   const touchStartX  = useRef(null);
@@ -308,7 +313,7 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
             <span className="ac-step-count">Step {step + 1} of {STEPS.length}</span>
             <span className="ac-step-label">{(STEPS[step] || STEPS[0]).label}</span>
           </div>
-          {(isRf || isQuad) && fill && (
+          {(isRf || isQuad || isKnee) && fill && (
             <span className={`ac-fill-badge${fill.allFilled ? ' ac-fill-badge--done' : ''}`}>
               {fill.percent}%
             </span>
@@ -333,7 +338,38 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
       {/* ── Carousel track ───────────────────────────────── */}
       <div className="ac-track" ref={trackRef} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
 
-        {isQuad ? (
+        {isKnee ? (
+          <>
+            {KNEE_STEPS.map((s, i) => {
+              const isSafety = s.group === 'Safety';
+              const isContext = i === 0;
+              const isMiddle = s.group === 'History & context';
+              return (
+                <div key={s.group} className={slidePos(i)}>
+                  <div className="ac-card">
+                    {isContext && regionSelector()}
+                    {isContext && (
+                      <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.50)', margin: '-4px 0 16px' }}>
+                        Your selected knee structure sets your injury pathway — tap above to change it on the body map.
+                      </p>
+                    )}
+                    {isSafety && (
+                      <div className="ac-safety-intro">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                          <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
+                        <p>These catch problems that need in-person care first — a locked knee, gross instability, a hot/feverish joint, or high-energy trauma. If any apply, see a clinician before self-guided rehab.</p>
+                      </div>
+                    )}
+                    <KneeGroupFields group={s.group} assessment={assessment} setAssessment={setAssessment} />
+                    {isMiddle && (<>{sportField()}{equipmentField()}</>)}
+                  </div>
+                </div>
+              );
+            })}
+          </>
+        ) : isQuad ? (
           <>
             {QUAD_STEPS.map((s, i) => {
               const isSafety = s.group === 'Safety check';
