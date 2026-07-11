@@ -31,6 +31,12 @@ import { rfOutputToProfile, adjustProfileDayToday } from '../../lib/clinical/rfB
 import { quadRouteFor } from '../../lib/clinical/quadEngine/appAdapter/quadCompatibility.mjs';
 import { mapAssessmentToQuadInput } from '../../lib/clinical/quadEngine/appAdapter/mapAssessmentToQuadInput.mjs';
 import { quadOutputToProfile } from '../../lib/clinical/quadEngine/appAdapter/quadOutputToProfile.mjs';
+// Knee engine integration: all knee-region entities (ACL/PCL/MCL/LCL, meniscus,
+// PFPS, patellar instability, OA, ITB, Osgood-Schlatter) route to the knee
+// engine and map into the SAME profile shape. Extensor tendons stay with quad.
+import { kneeRouteFor } from '../../lib/clinical/kneeEngine/appAdapter/kneeCompatibility.mjs';
+import { mapAssessmentToKneeInput } from '../../lib/clinical/kneeEngine/appAdapter/mapAssessmentToKneeInput.mjs';
+import { kneeOutputToProfile } from '../../lib/clinical/kneeEngine/appAdapter/kneeOutputToProfile.mjs';
 
 /* ─────────────────────────────────────────────────────────────────────────
  * Constants & lookup maps
@@ -249,6 +255,39 @@ export function RecoveryProvider({ children }) {
           const data = await res.json();
           if (!res.ok || !data.ok) throw new Error(data.error || 'Quad generation failed');
           const base = quadOutputToProfile(data.output, assessmentWithGrade);
+          const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
+          setProfile(nextProfile);
+          setCheckins([]);
+          setGenerating(false);
+          saveState(nextProfile, [], assessmentWithGrade);
+          onComplete?.();
+        } catch (e) {
+          const fallback = buildProfile(assessmentWithGrade);
+          setProfile(fallback);
+          setCheckins([]);
+          setGenerating(false);
+          saveState(fallback, [], assessmentWithGrade);
+          onComplete?.();
+        }
+      })();
+      return;
+    }
+
+    // Knee-region injuries → knee engine (ACL/PCL/MCL/LCL, meniscus, PFPS,
+    // patellar instability, OA, ITB, Osgood-Schlatter). Maps into the SAME
+    // profile shape; red-flag / surgical patterns return a review-gated profile.
+    if (kneeRouteFor(assessmentWithGrade) === 'knee') {
+      (async () => {
+        try {
+          const kneeInput = mapAssessmentToKneeInput(assessmentWithGrade);
+          const res = await fetch('/api/knee', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ kneeInput })
+          });
+          const data = await res.json();
+          if (!res.ok || !data.ok) throw new Error(data.error || 'Knee generation failed');
+          const base = kneeOutputToProfile(data.output, assessmentWithGrade);
           const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
           setProfile(nextProfile);
           setCheckins([]);
