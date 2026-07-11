@@ -17,7 +17,8 @@
  */
 
 import { runQuad } from '../../../lib/clinical/quadEngine/index.mjs';
-import { composeQuadSessions } from '../../../lib/clinical/quadEngine/aiSessionComposer.mjs';
+import { BETA_META } from '../../../lib/clinical/quadEngine/types.mjs';
+import { composeSessions } from '../../../lib/clinical/core/aiSessionComposer.mjs';
 import { hasGeminiKey } from '../../../lib/rag/generate/gemini.mjs';
 
 export const runtime = 'nodejs';
@@ -35,18 +36,20 @@ export async function POST(request) {
 
     // Post-process the current stage's sessions through the AI composer
     // (falls straight through to the identical deterministic result if no
-    // key is set — see composeQuadSessions).
+    // key is set — see composeSessions).
     const stages = output.plan?.stages || [];
     const curIdx = stages.findIndex((s) => s.is_current);
     let ai_mode = 'deterministic';
     let out_of_scope_note = null;
     if (curIdx !== -1 && stages[curIdx].current_stage_pool) {
       const cur = stages[curIdx];
-      const composed = await composeQuadSessions({
+      const composed = await composeSessions({
         pool: cur.current_stage_pool,
         stage: { id: cur.stage_id, clinical_name: cur.stage_name, friendly_name: cur.friendly_name },
         policy: cur.current_stage_policy || {},
         userComment,
+        injuryLabel: 'quad/patellar',
+        betaMeta: BETA_META,
       });
       stages[curIdx] = { ...cur, sessions: composed.sessions };
       ai_mode = composed.mode;
