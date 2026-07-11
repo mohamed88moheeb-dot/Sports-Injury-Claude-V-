@@ -22,6 +22,9 @@ import { QuadGroupFields } from './QuadAssessmentSection';
 import { kneeRouteFor } from '../../lib/clinical/kneeEngine/appAdapter/kneeCompatibility.mjs';
 import { KNEE_STEPS, computeKneeFormFill } from '../../lib/clinical/kneeEngine/appAdapter/kneeAssessmentModel.mjs';
 import { KneeGroupFields } from './KneeAssessmentSection';
+import { hamstringRouteFor } from '../../lib/clinical/hamstringEngine/appAdapter/hamstringCompatibility.mjs';
+import { HAMSTRING_STEPS, computeHamstringFormFill } from '../../lib/clinical/hamstringEngine/appAdapter/hamstringAssessmentModel.mjs';
+import { HamstringGroupFields } from './HamstringAssessmentSection';
 
 const REGION_LABELS = {
   hamstring:'Hamstrings', quadriceps:'Quadriceps', adductor_groin:'Adductors',
@@ -53,13 +56,15 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
   const router  = useRouter();
   // Quad engine takes precedence for non-rectus quadriceps injuries; rectus
   // femoris falls through to the RF flow; everything else stays generic.
-  const isKnee = kneeRouteFor(assessment) === 'knee';
-  const isQuad = !isKnee && quadRouteFor(assessment) === 'quad';
-  const isRf = !isKnee && !isQuad && isRfCompatible(assessment);
+  const isHamstring = hamstringRouteFor(assessment) === 'hamstring';
+  const isKnee = !isHamstring && kneeRouteFor(assessment) === 'knee';
+  const isQuad = !isHamstring && !isKnee && quadRouteFor(assessment) === 'quad';
+  const isRf = !isHamstring && !isKnee && !isQuad && isRfCompatible(assessment);
   const quadEntity = isQuad ? inferQuadEntity(assessment) : null;
   const QUAD_STEPS = isQuad ? quadStepsFor(quadEntity) : null;
-  const STEPS = isKnee ? KNEE_STEPS : isQuad ? QUAD_STEPS : isRf ? RF_STEPS : GENERIC_STEPS;
-  const fill = isKnee ? computeKneeFormFill(assessment)
+  const STEPS = isHamstring ? HAMSTRING_STEPS : isKnee ? KNEE_STEPS : isQuad ? QUAD_STEPS : isRf ? RF_STEPS : GENERIC_STEPS;
+  const fill = isHamstring ? computeHamstringFormFill(assessment)
+    : isKnee ? computeKneeFormFill(assessment)
     : isQuad ? computeQuadFormFill(assessment)
     : isRf ? computeRfFormFill(assessment.rfAnswers || {}, assessment) : null;
 
@@ -71,7 +76,7 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
   useEffect(() => {
     if (step > STEPS.length - 1) { setStep(0); stepRef.current = 0; }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isRf, isQuad, isKnee, quadEntity]);
+  }, [isRf, isQuad, isKnee, isHamstring, quadEntity]);
 
   // Raw touch state — refs only, zero re-renders during drag
   const touchStartX  = useRef(null);
@@ -313,7 +318,7 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
             <span className="ac-step-count">Step {step + 1} of {STEPS.length}</span>
             <span className="ac-step-label">{(STEPS[step] || STEPS[0]).label}</span>
           </div>
-          {(isRf || isQuad || isKnee) && fill && (
+          {(isRf || isQuad || isKnee || isHamstring) && fill && (
             <span className={`ac-fill-badge${fill.allFilled ? ' ac-fill-badge--done' : ''}`}>
               {fill.percent}%
             </span>
@@ -338,7 +343,28 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
       {/* ── Carousel track ───────────────────────────────── */}
       <div className="ac-track" ref={trackRef} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
 
-        {isKnee ? (
+        {isHamstring ? (
+          <>
+            {HAMSTRING_STEPS.map((s, i) => {
+              const isContext = i === 0;
+              const isHistory = s.group === 'History';
+              return (
+                <div key={s.group} className={slidePos(i)}>
+                  <div className="ac-card">
+                    {isContext && regionSelector()}
+                    {isContext && (
+                      <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.50)', margin: '-4px 0 16px' }}>
+                        Your selected hamstring muscle sets the starting point — tap above to change it on the body map.
+                      </p>
+                    )}
+                    <HamstringGroupFields group={s.group} assessment={assessment} setAssessment={setAssessment} />
+                    {isHistory && equipmentField()}
+                  </div>
+                </div>
+              );
+            })}
+          </>
+        ) : isKnee ? (
           <>
             {KNEE_STEPS.map((s, i) => {
               const isSafety = s.group === 'Safety';

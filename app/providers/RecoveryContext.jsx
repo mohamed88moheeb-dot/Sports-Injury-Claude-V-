@@ -38,6 +38,11 @@ import { kneeRouteFor } from '../../lib/clinical/kneeEngine/appAdapter/kneeCompa
 import { mapAssessmentToKneeInput } from '../../lib/clinical/kneeEngine/appAdapter/mapAssessmentToKneeInput.mjs';
 import { kneeOutputToProfile } from '../../lib/clinical/kneeEngine/appAdapter/kneeOutputToProfile.mjs';
 
+// Hamstring engine (deterministic clinical core + RAG evidence) → same profile shape.
+import { hamstringRouteFor } from '../../lib/clinical/hamstringEngine/appAdapter/hamstringCompatibility.mjs';
+import { mapAssessmentToHamstringInput } from '../../lib/clinical/hamstringEngine/appAdapter/mapAssessmentToHamstringInput.mjs';
+import { hamstringOutputToProfile } from '../../lib/clinical/hamstringEngine/appAdapter/hamstringOutputToProfile.mjs';
+
 /* ─────────────────────────────────────────────────────────────────────────
  * Constants & lookup maps
  * ───────────────────────────────────────────────────────────────────────── */
@@ -255,6 +260,41 @@ export function RecoveryProvider({ children }) {
           const data = await res.json();
           if (!res.ok || !data.ok) throw new Error(data.error || 'Quad generation failed');
           const base = quadOutputToProfile(data.output, assessmentWithGrade);
+          const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
+          setProfile(nextProfile);
+          setCheckins([]);
+          setGenerating(false);
+          saveState(nextProfile, [], assessmentWithGrade);
+          onComplete?.();
+        } catch (e) {
+          const fallback = buildProfile(assessmentWithGrade);
+          setProfile(fallback);
+          setCheckins([]);
+          setGenerating(false);
+          saveState(fallback, [], assessmentWithGrade);
+          onComplete?.();
+        }
+      })();
+      return;
+    }
+
+    // Hamstring-region injuries → hamstring engine (sprint-type BFLH, stretch-
+    // type proximal, tendinopathy; avulsion pattern is review-gated). A
+    // deterministic clinical core produces the diagnosis + staged plan; the RAG
+    // layer attaches cited evidence; an optional LLM refines wording. Maps into
+    // the SAME profile shape the existing pages consume.
+    if (hamstringRouteFor(assessmentWithGrade) === 'hamstring') {
+      (async () => {
+        try {
+          const hamstringInput = mapAssessmentToHamstringInput(assessmentWithGrade);
+          const res = await fetch('/api/hamstring', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ hamstringInput })
+          });
+          const data = await res.json();
+          if (!res.ok || !data.ok) throw new Error(data.error || 'Hamstring generation failed');
+          const base = hamstringOutputToProfile(data.output, assessmentWithGrade);
           const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
           setProfile(nextProfile);
           setCheckins([]);
