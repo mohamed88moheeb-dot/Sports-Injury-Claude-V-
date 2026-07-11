@@ -6,13 +6,12 @@ import { PageShell } from '../../components/layout/PageShell';
 import { AssessmentContent } from '../../components/sections/AssessmentContent';
 import { GeneratingPlan } from '../../components/layout/GeneratingPlan';
 import { useRecovery } from '../providers/RecoveryContext';
-import { isRfCompatible } from '../../lib/clinical/rfBetaAppAdapter/rfBetaCompatibility.mjs';
 
 const STORAGE_KEY = 'injuryguide_assessment_draft';
 
 export default function AssessmentPage() {
   const router = useRouter();
-  const { assessment, setAssessment, toggleArray, generateProfile, generating, profile } = useRecovery();
+  const { assessment, setAssessment, toggleArray, generateProfile, generating, generatingReady, profile } = useRecovery();
   const didLoad = useRef(false);
 
   // Load draft from localStorage on first mount.
@@ -50,16 +49,16 @@ export default function AssessmentPage() {
   function handleGenerate() {
     // Clear draft on successful submission
     try { localStorage.removeItem(STORAGE_KEY); } catch {}
-    // RF flow lands on the results page so the match confidence is shown; other
-    // regions keep the existing dashboard landing.
-    const dest = isRfCompatible(assessment) ? '/diagnosis' : '/dashboard';
-    generateProfile(() => router.push(dest));
+    // Every engine (RF, quad, knee, hamstring, legacy) lands on the diagnosis
+    // page first so the match confidence and reasoning are always shown before
+    // the plan — no engine should be a dead end with no diagnosis in sight.
+    generateProfile(() => router.push('/diagnosis'));
   }
 
   return (
     <PageShell bare={!generating}>
       {generating ? (
-        <GeneratingPlan />
+        <GeneratingPlan ready={generatingReady} />
       ) : (
         <AssessmentContent
           assessment={assessment}

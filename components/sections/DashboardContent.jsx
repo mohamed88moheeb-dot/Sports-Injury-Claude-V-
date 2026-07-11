@@ -160,6 +160,7 @@ export function DashboardContent({ profile, stats, saving, saveMessage }) {
           <div className="dash-today-title">{profile.today.title}</div>
           <div className="dash-today-actions">
             <button className="primary-btn" onClick={() => router.push('/plan')}>Open plan</button>
+            <button className="secondary-btn" onClick={() => router.push('/diagnosis')}>View diagnosis</button>
             <button className="secondary-btn" onClick={() => router.push('/check-in')}>Log check-in</button>
           </div>
         </div>

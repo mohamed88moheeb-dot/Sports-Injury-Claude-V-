@@ -130,6 +130,10 @@ export function RecoveryProvider({ children }) {
   const [saving, setSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState('');
   const [generating, setGenerating] = useState(false);
+  // True for a brief, real (not faked) moment between "the plan is actually
+  // built" and navigating away — lets the loading screen show a genuine
+  // "done" state instead of a fixed timer that's disconnected from the request.
+  const [generatingReady, setGeneratingReady] = useState(false);
   const [chatInput, setChatInput] = useState('');
   const [chat, setChat] = useState([
     { role: 'coach', text: 'Tell me what you are thinking about today\'s training or your return to sport. I will keep the plan safe and realistic.' }
@@ -239,11 +243,51 @@ export function RecoveryProvider({ children }) {
     });
   }
 
+  // Fetch with a hard timeout so a hung request can never leave the user
+  // staring at "Building your recovery plan…" forever — it falls back to the
+  // legacy builder just like any other failure.
+  async function fetchJsonWithTimeout(url, options, timeoutMs = 20000) {
+    const controller = new AbortController();
+    const t = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      const res = await fetch(url, { ...options, signal: controller.signal });
+      return res;
+    } finally {
+      clearTimeout(t);
+    }
+  }
+
+  // Called on a SUCCESSFUL engine result. Flips a real "ready" state (used by
+  // the loading screen to show a genuine done message, not a fixed timer)
+  // for a short, deliberate moment before navigating.
+  async function finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete) {
+    setProfile(nextProfile);
+    setCheckins([]);
+    setGeneratingReady(true);
+    await new Promise((r) => setTimeout(r, 500));
+    setGenerating(false);
+    setGeneratingReady(false);
+    saveState(nextProfile, [], assessmentWithGrade);
+    onComplete?.();
+  }
+
+  // Called on failure/timeout — no fake "ready" flourish, just move on.
+  function finishGenerationFallback(assessmentWithGrade, onComplete) {
+    const fallback = buildProfile(assessmentWithGrade);
+    setProfile(fallback);
+    setCheckins([]);
+    setGenerating(false);
+    setGeneratingReady(false);
+    saveState(fallback, [], assessmentWithGrade);
+    onComplete?.();
+  }
+
   function generateProfile(onComplete) {
     const derivedGradeId = deriveGrade(assessment);
     const assessmentWithGrade = { ...assessment, grade: derivedGradeId };
     setAssessment(assessmentWithGrade);
     setGenerating(true);
+    setGeneratingReady(false);
 
     // Non-rectus quadriceps injuries → quad engine (vastus strains, contusion,
     // tendinopathy, tendon rupture). Mapped into the SAME profile shape. Rectus
@@ -252,7 +296,7 @@ export function RecoveryProvider({ children }) {
       (async () => {
         try {
           const quadInput = mapAssessmentToQuadInput(assessmentWithGrade);
-          const res = await fetch('/api/quad', {
+          const res = await fetchJsonWithTimeout('/api/quad', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ quadInput })
@@ -261,18 +305,9 @@ export function RecoveryProvider({ children }) {
           if (!res.ok || !data.ok) throw new Error(data.error || 'Quad generation failed');
           const base = quadOutputToProfile(data.output, assessmentWithGrade);
           const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
-          setProfile(nextProfile);
-          setCheckins([]);
-          setGenerating(false);
-          saveState(nextProfile, [], assessmentWithGrade);
-          onComplete?.();
+          await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
         } catch (e) {
-          const fallback = buildProfile(assessmentWithGrade);
-          setProfile(fallback);
-          setCheckins([]);
-          setGenerating(false);
-          saveState(fallback, [], assessmentWithGrade);
-          onComplete?.();
+          finishGenerationFallback(assessmentWithGrade, onComplete);
         }
       })();
       return;
@@ -287,7 +322,7 @@ export function RecoveryProvider({ children }) {
       (async () => {
         try {
           const hamstringInput = mapAssessmentToHamstringInput(assessmentWithGrade);
-          const res = await fetch('/api/hamstring', {
+          const res = await fetchJsonWithTimeout('/api/hamstring', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ hamstringInput })
@@ -296,18 +331,9 @@ export function RecoveryProvider({ children }) {
           if (!res.ok || !data.ok) throw new Error(data.error || 'Hamstring generation failed');
           const base = hamstringOutputToProfile(data.output, assessmentWithGrade);
           const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
-          setProfile(nextProfile);
-          setCheckins([]);
-          setGenerating(false);
-          saveState(nextProfile, [], assessmentWithGrade);
-          onComplete?.();
+          await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
         } catch (e) {
-          const fallback = buildProfile(assessmentWithGrade);
-          setProfile(fallback);
-          setCheckins([]);
-          setGenerating(false);
-          saveState(fallback, [], assessmentWithGrade);
-          onComplete?.();
+          finishGenerationFallback(assessmentWithGrade, onComplete);
         }
       })();
       return;
@@ -320,7 +346,7 @@ export function RecoveryProvider({ children }) {
       (async () => {
         try {
           const kneeInput = mapAssessmentToKneeInput(assessmentWithGrade);
-          const res = await fetch('/api/knee', {
+          const res = await fetchJsonWithTimeout('/api/knee', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ kneeInput })
@@ -329,18 +355,9 @@ export function RecoveryProvider({ children }) {
           if (!res.ok || !data.ok) throw new Error(data.error || 'Knee generation failed');
           const base = kneeOutputToProfile(data.output, assessmentWithGrade);
           const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
-          setProfile(nextProfile);
-          setCheckins([]);
-          setGenerating(false);
-          saveState(nextProfile, [], assessmentWithGrade);
-          onComplete?.();
+          await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
         } catch (e) {
-          const fallback = buildProfile(assessmentWithGrade);
-          setProfile(fallback);
-          setCheckins([]);
-          setGenerating(false);
-          saveState(fallback, [], assessmentWithGrade);
-          onComplete?.();
+          finishGenerationFallback(assessmentWithGrade, onComplete);
         }
       })();
       return;
@@ -363,7 +380,7 @@ export function RecoveryProvider({ children }) {
             rfInput.assessment_completeness = 'incomplete';
             rfInput.missing_rf_items = CORE_RF_KEYS.slice();
           }
-          const res = await fetch('/api/rf-beta', {
+          const res = await fetchJsonWithTimeout('/api/rf-beta', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ rfInput })
@@ -378,33 +395,21 @@ export function RecoveryProvider({ children }) {
             ? { ...rawDiag, confidence_pct: base.confidence ?? rawDiag.confidence_pct }
             : null;
           const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan), rfDiagnosis };
-          setProfile(nextProfile);
-          setCheckins([]);
-          setGenerating(false);
-          saveState(nextProfile, [], assessmentWithGrade);
-          onComplete?.();
+          await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
         } catch (e) {
           // Fail-safe: never strand the user — fall back to the legacy build.
-          const fallback = buildProfile(assessmentWithGrade);
-          setProfile(fallback);
-          setCheckins([]);
-          setGenerating(false);
-          saveState(fallback, [], assessmentWithGrade);
-          onComplete?.();
+          finishGenerationFallback(assessmentWithGrade, onComplete);
         }
       })();
       return;
     }
 
-    // Legacy path (all other regions) — unchanged.
-    setTimeout(() => {
+    // Legacy path (all other regions). buildProfile is a synchronous, local
+    // computation — no network call — so there is nothing to fake-wait for.
+    (async () => {
       const nextProfile = buildProfile(assessmentWithGrade);
-      setProfile(nextProfile);
-      setCheckins([]);
-      setGenerating(false);
-      saveState(nextProfile, [], assessmentWithGrade);
-      onComplete?.();
-    }, 7000);
+      await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
+    })();
   }
 
   function completeDay(phaseIndex, weekIndex, dayIndex) {
@@ -542,7 +547,7 @@ export function RecoveryProvider({ children }) {
     user, authMode, setAuthMode, authForm, setAuthForm,
     authMessage, authLoading, handleAuth, signOut,
     // assessment
-    assessment, setAssessment, toggleArray, generateProfile, generating,
+    assessment, setAssessment, toggleArray, generateProfile, generating, generatingReady,
     // profile & plan
     profile, checkins, completeDay, addCheckin, dashboardStats, resetProfile,
     // save status

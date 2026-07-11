@@ -3,36 +3,40 @@
  * ---------------------------------------------------------------------------
  * Hamstring engine endpoint. POST a normalized hamstring input -> diagnosis +
  * staged plan + retrieved evidence (+ optional AI refinement when keyed).
- * Loads the prebuilt hamstring RAG index once and reuses it.
+ *
+ * The RAG index is a STATIC import (not fs.readFileSync at runtime). Reading
+ * a JSON file via fs at request time is a known Vercel/Next.js failure mode:
+ * output file tracing may not bundle a file that's only touched dynamically,
+ * so it can work in `next start` locally and silently 404/throw in the
+ * deployed serverless function — which would make this whole engine fall back
+ * to the legacy generic builder with no visible error. A static import is
+ * guaranteed to be bundled because Next.js sees it at build time.
  * ---------------------------------------------------------------------------
  */
 
-import { readFileSync } from 'node:fs';
-import { join } from 'node:path';
+import hamstringIndex from '../../../lib/rag/index/hamstring.index.json';
 import { runHamstring } from '../../../lib/clinical/hamstringEngine/index.mjs';
 import { hasAnthropicKey } from '../../../lib/rag/generate/anthropic.mjs';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-let _index = null;
-function loadIndex() {
-  if (_index === null) {
-    try {
-      const p = join(process.cwd(), 'lib/rag/index/hamstring.index.json');
-      _index = JSON.parse(readFileSync(p, 'utf8'));
-    } catch { _index = false; } // false = tried and unavailable
-  }
-  return _index || null;
-}
-
 export async function POST(request) {
   try {
     const body = await request.json().catch(() => ({}));
     const input = body.hamstringInput || {};
-    const output = await runHamstring(input, { index: loadIndex(), useAI: true });
+    const output = await runHamstring(input, { index: hamstringIndex, useAI: true });
     return Response.json({ ok: true, ai_enabled: hasAnthropicKey(), output });
   } catch (e) {
     return Response.json({ ok: false, error: String(e && e.message || e) }, { status: 500 });
   }
+}
+
+export async function GET() {
+  return Response.json({
+    ok: true,
+    injury: 'hamstring_strain',
+    ai_enabled: hasAnthropicKey(),
+    corpus: { docs: hamstringIndex.meta.n_docs, chunks: hamstringIndex.meta.n_chunks, built_at: hamstringIndex.meta.built_at },
+  });
 }
