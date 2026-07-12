@@ -70,6 +70,9 @@ import { hipFlexorOutputToProfile } from '../../lib/clinical/hipFlexorEngine/app
 import { gluteRouteFor } from '../../lib/clinical/gluteEngine/appAdapter/gluteCompatibility.mjs';
 import { mapAssessmentToGluteInput } from '../../lib/clinical/gluteEngine/appAdapter/mapAssessmentToGluteInput.mjs';
 import { gluteOutputToProfile } from '../../lib/clinical/gluteEngine/appAdapter/gluteOutputToProfile.mjs';
+import { itBandRouteFor } from '../../lib/clinical/itBandEngine/appAdapter/itBandCompatibility.mjs';
+import { mapAssessmentToItBandInput } from '../../lib/clinical/itBandEngine/appAdapter/mapAssessmentToItBandInput.mjs';
+import { itBandOutputToProfile } from '../../lib/clinical/itBandEngine/appAdapter/itBandOutputToProfile.mjs';
 
 /* ─────────────────────────────────────────────────────────────────────────
  * Constants & lookup maps
@@ -508,6 +511,30 @@ export function RecoveryProvider({ children }) {
           const data = await res.json();
           if (!res.ok || !data.ok) throw new Error(data.error || 'Glute generation failed');
           const base = gluteOutputToProfile(data.output, assessmentWithGrade, { aiPlanMode: data.ai_mode, outOfScopeNote: data.out_of_scope_note });
+          const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
+          await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
+        } catch (e) {
+          finishGenerationFallback(assessmentWithGrade, onComplete);
+        }
+      })();
+      return;
+    }
+
+    // IT-band-region injuries → IT band engine (iliotibial band syndrome).
+    // Locking/catching/giving-way/effusion signs return a review-gated
+    // referral profile.
+    if (itBandRouteFor(assessmentWithGrade) === 'it_band') {
+      (async () => {
+        try {
+          const itBandInput = mapAssessmentToItBandInput(assessmentWithGrade);
+          const res = await fetchJsonWithTimeout('/api/it-band', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ itBandInput })
+          });
+          const data = await res.json();
+          if (!res.ok || !data.ok) throw new Error(data.error || 'IT band generation failed');
+          const base = itBandOutputToProfile(data.output, assessmentWithGrade, { aiPlanMode: data.ai_mode, outOfScopeNote: data.out_of_scope_note });
           const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
           await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
         } catch (e) {
