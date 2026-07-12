@@ -28,6 +28,9 @@ import { HamstringGroupFields } from './HamstringAssessmentSection';
 import { ankleRouteFor } from '../../lib/clinical/ankleEngine/appAdapter/ankleCompatibility.mjs';
 import { ANKLE_STEPS, computeAnkleFormFill } from '../../lib/clinical/ankleEngine/appAdapter/ankleAssessmentModel.mjs';
 import { AnkleGroupFields } from './AnkleAssessmentSection';
+import { calfRouteFor } from '../../lib/clinical/calfEngine/appAdapter/calfCompatibility.mjs';
+import { CALF_STEPS, computeCalfFormFill } from '../../lib/clinical/calfEngine/appAdapter/calfAssessmentModel.mjs';
+import { CalfGroupFields } from './CalfAssessmentSection';
 
 const REGION_LABELS = {
   hamstring:'Hamstrings', quadriceps:'Quadriceps', adductor_groin:'Adductors',
@@ -62,14 +65,16 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
   const isHamstring = hamstringRouteFor(assessment) === 'hamstring';
   const isKnee = !isHamstring && kneeRouteFor(assessment) === 'knee';
   const isAnkle = !isHamstring && !isKnee && ankleRouteFor(assessment) === 'ankle';
-  const isQuad = !isHamstring && !isKnee && !isAnkle && quadRouteFor(assessment) === 'quad';
-  const isRf = !isHamstring && !isKnee && !isAnkle && !isQuad && isRfCompatible(assessment);
+  const isCalf = !isHamstring && !isKnee && !isAnkle && calfRouteFor(assessment) === 'calf';
+  const isQuad = !isHamstring && !isKnee && !isAnkle && !isCalf && quadRouteFor(assessment) === 'quad';
+  const isRf = !isHamstring && !isKnee && !isAnkle && !isCalf && !isQuad && isRfCompatible(assessment);
   const quadEntity = isQuad ? inferQuadEntity(assessment) : null;
   const QUAD_STEPS = isQuad ? quadStepsFor(quadEntity) : null;
-  const STEPS = isHamstring ? HAMSTRING_STEPS : isKnee ? KNEE_STEPS : isAnkle ? ANKLE_STEPS : isQuad ? QUAD_STEPS : isRf ? RF_STEPS : GENERIC_STEPS;
+  const STEPS = isHamstring ? HAMSTRING_STEPS : isKnee ? KNEE_STEPS : isAnkle ? ANKLE_STEPS : isCalf ? CALF_STEPS : isQuad ? QUAD_STEPS : isRf ? RF_STEPS : GENERIC_STEPS;
   const fill = isHamstring ? computeHamstringFormFill(assessment)
     : isKnee ? computeKneeFormFill(assessment)
     : isAnkle ? computeAnkleFormFill(assessment)
+    : isCalf ? computeCalfFormFill(assessment)
     : isQuad ? computeQuadFormFill(assessment)
     : isRf ? computeRfFormFill(assessment.rfAnswers || {}, assessment) : null;
 
@@ -81,7 +86,7 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
   useEffect(() => {
     if (step > STEPS.length - 1) { setStep(0); stepRef.current = 0; }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isRf, isQuad, isKnee, isAnkle, isHamstring, quadEntity]);
+  }, [isRf, isQuad, isKnee, isAnkle, isCalf, isHamstring, quadEntity]);
 
   // Raw touch state — refs only, zero re-renders during drag
   const touchStartX  = useRef(null);
@@ -425,6 +430,36 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
                     )}
                     <AnkleGroupFields group={s.group} assessment={assessment} setAssessment={setAssessment} />
                     {i === ANKLE_STEPS.length - 2 && (<>{sportField()}{equipmentField()}</>)}
+                  </div>
+                </div>
+              );
+            })}
+          </>
+        ) : isCalf ? (
+          <>
+            {CALF_STEPS.map((s, i) => {
+              const isSafety = s.group === 'Safety';
+              const isContext = i === 0;
+              return (
+                <div key={s.group} className={slidePos(i)}>
+                  <div className="ac-card">
+                    {isContext && regionSelector()}
+                    {isContext && (
+                      <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.50)', margin: '-4px 0 16px' }}>
+                        Calf/shin selected — tap above to change it on the body map.
+                      </p>
+                    )}
+                    {isSafety && (
+                      <div className="ac-safety-intro">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                          <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
+                        <p>These catch signs of a possible Achilles tendon rupture or a tibial stress fracture. If any apply, see a clinician for assessment/imaging before self-guided rehab.</p>
+                      </div>
+                    )}
+                    <CalfGroupFields group={s.group} assessment={assessment} setAssessment={setAssessment} />
+                    {i === CALF_STEPS.length - 2 && (<>{sportField()}{equipmentField()}</>)}
                   </div>
                 </div>
               );

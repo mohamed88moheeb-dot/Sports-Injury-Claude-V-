@@ -49,6 +49,12 @@ import { ankleRouteFor } from '../../lib/clinical/ankleEngine/appAdapter/ankleCo
 import { mapAssessmentToAnkleInput } from '../../lib/clinical/ankleEngine/appAdapter/mapAssessmentToAnkleInput.mjs';
 import { ankleOutputToProfile } from '../../lib/clinical/ankleEngine/appAdapter/ankleOutputToProfile.mjs';
 
+// Calf/shin engine (calf strain, Achilles tendinopathy, MTSS; possible
+// Achilles rupture / tibial stress fracture are safety-gated to referral).
+import { calfRouteFor } from '../../lib/clinical/calfEngine/appAdapter/calfCompatibility.mjs';
+import { mapAssessmentToCalfInput } from '../../lib/clinical/calfEngine/appAdapter/mapAssessmentToCalfInput.mjs';
+import { calfOutputToProfile } from '../../lib/clinical/calfEngine/appAdapter/calfOutputToProfile.mjs';
+
 /* ─────────────────────────────────────────────────────────────────────────
  * Constants & lookup maps
  * ───────────────────────────────────────────────────────────────────────── */
@@ -389,6 +395,30 @@ export function RecoveryProvider({ children }) {
           const data = await res.json();
           if (!res.ok || !data.ok) throw new Error(data.error || 'Ankle generation failed');
           const base = ankleOutputToProfile(data.output, assessmentWithGrade, { aiPlanMode: data.ai_mode, outOfScopeNote: data.out_of_scope_note });
+          const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
+          await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
+        } catch (e) {
+          finishGenerationFallback(assessmentWithGrade, onComplete);
+        }
+      })();
+      return;
+    }
+
+    // Calf/shin-region injuries → calf engine (calf strain, Achilles
+    // tendinopathy, MTSS). Possible Achilles rupture / stress fracture signs
+    // return a review-gated referral profile, same pattern as ankle/quad.
+    if (calfRouteFor(assessmentWithGrade) === 'calf') {
+      (async () => {
+        try {
+          const calfInput = mapAssessmentToCalfInput(assessmentWithGrade);
+          const res = await fetchJsonWithTimeout('/api/calf', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ calfInput })
+          });
+          const data = await res.json();
+          if (!res.ok || !data.ok) throw new Error(data.error || 'Calf generation failed');
+          const base = calfOutputToProfile(data.output, assessmentWithGrade, { aiPlanMode: data.ai_mode, outOfScopeNote: data.out_of_scope_note });
           const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
           await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
         } catch (e) {
