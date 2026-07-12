@@ -61,6 +61,13 @@ import { groinRouteFor } from '../../lib/clinical/groinEngine/appAdapter/groinCo
 import { mapAssessmentToGroinInput } from '../../lib/clinical/groinEngine/appAdapter/mapAssessmentToGroinInput.mjs';
 import { groinOutputToProfile } from '../../lib/clinical/groinEngine/appAdapter/groinOutputToProfile.mjs';
 
+// Hip flexor engine (acute iliopsoas strain, chronic iliopsoas-related pain/
+// snapping hip; possible femoral neck stress fracture / hip-joint pathology
+// are safety-gated to referral).
+import { hipFlexorRouteFor } from '../../lib/clinical/hipFlexorEngine/appAdapter/hipFlexorCompatibility.mjs';
+import { mapAssessmentToHipFlexorInput } from '../../lib/clinical/hipFlexorEngine/appAdapter/mapAssessmentToHipFlexorInput.mjs';
+import { hipFlexorOutputToProfile } from '../../lib/clinical/hipFlexorEngine/appAdapter/hipFlexorOutputToProfile.mjs';
+
 /* ─────────────────────────────────────────────────────────────────────────
  * Constants & lookup maps
  * ───────────────────────────────────────────────────────────────────────── */
@@ -449,6 +456,31 @@ export function RecoveryProvider({ children }) {
           const data = await res.json();
           if (!res.ok || !data.ok) throw new Error(data.error || 'Groin generation failed');
           const base = groinOutputToProfile(data.output, assessmentWithGrade, { aiPlanMode: data.ai_mode, outOfScopeNote: data.out_of_scope_note });
+          const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
+          await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
+        } catch (e) {
+          finishGenerationFallback(assessmentWithGrade, onComplete);
+        }
+      })();
+      return;
+    }
+
+    // Hip-flexor-region injuries → hip flexor engine (acute iliopsoas strain,
+    // chronic iliopsoas-related pain/snapping hip). Possible femoral neck
+    // stress fracture / hip-joint pathology signs return a review-gated
+    // referral profile.
+    if (hipFlexorRouteFor(assessmentWithGrade) === 'hip_flexor') {
+      (async () => {
+        try {
+          const hipFlexorInput = mapAssessmentToHipFlexorInput(assessmentWithGrade);
+          const res = await fetchJsonWithTimeout('/api/hip-flexor', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ hipFlexorInput })
+          });
+          const data = await res.json();
+          if (!res.ok || !data.ok) throw new Error(data.error || 'Hip flexor generation failed');
+          const base = hipFlexorOutputToProfile(data.output, assessmentWithGrade, { aiPlanMode: data.ai_mode, outOfScopeNote: data.out_of_scope_note });
           const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
           await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
         } catch (e) {

@@ -34,6 +34,9 @@ import { CalfGroupFields } from './CalfAssessmentSection';
 import { groinRouteFor } from '../../lib/clinical/groinEngine/appAdapter/groinCompatibility.mjs';
 import { GROIN_STEPS, computeGroinFormFill } from '../../lib/clinical/groinEngine/appAdapter/groinAssessmentModel.mjs';
 import { GroinGroupFields } from './GroinAssessmentSection';
+import { hipFlexorRouteFor } from '../../lib/clinical/hipFlexorEngine/appAdapter/hipFlexorCompatibility.mjs';
+import { HIP_FLEXOR_STEPS, computeHipFlexorFormFill } from '../../lib/clinical/hipFlexorEngine/appAdapter/hipFlexorAssessmentModel.mjs';
+import { HipFlexorGroupFields } from './HipFlexorAssessmentSection';
 
 const REGION_LABELS = {
   hamstring:'Hamstrings', quadriceps:'Quadriceps', adductor_groin:'Adductors',
@@ -70,16 +73,18 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
   const isAnkle = !isHamstring && !isKnee && ankleRouteFor(assessment) === 'ankle';
   const isCalf = !isHamstring && !isKnee && !isAnkle && calfRouteFor(assessment) === 'calf';
   const isGroin = !isHamstring && !isKnee && !isAnkle && !isCalf && groinRouteFor(assessment) === 'groin';
-  const isQuad = !isHamstring && !isKnee && !isAnkle && !isCalf && !isGroin && quadRouteFor(assessment) === 'quad';
-  const isRf = !isHamstring && !isKnee && !isAnkle && !isCalf && !isGroin && !isQuad && isRfCompatible(assessment);
+  const isHipFlexor = !isHamstring && !isKnee && !isAnkle && !isCalf && !isGroin && hipFlexorRouteFor(assessment) === 'hip_flexor';
+  const isQuad = !isHamstring && !isKnee && !isAnkle && !isCalf && !isGroin && !isHipFlexor && quadRouteFor(assessment) === 'quad';
+  const isRf = !isHamstring && !isKnee && !isAnkle && !isCalf && !isGroin && !isHipFlexor && !isQuad && isRfCompatible(assessment);
   const quadEntity = isQuad ? inferQuadEntity(assessment) : null;
   const QUAD_STEPS = isQuad ? quadStepsFor(quadEntity) : null;
-  const STEPS = isHamstring ? HAMSTRING_STEPS : isKnee ? KNEE_STEPS : isAnkle ? ANKLE_STEPS : isCalf ? CALF_STEPS : isGroin ? GROIN_STEPS : isQuad ? QUAD_STEPS : isRf ? RF_STEPS : GENERIC_STEPS;
+  const STEPS = isHamstring ? HAMSTRING_STEPS : isKnee ? KNEE_STEPS : isAnkle ? ANKLE_STEPS : isCalf ? CALF_STEPS : isGroin ? GROIN_STEPS : isHipFlexor ? HIP_FLEXOR_STEPS : isQuad ? QUAD_STEPS : isRf ? RF_STEPS : GENERIC_STEPS;
   const fill = isHamstring ? computeHamstringFormFill(assessment)
     : isKnee ? computeKneeFormFill(assessment)
     : isAnkle ? computeAnkleFormFill(assessment)
     : isCalf ? computeCalfFormFill(assessment)
     : isGroin ? computeGroinFormFill(assessment)
+    : isHipFlexor ? computeHipFlexorFormFill(assessment)
     : isQuad ? computeQuadFormFill(assessment)
     : isRf ? computeRfFormFill(assessment.rfAnswers || {}, assessment) : null;
 
@@ -91,7 +96,7 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
   useEffect(() => {
     if (step > STEPS.length - 1) { setStep(0); stepRef.current = 0; }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isRf, isQuad, isKnee, isAnkle, isCalf, isGroin, isHamstring, quadEntity]);
+  }, [isRf, isQuad, isKnee, isAnkle, isCalf, isGroin, isHipFlexor, isHamstring, quadEntity]);
 
   // Raw touch state — refs only, zero re-renders during drag
   const touchStartX  = useRef(null);
@@ -495,6 +500,36 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
                     )}
                     <GroinGroupFields group={s.group} assessment={assessment} setAssessment={setAssessment} />
                     {i === GROIN_STEPS.length - 2 && (<>{sportField()}{equipmentField()}</>)}
+                  </div>
+                </div>
+              );
+            })}
+          </>
+        ) : isHipFlexor ? (
+          <>
+            {HIP_FLEXOR_STEPS.map((s, i) => {
+              const isSafety = s.group === 'Safety';
+              const isContext = i === 0;
+              return (
+                <div key={s.group} className={slidePos(i)}>
+                  <div className="ac-card">
+                    {isContext && regionSelector()}
+                    {isContext && (
+                      <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.50)', margin: '-4px 0 16px' }}>
+                        Hip flexor selected — tap above to change it on the body map.
+                      </p>
+                    )}
+                    {isSafety && (
+                      <div className="ac-safety-intro">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                          <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
+                        <p>These catch signs of a possible femoral neck stress fracture or a hip-joint cause of your pain. If any apply, see a clinician for imaging/assessment before self-guided rehab.</p>
+                      </div>
+                    )}
+                    <HipFlexorGroupFields group={s.group} assessment={assessment} setAssessment={setAssessment} />
+                    {i === HIP_FLEXOR_STEPS.length - 2 && (<>{sportField()}{equipmentField()}</>)}
                   </div>
                 </div>
               );
