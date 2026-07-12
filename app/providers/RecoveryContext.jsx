@@ -55,6 +55,12 @@ import { calfRouteFor } from '../../lib/clinical/calfEngine/appAdapter/calfCompa
 import { mapAssessmentToCalfInput } from '../../lib/clinical/calfEngine/appAdapter/mapAssessmentToCalfInput.mjs';
 import { calfOutputToProfile } from '../../lib/clinical/calfEngine/appAdapter/calfOutputToProfile.mjs';
 
+// Adductor/groin engine (acute adductor strain, longstanding adductor-related
+// groin pain; possible hernia / hip-joint pathology are safety-gated to referral).
+import { groinRouteFor } from '../../lib/clinical/groinEngine/appAdapter/groinCompatibility.mjs';
+import { mapAssessmentToGroinInput } from '../../lib/clinical/groinEngine/appAdapter/mapAssessmentToGroinInput.mjs';
+import { groinOutputToProfile } from '../../lib/clinical/groinEngine/appAdapter/groinOutputToProfile.mjs';
+
 /* ─────────────────────────────────────────────────────────────────────────
  * Constants & lookup maps
  * ───────────────────────────────────────────────────────────────────────── */
@@ -419,6 +425,30 @@ export function RecoveryProvider({ children }) {
           const data = await res.json();
           if (!res.ok || !data.ok) throw new Error(data.error || 'Calf generation failed');
           const base = calfOutputToProfile(data.output, assessmentWithGrade, { aiPlanMode: data.ai_mode, outOfScopeNote: data.out_of_scope_note });
+          const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
+          await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
+        } catch (e) {
+          finishGenerationFallback(assessmentWithGrade, onComplete);
+        }
+      })();
+      return;
+    }
+
+    // Adductor/groin-region injuries → groin engine (acute adductor strain,
+    // longstanding adductor-related groin pain). Possible hernia / hip-joint
+    // pathology signs return a review-gated referral profile.
+    if (groinRouteFor(assessmentWithGrade) === 'groin') {
+      (async () => {
+        try {
+          const groinInput = mapAssessmentToGroinInput(assessmentWithGrade);
+          const res = await fetchJsonWithTimeout('/api/groin', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ groinInput })
+          });
+          const data = await res.json();
+          if (!res.ok || !data.ok) throw new Error(data.error || 'Groin generation failed');
+          const base = groinOutputToProfile(data.output, assessmentWithGrade, { aiPlanMode: data.ai_mode, outOfScopeNote: data.out_of_scope_note });
           const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
           await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
         } catch (e) {
