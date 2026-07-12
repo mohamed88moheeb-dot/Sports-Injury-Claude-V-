@@ -24,6 +24,18 @@
  * numbers below would be meaningless. This script will refuse to run
  * without a key rather than produce misleading results.
  *
+ * FREE-TIER QUOTA WARNING (found by running this harness): the Gemini API
+ * free tier enforces GenerateRequestsPerDayPerProjectPerModel-FreeTier — as
+ * low as 20 requests/DAY for gemini-flash-latest (aliasing gemini-3.5-flash
+ * at time of writing) on some keys. This script makes 8 engines x 5
+ * comments = 40 calls, which WILL exceed a 20/day quota partway through —
+ * composeSessions() correctly and safely falls back to deterministic on the
+ * 429 rather than erroring, but every result after quota exhaustion reads
+ * as "deterministic," not a genuine AI-quality signal. If your key is on
+ * the free tier, either run with a paid/higher-quota key, or trim COMMENTS/
+ * ENGINES below to fit inside your daily quota before drawing conclusions
+ * from the aggregate summary.
+ *
  * Run: node scripts/eval-ai-session-composer.mjs
  * ---------------------------------------------------------------------------
  */
