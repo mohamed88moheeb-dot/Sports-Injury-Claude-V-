@@ -73,6 +73,9 @@ import { gluteOutputToProfile } from '../../lib/clinical/gluteEngine/appAdapter/
 import { itBandRouteFor } from '../../lib/clinical/itBandEngine/appAdapter/itBandCompatibility.mjs';
 import { mapAssessmentToItBandInput } from '../../lib/clinical/itBandEngine/appAdapter/mapAssessmentToItBandInput.mjs';
 import { itBandOutputToProfile } from '../../lib/clinical/itBandEngine/appAdapter/itBandOutputToProfile.mjs';
+import { lowerBackRouteFor } from '../../lib/clinical/lowerBackEngine/appAdapter/lowerBackCompatibility.mjs';
+import { mapAssessmentToLowerBackInput } from '../../lib/clinical/lowerBackEngine/appAdapter/mapAssessmentToLowerBackInput.mjs';
+import { lowerBackOutputToProfile } from '../../lib/clinical/lowerBackEngine/appAdapter/lowerBackOutputToProfile.mjs';
 
 /* ─────────────────────────────────────────────────────────────────────────
  * Constants & lookup maps
@@ -535,6 +538,31 @@ export function RecoveryProvider({ children }) {
           const data = await res.json();
           if (!res.ok || !data.ok) throw new Error(data.error || 'IT band generation failed');
           const base = itBandOutputToProfile(data.output, assessmentWithGrade, { aiPlanMode: data.ai_mode, outOfScopeNote: data.out_of_scope_note });
+          const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
+          await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
+        } catch (e) {
+          finishGenerationFallback(assessmentWithGrade, onComplete);
+        }
+      })();
+      return;
+    }
+
+    // Lower-back-region injuries → lower back engine (non-specific low back
+    // pain, lumbar radicular pain). Cauda equina / serious pathology signs
+    // return an EMERGENCY review-gated referral profile; suspected
+    // spondylolysis returns an urgent review-gated referral profile.
+    if (lowerBackRouteFor(assessmentWithGrade) === 'lower_back') {
+      (async () => {
+        try {
+          const lowerBackInput = mapAssessmentToLowerBackInput(assessmentWithGrade);
+          const res = await fetchJsonWithTimeout('/api/lower-back', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ lowerBackInput })
+          });
+          const data = await res.json();
+          if (!res.ok || !data.ok) throw new Error(data.error || 'Lower back generation failed');
+          const base = lowerBackOutputToProfile(data.output, assessmentWithGrade, { aiPlanMode: data.ai_mode, outOfScopeNote: data.out_of_scope_note });
           const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
           await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
         } catch (e) {
