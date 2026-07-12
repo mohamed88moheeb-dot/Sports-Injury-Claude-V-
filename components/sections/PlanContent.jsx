@@ -7,7 +7,12 @@ import { PlanAdjustBox } from './PlanAdjustBox';
 
 function findTodayPath(plan) {
   if (!plan) return null;
+  // Skip 'earlier' (already-passed) phases — their single session is a
+  // preview only and is never marked completed, so without this guard
+  // "today" would incorrectly latch onto a past phase's leftover preview
+  // day instead of the actual current phase.
   for (let p = 0; p < plan.length; p++) {
+    if (plan[p].status === 'earlier') continue;
     for (let w = 0; w < plan[p].weeks.length; w++) {
       for (let d = 0; d < plan[p].weeks[w].days.length; d++) {
         if (!plan[p].weeks[w].days[d].completed) return [p, w, d];
@@ -61,8 +66,21 @@ export function PlanContent({ profile }) {
   const isRfBeta = !!profile?.isRfBeta;
   const todayPath = useMemo(() => findTodayPath(profile?.plan), [profile]);
   const defaultActive = todayPath?.[0] ?? (profile?.plan?.findIndex((p) => p.is_current || p.status === 'current') ?? 0);
-  const [activePhase, setActivePhase] = useState(defaultActive >= 0 ? defaultActive : 0);
+  const [activePhase, setActivePhase] = useState(0);
   const carouselRef = useRef(null);
+  const didInitActivePhase = useRef(false);
+
+  // profile loads asynchronously (localStorage/Supabase resolve a tick after
+  // mount), so the useState initializer above almost always captures a null
+  // profile and locks activePhase at 0. Sync it once real plan data arrives,
+  // but only the first time — later profile updates (e.g. after a check-in)
+  // must not yank the user back to "today" if they've navigated elsewhere.
+  useEffect(() => {
+    if (didInitActivePhase.current || !profile?.plan?.length) return;
+    didInitActivePhase.current = true;
+    setActivePhase(defaultActive >= 0 ? defaultActive : 0);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [profile]);
 
   useEffect(() => {
     const el = carouselRef.current?.children[activePhase];

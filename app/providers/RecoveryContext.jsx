@@ -43,6 +43,12 @@ import { hamstringRouteFor } from '../../lib/clinical/hamstringEngine/appAdapter
 import { mapAssessmentToHamstringInput } from '../../lib/clinical/hamstringEngine/appAdapter/mapAssessmentToHamstringInput.mjs';
 import { hamstringOutputToProfile } from '../../lib/clinical/hamstringEngine/appAdapter/hamstringOutputToProfile.mjs';
 
+// Ankle engine (lateral sprain / syndesmosis / chronic instability; Ottawa-rule
+// and unstable-syndesmosis signs are safety-gated to referral) → same profile shape.
+import { ankleRouteFor } from '../../lib/clinical/ankleEngine/appAdapter/ankleCompatibility.mjs';
+import { mapAssessmentToAnkleInput } from '../../lib/clinical/ankleEngine/appAdapter/mapAssessmentToAnkleInput.mjs';
+import { ankleOutputToProfile } from '../../lib/clinical/ankleEngine/appAdapter/ankleOutputToProfile.mjs';
+
 /* ─────────────────────────────────────────────────────────────────────────
  * Constants & lookup maps
  * ───────────────────────────────────────────────────────────────────────── */
@@ -359,6 +365,30 @@ export function RecoveryProvider({ children }) {
           const data = await res.json();
           if (!res.ok || !data.ok) throw new Error(data.error || 'Knee generation failed');
           const base = kneeOutputToProfile(data.output, assessmentWithGrade);
+          const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
+          await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
+        } catch (e) {
+          finishGenerationFallback(assessmentWithGrade, onComplete);
+        }
+      })();
+      return;
+    }
+
+    // Ankle-region injuries → ankle engine (lateral sprain, syndesmosis sprain,
+    // chronic instability). Ottawa-rule / unstable-syndesmosis signs return a
+    // review-gated referral profile, same pattern as knee/quad.
+    if (ankleRouteFor(assessmentWithGrade) === 'ankle') {
+      (async () => {
+        try {
+          const ankleInput = mapAssessmentToAnkleInput(assessmentWithGrade);
+          const res = await fetchJsonWithTimeout('/api/ankle', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ankleInput })
+          });
+          const data = await res.json();
+          if (!res.ok || !data.ok) throw new Error(data.error || 'Ankle generation failed');
+          const base = ankleOutputToProfile(data.output, assessmentWithGrade, { aiPlanMode: data.ai_mode, outOfScopeNote: data.out_of_scope_note });
           const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
           await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
         } catch (e) {
@@ -1094,7 +1124,13 @@ export function calculateProgress(plan = []) {
 }
 
 export function findToday(plan) {
+  // Skip 'earlier' (already-passed) phases — their single session is a
+  // preview only and is never marked completed, so without this guard
+  // "today" would incorrectly latch onto a past phase's leftover preview
+  // day instead of the actual current phase whenever a plan starts partway
+  // through its stage model (e.g. a patient beginning mid-recovery).
   for (const phase of plan) {
+    if (phase.status === 'earlier') continue;
     for (const week of phase.weeks) {
       for (const day of week.days) {
         if (!day.completed) return { ...day, phaseLabel: phase.label };
@@ -1107,6 +1143,7 @@ export function findToday(plan) {
 /** Indices [phase, week, day] of the first incomplete day (used by RF today-only check-in). */
 export function locateToday(plan = []) {
   for (let pi = 0; pi < plan.length; pi++) {
+    if (plan[pi].status === 'earlier') continue;
     for (let wi = 0; wi < (plan[pi].weeks || []).length; wi++) {
       for (let di = 0; di < plan[pi].weeks[wi].days.length; di++) {
         if (!plan[pi].weeks[wi].days[di].completed) return [pi, wi, di];
