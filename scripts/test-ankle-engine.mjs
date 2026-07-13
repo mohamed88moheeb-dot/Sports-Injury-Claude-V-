@@ -71,13 +71,13 @@ check('router itself only classifies as chronic instability with real recurrence
 check('sessions open with a warm-up card and close with a cool-down card', (() => {
   const out = runAnkle({ ...base });
   const cur = out.plan.stages.find((s) => s.is_current);
-  const cards = cur.sessions[0].cards;
+  const cards = cur.weeks[0].sessions[0].cards;
   return cards[0].exercise_id.includes('BOOKEND-WARMUP') && cards[cards.length - 1].exercise_id.includes('BOOKEND-COOLDOWN');
 })());
 check('syndesmosis (stretch-cautious) uses the cautious cool-down variant', (() => {
   const out = runAnkle({ ...base, mechanism: 'external_rotation', pain_above_mortise: 'yes', squeeze_test: 'positive' });
   const cur = out.plan.stages.find((s) => s.is_current);
-  const cards = cur.sessions[0].cards;
+  const cards = cur.weeks[0].sessions[0].cards;
   return cards[cards.length - 1].exercise_id === 'CORE-BOOKEND-COOLDOWN-CAUTIOUS';
 })());
 
@@ -85,13 +85,13 @@ check('syndesmosis (stretch-cautious) uses the cautious cool-down variant', (() 
 check('check-in withholds today on overnight pain', (() => {
   const out = runAnkle({ ...base });
   const cur = out.plan.stages.find((s) => s.is_current);
-  const adj = applyAnkleCheckIn(cur.sessions[0], { overnight_pain: true }, out);
+  const adj = applyAnkleCheckIn(cur.weeks[0].sessions[0], { overnight_pain: true }, out);
   return adj.action === 'withhold_today_and_review' && adj.adjusted_session.cards.length === 0;
 })());
 check('CAI check-in withholds on a new giving-way episode', (() => {
   const out = runAnkle({ ...base, prior_sprain_count: 4, giving_way_without_new_injury: 'yes' });
   const cur = out.plan.stages.find((s) => s.is_current);
-  const adj = applyAnkleCheckIn(cur.sessions[0], { new_giving_way_episode: true }, out);
+  const adj = applyAnkleCheckIn(cur.weeks[0].sessions[0], { new_giving_way_episode: true }, out);
   return adj.action === 'withhold_today_and_review';
 })());
 

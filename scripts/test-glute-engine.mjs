@@ -69,7 +69,7 @@ check('every gluteal-strain stage has a duration_weeks', runGlute({ ...base }).p
 check('sessions open with a warm-up card and close with a cool-down card', (() => {
   const out = runGlute({ ...base });
   const cur = out.plan.stages.find((s) => s.is_current);
-  const cards = cur.sessions[0].cards;
+  const cards = cur.weeks[0].sessions[0].cards;
   return cards[0].exercise_id.includes('BOOKEND-WARMUP') && cards[cards.length - 1].exercise_id.includes('BOOKEND-COOLDOWN');
 })());
 
@@ -77,19 +77,19 @@ check('sessions open with a warm-up card and close with a cool-down card', (() =
 check('gluteal strain check-in withholds on increased swelling', (() => {
   const out = runGlute({ ...base });
   const cur = out.plan.stages.find((s) => s.is_current);
-  const adj = applyGluteCheckIn(cur.sessions[0], { swelling_change: 'more' }, out);
+  const adj = applyGluteCheckIn(cur.weeks[0].sessions[0], { swelling_change: 'more' }, out);
   return adj.action === 'withhold_today_and_review' && adj.adjusted_session.cards.length === 0;
 })());
 check('gluteal strain check-in withholds on new sharp pain', (() => {
   const out = runGlute({ ...base });
   const cur = out.plan.stages.find((s) => s.is_current);
-  const adj = applyGluteCheckIn(cur.sessions[0], { new_sharp_pain: true }, out);
+  const adj = applyGluteCheckIn(cur.weeks[0].sessions[0], { new_sharp_pain: true }, out);
   return adj.action === 'withhold_today_and_review';
 })());
 check('gluteal tendinopathy check-in withholds on high in-session pain', (() => {
   const out = runGlute({ mechanism: 'gradual_overuse', pain_location: 'lateral_hip', ability_to_continue: 'yes', pain_severity_label: 'moderate', resisted_abduction_pain: 'moderate' });
   const cur = out.plan.stages.find((s) => s.is_current);
-  const adj = applyGluteCheckIn(cur.sessions[0], { pain_during_0_10: 8 }, out);
+  const adj = applyGluteCheckIn(cur.weeks[0].sessions[0], { pain_during_0_10: 8 }, out);
   return adj.action === 'withhold_today_and_review';
 })());
 

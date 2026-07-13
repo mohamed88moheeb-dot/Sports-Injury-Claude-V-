@@ -44,7 +44,7 @@ check('every IT-band stage has a duration_weeks', runItBand({ ...base }).plan.st
 check('sessions open with a warm-up card and close with a cool-down card', (() => {
   const out = runItBand({ ...base });
   const cur = out.plan.stages.find((s) => s.is_current);
-  const cards = cur.sessions[0].cards;
+  const cards = cur.weeks[0].sessions[0].cards;
   return cards[0].exercise_id.includes('BOOKEND-WARMUP') && cards[cards.length - 1].exercise_id.includes('BOOKEND-COOLDOWN');
 })());
 
@@ -52,13 +52,13 @@ check('sessions open with a warm-up card and close with a cool-down card', (() =
 check('IT band check-in withholds on high in-session pain', (() => {
   const out = runItBand({ ...base });
   const cur = out.plan.stages.find((s) => s.is_current);
-  const adj = applyItBandCheckIn(cur.sessions[0], { pain_during_0_10: 8 }, out);
+  const adj = applyItBandCheckIn(cur.weeks[0].sessions[0], { pain_during_0_10: 8 }, out);
   return adj.action === 'withhold_today_and_review' && adj.adjusted_session.cards.length === 0;
 })());
 check('IT band check-in does not withhold on low in-session pain', (() => {
   const out = runItBand({ ...base });
   const cur = out.plan.stages.find((s) => s.is_current);
-  const adj = applyItBandCheckIn(cur.sessions[0], { pain_during_0_10: 2 }, out);
+  const adj = applyItBandCheckIn(cur.weeks[0].sessions[0], { pain_during_0_10: 2 }, out);
   return adj.action !== 'withhold_today_and_review';
 })());
 

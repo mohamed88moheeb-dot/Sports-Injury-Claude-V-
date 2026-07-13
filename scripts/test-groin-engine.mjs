@@ -58,7 +58,7 @@ check('every adductor-strain stage has a duration_weeks', runGroin({ ...base }).
 check('sessions open with a warm-up card and close with a cool-down card', (() => {
   const out = runGroin({ ...base });
   const cur = out.plan.stages.find((s) => s.is_current);
-  const cards = cur.sessions[0].cards;
+  const cards = cur.weeks[0].sessions[0].cards;
   return cards[0].exercise_id.includes('BOOKEND-WARMUP') && cards[cards.length - 1].exercise_id.includes('BOOKEND-COOLDOWN');
 })());
 
@@ -66,13 +66,13 @@ check('sessions open with a warm-up card and close with a cool-down card', (() =
 check('check-in withholds today on overnight pain', (() => {
   const out = runGroin({ ...base });
   const cur = out.plan.stages.find((s) => s.is_current);
-  const adj = applyGroinCheckIn(cur.sessions[0], { overnight_pain: true }, out);
+  const adj = applyGroinCheckIn(cur.weeks[0].sessions[0], { overnight_pain: true }, out);
   return adj.action === 'withhold_today_and_review' && adj.adjusted_session.cards.length === 0;
 })());
 check('chronic groin pain check-in withholds on high in-session pain', (() => {
   const out = runGroin({ ...base, mechanism: 'gradual_overuse', onset: 'gradual', symptom_duration_weeks: 20 });
   const cur = out.plan.stages.find((s) => s.is_current);
-  const adj = applyGroinCheckIn(cur.sessions[0], { pain_during_0_10: 8 }, out);
+  const adj = applyGroinCheckIn(cur.weeks[0].sessions[0], { pain_during_0_10: 8 }, out);
   return adj.action === 'withhold_today_and_review';
 })());
 

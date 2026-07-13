@@ -66,13 +66,13 @@ check('every calf-strain stage has a duration_weeks', runCalf({ ...base }).plan.
 check('sessions open with a warm-up card and close with a cool-down card', (() => {
   const out = runCalf({ ...base });
   const cur = out.plan.stages.find((s) => s.is_current);
-  const cards = cur.sessions[0].cards;
+  const cards = cur.weeks[0].sessions[0].cards;
   return cards[0].exercise_id.includes('BOOKEND-WARMUP') && cards[cards.length - 1].exercise_id.includes('BOOKEND-COOLDOWN');
 })());
 check('Achilles tendinopathy (stretch-cautious) uses the cautious cool-down', (() => {
   const out = runCalf({ ...base, mechanism: 'gradual_overuse_running', onset: 'gradual', pain_location: 'achilles_mid_portion', morning_stiffness: 'yes' });
   const cur = out.plan.stages.find((s) => s.is_current);
-  const cards = cur.sessions[0].cards;
+  const cards = cur.weeks[0].sessions[0].cards;
   return cards[cards.length - 1].exercise_id === 'CORE-BOOKEND-COOLDOWN-CAUTIOUS';
 })());
 
@@ -80,13 +80,13 @@ check('Achilles tendinopathy (stretch-cautious) uses the cautious cool-down', ((
 check('check-in withholds today on overnight pain', (() => {
   const out = runCalf({ ...base });
   const cur = out.plan.stages.find((s) => s.is_current);
-  const adj = applyCalfCheckIn(cur.sessions[0], { overnight_pain: true }, out);
+  const adj = applyCalfCheckIn(cur.weeks[0].sessions[0], { overnight_pain: true }, out);
   return adj.action === 'withhold_today_and_review' && adj.adjusted_session.cards.length === 0;
 })());
 check('MTSS check-in withholds when pain becomes focal (possible stress fracture)', (() => {
   const out = runCalf({ ...base, mechanism: 'gradual_overuse_running', onset: 'gradual', pain_location: 'medial_shin' });
   const cur = out.plan.stages.find((s) => s.is_current);
-  const adj = applyCalfCheckIn(cur.sessions[0], { pain_became_focal: true }, out);
+  const adj = applyCalfCheckIn(cur.weeks[0].sessions[0], { pain_became_focal: true }, out);
   return adj.action === 'withhold_today_and_review';
 })());
 

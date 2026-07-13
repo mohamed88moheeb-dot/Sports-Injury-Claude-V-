@@ -52,7 +52,7 @@ check('post-op week 8 -> mobility', postop.stage === 'mobility');
 
 // ── Check-in withholds ───────────────────────────────────────────────────────
 const cn = runQuad({ mechanism: 'direct_impact', pain_location: 'anterior_thigh', ability_to_continue: 'limited', pain_severity_label: 'moderate', knee_flexion_rom_percent: 60, days_since_injury: 3 });
-const sess = cn.plan.stages.find((s) => s.is_current).sessions[0];
+const sess = cn.plan.stages.find((s) => s.is_current).weeks[0].sessions[0];
 check('swelling increase withholds', applyQuadCheckIn(sess, { swelling_change: 'more' }, cn).action === 'withhold_today_and_review');
 check('ROM regression withholds (entity policy)', applyQuadCheckIn(sess, { symptom_response: 'same', knee_flexion_rom_percent: 50, _prev_rom: 60 }, cn).action === 'withhold_today_and_review');
 

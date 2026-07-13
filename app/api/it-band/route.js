@@ -37,7 +37,7 @@ export async function POST(request) {
         injuryLabel: 'iliotibial band syndrome (ITBS)',
         betaMeta: BETA_META,
       });
-      stages[curIdx] = { ...cur, sessions: composed.sessions };
+      stages[curIdx] = { ...cur, weeks: [{ ...cur.weeks[0], sessions: composed.sessions }, ...cur.weeks.slice(1)] };
       ai_mode = composed.mode;
       out_of_scope_note = composed.out_of_scope_note || null;
     }

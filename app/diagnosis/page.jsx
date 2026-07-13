@@ -144,6 +144,11 @@ export default function DiagnosisPage() {
                   ? (profile.rfRecoveryWording || 'Estimated window for similar patterns. Actual recovery depends on severity, symptoms, sport demands, and clinician review.')
                   : 'Based on grade, mechanism, and sport demands. Individual variation applies.'}
               </p>
+              {profile.recoverySecondaryNote && (
+                <p style={{ marginTop: 8, fontSize: 12, color: CARD_TEXT_DIM, lineHeight: 1.6 }}>
+                  {profile.recoverySecondaryNote}
+                </p>
+              )}
 
               {/* Timeline bar */}
               <div style={{ marginTop: 16 }}>

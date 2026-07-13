@@ -61,7 +61,7 @@ check('every non-specific-LBP stage has a duration_weeks', runLowerBack({ ...bas
 check('sessions open with a warm-up card and close with a cool-down card', (() => {
   const out = runLowerBack({ ...base });
   const cur = out.plan.stages.find((s) => s.is_current);
-  const cards = cur.sessions[0].cards;
+  const cards = cur.weeks[0].sessions[0].cards;
   return cards[0].exercise_id.includes('BOOKEND-WARMUP') && cards[cards.length - 1].exercise_id.includes('BOOKEND-COOLDOWN');
 })());
 
@@ -69,19 +69,19 @@ check('sessions open with a warm-up card and close with a cool-down card', (() =
 check('non-specific LBP check-in withholds on high in-session pain', (() => {
   const out = runLowerBack({ ...base });
   const cur = out.plan.stages.find((s) => s.is_current);
-  const adj = applyLowerBackCheckIn(cur.sessions[0], { pain_during_0_10: 8 }, out);
+  const adj = applyLowerBackCheckIn(cur.weeks[0].sessions[0], { pain_during_0_10: 8 }, out);
   return adj.action === 'withhold_today_and_review' && adj.adjusted_session.cards.length === 0;
 })());
 check('non-specific LBP check-in withholds on new leg symptoms', (() => {
   const out = runLowerBack({ ...base });
   const cur = out.plan.stages.find((s) => s.is_current);
-  const adj = applyLowerBackCheckIn(cur.sessions[0], { new_leg_symptoms: true }, out);
+  const adj = applyLowerBackCheckIn(cur.weeks[0].sessions[0], { new_leg_symptoms: true }, out);
   return adj.action === 'withhold_today_and_review';
 })());
 check('lumbar radicular pain check-in withholds on worsening leg symptoms', (() => {
   const out = runLowerBack({ ...base, mechanism: 'sudden_lift_twist', leg_pain_below_knee: 'yes' });
   const cur = out.plan.stages.find((s) => s.is_current);
-  const adj = applyLowerBackCheckIn(cur.sessions[0], { leg_symptoms_worse: true }, out);
+  const adj = applyLowerBackCheckIn(cur.weeks[0].sessions[0], { leg_symptoms_worse: true }, out);
   return adj.action === 'withhold_today_and_review';
 })());
 
