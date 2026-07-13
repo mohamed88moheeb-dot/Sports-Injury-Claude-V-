@@ -11,14 +11,23 @@ const GLOW_BLUE = { color: '#5CC6FF', textShadow: '0 0 14px rgba(56,189,248,0.65
 const CARD_TEXT = 'rgba(255,255,255,0.90)';
 const CARD_TEXT_DIM = 'rgba(255,255,255,0.72)';
 
-/* Map grade/status → confidence % */
-function inferConfidence(profile) {
-  if (!profile) return 0;
-  const g = (profile.gradeName || '').toLowerCase();
-  if (g.includes('mild') || g.includes('grade 1')) return 82;
-  if (g.includes('moderate') || g.includes('grade 2')) return 74;
-  if (g.includes('severe') || g.includes('grade 3')) return 61;
-  return 70;
+/* Real recovery-time axis: how far the athlete is (days since injury + days
+   since the plan was generated) vs the programme's actual total length.
+   Returns null when the profile carries no real week total — no bar is more
+   honest than a bar filled by an unrelated number. */
+function computeTimeline(profile) {
+  if (!profile?.planTotalWeeks) return null;
+  const totalDays = profile.planTotalWeeks * 7;
+  const atGeneration = Number.isFinite(Number(profile.daysSinceInjury)) ? Number(profile.daysSinceInjury) : 0;
+  const sinceGeneration = profile.createdAt
+    ? Math.max(0, Math.floor((Date.now() - new Date(profile.createdAt).getTime()) / 86400000))
+    : 0;
+  const elapsedDays = Math.min(totalDays, atGeneration + sinceGeneration);
+  return {
+    percent: Math.min(100, Math.max(2, Math.round((elapsedDays / totalDays) * 100))),
+    currentWeek: Math.min(profile.planTotalWeeks, Math.floor(elapsedDays / 7) + 1),
+    totalWeeks: profile.planTotalWeeks,
+  };
 }
 
 function RiskTag({ profile }) {
@@ -48,7 +57,12 @@ export default function DiagnosisPage() {
   const { profile, assessment } = useRecovery();
   const isRf = !!profile?.isRfBeta;
   const confidenceWithheld = isRf && profile.rfConfidenceWithheld;
-  const confidence = isRf ? (confidenceWithheld ? 0 : (profile.confidence ?? 0)) : inferConfidence(profile);
+  // Only a REAL engine-computed match score is shown as a number. Legacy
+  // (non-engine) profiles have none — they render a qualitative tag instead
+  // of a percentage invented from the severity wording.
+  const confidence = !confidenceWithheld && Number.isFinite(profile?.confidence) ? profile.confidence : null;
+  const timeline = computeTimeline(profile);
+  const drivers = Array.isArray(profile?.diagnosisDrivers) ? profile.diagnosisDrivers : [];
 
   return (
     <PageShell>
@@ -88,18 +102,24 @@ export default function DiagnosisPage() {
                     <div style={{ fontSize: 14, fontWeight: 700, color: '#FF8A8A' }}>Confidence not shown</div>
                     <div style={{ fontSize: 11, color: CARD_TEXT_DIM, marginTop: 4 }}>Higher-concern pattern — please seek review first.</div>
                   </div>
+                ) : confidence != null ? (
+                  <ConfidenceMeter value={confidence} label="Match confidence" size={110} />
                 ) : (
-                  <ConfidenceMeter value={confidence} label={isRf ? 'Match confidence' : 'Match score'} size={110} />
+                  <div style={{ textAlign: 'center', maxWidth: 130, padding: '18px 6px' }}>
+                    <div style={{ fontSize: 14, fontWeight: 700, color: CARD_TEXT }}>Pattern-based</div>
+                    <div style={{ fontSize: 11, color: CARD_TEXT_DIM, marginTop: 4 }}>Indicative match from your answers — not a scored diagnosis.</div>
+                  </div>
                 )}
                 <RiskTag profile={profile} />
               </div>
 
-              {/* Details */}
+              {/* Details — the DIAGNOSED PATTERN is the headline, not the body
+                  region the user tapped (which is an input, not a finding). */}
               <div style={{ flex: 1, minWidth: 200 }}>
-                <p className="eyebrow" style={{ marginBottom: 8 }}>Primary region</p>
-                <h3 style={{ fontSize: 26, marginBottom: 6, ...GLOW_BLUE }}>{profile.regionName}</h3>
+                <p className="eyebrow" style={{ marginBottom: 8 }}>Likely pattern</p>
+                <h3 style={{ fontSize: 24, marginBottom: 6, ...GLOW_BLUE }}>{profile.injuryTitle || profile.regionName}</h3>
                 <p style={{ color: CARD_TEXT, fontSize: 14, marginBottom: 12 }}>
-                  {profile.gradeName} · {profile.mechanism}
+                  {[profile.regionName, profile.gradeName, profile.mechanism].filter(Boolean).join(' · ')}
                 </p>
 
                 {profile.exactAreaName !== 'General area' && (
@@ -150,17 +170,54 @@ export default function DiagnosisPage() {
                 </p>
               )}
 
-              {/* Timeline bar */}
-              <div style={{ marginTop: 16 }}>
-                <div className="progress-track">
-                  <span style={{ width: `${Math.min(confidence, 90)}%` }} />
+              {/* Timeline bar — a REAL time axis: elapsed recovery time over the
+                  programme's actual length. Hidden when no week total exists. */}
+              {timeline && (
+                <div style={{ marginTop: 16 }}>
+                  <div className="progress-track">
+                    <span style={{ width: `${timeline.percent}%` }} />
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 6 }}>
+                    <span style={{ fontSize: 10, color: CARD_TEXT_DIM, fontWeight: 600 }}>
+                      WEEK {timeline.currentWeek} OF ~{timeline.totalWeeks}
+                    </span>
+                    <span style={{ fontSize: 10, color: '#5CC6FF', fontWeight: 700, textShadow: '0 0 8px rgba(56,189,248,0.5)' }}>ESTIMATED RETURN</span>
+                  </div>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 6 }}>
-                  <span style={{ fontSize: 10, color: CARD_TEXT_DIM, fontWeight: 600 }}>TODAY</span>
-                  <span style={{ fontSize: 10, color: '#5CC6FF', fontWeight: 700, textShadow: '0 0 8px rgba(56,189,248,0.5)' }}>ESTIMATED RETURN</span>
-                </div>
-              </div>
+              )}
             </div>
+
+            {/* ── Why this pattern (assessment → diagnosis link) ── */}
+            {(drivers.length > 0 || profile.diagnosisNote) && (
+              <div className="glow-card">
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+                  <p className="eyebrow" style={{ margin: 0 }}>Why this pattern</p>
+                </div>
+                {drivers.length > 0 && (
+                  <>
+                    <p style={{ color: CARD_TEXT, fontSize: 13, lineHeight: 1.6, marginBottom: 10 }}>
+                      From your answers, these findings supported this pattern:
+                    </p>
+                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 8 }}>
+                      {drivers.map((d, i) => (
+                        <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, fontSize: 13, color: CARD_TEXT }}>
+                          <span style={{
+                            flexShrink: 0, width: 6, height: 6, borderRadius: '50%', marginTop: 7,
+                            background: '#5CC6FF', boxShadow: '0 0 8px rgba(56,189,248,0.85)',
+                          }} />
+                          <span style={{ lineHeight: 1.55 }}>{d}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                )}
+                {profile.diagnosisNote && (
+                  <p style={{ color: CARD_TEXT_DIM, fontSize: 11, lineHeight: 1.5, marginTop: drivers.length ? 14 : 0, fontStyle: 'italic' }}>
+                    {profile.diagnosisNote}
+                  </p>
+                )}
+              </div>
+            )}
 
             {/* ── Return-to-sport readiness checklist ──── */}
             {isRf && profile.rtsReadiness && profile.rtsReadiness.total > 0 && (

@@ -905,6 +905,12 @@ function buildProfile(a) {
     gradeName: grade.name,
     mechanism: a.mechanism,
     returnRange: isHighRisk ? `${returnRange} · medical review recommended` : returnRange,
+    // Real time axis for the diagnosis page: the plan's actual total weeks and
+    // where the athlete already is (days since injury) — not a fabricated %.
+    planTotalWeeks: plan.reduce((sum, ph) => sum + (ph.weeks?.length || 0), 0) || null,
+    daysSinceInjury: Number.isFinite(Number(a.daysSince)) ? Number(a.daysSince) : null,
+    diagnosisDrivers: [],
+    diagnosisNote: 'This estimate is pattern-based from your answers only — no examination or imaging has been performed.',
     plan,
     progress,
     today: findToday(plan),
