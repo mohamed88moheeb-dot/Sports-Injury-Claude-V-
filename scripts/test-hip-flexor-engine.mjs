@@ -41,7 +41,9 @@ check('moderate resisted pain = grade_2', grade({ resisted_hip_flexion_pain: 'mo
 check('severe resisted pain + cannot continue = grade_3', grade({ resisted_hip_flexion_pain: 'severe', ability_to_continue: 'no' }) === 'grade_3');
 
 // ── Stage placement (days-since-injury driven for acute strain) ─────────────
-const stage = (days) => runHipFlexor({ ...base, resisted_hip_flexion_pain: 'mild', ability_to_continue: 'yes', pain_severity_label: 'mild', days_since_injury: days }).plan.current_stage_id;
+const stage = (days) => runHipFlexor({ ...base, resisted_hip_flexion_pain: 'moderate', ability_to_continue: 'yes', pain_severity_label: 'moderate', days_since_injury: days }).plan.current_stage_id;
+const mildPlan = runHipFlexor({ ...base, resisted_hip_flexion_pain: 'mild', ability_to_continue: 'yes', pain_severity_label: 'mild', days_since_injury: 2 }).plan;
+check('grade I = short trimmed plan (2 weeks, 2 phases)', mildPlan.total_estimated_weeks === 2 && mildPlan.stages.length === 2);
 check('day 2 = protect', stage(2) === 'protect');
 check('day 10 = restore_movement', stage(10) === 'restore_movement');
 check('day 20 = build_strength', stage(20) === 'build_strength');

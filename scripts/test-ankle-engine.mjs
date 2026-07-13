@@ -50,7 +50,10 @@ check('grade 3 still gets an autonomous functional plan (no surgical-only gate)'
 })());
 
 // ── Stage placement (days-since-injury driven) ───────────────────────────────
-const stage = (days) => runAnkle({ ...base, weight_bearing_ability: 'full', instability_signs: 'none', bruising_or_swelling: 'none', pain_severity_label: 'mild', days_since_injury: days }).plan.current_stage_id;
+const stage = (days) => runAnkle({ ...base, weight_bearing_ability: 'painful', instability_signs: 'none', bruising_or_swelling: 'significant', pain_severity_label: 'moderate', days_since_injury: days }).plan.current_stage_id;
+// Minor (grade I) sprains run a genuinely short trimmed plan — early phases are dropped, not padded to a week each.
+const mildPlan = runAnkle({ ...base, weight_bearing_ability: 'full', instability_signs: 'none', bruising_or_swelling: 'none', pain_severity_label: 'mild', days_since_injury: 2 }).plan;
+check('grade I = short trimmed plan (2 weeks, 2 phases)', mildPlan.total_estimated_weeks === 2 && mildPlan.stages.length === 2);
 check('day 2 = protect', stage(2) === 'protect');
 check('day 10 = restore_motion', stage(10) === 'restore_motion');
 check('day 20 = strength_balance', stage(20) === 'strength_balance');

@@ -737,6 +737,7 @@ export function AssessmentContent({ assessment, setAssessment, toggleArray, gene
 
                 <Field label="How it happened">
                   <select value={assessment.mechanism} onChange={(e) => setAssessment({ ...assessment, mechanism: e.target.value })}>
+                    <option value="">Select how it happened</option>
                     {mechanisms.map(m => <option key={m} value={m}>{m}</option>)}
                   </select>
                 </Field>

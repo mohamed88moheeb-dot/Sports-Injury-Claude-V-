@@ -76,6 +76,7 @@ import { itBandOutputToProfile } from '../../lib/clinical/itBandEngine/appAdapte
 import { lowerBackRouteFor } from '../../lib/clinical/lowerBackEngine/appAdapter/lowerBackCompatibility.mjs';
 import { mapAssessmentToLowerBackInput } from '../../lib/clinical/lowerBackEngine/appAdapter/mapAssessmentToLowerBackInput.mjs';
 import { lowerBackOutputToProfile } from '../../lib/clinical/lowerBackEngine/appAdapter/lowerBackOutputToProfile.mjs';
+import { deriveSportParticipation } from '../../lib/clinical/core/sportParticipation.mjs';
 
 /* ─────────────────────────────────────────────────────────────────────────
  * Constants & lookup maps
@@ -86,7 +87,10 @@ export const emptyAssessment = {
   exactArea: '',
   secondaryRegions: '',
   grade: 'grade1',
-  mechanism: 'Sudden sprint',
+  // No default mechanism: a pre-selected 'Sudden sprint' used to leak into
+  // every engine's input mapper (and the diagnosis display) whenever the
+  // user never touched the generic dropdown — fabricating an answer.
+  mechanism: '',
   symptoms: [],
   sports: [],
   movements: [],
@@ -911,6 +915,14 @@ function buildProfile(a) {
     daysSinceInjury: Number.isFinite(Number(a.daysSince)) ? Number(a.daysSince) : null,
     diagnosisDrivers: [],
     diagnosisNote: 'This estimate is pattern-based from your answers only — no examination or imaging has been performed.',
+    sportParticipation: deriveSportParticipation({
+      kind: a.grade === 'overload' ? 'overuse' : 'acute_strain',
+      grade: a.grade === 'grade1' ? 'grade_1' : a.grade === 'grade2' ? 'grade_2' : a.grade === 'grade3' ? 'grade_3' : null,
+      irritability: a.grade === 'overload' ? 'low' : null,
+      reviewRequired: isHighRisk,
+      planTotalWeeks: plan.reduce((sum, ph) => sum + (ph.weeks?.length || 0), 0) || null,
+      finalStageWeeks: plan.length ? (plan[plan.length - 1].weeks?.length || null) : null,
+    }),
     plan,
     progress,
     today: findToday(plan),

@@ -122,7 +122,7 @@ export default function DiagnosisPage() {
                   {[profile.regionName, profile.gradeName, profile.mechanism].filter(Boolean).join(' · ')}
                 </p>
 
-                {profile.exactAreaName !== 'General area' && (
+                {profile.exactAreaName !== 'General area' && profile.exactAreaName !== profile.injuryTitle && (
                   <div style={{
                     display: 'inline-flex', alignItems: 'center', gap: 8,
                     padding: '6px 14px', borderRadius: 999,
@@ -186,6 +186,34 @@ export default function DiagnosisPage() {
                 </div>
               )}
             </div>
+
+            {/* ── Returning to sport: can you keep playing, and when ── */}
+            {profile.sportParticipation && (
+              <div className="glow-card">
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+                  <p className="eyebrow" style={{ margin: 0 }}>Returning to sport</p>
+                </div>
+                <h3 style={{ fontSize: 20, marginBottom: 8, ...GLOW_BLUE }}>
+                  {profile.sportParticipation.headline}
+                </h3>
+                <div style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 6, marginBottom: 12,
+                  padding: '5px 12px', borderRadius: 999,
+                  background: 'rgba(56,189,248,0.14)', border: '1px solid rgba(56,189,248,0.45)',
+                  color: '#5CC6FF', fontSize: 12, fontWeight: 600,
+                }}>
+                  Time away from full sport: {profile.sportParticipation.timeAway}
+                </div>
+                <p style={{ color: CARD_TEXT, fontSize: 13, lineHeight: 1.6 }}>
+                  {profile.sportParticipation.detail}
+                </p>
+                {profile.sportParticipation.painRule && (
+                  <p style={{ color: CARD_TEXT_DIM, fontSize: 12, lineHeight: 1.6, marginTop: 10, padding: '8px 12px', background: 'rgba(47,140,255,0.10)', borderRadius: 10, border: '1px solid rgba(56,189,248,0.20)' }}>
+                    {profile.sportParticipation.painRule}
+                  </p>
+                )}
+              </div>
+            )}
 
             {/* ── Why this pattern (assessment → diagnosis link) ── */}
             {(drivers.length > 0 || profile.diagnosisNote) && (
