@@ -212,6 +212,24 @@ export default function DiagnosisPage() {
                     {profile.sportParticipation.painRule}
                   </p>
                 )}
+                {/* Provenance: which literature this conclusion was reasoned from */}
+                {profile.sportParticipation.citations?.length > 0 ? (
+                  <p style={{ color: CARD_TEXT_DIM, fontSize: 11, lineHeight: 1.6, marginTop: 10 }}>
+                    <span style={{ fontWeight: 700, color: '#5CC6FF' }}>AI · grounded in: </span>
+                    {profile.sportParticipation.citations.map((c, i) => (
+                      <span key={c.id || i}>
+                        {i > 0 && ' · '}
+                        <a href={c.url} target="_blank" rel="noreferrer" style={{ color: CARD_TEXT_DIM, textDecoration: 'underline' }}>
+                          {c.short} ({c.journal})
+                        </a>
+                      </span>
+                    ))}
+                  </p>
+                ) : profile.sportParticipation.grounding ? (
+                  <p style={{ color: CARD_TEXT_DIM, fontSize: 11, marginTop: 10, fontStyle: 'italic' }}>
+                    Standard guidance from the deterministic clinical ruleset.
+                  </p>
+                ) : null}
               </div>
             )}
 

@@ -18,6 +18,8 @@ import { runAnkle } from '../../../lib/clinical/ankleEngine/index.mjs';
 import { BETA_META } from '../../../lib/clinical/ankleEngine/types.mjs';
 import { composeSessions } from '../../../lib/clinical/core/aiSessionComposer.mjs';
 import { hasGeminiKey } from '../../../lib/rag/generate/gemini.mjs';
+import { groundSportParticipation } from '../../../lib/clinical/core/aiParticipation.mjs';
+import { deriveEnvelopeFromSharedOutput } from '../../../lib/clinical/core/sportParticipation.mjs';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -31,6 +33,27 @@ export async function POST(request) {
       return Response.json({ ok: false, error: 'Missing ankleInput' }, { status: 400 });
     }
     const output = runAnkle(ankleInput);
+
+    // Evidence-grounded sport-participation conclusion: the AI reasons over
+    // curated literature passages; the deterministic envelope is its safety
+    // guardrail (it may only be MORE cautious) and the fallback on failure.
+    // Started BEFORE the session composer so the two Gemini calls run in
+    // parallel and the route stays inside the client request window.
+    const sevForRts = output.diagnosis?.severity || output.diagnosis?.assessment || {};
+    const sportParticipationPromise = groundSportParticipation({
+      envelope: deriveEnvelopeFromSharedOutput(output),
+      region: 'ankle',
+      caseSummary: {
+        entity: output.entity,
+        grade: sevForRts.grade || null,
+        irritability: sevForRts.irritability || null,
+        band: sevForRts.band || null,
+        prognosis: sevForRts.prognosis || null,
+        days_since_injury: output.input?.days_since_injury ?? null,
+        sport: output.input?.sport_context || null,
+        plan_total_weeks: output.plan?.total_estimated_weeks ?? null,
+      },
+    });
 
     // Post-process the current stage's sessions through the AI composer
     // (falls straight through to the identical deterministic result if no
@@ -53,6 +76,10 @@ export async function POST(request) {
       ai_mode = composed.mode;
       out_of_scope_note = composed.out_of_scope_note || null;
     }
+
+    output.sport_participation = await sportParticipationPromise;
+
+
 
     return Response.json({ ok: true, output, ai_enabled: hasGeminiKey(), ai_mode, out_of_scope_note });
   } catch (err) {

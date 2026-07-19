@@ -17,6 +17,8 @@
 import hamstringIndex from '../../../lib/rag/index/hamstring.index.json';
 import { runHamstring } from '../../../lib/clinical/hamstringEngine/index.mjs';
 import { hasAnthropicKey } from '../../../lib/rag/generate/anthropic.mjs';
+import { deriveHamstringParticipationEnvelope } from '../../../lib/clinical/hamstringEngine/appAdapter/hamstringOutputToProfile.mjs';
+import { groundSportParticipation } from '../../../lib/clinical/core/aiParticipation.mjs';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -26,6 +28,20 @@ export async function POST(request) {
     const body = await request.json().catch(() => ({}));
     const input = body.hamstringInput || {};
     const output = await runHamstring(input, { index: hamstringIndex, useAI: true });
+    // Evidence-grounded sport-participation conclusion (AI reasons over the
+    // curated literature; deterministic envelope as guardrail + fallback).
+    output.sport_participation = await groundSportParticipation({
+      envelope: deriveHamstringParticipationEnvelope(output),
+      region: 'hamstring',
+      caseSummary: {
+        entity: output.diagnosis?.entity || null,
+        band: output.diagnosis?.band || null,
+        sport: output.input?.sport || null,
+        weeks_since: output.input?.weeks_since || null,
+        plan_total_weeks: output.plan?.total_estimated_weeks ?? null,
+      },
+    });
+
     return Response.json({ ok: true, ai_enabled: hasAnthropicKey(), output });
   } catch (e) {
     return Response.json({ ok: false, error: String(e && e.message || e) }, { status: 500 });
