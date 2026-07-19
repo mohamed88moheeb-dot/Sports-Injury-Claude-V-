@@ -77,6 +77,8 @@ import { lowerBackRouteFor } from '../../lib/clinical/lowerBackEngine/appAdapter
 import { mapAssessmentToLowerBackInput } from '../../lib/clinical/lowerBackEngine/appAdapter/mapAssessmentToLowerBackInput.mjs';
 import { lowerBackOutputToProfile } from '../../lib/clinical/lowerBackEngine/appAdapter/lowerBackOutputToProfile.mjs';
 import { deriveSportParticipation } from '../../lib/clinical/core/sportParticipation.mjs';
+import { splitStageWeeks } from '../../lib/clinical/core/sessionCore.mjs';
+import { describeRecoveryTimeline } from '../../lib/clinical/core/recoveryWording.mjs';
 
 /* ─────────────────────────────────────────────────────────────────────────
  * Constants & lookup maps
@@ -891,14 +893,53 @@ function resolveInjuryTitle(a, regionName) {
   return def ? def.name : `${regionName} injury`;
 }
 
+// Typical share of the timeline for each generic phase (protect -> return),
+// used to distribute the estimate across whichever phases the severity keeps.
+const GENERIC_STAGE_SHARE = { protect: 0.15, restore: 0.20, capacity: 0.30, speed: 0.20, return: 0.15 };
+
+// Parse a returnRange label ("2-3 weeks", "5–14 days", "9–12 months") into a
+// single numeric week total (the midpoint) so the plan length is derived from
+// the clinical estimate rather than a separate hardcoded count.
+function parseWeeksFromRange(str) {
+  const s = String(str || '').toLowerCase();
+  const nums = (s.match(/\d+/g) || []).map(Number);
+  if (!nums.length) return null;
+  let vals = nums;
+  if (/day/.test(s) && !/week|month/.test(s)) vals = nums.map((n) => n / 7);
+  else if (/month/.test(s)) vals = nums.map((n) => n * 4.345);
+  const mid = vals.reduce((x, y) => x + y, 0) / vals.length;
+  return Math.max(1, Math.round(mid));
+}
+
+// A real (input-completeness-weighted) match confidence for the generic
+// builder — reflecting how well-specified the reported pattern is, capped
+// below the evidence-based engines' ceiling. NOT a number invented from the
+// severity wording.
+function genericMatchScore(a) {
+  let score = 45;
+  if (a.mechanism) score += 12;
+  if (Array.isArray(a.symptoms) && a.symptoms.length) score += 12;
+  if (Number.isFinite(Number(a.daysSince))) score += 6;
+  if (a.painSport != null || a.painWalking != null) score += 8;
+  if (a.grade === 'grade3' || a.grade === 'overload') score += 5; // a clear signal sharpens the match
+  return Math.min(78, score);
+}
+
 function buildProfile(a) {
   const region = regionObjects[a.primaryRegion] || injuryRegions[0];
   const grade = grades.find((g) => g.id === a.grade) || grades[1];
   const exactArea = (muscleComponents[a.primaryRegion] || []).find((part) => part.id === a.exactArea);
   const isHighRisk = a.redFlags.length > 0 || a.grade === 'grade3' || a.symptoms.includes('Instability / giving way') || a.symptoms.includes('Locking / catching');
-  const returnRange = region.returnRanges?.[a.grade] || region.returnRanges?.unknown || 'varies';
+  const rawReturnRange = region.returnRanges?.[a.grade] || region.returnRanges?.unknown || 'varies';
   const plan = buildPlan(a, region, grade, isHighRisk);
   const progress = calculateProgress(plan);
+
+  const planWeeks = plan.reduce((sum, ph) => sum + (ph.weeks?.length || 0), 0) || null;
+  const finalStageWeeks = plan.length ? (plan[plan.length - 1].weeks?.length || null) : null;
+  // Reconcile the headline with the plan's real total, same as the engines.
+  const timeline = describeRecoveryTimeline(planWeeks, rawReturnRange);
+  const confidence = isHighRisk ? null : genericMatchScore(a);
+
   return {
     id: Date.now(),
     createdAt: new Date().toISOString(),
@@ -908,20 +949,26 @@ function buildProfile(a) {
     exactAreaName: exactArea?.name || 'General area',
     gradeName: grade.name,
     mechanism: a.mechanism,
-    returnRange: isHighRisk ? `${returnRange} · medical review recommended` : returnRange,
-    // Real time axis for the diagnosis page: the plan's actual total weeks and
-    // where the athlete already is (days since injury) — not a fabricated %.
-    planTotalWeeks: plan.reduce((sum, ph) => sum + (ph.weeks?.length || 0), 0) || null,
+    returnRange: isHighRisk ? `${rawReturnRange} · medical review recommended` : timeline.returnRange,
+    rfRecoveryWording: timeline.rfRecoveryWording,
+    recoverySecondaryNote: isHighRisk ? null : timeline.recoverySecondaryNote,
+    // Real time axis + real (input-weighted) match confidence for the diagnosis page.
+    planTotalWeeks: planWeeks,
     daysSinceInjury: Number.isFinite(Number(a.daysSince)) ? Number(a.daysSince) : null,
-    diagnosisDrivers: [],
-    diagnosisNote: 'This estimate is pattern-based from your answers only — no examination or imaging has been performed.',
+    confidence,
+    diagnosisDrivers: [
+      a.mechanism && `Reported mechanism: ${a.mechanism}`,
+      Array.isArray(a.symptoms) && a.symptoms[0] && `Main symptom: ${a.symptoms[0]}`,
+      `Severity estimated from your pain and function: ${grade.name}`,
+    ].filter(Boolean),
+    diagnosisNote: 'This is a pattern-based estimate from your answers only — no examination or imaging has been performed. This region does not yet have a dedicated evidence-based engine.',
     sportParticipation: deriveSportParticipation({
       kind: a.grade === 'overload' ? 'overuse' : 'acute_strain',
       grade: a.grade === 'grade1' ? 'grade_1' : a.grade === 'grade2' ? 'grade_2' : a.grade === 'grade3' ? 'grade_3' : null,
       irritability: a.grade === 'overload' ? 'low' : null,
       reviewRequired: isHighRisk,
-      planTotalWeeks: plan.reduce((sum, ph) => sum + (ph.weeks?.length || 0), 0) || null,
-      finalStageWeeks: plan.length ? (plan[plan.length - 1].weeks?.length || null) : null,
+      planTotalWeeks: planWeeks,
+      finalStageWeeks,
     }),
     plan,
     progress,
@@ -969,15 +1016,35 @@ function buildInitialRestPhase(a) {
 
 function buildPlan(a, region, grade, isHighRisk) {
   const lane = exerciseBank[a.primaryRegion] || exerciseBank.hamstring;
-  const selectedPhases = isHighRisk ? phases.slice(0, 2) : phases;
-  const rehabPhases = selectedPhases.map((phase) => {
-    const weeksCount = Math.max(1, phase.baseWeeks?.[a.grade] || 1);
-    const weeks = Array.from({ length: weeksCount }, (_, wIndex) => buildWeek(phase, lane, a, wIndex, weeksCount));
-    return { ...phase, weeks };
-  });
 
-  const restPhase = buildInitialRestPhase(a);
-  return restPhase ? [restPhase, ...rehabPhases] : rehabPhases;
+  // Higher-risk: unchanged safety behaviour — early-care phases only, with an
+  // initial rest phase, and medical review before harder loading. No full
+  // return-to-sport progression is offered until the athlete is assessed.
+  if (isHighRisk) {
+    const early = phases.slice(0, 2).map((phase) => {
+      const weeksCount = Math.max(1, phase.baseWeeks?.[a.grade] || 1);
+      const weeks = Array.from({ length: weeksCount }, (_, wIndex) => buildWeek(phase, lane, a, wIndex, weeksCount));
+      return { ...phase, weeks };
+    });
+    const restPhase = buildInitialRestPhase(a);
+    return restPhase ? [restPhase, ...early] : early;
+  }
+
+  // Normal path: derive the plan's total length from the clinical recovery
+  // estimate, then let the shared phase-count logic choose how many phases
+  // that length warrants (a 2-3 week injury -> ~2 phases, not a fixed 5), each
+  // with a real multi-week duration summing to the total.
+  const rawReturnRange = region.returnRanges?.[a.grade] || region.returnRanges?.unknown || '';
+  const totalWeeks = parseWeeksFromRange(rawReturnRange) || 3;
+  const weeksById = splitStageWeeks(phases, totalWeeks, GENERIC_STAGE_SHARE);
+
+  return phases
+    .filter((phase) => (weeksById[phase.id] || 0) > 0)
+    .map((phase) => {
+      const weeksCount = weeksById[phase.id];
+      const weeks = Array.from({ length: weeksCount }, (_, wIndex) => buildWeek(phase, lane, a, wIndex, weeksCount));
+      return { ...phase, weeks };
+    });
 }
 
 function phaseRestDays(phaseId) {
