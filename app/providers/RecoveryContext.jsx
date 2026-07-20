@@ -174,6 +174,9 @@ export function RecoveryProvider({ children }) {
   // built" and navigating away — lets the loading screen show a genuine
   // "done" state instead of a fixed timer that's disconnected from the request.
   const [generatingReady, setGeneratingReady] = useState(false);
+  // AI-first: honest error state when the LLM planner is unavailable (no
+  // deterministic fallback plan is produced).
+  const [aiError, setAiError] = useState(null);
   // Lightweight state for "adjust this week" (Gemini-composed re-selection of
   // the SAME clinically-vetted pool, steered by free text) — separate from
   // `generating` because this is a quick in-place refresh, not a full rebuild.
@@ -316,316 +319,54 @@ export function RecoveryProvider({ children }) {
     onComplete?.();
   }
 
-  // Called on failure/timeout — no fake "ready" flourish, just move on.
-  function finishGenerationFallback(assessmentWithGrade, onComplete) {
-    const fallback = buildProfile(assessmentWithGrade);
-    setProfile(fallback);
-    setCheckins([]);
+  // Called on AI failure. AI-first with no deterministic fallback: we do NOT
+  // synthesise a canned plan — we stop the loading state and surface an honest,
+  // retryable error instead.
+  function finishGenerationError(message) {
     setGenerating(false);
     setGeneratingReady(false);
-    saveState(fallback, [], assessmentWithGrade);
-    onComplete?.();
+    setAiError(message || 'Could not generate your plan right now. Please try again.');
   }
 
   function generateProfile(onComplete) {
     const derivedGradeId = deriveGrade(assessment);
     const assessmentWithGrade = { ...assessment, grade: derivedGradeId };
     setAssessment(assessmentWithGrade);
+    setAiError(null);
     setGenerating(true);
     setGeneratingReady(false);
 
-    // Non-rectus quadriceps injuries → quad engine (vastus strains, contusion,
-    // tendinopathy, tendon rupture). Mapped into the SAME profile shape. Rectus
-    // femoris falls through to the RF engine below; other regions stay legacy.
-    if (quadRouteFor(assessmentWithGrade) === 'quad') {
-      (async () => {
-        try {
-          const quadInput = mapAssessmentToQuadInput(assessmentWithGrade);
-          const res = await fetchJsonWithTimeout('/api/quad', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ quadInput })
-          });
-          const data = await res.json();
-          if (!res.ok || !data.ok) throw new Error(data.error || 'Quad generation failed');
-          const base = quadOutputToProfile(data.output, assessmentWithGrade, { aiPlanMode: data.ai_mode, outOfScopeNote: data.out_of_scope_note });
-          const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
-          await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
-        } catch (e) {
-          finishGenerationFallback(assessmentWithGrade, onComplete);
-        }
-      })();
-      return;
-    }
-
-    // Hamstring-region injuries → hamstring engine (sprint-type BFLH, stretch-
-    // type proximal, tendinopathy; avulsion pattern is review-gated). A
-    // deterministic clinical core produces the diagnosis + staged plan; the RAG
-    // layer attaches cited evidence; an optional LLM refines wording. Maps into
-    // the SAME profile shape the existing pages consume.
-    if (hamstringRouteFor(assessmentWithGrade) === 'hamstring') {
-      (async () => {
-        try {
-          const hamstringInput = mapAssessmentToHamstringInput(assessmentWithGrade);
-          const res = await fetchJsonWithTimeout('/api/hamstring', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ hamstringInput })
-          });
-          const data = await res.json();
-          if (!res.ok || !data.ok) throw new Error(data.error || 'Hamstring generation failed');
-          const base = hamstringOutputToProfile(data.output, assessmentWithGrade);
-          const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
-          await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
-        } catch (e) {
-          finishGenerationFallback(assessmentWithGrade, onComplete);
-        }
-      })();
-      return;
-    }
-
-    // Knee-region injuries → knee engine (ACL/PCL/MCL/LCL, meniscus, PFPS,
-    // patellar instability, OA, ITB, Osgood-Schlatter). Maps into the SAME
-    // profile shape; red-flag / surgical patterns return a review-gated profile.
-    if (kneeRouteFor(assessmentWithGrade) === 'knee') {
-      (async () => {
-        try {
-          const kneeInput = mapAssessmentToKneeInput(assessmentWithGrade);
-          const res = await fetchJsonWithTimeout('/api/knee', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ kneeInput })
-          });
-          const data = await res.json();
-          if (!res.ok || !data.ok) throw new Error(data.error || 'Knee generation failed');
-          const base = kneeOutputToProfile(data.output, assessmentWithGrade);
-          const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
-          await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
-        } catch (e) {
-          finishGenerationFallback(assessmentWithGrade, onComplete);
-        }
-      })();
-      return;
-    }
-
-    // Ankle-region injuries → ankle engine (lateral sprain, syndesmosis sprain,
-    // chronic instability). Ottawa-rule / unstable-syndesmosis signs return a
-    // review-gated referral profile, same pattern as knee/quad.
-    if (ankleRouteFor(assessmentWithGrade) === 'ankle') {
-      (async () => {
-        try {
-          const ankleInput = mapAssessmentToAnkleInput(assessmentWithGrade);
-          const res = await fetchJsonWithTimeout('/api/ankle', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ankleInput })
-          });
-          const data = await res.json();
-          if (!res.ok || !data.ok) throw new Error(data.error || 'Ankle generation failed');
-          const base = ankleOutputToProfile(data.output, assessmentWithGrade, { aiPlanMode: data.ai_mode, outOfScopeNote: data.out_of_scope_note });
-          const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
-          await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
-        } catch (e) {
-          finishGenerationFallback(assessmentWithGrade, onComplete);
-        }
-      })();
-      return;
-    }
-
-    // Calf/shin-region injuries → calf engine (calf strain, Achilles
-    // tendinopathy, MTSS). Possible Achilles rupture / stress fracture signs
-    // return a review-gated referral profile, same pattern as ankle/quad.
-    if (calfRouteFor(assessmentWithGrade) === 'calf') {
-      (async () => {
-        try {
-          const calfInput = mapAssessmentToCalfInput(assessmentWithGrade);
-          const res = await fetchJsonWithTimeout('/api/calf', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ calfInput })
-          });
-          const data = await res.json();
-          if (!res.ok || !data.ok) throw new Error(data.error || 'Calf generation failed');
-          const base = calfOutputToProfile(data.output, assessmentWithGrade, { aiPlanMode: data.ai_mode, outOfScopeNote: data.out_of_scope_note });
-          const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
-          await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
-        } catch (e) {
-          finishGenerationFallback(assessmentWithGrade, onComplete);
-        }
-      })();
-      return;
-    }
-
-    // Adductor/groin-region injuries → groin engine (acute adductor strain,
-    // longstanding adductor-related groin pain). Possible hernia / hip-joint
-    // pathology signs return a review-gated referral profile.
-    if (groinRouteFor(assessmentWithGrade) === 'groin') {
-      (async () => {
-        try {
-          const groinInput = mapAssessmentToGroinInput(assessmentWithGrade);
-          const res = await fetchJsonWithTimeout('/api/groin', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ groinInput })
-          });
-          const data = await res.json();
-          if (!res.ok || !data.ok) throw new Error(data.error || 'Groin generation failed');
-          const base = groinOutputToProfile(data.output, assessmentWithGrade, { aiPlanMode: data.ai_mode, outOfScopeNote: data.out_of_scope_note });
-          const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
-          await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
-        } catch (e) {
-          finishGenerationFallback(assessmentWithGrade, onComplete);
-        }
-      })();
-      return;
-    }
-
-    // Hip-flexor-region injuries → hip flexor engine (acute iliopsoas strain,
-    // chronic iliopsoas-related pain/snapping hip). Possible femoral neck
-    // stress fracture / hip-joint pathology signs return a review-gated
-    // referral profile.
-    if (hipFlexorRouteFor(assessmentWithGrade) === 'hip_flexor') {
-      (async () => {
-        try {
-          const hipFlexorInput = mapAssessmentToHipFlexorInput(assessmentWithGrade);
-          const res = await fetchJsonWithTimeout('/api/hip-flexor', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ hipFlexorInput })
-          });
-          const data = await res.json();
-          if (!res.ok || !data.ok) throw new Error(data.error || 'Hip flexor generation failed');
-          const base = hipFlexorOutputToProfile(data.output, assessmentWithGrade, { aiPlanMode: data.ai_mode, outOfScopeNote: data.out_of_scope_note });
-          const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
-          await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
-        } catch (e) {
-          finishGenerationFallback(assessmentWithGrade, onComplete);
-        }
-      })();
-      return;
-    }
-
-    // Glutes-region injuries → glute engine (acute gluteal strain, gluteal
-    // tendinopathy/GTPS). Possible deep gluteal syndrome (sciatic nerve
-    // entrapment) signs return a review-gated referral profile.
-    if (gluteRouteFor(assessmentWithGrade) === 'glutes') {
-      (async () => {
-        try {
-          const gluteInput = mapAssessmentToGluteInput(assessmentWithGrade);
-          const res = await fetchJsonWithTimeout('/api/glute', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ gluteInput })
-          });
-          const data = await res.json();
-          if (!res.ok || !data.ok) throw new Error(data.error || 'Glute generation failed');
-          const base = gluteOutputToProfile(data.output, assessmentWithGrade, { aiPlanMode: data.ai_mode, outOfScopeNote: data.out_of_scope_note });
-          const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
-          await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
-        } catch (e) {
-          finishGenerationFallback(assessmentWithGrade, onComplete);
-        }
-      })();
-      return;
-    }
-
-    // IT-band-region injuries → IT band engine (iliotibial band syndrome).
-    // Locking/catching/giving-way/effusion signs return a review-gated
-    // referral profile.
-    if (itBandRouteFor(assessmentWithGrade) === 'it_band') {
-      (async () => {
-        try {
-          const itBandInput = mapAssessmentToItBandInput(assessmentWithGrade);
-          const res = await fetchJsonWithTimeout('/api/it-band', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ itBandInput })
-          });
-          const data = await res.json();
-          if (!res.ok || !data.ok) throw new Error(data.error || 'IT band generation failed');
-          const base = itBandOutputToProfile(data.output, assessmentWithGrade, { aiPlanMode: data.ai_mode, outOfScopeNote: data.out_of_scope_note });
-          const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
-          await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
-        } catch (e) {
-          finishGenerationFallback(assessmentWithGrade, onComplete);
-        }
-      })();
-      return;
-    }
-
-    // Lower-back-region injuries → lower back engine (non-specific low back
-    // pain, lumbar radicular pain). Cauda equina / serious pathology signs
-    // return an EMERGENCY review-gated referral profile; suspected
-    // spondylolysis returns an urgent review-gated referral profile.
-    if (lowerBackRouteFor(assessmentWithGrade) === 'lower_back') {
-      (async () => {
-        try {
-          const lowerBackInput = mapAssessmentToLowerBackInput(assessmentWithGrade);
-          const res = await fetchJsonWithTimeout('/api/lower-back', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ lowerBackInput })
-          });
-          const data = await res.json();
-          if (!res.ok || !data.ok) throw new Error(data.error || 'Lower back generation failed');
-          const base = lowerBackOutputToProfile(data.output, assessmentWithGrade, { aiPlanMode: data.ai_mode, outOfScopeNote: data.out_of_scope_note });
-          const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
-          await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
-        } catch (e) {
-          finishGenerationFallback(assessmentWithGrade, onComplete);
-        }
-      })();
-      return;
-    }
-
-    // RF-compatible (anterior thigh / rectus femoris) → governed RF beta engine.
-    // The engine runs server-side; its output is mapped into the SAME profile
-    // shape every page already consumes. All other regions keep the legacy path.
-    if (isRfCompatible(assessmentWithGrade)) {
-      (async () => {
-        try {
-          // CP1: use the REAL RF assessment answers when present (no generic
-          // inference). If the RF section was not filled, mark the RF input as
-          // incomplete so the engine limits/withholds output honestly.
-          let rfInput;
-          if (assessmentWithGrade.rfAnswers) {
-            rfInput = mapRfAnswersToRfInput(assessmentWithGrade.rfAnswers, assessmentWithGrade);
-          } else {
-            rfInput = mapAssessmentToRfInput(assessmentWithGrade);
-            rfInput.assessment_completeness = 'incomplete';
-            rfInput.missing_rf_items = CORE_RF_KEYS.slice();
-          }
-          const res = await fetchJsonWithTimeout('/api/rf-beta', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ rfInput })
-          });
-          const data = await res.json();
-          if (!res.ok || !data.ok) throw new Error(data.error || 'RF beta generation failed');
-          const base = rfOutputToProfile(data.output, assessmentWithGrade);
-          // Merge Bayesian confidence_pct into rfDiagnosis so every UI component
-          // that reads rfDiagnosis.confidence_pct shows the same Bayesian value.
-          const rawDiag = rfInput.diagnosis || null;
-          const rfDiagnosis = rawDiag
-            ? { ...rawDiag, confidence_pct: base.confidence ?? rawDiag.confidence_pct }
-            : null;
-          const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan), rfDiagnosis };
-          await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
-        } catch (e) {
-          // Fail-safe: never strand the user — fall back to the legacy build.
-          finishGenerationFallback(assessmentWithGrade, onComplete);
-        }
-      })();
-      return;
-    }
-
-    // Legacy path (all other regions). buildProfile is a synchronous, local
-    // computation — no network call — so there is nothing to fake-wait for.
+    // AI-FIRST: every assessment, for every region, is assessed and planned by
+    // the LLM (/api/ai-plan). The knowledge base is passed to it as optional
+    // reference; the model reasons beyond it where the KB is thin. There is NO
+    // deterministic fallback plan — if the AI is unavailable we surface an
+    // honest error and let the user retry.
     (async () => {
-      const nextProfile = buildProfile(assessmentWithGrade);
-      await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
+      try {
+        const res = await fetchJsonWithTimeout('/api/ai-plan', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ assessment: assessmentWithGrade }),
+        }, 60000);
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.ok) {
+          const reason = data?.error === 'ai_unavailable'
+            ? 'The AI planner is temporarily unavailable — it may be rate-limited or not configured with an API key yet. Please try again in a moment.'
+            : data?.error === 'ai_bad_output'
+              ? 'The AI returned an unexpected result. Please try again.'
+              : 'Could not generate your plan right now. Please try again.';
+          finishGenerationError(reason);
+          return;
+        }
+        const base = data.profile;
+        const nextProfile = { ...base, progress: calculateProgress(base.plan), today: findToday(base.plan) };
+        await finishGenerationSuccess(nextProfile, assessmentWithGrade, onComplete);
+      } catch (e) {
+        finishGenerationError('Could not reach the AI planner. Check your connection and try again.');
+      }
     })();
   }
+
 
   /**
    * Re-compose the CURRENT stage's sessions only, steered by free text
@@ -800,6 +541,7 @@ export function RecoveryProvider({ children }) {
     authMessage, authLoading, handleAuth, signOut,
     // assessment
     assessment, setAssessment, toggleArray, generateProfile, generating, generatingReady,
+    aiError, setAiError,
     adjustQuadPlan, adjustingPlan, adjustPlanError,
     // profile & plan
     profile, checkins, completeDay, addCheckin, dashboardStats, resetProfile,
