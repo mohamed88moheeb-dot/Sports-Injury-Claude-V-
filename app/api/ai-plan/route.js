@@ -11,12 +11,19 @@
  */
 
 import { runAiPlan } from '../../../lib/clinical/ai/aiPlanner.mjs';
+import { hasGeminiKey } from '../../../lib/rag/generate/gemini.mjs';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 // AI-first plan generation is a longer call than the old deterministic path.
 // Allow up to 60s (honoured on Vercel Pro/Enterprise; Hobby caps at 10s).
 export const maxDuration = 60;
+
+// Health check: reports whether the AI key is configured on THIS deployment
+// (never exposes the key). Used to verify env wiring without a full plan call.
+export async function GET() {
+  return Response.json({ ok: true, ai_ready: hasGeminiKey(), route: 'ai-plan' });
+}
 
 export async function POST(request) {
   try {
