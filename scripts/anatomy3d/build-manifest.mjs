@@ -3,7 +3,7 @@
    Usage: node scripts/anatomy3d/build-manifest.mjs <pack>/public */
 import fs from 'fs';
 import path from 'path';
-import { MUSCLES, OTHER, APP, CONDITIONS, QUAD_SPLIT, QUAD_LABELS } from './anatomyInfo.mjs';
+import { MUSCLES, OTHER, APP, CONDITIONS, QUAD_SPLIT, QUAD_LABELS, MODELLED } from './anatomyInfo.mjs';
 
 const dir = process.argv[2];
 const pack = JSON.parse(fs.readFileSync(path.join(dir, 'pack.json'), 'utf8'));
@@ -40,12 +40,25 @@ for (const st of pack.structures) {
   push(id, en[st.id] || id, type, region, nodes, st.laterality);
 }
 
+// modelled ligaments / tendons / menisci (see build-ligaments.mjs)
+const MODELLED_FILE = 'modelled-connective.glb';
+for (const [id, m] of Object.entries(MODELLED)) {
+  const nodes = ['R', 'L'].map((side) => ({ n: `modelled:${id}:${side}`, f: MODELLED_FILE, s: side }));
+  const s = { id, label: m.label, type: m.type, region: m.region, laterality: 'paired', nodes, modelled: true,
+    info: { desc: m.desc, placement: m.placement, refs: m.refs } };
+  if (m.app) s.app = m.app;
+  if (m.conditions) s.conditions = m.conditions;
+  const i = unavailable.findIndex((u) => u.id === id);
+  if (i >= 0) unavailable.splice(i, 1);
+  structures.push(s);
+}
+
 const regions = Object.fromEntries(pack.regions.sort((a, b) => a.order - b.order).map((r) => [slug(r.id), en[r.id]]));
 const out = {
   attribution: pack.licenses[0].attribution,
   licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
   sourceUrl: pack.sources[0].url,
-  files: [...new Set(pack.assets.map((a) => path.basename(a.uri)))],
+  files: [...new Set(pack.assets.map((a) => path.basename(a.uri))), MODELLED_FILE],
   regions,
   structures,
   unavailable,

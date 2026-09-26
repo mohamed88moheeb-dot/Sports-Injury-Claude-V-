@@ -61,9 +61,13 @@ function patch(material, kind, uniforms) {
     } else if (kind === 'bone') {
       surface = `float por = a3dN(vWPos * 160.0) * 0.6 + a3dN(vWPos * 520.0) * 0.4;
         diffuseColor.rgb *= 0.9 + 0.14 * por;`;
+    } else if (kind === 'meniscus') {
+      surface = `float fc = a3dN(vWPos * 420.0) * 0.5 + a3dN(vWPos * 1400.0) * 0.5;
+        diffuseColor.rgb *= 0.94 + 0.09 * fc;`;
     } else {
-      surface = `float str = a3dN(vec3(vWPos.xz * 700.0, vWPos.y * 40.0));
-        diffuseColor.rgb *= 0.93 + 0.1 * str;`;
+      // collagen fibres run along the ligament / tendon
+      surface = `float fib = a3dFibre(vWPos);
+        diffuseColor.rgb *= mix(1.0, 0.88 + 0.2 * fib, uFibre);`;
     }
     sh.fragmentShader = sh.fragmentShader
       .replace('#include <common>', '#include <common>\n' + NOISE_GLSL)
@@ -84,12 +88,13 @@ const LOOK = {
   ligament: { color: '#E4DDCB', roughness: 0.34, clearcoat: 0.5, clearcoatRoughness: 0.3, sheen: 0.6, sheenColor: '#FFFFFF', sheenRoughness: 0.4 },
   disc: { color: '#BCD3E4', roughness: 0.28, clearcoat: 0.6, clearcoatRoughness: 0.2, sheen: 0.3, sheenColor: '#E6F4FF', sheenRoughness: 0.4 },
   joint: { color: '#BCD3E4', roughness: 0.28, clearcoat: 0.6, clearcoatRoughness: 0.2, sheen: 0.3, sheenColor: '#E6F4FF', sheenRoughness: 0.4 },
+  meniscus: { color: '#EAE1D8', roughness: 0.3, clearcoat: 0.65, clearcoatRoughness: 0.22, sheen: 0.45, sheenColor: '#FFE9E4', sheenRoughness: 0.4 },
 };
-export const LAYER_OF = { muscle: 'muscle', bone: 'bone', tendon: 'connective', ligament: 'connective', disc: 'joint', joint: 'joint' };
+export const LAYER_OF = { muscle: 'muscle', bone: 'bone', tendon: 'connective', ligament: 'connective', meniscus: 'connective', disc: 'joint', joint: 'joint' };
 
 function makeMaterial(type, structId, lite) {
   const look = LOOK[type] || LOOK.bone;
-  const kind = type === 'muscle' ? 'muscle' : type === 'bone' ? 'bone' : 'connective';
+  const kind = type === 'muscle' ? 'muscle' : type === 'bone' ? 'bone' : type === 'meniscus' ? 'meniscus' : 'connective';
   const color = new THREE.Color(look.color);
   // subtle per-structure variation so neighbouring muscles read as separate bellies
   const j = hashStr(structId) - 0.5;
@@ -102,16 +107,17 @@ function makeMaterial(type, structId, lite) {
   const mat = lite
     ? new THREE.MeshStandardMaterial({ color, roughness: look.roughness, metalness: 0 })
     : new THREE.MeshPhysicalMaterial({ color, roughness: look.roughness, metalness: 0, clearcoat: look.clearcoat, clearcoatRoughness: look.clearcoatRoughness, sheen: look.sheen, sheenColor: new THREE.Color(look.sheenColor), sheenRoughness: look.sheenRoughness });
+  if (type !== 'bone' && type !== 'muscle') mat.side = THREE.DoubleSide;
   patch(mat, kind, u);
   mat.userData.u = u;
   return mat;
 }
 
 function makeGhost(type) {
-  const strength = type === 'bone' ? 0.55 : type === 'muscle' ? 0.32 : 0.4;
+  const strength = type === 'context' ? 0.2 : type === 'bone' ? 0.55 : type === 'muscle' ? 0.32 : 0.4;
   return new THREE.ShaderMaterial({
     transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.FrontSide,
-    uniforms: { uColor: { value: new THREE.Color(type === 'bone' ? '#9FD0FF' : '#4AA3FF') }, uStrength: { value: strength } },
+    uniforms: { uColor: { value: new THREE.Color(type === 'context' ? '#B7C9E6' : type === 'bone' ? '#9FD0FF' : '#4AA3FF') }, uStrength: { value: strength } },
     vertexShader: /* glsl */`varying vec3 vN; varying vec3 vV;
       void main(){ vec4 mv = modelViewMatrix * vec4(position,1.0); vN = normalize(normalMatrix * normal); vV = -mv.xyz; gl_Position = projectionMatrix * mv; }`,
     fragmentShader: /* glsl */`uniform vec3 uColor; uniform float uStrength; varying vec3 vN; varying vec3 vV;
@@ -221,10 +227,14 @@ export class AnatomyScene {
 
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true; controls.dampingFactor = 0.08;
-    controls.rotateSpeed = 0.7; controls.zoomSpeed = 0.9; controls.panSpeed = 0.8;
+    controls.rotateSpeed = 0.7; controls.zoomSpeed = 0.9; controls.panSpeed = 1.0;
+    controls.screenSpacePanning = true;
+    // one finger rotates; two fingers move (pan) and pinch-zoom
+    controls.touches = { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_PAN };
     controls.minDistance = 0.25; controls.maxDistance = 7;
     controls.autoRotate = true; controls.autoRotateSpeed = 0.55;
     controls.addEventListener('start', () => { this.userMoved = true; controls.autoRotate = false; this.tween = null; });
+    controls.addEventListener('change', () => { if (this._pointerInside && this._lastPointer) this._lastMove = this._lastPointer; });
     this.controls = controls;
 
     if (!this.lite) {
@@ -253,14 +263,32 @@ export class AnatomyScene {
 
     this.raycaster = new THREE.Raycaster();
     this._onMove = (e) => this._pointerMove(e);
-    this._onDown = (e) => { this._down = { x: e.clientX, y: e.clientY, t: performance.now() }; };
-    this._onUp = (e) => this._pointerUp(e);
+    this._pointers = new Set();
+    this._onDown = (e) => {
+      this._pointers.add(e.pointerId);
+      // a second finger turns the gesture into move/zoom, never a tap
+      this._down = this._pointers.size > 1 ? null : { x: e.clientX, y: e.clientY, t: performance.now() };
+      if (this._pointers.size > 1) this._multi = true;
+    };
+    this._onUp = (e) => { this._pointerUp(e); this._pointers.delete(e.pointerId); if (!this._pointers.size) this._multi = false; };
+    this._onCancel = (e) => { this._pointers.delete(e.pointerId); this._down = null; };
+    // trackpad: two-finger scroll moves the model, pinch (ctrl+wheel) zooms; a mouse wheel still zooms
+    this._onWheel = (e) => {
+      if (e.ctrlKey) return;
+      const trackpad = e.deltaMode === 0 && (e.deltaX !== 0 || !Number.isInteger(e.deltaY) || Math.abs(e.deltaY) < 50);
+      if (!trackpad) return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      this.panBy(e.deltaX, e.deltaY);
+    };
     this._onLeave = () => { this._pointerInside = false; this._setHover(null); };
     const d = renderer.domElement;
     d.addEventListener('pointermove', this._onMove);
     d.addEventListener('pointerdown', this._onDown);
     d.addEventListener('pointerup', this._onUp);
     d.addEventListener('pointerleave', this._onLeave);
+    d.addEventListener('pointercancel', this._onCancel);
+    d.addEventListener('wheel', this._onWheel, { passive: false, capture: true });
     this._ro = new ResizeObserver(() => this._resize());
     this._ro.observe(this.el);
     renderer.setAnimationLoop(() => this._frame());
@@ -324,7 +352,7 @@ export class AnatomyScene {
     await Promise.all(supp.map((f) => loadOne(f, files.indexOf(f))));
 
     this.root.updateMatrixWorld(true);
-    this.meshes.forEach((m) => { if (m.userData.type === 'muscle') m.material.userData.u.uAxis.value.copy(this._axisOf(this.byStruct.get(m.userData.struct))); });
+    this.meshes.forEach((m) => { if (['muscle', 'tendon', 'ligament'].includes(m.userData.type)) m.userData.solidMat.userData.u.uAxis.value.copy(this._axisOf(this.byStruct.get(m.userData.struct))); });
     // mirror-share axis sign per structure is irrelevant (fibres are symmetric)
     box.setFromObject(this.root);
     this.bounds = box.clone();
@@ -368,18 +396,57 @@ export class AnatomyScene {
     if (instant) { this.camera.position.copy(this.home.pos); this.controls.target.copy(this.home.target); this.controls.update(); }
   }
 
-  _fitView(center, radius, dir) {
+  // inset: screen area covered by UI panels, in px — { right, top, bottom }
+  _fitView(center, radius, dir, inset = 0) {
+    const ins = typeof inset === 'number' ? { right: inset } : (inset || {});
     const fov = THREE.MathUtils.degToRad(this.camera.fov);
-    const vFit = radius / Math.sin(fov / 2);
-    const hFov = 2 * Math.atan(Math.tan(fov / 2) * this.camera.aspect);
+    const W = this.el.clientWidth || 1, H = this.el.clientHeight || 1;
+    const r = ins.right || 0, t = ins.top || 0, bt = ins.bottom || 0;
+    const availH = Math.max(H * 0.3, H - t - bt), availW = Math.max(W * 0.3, W - r);
+    const vFov = 2 * Math.atan(Math.tan(fov / 2) * (availH / H));
+    const vFit = radius / Math.sin(vFov / 2);
+    const hFov = 2 * Math.atan(Math.tan(fov / 2) * (availW / H));
     const hFit = radius / Math.sin(hFov / 2);
     const dist = Math.max(vFit, hFit * 0.55, 0.28);
-    return { target: center.clone(), pos: center.clone().add(dir.clone().multiplyScalar(dist)), dist };
+    const target = center.clone(), pos = center.clone().add(dir.clone().multiplyScalar(dist));
+    if (r || t || bt) {
+      // shift the view so the subject is centred in the space the panels leave free
+      const fwd = dir.clone().negate();
+      const right = new THREE.Vector3().crossVectors(fwd, new THREE.Vector3(0, 1, 0)).normalize();
+      const up = new THREE.Vector3().crossVectors(right, fwd).normalize();
+      const k = (2 * dist * Math.tan(fov / 2)) / H;
+      const sft = right.multiplyScalar((r / 2) * k).add(up.multiplyScalar(-((bt - t) / 2) * k));
+      target.add(sft); pos.add(sft);
+    }
+    return { target, pos, dist };
   }
 
   _flyTo(view, dur = 0.9) {
     this.controls.autoRotate = false;
     this.tween = { from: { pos: this.camera.position.clone(), target: this.controls.target.clone() }, to: view, t0: performance.now(), dur };
+  }
+
+  /* move the camera and its target together, in screen space (pixels) */
+  panBy(dx, dy) {
+    this.tween = null; this.controls.autoRotate = false; this.userMoved = true;
+    const dist = this.camera.position.distanceTo(this.controls.target);
+    const k = (2 * dist * Math.tan(THREE.MathUtils.degToRad(this.camera.fov) / 2)) / (this.el.clientHeight || 1);
+    const right = new THREE.Vector3().setFromMatrixColumn(this.camera.matrix, 0);
+    const up = new THREE.Vector3().setFromMatrixColumn(this.camera.matrix, 1);
+    const shift = right.multiplyScalar(dx * k).add(up.multiplyScalar(-dy * k));
+    this.camera.position.add(shift); this.controls.target.add(shift);
+    if (this._lastPointer) this._lastMove = this._lastPointer;
+  }
+
+  // keep the orbit target on the body so it can't be panned out of reach
+  _clampTarget() {
+    if (!this.bounds) return;
+    const t = this.controls.target, b = this.bounds;
+    const c = t.clone().set(
+      THREE.MathUtils.clamp(t.x, b.min.x - 0.1, b.max.x + 0.1),
+      THREE.MathUtils.clamp(t.y, b.min.y - 0.05, b.max.y + 0.05),
+      THREE.MathUtils.clamp(t.z, b.min.z - 0.1, b.max.z + 0.1));
+    if (!c.equals(t)) { const d = c.sub(t); t.add(d); this.camera.position.add(d); }
   }
 
   /* ── public API ── */
@@ -389,6 +456,17 @@ export class AnatomyScene {
 
   select(id, side = null, { fly = true } = {}) {
     this.selected = id ? { id, side } : null;
+    this._occluders = null;
+    // ligaments, tendons and menisci sit under or between bones: fade what's around them so they can be seen
+    this._reveal = null;
+    const st = id && this.struct.get(id);
+    if (st && ['ligament', 'tendon', 'meniscus'].includes(st.type)) {
+      const b = new THREE.Box3();
+      (this.byStruct.get(id) || []).filter((m) => !side || m.userData.side === side || m.userData.side === 'M').forEach((m) => b.expandByObject(m));
+      if (!b.isEmpty()) { this._reveal = b.getBoundingSphere(new THREE.Sphere()); this._reveal.radius = Math.max(this._reveal.radius * 1.5, 0.045); }
+      // structures inside a joint also need the bones faded; the rest lie on bone and only need the muscle faded
+      this._revealBones = ['anterior-cruciate-ligament', 'posterior-cruciate-ligament', 'medial-meniscus', 'lateral-meniscus'].includes(id);
+    }
     if (this.isolated && id && !this.isolated.has(id)) this.isolated = new Set([id]);
     this._apply();
     if (id && fly) this.focusStructure(id, side);
@@ -400,24 +478,95 @@ export class AnatomyScene {
     if (!meshes.length) return;
     const b = new THREE.Box3(); meshes.forEach((m) => b.expandByObject(m));
     const sph = b.getBoundingSphere(new THREE.Sphere());
-    const dir = this.camera.position.clone().sub(this.controls.target).normalize();
-    this._flyTo(this._fitView(sph.center, Math.max(sph.radius * 1.25, 0.06), dir));
+    let dir = this.camera.position.clone().sub(this.controls.target).normalize();
+    const st = this.struct.get(id);
+    const soft = st && ['ligament', 'tendon', 'meniscus'].includes(st.type);
+    // bones the structure attaches to (never faded)
+    const near = soft ? this.meshes.filter((m) => m.userData.type === 'bone' && (!side || m.userData.side === side || m.userData.side === 'M') &&
+      m.geometry.boundingSphere.clone().applyMatrix4(m.matrixWorld).distanceToPoint(sph.center) < 0.005) : [];
+    // candidate viewing directions; the one with the fewest obstructions wins
+    const cands = [];
+    const sx = side === 'L' ? 1 : -1; // +x is the body's left
+    const CANON = {
+      'anterior-cruciate-ligament': [[sx * 0.55, 0.3, 1], [sx * 0.9, 0.2, 0.4]],
+      'posterior-cruciate-ligament': [[sx * 0.3, 0.3, -1], [-sx * 0.3, 0.3, -1]],
+      'medial-meniscus': [[-sx * 0.35, 1.3, 0.7], [-sx * 0.6, 0.9, 0.9]],
+      'lateral-meniscus': [[sx * 0.35, 1.3, 0.7], [sx * 0.6, 0.9, 0.9]],
+    }[id];
+    if (CANON) CANON.forEach((d) => cands.push(new THREE.Vector3(...d).normalize()));
+    else if (soft) {
+      // face the structure from the side of the bone it lies on, judged from the bone surface right next to it
+      const v = new THREE.Vector3(), local = new THREE.Vector3(); let n = 0;
+      near.forEach((m) => { const pos = m.geometry.attributes.position; const step = Math.max(1, Math.floor(pos.count / 3000));
+        for (let i = 0; i < pos.count; i += step) { v.fromBufferAttribute(pos, i).applyMatrix4(m.matrixWorld); if (v.distanceTo(sph.center) < 0.035) { local.add(v); n++; } } });
+      if (n > 8) {
+        const out = sph.center.clone().sub(local.multiplyScalar(1 / n));
+        if (out.length() > 0.004) {
+          out.normalize();
+          [0.3, 0.9, -0.6].forEach((k) => cands.push(out.clone().add(new THREE.Vector3(0, 0.1, k)).normalize()));
+        }
+      }
+      cands.push(new THREE.Vector3(0.2, 0.15, 1).normalize());
+    } else cands.push(dir);
+    // fade anything standing between the camera and the structure (the other leg, the torso, overlying tissue…)
+    const own = new Set(meshes);
+    const occ = this.meshes.filter((m) => m.visible && !own.has(m) && !near.includes(m) && !m.userData.context);
+    const blockers = (vw) => {
+      const set = new Set(), rc = new THREE.Raycaster();
+      const fwd = sph.center.clone().sub(vw.pos).normalize();
+      const right = new THREE.Vector3().crossVectors(fwd, new THREE.Vector3(0, 1, 0)).normalize();
+      const up = new THREE.Vector3().crossVectors(right, fwd).normalize();
+      [[0, 0], [0.7, 0], [-0.7, 0], [0, 0.7], [0, -0.7]].forEach(([ox, oy]) => {
+        const aim = sph.center.clone().add(right.clone().multiplyScalar(ox * sph.radius)).add(up.clone().multiplyScalar(oy * sph.radius));
+        const d = aim.clone().sub(vw.pos); rc.set(vw.pos, d.clone().normalize()); rc.far = d.length() - sph.radius * 0.2;
+        rc.intersectObjects(occ, false).forEach((h) => set.add(h.object));
+      });
+      return set;
+    };
+    let best = null;
+    for (const c of cands) {
+      const vw = this._fitView(sph.center, Math.max(sph.radius * 1.25, 0.075), c, this.panelInset || 0);
+      const bl = blockers(vw);
+      // weigh big blockers (a whole leg or the pelvis) more than a thin tendon
+      const cost = [...bl].reduce((t, m) => t + m.geometry.boundingSphere.radius * m.matrixWorld.getMaxScaleOnAxis(), 0);
+      if (!best || cost < best.cost - 1e-4) best = { view: vw, occ: bl, cost };
+    }
+    const view = best.view;
+    this._occluders = best.occ;
+    this._apply();
+    this._flyTo(view);
   }
 
   focusRegion(region) {
     if (!region || region === 'all') { this._flyTo(this.home, 1.0); return; }
+    // some source regions are much bigger than the joint they're named after — frame the joint itself
+    const FOCUS = {
+      knee: ['patella', 'medial-meniscus', 'lateral-meniscus', 'medial-collateral-ligament', 'lateral-collateral-ligament', 'patellar-tendon'],
+      'ankle-foot': ['talus', 'calcaneus', 'navicular-bone-of-foot', 'deltoid-ligament', 'anterior-talofibular-ligament', 'calcaneofibular-ligament'],
+    }[region];
+    if (FOCUS) {
+      const fb = new THREE.Box3();
+      FOCUS.forEach((id) => (this.byStruct.get(id) || []).forEach((m) => fb.expandByObject(m)));
+      if (!fb.isEmpty()) {
+        const sph = fb.getBoundingSphere(new THREE.Sphere());
+        const dir = this.camera.position.clone().sub(this.controls.target).normalize();
+        this._flyTo(this._fitView(sph.center, sph.radius * 0.85, dir));
+        return;
+      }
+    }
     const b = new THREE.Box3();
-    this.meshes.forEach((m) => { if (this.struct.get(m.userData.struct).region === region && m.visible) b.expandByObject(m); });
+    this.meshes.forEach((m) => { if (this.struct.get(m.userData.struct).region === region && m.visible && !m.userData.context) b.expandByObject(m); });
+    if (b.isEmpty()) this.meshes.forEach((m) => { if (this.struct.get(m.userData.struct).region === region) b.expandByObject(m); });
     if (b.isEmpty()) return;
     const sph = b.getBoundingSphere(new THREE.Sphere());
     const dir = this.camera.position.clone().sub(this.controls.target).normalize();
     this._flyTo(this._fitView(sph.center, sph.radius * 0.95, dir));
   }
 
-  resetView() { this.isolated = null; this.hidden.clear(); this.select(null); this._flyTo(this.home, 1.0); this._apply(); }
+  resetView() { this._occluders = null; this.isolated = null; this.hidden.clear(); this.select(null); this._flyTo(this.home, 1.0); this._apply(); }
   isolate(on) { this.isolated = on && this.selected ? new Set([this.selected.id]) : null; this._apply(); }
   hide(id) { this.hidden.add(id); if (this.selected?.id === id) this.select(null); this._apply(); }
-  showAll() { this.hidden.clear(); this.isolated = null; this._apply(); }
+  showAll() { this.hidden.clear(); this._apply(); }
   rotateBy(deg) { const o = this.camera.position.clone().sub(this.controls.target); o.applyAxisAngle(new THREE.Vector3(0, 1, 0), THREE.MathUtils.degToRad(deg)); this._flyTo({ target: this.controls.target.clone(), pos: this.controls.target.clone().add(o) }, 0.8); }
   viewFrom(face) {
     const dirs = { front: [0.12, 0.08, 1], back: [-0.12, 0.08, -1], left: [1, 0.08, 0.05], right: [-1, 0.08, 0.05] };
@@ -433,13 +582,22 @@ export class AnatomyScene {
       const isSel = sel && sel.id === id && (!sel.side || u.side === sel.side || u.side === 'M');
       let visible = this.layers[u.layer] && !this.hidden.has(id);
       let ghost = false;
+      u.context = false;
+      // with the skeleton switched off, keep it as a faint outline so soft tissue isn't floating in space
+      const others = this.layers.muscle || this.layers.connective || this.layers.joint;
+      if (u.layer === 'bone' && !this.layers.bone && others && !this.hidden.has(id)) { visible = true; ghost = true; u.context = true; }
       if (this.isolated) ghost = !this.isolated.has(id);
       else if (this.mode === 'xray') ghost = u.layer !== 'bone' && !isSel;
+      else if (this._occluders?.has(m) && !isSel) { ghost = true; u.context = true; }
+      else if (this._reveal && (u.layer === 'muscle' || (u.layer === 'bone' && this._revealBones)) && visible) {
+        const bs = m.geometry.boundingSphere.clone().applyMatrix4(m.matrixWorld);
+        if (bs.intersectsSphere(this._reveal)) { ghost = true; u.context = true; }
+      }
       if (isSel) { visible = true; ghost = false; }
       m.visible = visible;
       u.ghost = ghost;
       u.selectTarget = isSel ? 1 : 0;
-      m.material = ghost ? (this._ghosts ||= {}, this._ghosts[u.type] ||= makeGhost(u.type)) : u.solidMat;
+      m.material = ghost ? (this._ghosts ||= {}, this._ghosts[u.context ? 'context' : u.type] ||= makeGhost(u.context ? 'context' : u.type)) : u.solidMat;
       m.castShadow = !ghost && !this.lite;
       m.renderOrder = ghost ? 2 : 0;
     });
@@ -457,7 +615,7 @@ export class AnatomyScene {
     const r = this.renderer.domElement.getBoundingClientRect();
     this._pointer.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
     this.raycaster.setFromCamera(this._pointer, this.camera);
-    const vis = this.meshes.filter((m) => m.visible);
+    const vis = this.meshes.filter((m) => m.visible && !m.userData.context);
     const solid = vis.filter((m) => !m.userData.ghost);
     let hit = this.raycaster.intersectObjects(solid, false)[0];
     // in x-ray, ghosted tissue in front of the skeleton stays pickable
@@ -470,6 +628,7 @@ export class AnatomyScene {
 
   _pointerMove(e) {
     this._lastMove = e;
+    this._lastPointer = e;
     this._pointerInside = true;
   }
 
@@ -501,6 +660,7 @@ export class AnatomyScene {
       if (el >= tw.dur) this.tween = null;
     }
     this.controls.update();
+    this._clampTarget();
     // hover picking at most once per frame, only when the pointer moved and no drag is active
     if (this._lastMove && this._pointerInside && !this._down && this._lastMove.pointerType === 'mouse') {
       const h = this._pick(this._lastMove);
@@ -531,6 +691,8 @@ export class AnatomyScene {
     d.removeEventListener('pointerdown', this._onDown);
     d.removeEventListener('pointerup', this._onUp);
     d.removeEventListener('pointerleave', this._onLeave);
+    d.removeEventListener('pointercancel', this._onCancel);
+    d.removeEventListener('wheel', this._onWheel, { capture: true });
     this.controls.dispose();
     this.meshes.forEach((m) => { m.geometry.dispose(); m.userData.solidMat.dispose(); });
     Object.values(this._ghosts || {}).forEach((g) => g.dispose());

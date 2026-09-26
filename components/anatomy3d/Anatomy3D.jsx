@@ -11,10 +11,10 @@ const DEFAULT_BASE = '/anatomy3d';
 const LAYERS = [
   { key: 'muscle', label: 'Muscles', dot: '#C0473C' },
   { key: 'bone', label: 'Bones', dot: '#E8DCC4' },
-  { key: 'connective', label: 'Tendons & ligaments', dot: '#F2EEE4' },
+  { key: 'connective', label: 'Ligaments & tendons', dot: '#F2EEE4' },
   { key: 'joint', label: 'Discs', dot: '#9CC4E4' },
 ];
-const TYPE_LABEL = { muscle: 'Muscle', bone: 'Bone', tendon: 'Tendon', ligament: 'Ligament', disc: 'Disc', joint: 'Joint' };
+const TYPE_LABEL = { muscle: 'Muscle', bone: 'Bone', tendon: 'Tendon', ligament: 'Ligament', meniscus: 'Meniscus', disc: 'Disc', joint: 'Joint' };
 const SIDE_LABEL = { R: 'Right', L: 'Left' };
 const REGION_APP_LABEL = {
   quadriceps: 'Quadriceps', hamstring: 'Hamstrings', adductor_groin: 'Adductors', hip_flexor: 'Hip flexor', abductor: 'Abductor / TFL',
@@ -47,6 +47,16 @@ export default function Anatomy3D({ assessment, setAssessment, base = DEFAULT_BA
   const [searchOpen, setSearchOpen] = useState(false);
   const [region, setRegion] = useState('all');
   const [hint, setHint] = useState(true);
+  const [hiddenCount, setHiddenCount] = useState(0);
+  const [touch, setTouch] = useState(false);
+  const layersRef = useRef(layers);
+
+  useEffect(() => {
+    setTouch(typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches);
+    const onKey = (e) => { if (e.key === 'Escape' && !e.target.closest?.('input')) { sceneRef.current?.select(null); sceneRef.current?.isolate(false); setIsolated(false); } };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
 
   useEffect(() => {
     let scene, cancelled = false;
@@ -66,6 +76,14 @@ export default function Anatomy3D({ assessment, setAssessment, base = DEFAULT_BA
           onSelect: (s) => { setSelected(s); if (s) setHint(false); },
         });
         sceneRef.current = scene;
+        // the info panel covers the right of the stage on desktop
+        const desk = window.matchMedia('(min-width: 761px)').matches;
+        Object.defineProperty(scene, 'panelInset', { get: () => {
+          if (desk) return { right: 360 };
+          // phones: search/layer panel on top, info sheet over the lower half
+          const h = hostRef.current?.clientHeight || 600;
+          return { top: 118, bottom: Math.min(h * 0.52, h - 260) + 20 };
+        } });
         await scene.load(m, BASE);
       } catch (e) {
         console.error(e);
@@ -82,7 +100,7 @@ export default function Anatomy3D({ assessment, setAssessment, base = DEFAULT_BA
   useEffect(() => {
     if (phase !== 'ready' || !assessment?.exactArea) return;
     const id = byDataId.get(assessment.exactArea);
-    if (id) sceneRef.current?.select(id, null);
+    if (id) sceneRef.current?.select(id, 'R');
   }, [phase]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const results = useMemo(() => {
@@ -99,13 +117,23 @@ export default function Anatomy3D({ assessment, setAssessment, base = DEFAULT_BA
   const hov = hover ? byId.get(hover.id) : null;
   const inAssessment = sel?.app && assessment?.primaryRegion === sel.app[0] && (!sel.app[1] || assessment?.exactArea === sel.app[1]);
 
-  const toggleLayer = (k) => { const v = !layers[k]; setLayers({ ...layers, [k]: v }); sceneRef.current?.setLayer(k, v); };
+  // read the latest layer state from a ref so quick successive toggles never desync the switches from the model
+  const toggleLayer = (k) => {
+    const next = { ...layersRef.current, [k]: !layersRef.current[k] };
+    layersRef.current = next;
+    setLayers(next);
+    sceneRef.current?.setLayer(k, next[k]);
+  };
+  const hideSel = () => { if (!sel) return; sceneRef.current?.hide(sel.id); setHiddenCount(sceneRef.current?.hidden.size || 0); };
+  const showHidden = () => { sceneRef.current?.showAll(); setHiddenCount(0); };
   const setViewMode = (mde) => { setMode(mde); sceneRef.current?.setMode(mde); };
-  const pick = (s) => { setQuery(''); setSearchOpen(false); sceneRef.current?.select(s.id, null); };
+  // paired structures open on the right side so the camera frames one limb, not the gap between them
+  const pick = (s) => { setQuery(''); setSearchOpen(false); sceneRef.current?.select(s.id, s.laterality === 'paired' ? 'R' : null); };
+  const switchSide = () => { if (selected?.side) sceneRef.current?.select(selected.id, selected.side === 'R' ? 'L' : 'R'); };
   const goRegion = (r) => { setRegion(r); sceneRef.current?.focusRegion(r); };
   const toggleIsolate = () => { const v = !isolated; setIsolated(v); sceneRef.current?.isolate(v); };
   const clearSel = () => { sceneRef.current?.select(null); setIsolated(false); sceneRef.current?.isolate(false); };
-  const reset = () => { sceneRef.current?.resetView(); setIsolated(false); setRegion('all'); };
+  const reset = () => { sceneRef.current?.resetView(); setIsolated(false); setRegion('all'); setHiddenCount(0); };
   const useForAssessment = () => {
     if (!sel?.app) return;
     setAssessment((prev) => ({ ...prev, primaryRegion: sel.app[0], exactArea: sel.app[1] || '' }));
@@ -172,6 +200,10 @@ export default function Anatomy3D({ assessment, setAssessment, base = DEFAULT_BA
         <button onClick={reset} aria-label="Reset view" title="Reset view"><Icon d={['M3 12a9 9 0 1 0 3-6.7', 'M3 4v5h5']} size={15} /></button>
       </div>
 
+      {hiddenCount > 0 && (
+        <button className="a3d-hidden" onClick={showHidden}>{hiddenCount} hidden · Show</button>
+      )}
+
       {/* regions */}
       <div className="a3d-regions">
         {regions.map(([id, label]) => (
@@ -185,8 +217,9 @@ export default function Anatomy3D({ assessment, setAssessment, base = DEFAULT_BA
           <button className="a3d-x" onClick={clearSel} aria-label="Close">✕</button>
           <div className="a3d-eyebrow">
             <span className={`a3d-dot a3d-dot--${sel.type}`} />{TYPE_LABEL[sel.type]}
-            {selected.side && <span className="a3d-side">{SIDE_LABEL[selected.side]}</span>}
+            {selected.side && <button className="a3d-side a3d-side-btn" onClick={switchSide} title="Show the other side">{SIDE_LABEL[selected.side]} ⇄</button>}
             <span className="a3d-region">{manifest.regions[sel.region]}</span>
+            {sel.modelled && <span className="a3d-mod">Modelled</span>}
           </div>
           <h3>{sel.label}</h3>
           {sel.info?.origin && (
@@ -198,6 +231,15 @@ export default function Anatomy3D({ assessment, setAssessment, base = DEFAULT_BA
             </dl>
           )}
           {sel.info?.desc && <p className="a3d-desc">{sel.info.desc}</p>}
+          {sel.modelled && (
+            <div className="a3d-model">
+              <div className="a3d-label">Modelled · not part of the scan</div>
+              {sel.info?.placement && <p>{sel.info.placement}</p>}
+              {sel.info?.refs?.length > 0 && (
+                <ul>{sel.info.refs.map((r) => <li key={r.t}>{r.u ? <a href={r.u} target="_blank" rel="noreferrer">{r.t}</a> : r.t}</li>)}</ul>
+              )}
+            </div>
+          )}
           {sel.info?.note && <p className="a3d-note">{sel.info.note}</p>}
           {sel.conditions?.length > 0 && (
             <div className="a3d-conds">
@@ -212,13 +254,13 @@ export default function Anatomy3D({ assessment, setAssessment, base = DEFAULT_BA
               </button>
             )}
             <button onClick={toggleIsolate}>{isolated ? 'Show surroundings' : 'Isolate'}</button>
-            <button onClick={() => sceneRef.current?.hide(sel.id)}>Hide</button>
+            <button onClick={hideSel}>Hide</button>
           </div>
         </div>
       )}
 
       {hint && phase === 'ready' && !sel && (
-        <div className="a3d-hint">Tap any muscle or bone · drag to rotate · pinch or scroll to zoom</div>
+        <div className="a3d-hint">{touch ? 'Drag to rotate · two fingers to move and zoom · tap to select' : 'Drag to rotate · two-finger scroll to move · pinch to zoom'}</div>
       )}
 
       {phase !== 'ready' && phase !== 'error' && (
