@@ -279,7 +279,7 @@ export class AnatomyScene {
     const box = new THREE.Box3();
 
     const loadOne = (file, i) => new Promise((resolve, reject) => {
-      loader.load(`${base}/models/${file}`, (gltf) => {
+      const onLoad = (gltf) => {
         progress[i] = 1; report();
         gltf.scene.updateMatrixWorld(true);
         const found = [];
@@ -301,7 +301,18 @@ export class AnatomyScene {
           this.byStruct.get(s.id).push(mesh);
         });
         resolve();
-      }, (ev) => { if (ev.total) { progress[i] = Math.min(0.99, ev.loaded / ev.total); report(); } }, reject);
+      };
+      const url = `${base}/models/${file}`;
+      if (file.endsWith('.txt')) {
+        // base64-encoded GLB, for hosts that don't serve binary glTF
+        fetch(url).then((r) => r.text()).then((b64) => {
+          const bin = atob(b64.trim()), buf = new Uint8Array(bin.length);
+          for (let k = 0; k < bin.length; k++) buf[k] = bin.charCodeAt(k);
+          loader.parse(buf.buffer, '', onLoad, reject);
+        }).catch(reject);
+      } else {
+        loader.load(url, onLoad, (ev) => { if (ev.total) { progress[i] = Math.min(0.99, ev.loaded / ev.total); report(); } }, reject);
+      }
     });
 
     // skeleton first so something meaningful appears quickly, then soft tissue

@@ -7,7 +7,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AnatomyScene } from './anatomyScene';
 
-const BASE = '/anatomy3d';
+const DEFAULT_BASE = '/anatomy3d';
 const LAYERS = [
   { key: 'muscle', label: 'Muscles', dot: '#C0473C' },
   { key: 'bone', label: 'Bones', dot: '#E8DCC4' },
@@ -30,7 +30,8 @@ function Icon({ d, size = 16 }) {
   );
 }
 
-export default function Anatomy3D({ assessment, setAssessment }) {
+export default function Anatomy3D({ assessment, setAssessment, base = DEFAULT_BASE }) {
+  const BASE = base;
   const hostRef = useRef(null);
   const sceneRef = useRef(null);
   const tipRef = useRef(null);
