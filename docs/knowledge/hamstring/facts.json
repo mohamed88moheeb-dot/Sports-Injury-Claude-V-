@@ -1,0 +1,153 @@
+{
+  "condition": "hamstring_strain",
+  "harvested": "2026-09-26",
+  "tiers": {
+    "T1": "Peer-reviewed research (RCT, systematic review, cohort, Delphi)",
+    "T2": "Institutional / expert practice protocol (Aspetar, British Athletics, club)",
+    "T3": "Credentialed practitioner content (physio/S&C blogs, courses)",
+    "T4": "Athlete experience (interviews, case reports, forums)",
+    "T5": "ROYO own outcome data"
+  },
+  "facts": [
+    {
+      "id": "hs-001", "tier": "T1", "strength": "high",
+      "claim": "Lengthening-emphasis rehab (Askling L-protocol) roughly halves return-to-play time versus conventional exercise.",
+      "data": "Football: 28 vs 51 days (n=75). Sprinters/jumpers: 49 vs 86 days (n=56). Re-injuries occurred only in the conventional groups.",
+      "phase": "all", "applies_to": "engine.exercise_selection",
+      "source": "Askling 2013 BJSM; Askling 2014 BJSM",
+      "url": "https://consensus.app/papers/details/c6a4a200811c5257be8776c4327230ac/"
+    },
+    {
+      "id": "hs-002", "tier": "T2", "strength": "moderate",
+      "claim": "L-protocol dosing: Extender 3x12 twice daily; Diver 3x6 every other day; Glider 3x4 every third day. Start within about 5 days. Each exercise moves to discomfort, not to sharp pain.",
+      "phase": "1-3", "applies_to": "exercise_library.dose",
+      "cue": { "extender": "Hold the thigh at 90 degrees and slowly straighten the knee to the point of discomfort.", "diver": "Stand on the injured leg with a soft knee and hinge forward until the trunk is near parallel.", "glider": "Put your weight on the front heel with the knee soft, slide the back leg away, then pull back with your arms." },
+      "source": "Physiopedia summary of the Askling protocol; Run Bulldog Run",
+      "url": "https://www.physio-pedia.com/Askling_Protocol",
+      "verify": "Cross-check the frequencies against the original 2013 paper's appendix."
+    },
+    {
+      "id": "hs-003", "tier": "T1", "strength": "high",
+      "claim": "Adding lengthening work on day 1, rather than delaying it until 70% sprint speed, did not change RTS (23 vs 33 days, not significant) or re-injury. Early introduction is safe but not faster.",
+      "phase": "1", "applies_to": "engine.gate_timing",
+      "source": "Vermeulen 2022 BJSM RCT (n=90)",
+      "url": "https://consensus.app/papers/details/22567c7526ae531b99402bca12ea6316/"
+    },
+    {
+      "id": "hs-004", "tier": "T1", "strength": "moderate",
+      "claim": "Pain-threshold loading (pain up to about 4/10 allowed) was not slower than pain-free loading. It gave 15% more isometric knee-flexor strength and better-preserved BFlh fascicle length at 2 months.",
+      "phase": "1-3", "applies_to": "engine.pain_rules",
+      "rule": "Allow pain <= 4/10 during strength work if it settles by the next morning. Sprinting must be pain-free (see hs-010).",
+      "source": "Hickey 2020 JOSPT RCT (n=43)",
+      "url": "https://consensus.app/papers/details/da5c9ca78084510eb95c28ecddf4cede/"
+    },
+    {
+      "id": "hs-005", "tier": "T1", "strength": "moderate",
+      "claim": "An individualised, multifactorial, criteria-based algorithm cut 6-month re-injuries from 6 to 1 versus a general protocol. RTS was about 2 days slower, but sprint metrics at RTS were better.",
+      "applies_to": "engine.architecture",
+      "source": "Mendiguchia 2017 MSSE RCT (n=48)",
+      "url": "https://consensus.app/papers/details/e86606201af051bdbb20452156a93c8d/"
+    },
+    {
+      "id": "hs-006", "tier": "T1", "strength": "moderate",
+      "claim": "Eccentric strengthening at long muscle lengths: all 4 re-injuries were in non-compliant athletes, who were 43% weaker at 20 degrees of knee flexion.",
+      "applies_to": "engine.rts_tests",
+      "rule": "Test knee-flexor strength at a long length (about 20-30 degrees knee flexion), not only at 90 degrees.",
+      "source": "Tyler 2017 J Sport Rehabil cohort (n=50)",
+      "url": "https://consensus.app/papers/details/8992bf6d91d75ba3a4f2dfa32f3e55c1/"
+    },
+    {
+      "id": "hs-007", "tier": "T1", "strength": "moderate",
+      "claim": "Injury classification changes prognosis. BAMIC 'c' (intratendinous) injuries take longer (about 34-48 days vs about 19 days mean) and often re-injure more (38.5% vs 12.5% in one EPL cohort).",
+      "applies_to": "engine.triage + timeline_estimate",
+      "rule": "Ask for MRI grade or tendon involvement. Any 'c' or suspected tendon injury gets a longer, criteria-heavy track, and imaging is suggested if it is unknown.",
+      "source": "Pollock 2015 and 2021 BJSM; Shamji 2021 BMJ OSEM; Beattie 2023 meta-analysis",
+      "url": "https://consensus.app/papers/details/edd5edbd5115574092faff3a7e33e984/"
+    },
+    {
+      "id": "hs-008", "tier": "T1", "strength": "moderate",
+      "claim": "Stretching-type injuries (slow, extreme lengthening, e.g. a kick or dance split; often the proximal free tendon or SM) take about 2x longer than sprint-type injuries (43 vs 23 days on the L-protocol).",
+      "applies_to": "engine.intake_question",
+      "rule": "Intake must ask about the mechanism (sprinting vs stretching or kicking).",
+      "source": "Askling 2013 BJSM",
+      "url": "https://consensus.app/papers/details/c6a4a200811c5257be8776c4327230ac/"
+    },
+    {
+      "id": "hs-009", "tier": "T1", "strength": "moderate",
+      "claim": "Across 9 studies, those using the Askling H-test as an RTS criterion had the lowest re-injury rates (1.3-3.6%). Isokinetic-based studies had the fastest RTS (12-25 days).",
+      "applies_to": "engine.rts_tests",
+      "source": "Hickey 2017 Sports Med SR",
+      "url": "https://consensus.app/papers/details/6fbc4d6589395554b5c7eb5d36992adc/"
+    },
+    {
+      "id": "hs-010", "tier": "T1", "strength": "high (expert consensus)",
+      "claim": "London Delphi (99 experts): individualise by muscle, injury type and severity. Early rehab avoids high strain loads and high strain rates. Progress on capacity and symptoms. Sprinting must be pain-free (85.5% agreement). RTS is judged against match demands.",
+      "applies_to": "engine.pain_rules + gates",
+      "source": "Paton 2023 BJSM",
+      "url": "https://consensus.app/papers/details/7de16553cdb55d0b831bfb8db1d2085e/"
+    },
+    {
+      "id": "hs-011", "tier": "T1", "strength": "high (expert consensus)",
+      "claim": "FIFA-centre Delphi RTP criteria: no pain on palpation; no pain in strength or flexibility testing; no pain during or after functional tests; flexibility similar to the other side; field-test performance; psychological readiness; shared decision.",
+      "applies_to": "engine.rts_checklist",
+      "source": "van der Horst 2017 BJSM",
+      "url": "https://consensus.app/papers/details/39a6b2d53ed9552382c06d97f78c62eb/"
+    },
+    {
+      "id": "hs-012", "tier": "T1", "strength": "moderate",
+      "claim": "The highest-certainty RTP criteria are range of motion (active knee extension, passive and active SLR, Askling H-test) and subjective readiness. The most used are side-to-side strength symmetry and no pain in sport actions.",
+      "applies_to": "engine.rts_tests",
+      "source": "Pecci 2026 Sports Med SR",
+      "url": "https://consensus.app/papers/details/462a12b937ac5799a6ee8b70406fed5b/"
+    },
+    {
+      "id": "hs-013", "tier": "T2", "strength": "moderate",
+      "claim": "Aspetar: a 6-stage protocol (3 physio stages plus 3 sport-specific stages). Each stage has criteria that must be met before moving on. Pain, palpation pain, ROM and strength are measured daily, and isometric testing tracks every stage. A blinded assessor makes the RTS call.",
+      "applies_to": "engine.architecture (daily check-in drives the session)",
+      "source": "Aspetar Hamstring Protocol",
+      "url": "https://www.aspetar.com/en/professionals/aspetar-clinical-guidelines/aspetar-hamstring-protocol",
+      "verify": "The full stage criteria PDF is behind an egress block. Fetch it manually and encode the exact thresholds."
+    },
+    {
+      "id": "hs-014", "tier": "T3", "strength": "low-moderate",
+      "claim": "Running ladder (Hickey-derived): start once walking gait is normal; about 50% max velocity over 60 m, then about 80% over 50 m, then near-max. Move up after 3 reps at the target intensity within the pain rules.",
+      "phase": "3-5", "applies_to": "exercise_library.running",
+      "source": "Mend Colorado PT blog; Launch Rehab",
+      "url": "https://www.mendcolorado.com/physical-therapy-blog/2024/12/24/return-to-sprinting-and-jumping-after-hamstring-strains-a-guide-for-crossfit-athletes-and-runners/"
+    },
+    {
+      "id": "hs-015", "tier": "T3", "strength": "low-moderate",
+      "claim": "Being pain-free is not the same as being ready to sprint. Max-velocity demands are far higher than gym work, so exposure to >=90-95% velocity must happen before RTS. Practitioners use GPS data to match training to match demands.",
+      "applies_to": "engine.rts_gate",
+      "source": "Malone (Perform) Substack; Perna 2026 practitioner survey",
+      "url": "https://consensus.app/papers/details/75413f1dc01e5becbc142ac72099a62c/"
+    },
+    {
+      "id": "hs-016", "tier": "T1", "strength": "moderate",
+      "claim": "Trunk stabilisation plus progressive agility (PATS) did not shorten RTS but reduced 12-month re-injury (meta-analysis p<0.007).",
+      "applies_to": "exercise_library.adjuncts",
+      "source": "Jankaew 2022 Sports Health SR/MA; Silder 2013 JOSPT",
+      "url": "https://consensus.app/papers/details/49eb1036803a57a8acadfc52df2392a4/"
+    },
+    {
+      "id": "hs-017", "tier": "T4", "strength": "anecdotal",
+      "claim": "Elite case reports: intramuscular tendon injuries are rehabbed with fast eccentrics, RFD work and graded HSR. The RTP call is made in an MDT meeting using tests, GPS, wellness (sleep, soreness), RPE and video. One T-junction repair returned at week 22.",
+      "applies_to": "engine.rts_inputs (wellness + RPE)",
+      "source": "IJSPT T-junction case; Sportsmith intramuscular tendon case",
+      "url": "https://ijspt.scholasticahq.com/article/134126-hamstring-t-junction-surgical-repair-an-elite-footballer-s-return-to-play-journey-through-a-new-football-centered-complex-approach"
+    },
+    {
+      "id": "hs-018", "tier": "T1", "strength": "low (single RCT, new journal)",
+      "claim": "A differential-learning neuromuscular programme reported 21 vs 32 days RTS and 5% vs 30% re-injury. The effect sizes are implausibly large, so this is flagged and not used.",
+      "status": "quarantined",
+      "source": "Ahmed 2026 Al-Malwiya J",
+      "url": "https://consensus.app/papers/details/dd1b6c7880d15e158f3d566ad18df3a1/"
+    }
+  ],
+  "gaps": [
+    "T4 athlete voice is thin: many blogs, Substacks and journals are egress-blocked from this environment. A manual pass is needed (podcasts, YouTube, Reddit r/AdvancedRunning).",
+    "Exact Aspetar stage thresholds (pull the PDF).",
+    "Female-athlete data: nearly every RCT is male-only.",
+    "T5: no ROYO outcome data yet. Log gate passes, pain, RTS date and re-injury per user."
+  ]
+}

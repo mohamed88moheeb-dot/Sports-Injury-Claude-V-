@@ -1,0 +1,47 @@
+/* v2 foundation styles. Deliberately minimal — the full visual system lands in M4. */
+:root {
+  --bg: #0B1630; --bg-2: #12224A; --surface: rgba(255,255,255,0.06); --surface-2: rgba(255,255,255,0.1);
+  --line: rgba(255,255,255,0.12); --ink: #F3F7FF; --ink-2: #B9C8E6; --muted: #7F93BA;
+  --accent: #3B7DD8; --accent-2: #5AABDE; --green: #18A05A; --amber: #E8A020; --red: #D94F4F;
+  --radius: 18px; --font: ui-sans-serif, -apple-system, 'Inter', 'Segoe UI', sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: radial-gradient(1200px 600px at 20% -10%, #1B3A7A 0%, var(--bg) 60%) no-repeat, var(--bg); min-height: 100%; color: var(--ink); font: 15px/1.55 var(--font); }
+a { color: inherit; }
+.top { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; max-width: 760px; margin: 0 auto; }
+.brand { font-weight: 800; letter-spacing: 0.18em; text-decoration: none; }
+.top nav { display: flex; gap: 16px; font-size: 14px; }
+.top nav a { text-decoration: none; color: var(--ink-2); }
+.wrap { max-width: 760px; margin: 0 auto; padding: 8px 16px 64px; }
+h1 { font-size: clamp(26px, 5vw, 38px); line-height: 1.05; letter-spacing: -0.03em; margin: 12px 0 8px; }
+h2 { font-size: 19px; margin: 28px 0 10px; letter-spacing: -0.01em; }
+.sub { color: var(--ink-2); margin: 0 0 18px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; margin: 12px 0; }
+.card.alert { border-color: var(--red); background: rgba(217,79,79,0.12); }
+.card.warn { border-color: var(--amber); background: rgba(232,160,32,0.1); }
+.card.good { border-color: var(--green); background: rgba(24,160,90,0.1); }
+.eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-2); }
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 0 22px; border-radius: 999px; border: 0; background: var(--accent); color: #fff; font: 600 15px var(--font); cursor: pointer; text-decoration: none; }
+.btn:disabled { opacity: 0.4; cursor: default; }
+.btn.ghost { background: var(--surface-2); color: var(--ink); }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.opts { display: grid; gap: 8px; }
+.opt { text-align: left; padding: 14px 16px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font: inherit; cursor: pointer; }
+.opt[aria-pressed='true'] { border-color: var(--accent); background: rgba(59,125,216,0.18); }
+label.field { display: grid; gap: 6px; margin: 14px 0; }
+input[type='range'] { width: 100%; accent-color: var(--accent); }
+input[type='number'] { width: 120px; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font: inherit; }
+.scale { display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; }
+.ex { display: grid; gap: 4px; padding: 14px 0; border-top: 1px solid var(--line); }
+.ex:first-child { border-top: 0; padding-top: 0; }
+.ex b { font-size: 16px; }
+.dose { color: var(--accent-2); font-weight: 600; }
+.cues { margin: 4px 0 0; padding-left: 18px; color: var(--ink-2); font-size: 14px; }
+.why { color: var(--ink-2); font-size: 14px; margin: 4px 0; }
+.tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 999px; background: var(--surface-2); color: var(--ink-2); margin-left: 6px; }
+.stages { display: flex; gap: 6px; margin: 10px 0 4px; }
+.stages span { flex: 1; height: 6px; border-radius: 3px; background: var(--surface-2); }
+.stages span.done { background: var(--green); }
+.stages span.now { background: var(--accent); }
+.body3d { height: min(78vh, 720px); display: flex; }
+.small { font-size: 13px; color: var(--muted); }

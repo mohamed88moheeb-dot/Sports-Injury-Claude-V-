@@ -1,10 +1,14 @@
 'use client';
 
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import InteractiveAnatomy, { DETAIL_REGION_MAP } from '../../components/InteractiveAnatomy';
 import { PageShell } from '../../components/layout/PageShell';
 import { useRecovery } from '../providers/RecoveryContext';
+
+// WebGL viewer is client-only and heavy — load it only when 3D is chosen
+const Anatomy3D = dynamic(() => import('../../components/anatomy3d/Anatomy3D'), { ssr: false });
 
 export default function AnatomyPage() {
   const router = useRouter();
@@ -43,6 +47,7 @@ export default function AnatomyPage() {
           <div className="ia-view-pill">
             <button className={`ia-view-circle${view === 'front' ? ' active' : ''}`} onClick={() => setView('front')}>Front</button>
             <button className={`ia-view-circle${view === 'back' ? ' active' : ''}`} onClick={() => setView('back')}>Back</button>
+            <button className={`ia-view-circle${view === '3d' ? ' active' : ''}`} onClick={() => setView('3d')}>3D</button>
           </div>
 
           <button
@@ -60,8 +65,10 @@ export default function AnatomyPage() {
         </div>
 
         {/* ── Body map ── */}
-        <div className="anatomy-canvas">
-          <InteractiveAnatomy assessment={assessment} setAssessment={setAssessment} view={view} setView={setView} pillsOnTop />
+        <div className={`anatomy-canvas${view === '3d' ? ' anatomy-canvas--3d' : ''}`}>
+          {view === '3d'
+            ? <Anatomy3D assessment={assessment} setAssessment={setAssessment} />
+            : <InteractiveAnatomy assessment={assessment} setAssessment={setAssessment} view={view} setView={setView} pillsOnTop />}
         </div>
 
       </div>
