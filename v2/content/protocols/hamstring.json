@@ -8,8 +8,7 @@
   },
   "region": "thigh_posterior",
   "structures": [
-    "biceps_femoris_long",
-    "biceps_femoris_short",
+    "biceps-femoris",
     "semitendinosus",
     "semimembranosus"
   ],
@@ -237,7 +236,7 @@
         "Build to a strong effort that stays within 4/10 pain."
       ],
       "loads": [
-        "biceps_femoris_long",
+        "biceps-femoris",
         "semitendinosus",
         "semimembranosus"
       ],
@@ -259,8 +258,8 @@
         "Lift your hips and hold them level."
       ],
       "loads": [
-        "biceps_femoris_long",
-        "gluteus_maximus"
+        "biceps-femoris",
+        "gluteus-maximus"
       ],
       "painRule": "threshold",
       "evidence": {
@@ -281,7 +280,7 @@
         "Lower with control."
       ],
       "loads": [
-        "biceps_femoris_long",
+        "biceps-femoris",
         "semitendinosus",
         "semimembranosus"
       ],
@@ -305,9 +304,9 @@
         "Hinge at the hip until your trunk is near parallel, then return."
       ],
       "loads": [
-        "biceps_femoris_long",
+        "biceps-femoris",
         "semimembranosus",
-        "gluteus_maximus"
+        "gluteus-maximus"
       ],
       "painRule": "threshold",
       "evidence": {
@@ -331,7 +330,7 @@
         "slider or towel"
       ],
       "loads": [
-        "biceps_femoris_long",
+        "biceps-femoris",
         "semitendinosus"
       ],
       "painRule": "threshold",
@@ -353,8 +352,8 @@
         "Take 3 seconds to lower."
       ],
       "loads": [
-        "biceps_femoris_long",
-        "gluteus_maximus"
+        "biceps-femoris",
+        "gluteus-maximus"
       ],
       "painRule": "threshold",
       "evidence": {
@@ -375,8 +374,8 @@
         "Take 3 seconds to lower."
       ],
       "loads": [
-        "biceps_femoris_long",
-        "gluteus_maximus"
+        "biceps-femoris",
+        "gluteus-maximus"
       ],
       "painRule": "threshold",
       "evidence": {
@@ -396,7 +395,7 @@
         "Lift your hips, pause, and lower slowly."
       ],
       "loads": [
-        "biceps_femoris_long",
+        "biceps-femoris",
         "semitendinosus",
         "semimembranosus"
       ],
@@ -422,9 +421,9 @@
         "dumbbells or barbell"
       ],
       "loads": [
-        "biceps_femoris_long",
+        "biceps-femoris",
         "semimembranosus",
-        "gluteus_maximus"
+        "gluteus-maximus"
       ],
       "painRule": "threshold",
       "evidence": {
@@ -449,7 +448,7 @@
         "sliders or towel"
       ],
       "loads": [
-        "biceps_femoris_long",
+        "biceps-femoris",
         "semitendinosus"
       ],
       "painRule": "threshold",
@@ -473,7 +472,7 @@
         "anchor or partner"
       ],
       "loads": [
-        "biceps_femoris_long",
+        "biceps-femoris",
         "semitendinosus"
       ],
       "painRule": "threshold",
@@ -498,7 +497,7 @@
         "anchor or partner"
       ],
       "loads": [
-        "biceps_femoris_long",
+        "biceps-femoris",
         "semitendinosus"
       ],
       "painRule": "threshold",
@@ -553,7 +552,7 @@
         "It must be completely pain-free. Stop at the first twinge."
       ],
       "loads": [
-        "biceps_femoris_long"
+        "biceps-femoris"
       ],
       "painRule": "painFree",
       "evidence": {
@@ -574,7 +573,7 @@
         "Pain-free only."
       ],
       "loads": [
-        "biceps_femoris_long"
+        "biceps-femoris"
       ],
       "painRule": "painFree",
       "evidence": {
@@ -595,7 +594,7 @@
         "Walk back between reps for full recovery."
       ],
       "loads": [
-        "biceps_femoris_long"
+        "biceps-femoris"
       ],
       "painRule": "painFree",
       "evidence": {
@@ -616,7 +615,7 @@
         "Rest fully (2–3 min) between sprints."
       ],
       "loads": [
-        "biceps_femoris_long"
+        "biceps-femoris"
       ],
       "painRule": "painFree",
       "evidence": {
@@ -636,7 +635,7 @@
         "Pull the foot down and back under your hips."
       ],
       "loads": [
-        "biceps_femoris_long"
+        "biceps-femoris"
       ],
       "painRule": "painFree",
       "evidence": {

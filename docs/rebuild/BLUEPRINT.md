@@ -81,12 +81,14 @@ The pipeline is harvest → verify → compile → physio review → live. It ru
 The visual system is redesigned in its own pass, after the engine proves out.
 
 ## 7. Milestones
-- **M1: Hamstring engine.** Protocol JSON compiled from facts, the pure engine, scenario tests (sprint-type, stretch-type, tendon, red flag, flare-up), and CLI output of a 4-week simulated course.
-- **M2: v2 app shell.** Next.js 15 in `/v2`, a new Supabase schema, onboarding and triage, Today, the session player, and check-ins.
-- **M3: Tests and progress.** Test day, gates, the progress screen, and 3D integration.
-- **M4: Visual redesign pass.** The new design system across all screens.
-- **M5: Second condition.** Ankle sprain harvest → protocol → live.
-- **M6: Outcomes loop.** Follow-ups at 2/6/12 months and a dashboard of our own outcome data.
+Build order: the generic core first, then screens, then content. Nothing in the engine or UI is condition-specific; each injury is a content pack.
+
+- **M1: Generic core and foundation** ✅ (`/v2`). Protocol schema and validator (fact IDs, 3D structure IDs), deterministic engine, 23 unit tests, simulator, Supabase schema, working app shell (intake + triage, check-in → Today, session logging, test day, 3D body), and the 3D viewer ported.
+- **M2: Accounts and real screens.** Supabase auth, a server-side store replacing on-device storage, the session player (timer, set logging), the progress screen, and an onboarding body map on the 3D model.
+- **M3: Hamstring live.** Physio review of the protocol, exercise videos, the manual athlete-voice (T4) pass, and outcome follow-ups.
+- **M4: Visual redesign.** The full ROYO design system across every screen.
+- **M5: More injuries as content packs.** Ankle sprain first: harvest → protocol → validate → review → live.
+- **M6: Outcomes loop.** Follow-ups at 2, 6 and 12 months, and a dashboard of our own outcome data.
 
 ## 8. Needs from the founder
 - A licensed physio to review each protocol before it goes live. This is non-negotiable for a self-managed medical product.

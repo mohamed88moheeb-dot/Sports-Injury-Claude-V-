@@ -4,7 +4,7 @@
  */
 import { Protocol, Fact, type Condition, type Evidence } from './schema';
 
-export function validateProtocol(raw: unknown, rawFacts: unknown[]): string[] {
+export function validateProtocol(raw: unknown, rawFacts: unknown[], knownStructures?: Set<string>): string[] {
   const parsed = Protocol.safeParse(raw);
   if (!parsed.success) {
     return parsed.error.issues.map((i) => `schema: ${i.path.join('.')}: ${i.message}`);
@@ -64,6 +64,11 @@ export function validateProtocol(raw: unknown, rawFacts: unknown[]): string[] {
     if (e.regression && !exerciseIds.has(e.regression)) problems.push(`exercise ${e.id}: unknown regression ${e.regression}`);
   });
   p.tests.forEach((t) => checkEvidence(`test ${t.id}`, t.evidence));
+  if (knownStructures) {
+    const check = (where: string, id: string) => knownStructures.has(id) || problems.push(`${where}: structure ${id} is not in the 3D model`);
+    p.structures.forEach((id) => check('protocol.structures', id));
+    p.exercises.forEach((e) => e.loads.forEach((id) => check(`exercise ${e.id}`, id)));
+  }
   checkEvidence('rules.pain', p.rules.pain.evidence);
   if (p.rules.runClearTest && !testIds.has(p.rules.runClearTest)) problems.push(`rules: unknown runClearTest ${p.rules.runClearTest}`);
 
